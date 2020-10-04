@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>.\TankSim.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>.\TankSim.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TankSim.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ArdNet" Version="1.6.0" />
+    <PackageReference Include="ArdNet.DependencyInjection" Version="1.14.0" />
+  </ItemGroup>
+
+</Project>
