@@ -4,5 +4,180 @@
         <name>TankSim</name>
     </assembly>
     <members>
+        <member name="T:TankSim.AngleDirection">
+            <summary>
+            Left/Right directions.  Used for turning and gun angle
+            </summary>
+        </member>
+        <member name="F:TankSim.AngleDirection.Stop">
+            <summary>
+            Stop movement
+            </summary>
+        </member>
+        <member name="F:TankSim.AngleDirection.Left">
+            <summary>
+            Turn left
+            </summary>
+        </member>
+        <member name="F:TankSim.AngleDirection.Right">
+            <summary>
+            Turn right
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants">
+            <summary>
+            Game constances
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.ChannelNames">
+            <summary>
+            ArdNet channel names
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.ChannelNames.TankOperations">
+            <summary>
+            Tank operator channels
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.Driver">
+            <summary>
+            Tank driver.  Forward/Backward
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.Navigator">
+            <summary>
+            Tank navigator.  Left/Right steering
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.GunAngle">
+            <summary>
+            Gun angle operator.  Turn the main turret left/right
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.RangeFinder">
+            <summary>
+            Weapon range finder.  Control gun distance
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.FireControl">
+            <summary>
+            Weapon fire control.  Shoot the guns
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.Loader">
+            <summary>
+            Gun loader.  Load the gun and change ammo type
+            </summary>
+        </member>
+        <member name="T:TankSim.DriveDirection">
+            <summary>
+            Front/Back direction.  Used for driving and range finding
+            </summary>
+        </member>
+        <member name="F:TankSim.DriveDirection.Stop">
+            <summary>
+            Stop movement
+            </summary>
+        </member>
+        <member name="F:TankSim.DriveDirection.Forward">
+            <summary>
+            Forward command
+            </summary>
+        </member>
+        <member name="F:TankSim.DriveDirection.Backward">
+            <summary>
+            Backward command
+            </summary>
+        </member>
+        <member name="T:TankSim.GameIdGenerator">
+            <summary>
+            GameID generator/validator
+            </summary>
+        </member>
+        <member name="M:TankSim.GameIdGenerator.GetID">
+            <summary>
+            Generate a new GameID string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.GameIdGenerator.Validate(System.String)">
+            <summary>
+            Validate GameID string
+            </summary>
+            <param name="GameID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.OperatorCmds.DriverCmd">
+            <summary>
+            Channel command - driver operation
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.Stop">
+            <summary>
+            Static immutable stop command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.Forward">
+            <summary>
+            Static immutable forward command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.Backward">
+            <summary>
+            Static immutable backward command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.Direction">
+            <summary>
+            Drive direction
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorCmds.DriverCmd.#ctor(TankSim.DriveDirection)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="Direction">Drive direction</param>
+        </member>
+        <member name="T:TankSim.OperatorRoles">
+            <summary>
+            Tank operator roles.
+            Represents the different control sets that users can have
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.None">
+            <summary>
+            No controls
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.Driver">
+            <summary>
+            Tank driver.  Forward/Backward
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.Navigator">
+            <summary>
+            Tank navigator.  Left/Right steering
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.GunAngle">
+            <summary>
+            Gun angle operator.  Turn the main turret left/right
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.RangeFinder">
+            <summary>
+            Weapon range finder.  Control gun distance
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.FireControl">
+            <summary>
+            Weapon fire control.  Shoot the guns
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.Loader">
+            <summary>
+            Gun loader.  Load the gun and change ammo type
+            </summary>
+        </member>
     </members>
 </doc>

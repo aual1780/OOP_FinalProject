@@ -13,4 +13,12 @@
     <DocumentationFile>.\TankSim.Client.GUI.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="TankSim.Client.GUI.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TankSim.Client\TankSim.Client.csproj" />
+  </ItemGroup>
+
 </Project>

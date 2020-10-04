@@ -19,6 +19,7 @@
   <ItemGroup>
     <PackageReference Include="ArdNet" Version="1.6.0" />
     <PackageReference Include="ArdNet.DependencyInjection" Version="1.14.0" />
+    <PackageReference Include="TIPC.Core.Channels.DependencyInjection" Version="1.1.0" />
   </ItemGroup>
 
 </Project>
