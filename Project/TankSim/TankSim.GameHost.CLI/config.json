@@ -1,0 +1,9 @@
+{
+	"ArdNet": {
+		"ArdNetBasicConfig": {
+			"AppID": "ArdNet.TankSim.MultiController",
+			"ServerPort": 52518,
+			"ClientPort": 0
+		}
+	}
+}

@@ -45,8 +45,25 @@ namespace TankSim
                 public static string Loader { get; } = $"Cmd.TankOperations.{nameof(Loader)}";
 
             }
-
         }
+
+        /// <summary>
+        /// System query strings
+        /// </summary>
+        public static class Queries
+        {
+            /// <summary>
+            /// Get queries relevant to controller startup
+            /// </summary>
+            public static class ControllerInit
+            {
+                /// <summary>
+                /// Get operator roles for a controller
+                /// </summary>
+                public static string GetOperatorRoles = "Request.OperatorRoles.GetCurrent";
+            }
+        }
+
 
     }
 }

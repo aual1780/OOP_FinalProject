@@ -4,36 +4,115 @@
         <name>TankSim.Client</name>
     </assembly>
     <members>
-        <member name="T:TankSim.Client.OperatorModules.Driver">
+        <member name="T:TankSim.Client.Config.KeyBindingConfig">
+            <summary>
+            Key binding configuration
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.Config.KeyBindingConfig.DriverConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.Config.KeyBindingConfig.DriverConfig.Forward">
+            <summary>
+            Drive forward
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.Config.KeyBindingConfig.DriverConfig.Backward">
+            <summary>
+            Drive backward
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.Config.KeyBindingConfig.Driver">
+            <summary>
+            Driver key bindings
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorDelegates.DriverDelegate">
             <summary>
             Operator module - driver
             </summary>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.Driver.#ctor(ArdNet.IArdNetSystem)">
+        <member name="M:TankSim.Client.OperatorDelegates.DriverDelegate.#ctor(ArdNet.IArdNetSystem)">
             <summary>
             Create instance.
             </summary>
             <param name="ArdSys"></param>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.Driver.Stop">
+        <member name="M:TankSim.Client.OperatorDelegates.DriverDelegate.Stop">
             <summary>
             Send stop command to host
             </summary>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.Driver.DriveForward">
+        <member name="M:TankSim.Client.OperatorDelegates.DriverDelegate.DriveForward">
             <summary>
             Send forward command to host
             </summary>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.Driver.DriveBackward">
+        <member name="M:TankSim.Client.OperatorDelegates.DriverDelegate.DriveBackward">
             <summary>
             Send backward command to host
             </summary>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.Driver.Dispose">
+        <member name="M:TankSim.Client.OperatorDelegates.DriverDelegate.Dispose">
             <summary>
             Unhook topics
             </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorInputMsg">
+            <summary>
+            Operator input message
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.IOperatorInputMsg.IsHandled">
+            <summary>
+            Flag switch to determine if a handler has reacted to this message
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.IOperatorInputMsg.KeyInfo">
+            <summary>
+            Key data
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.IOperatorInputMsg.InputType">
+            <summary>
+            UI key input action
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorModule">
+            <summary>
+            Operator role module
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.IOperatorModule.HandleInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
+            <summary>
+            Handle user input
+            </summary>
+            <param name="Input"></param>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorModuleCollection">
+            <summary>
+            Collection of operator modules
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.IOperatorModuleCollection.SendInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
+            <summary>
+            Send user input to modules
+            </summary>
+            <param name="Input"></param>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorModuleFactory">
+            <summary>
+            Factory to get operator role modules once the client knows its responsibilities
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.IOperatorModuleFactory.GetModuleCollection(TankSim.OperatorRoles)">
+            <summary>
+            Get collection of UI operator modules for the required role sets
+            </summary>
+            <param name="Roles"></param>
+            <returns></returns>
         </member>
         <member name="T:TankSim.Client.Services.GameIdService">
             <summary>

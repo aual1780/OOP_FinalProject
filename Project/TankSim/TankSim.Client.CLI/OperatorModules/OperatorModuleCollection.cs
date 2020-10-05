@@ -5,11 +5,11 @@ using TankSim.Client.OperatorModules;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
-    public class OpModuleCollection : IOperatorModuleCollection
+    public class OperatorModuleCollection : IOperatorModuleCollection
     {
         private readonly List<IOperatorModule> _modules = new List<IOperatorModule>();
 
-        public OpModuleCollection()
+        public OperatorModuleCollection()
         {
 
         }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
+using TankSim.Client.CLI.OperatorModules;
 using TankSim.Client.CLI.Services;
 using TankSim.Client.Config;
 using TankSim.Client.Services;
@@ -37,8 +38,8 @@ namespace TankSim.Client.CLI
                 .AddTankSimConfig()
                 .AutoRestart();
             _ = serviceCollection
+                .AddSingleton<OperatorModuleFactory>()
                 .AddControllerExecService();
-
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
             //application scope
@@ -50,7 +51,9 @@ namespace TankSim.Client.CLI
                 {
                     //run main controller code
                     var controllerService = gameScope.ServiceProvider.GetRequiredService<ControllerExecService>();
-                    await controllerService.DoWork();
+                    await controllerService.LoadOperatorRoles();
+                    //blocking call to handle user controls
+                    controllerService.HandleUserInput();
                 }
             }
             return 0;

@@ -69,6 +69,21 @@
             Gun loader.  Load the gun and change ammo type
             </summary>
         </member>
+        <member name="T:TankSim.Constants.Queries">
+            <summary>
+            System query strings
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.Queries.ControllerInit">
+            <summary>
+            Get queries relevant to controller startup
+            </summary>
+        </member>
+        <member name="F:TankSim.Constants.Queries.ControllerInit.GetOperatorRoles">
+            <summary>
+            Get operator roles for a controller
+            </summary>
+        </member>
         <member name="T:TankSim.DriveDirection">
             <summary>
             Front/Back direction.  Used for driving and range finding
@@ -106,6 +121,26 @@
             </summary>
             <param name="GameID"></param>
             <returns></returns>
+        </member>
+        <member name="T:TankSim.KeyInputType">
+            <summary>
+            UI key input types
+            </summary>
+        </member>
+        <member name="F:TankSim.KeyInputType.KeyPress">
+            <summary>
+            Key press event
+            </summary>
+        </member>
+        <member name="F:TankSim.KeyInputType.KeyUp">
+            <summary>
+            Key up event
+            </summary>
+        </member>
+        <member name="F:TankSim.KeyInputType.KeyDown">
+            <summary>
+            Key down event
+            </summary>
         </member>
         <member name="T:TankSim.OperatorCmds.DriverCmd">
             <summary>

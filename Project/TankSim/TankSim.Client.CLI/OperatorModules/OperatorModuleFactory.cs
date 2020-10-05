@@ -8,12 +8,12 @@ using TankSim.Client.OperatorModules;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
-    public class OpModuleFactory
+    public class OperatorModuleFactory
     {
         readonly IArdNetClient _ardClient;
         readonly KeyBindingConfig _keyBinding;
 
-        public OpModuleFactory(IArdNetClient ArdClient, IOptions<KeyBindingConfig> KeyBinding)
+        public OperatorModuleFactory(IArdNetClient ArdClient, IOptions<KeyBindingConfig> KeyBinding)
         {
             _ardClient = (ArdClient ?? throw new ArgumentNullException(nameof(ArdClient)));
             _keyBinding = KeyBinding?.Value ?? throw new ArgumentNullException(nameof(KeyBinding));
@@ -21,7 +21,8 @@ namespace TankSim.Client.CLI.OperatorModules
 
         public IOperatorModuleCollection GetModuleCollection(OperatorRoles Roles)
         {
-            var collection = new OpModuleCollection();
+            //TODO: add all modules
+            var collection = new OperatorModuleCollection();
             if((Roles & OperatorRoles.Driver) != 0)
             {
                 collection.AddModule(new CliDriver(_ardClient, _keyBinding));

@@ -40,6 +40,9 @@ namespace TankSim.Client.CLI.Services
 
                 var scope = _serviceProvider.CreateScope();
                 var ardClient = scope.ServiceProvider.GetRequiredService<IArdNetClient>();
+                var appID = ((ArdNetClientConfig)ardClient.NetConfig).UDP.AppID;
+                Console.WriteLine(appID);
+
                 using (var tokenSrc = new CancellationTokenSource(_connectionTimeout))
                 {
                     try
@@ -49,11 +52,16 @@ namespace TankSim.Client.CLI.Services
                         {
                             return scope;
                         }
+                        else
+                        {
+                            Console.Write("Cannot connect to the target host. ");
+                        }
                     }
                     catch(OperationCanceledException)
                     {
                         //noop
                         //continue search
+                        Console.Write("Cannot connect to the target host. ");
                     }
 
                 }
