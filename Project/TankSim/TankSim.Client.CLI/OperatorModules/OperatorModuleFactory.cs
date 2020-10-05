@@ -11,12 +11,12 @@ namespace TankSim.Client.CLI.OperatorModules
     public class OperatorModuleFactory
     {
         readonly IArdNetClient _ardClient;
-        readonly KeyBindingConfig _keyBinding;
+        readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
 
-        public OperatorModuleFactory(IArdNetClient ArdClient, IOptions<KeyBindingConfig> KeyBinding)
+        public OperatorModuleFactory(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             _ardClient = (ArdClient ?? throw new ArgumentNullException(nameof(ArdClient)));
-            _keyBinding = KeyBinding?.Value ?? throw new ArgumentNullException(nameof(KeyBinding));
+            _keyBinding = KeyBinding;
         }
 
         public IOperatorModuleCollection GetModuleCollection(OperatorRoles Roles)

@@ -1,4 +1,5 @@
 ﻿using ArdNet.Client;
+using Microsoft.Extensions.Options;
 using System;
 using TankSim.Client.Config;
 using TankSim.Client.OperatorDelegates;
@@ -9,10 +10,10 @@ namespace TankSim.Client.CLI.OperatorModules
     public class CliDriver : IOperatorModule
     {
         readonly DriverDelegate _driver;
-        readonly KeyBindingConfig _keyBinding;
+        readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
         DriveDirection _currDirection;
 
-        public CliDriver(IArdNetClient ArdClient, KeyBindingConfig KeyBinding)
+        public CliDriver(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
@@ -32,7 +33,8 @@ namespace TankSim.Client.CLI.OperatorModules
 
         public void HandleInput(IOperatorInputMsg Input)
         {
-            if (string.Equals(_keyBinding.Driver.Forward, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
+            var driverConfig = _keyBinding.CurrentValue.Driver;
+            if (string.Equals(driverConfig.Forward, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 if (_currDirection == DriveDirection.Forward)
                 {
@@ -47,7 +49,7 @@ namespace TankSim.Client.CLI.OperatorModules
 
                 Input.IsHandled = true;
             }
-            else if (string.Equals(_keyBinding.Driver.Backward, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
+            else if (string.Equals(driverConfig.Backward, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 if (_currDirection == DriveDirection.Backward)
                 {
