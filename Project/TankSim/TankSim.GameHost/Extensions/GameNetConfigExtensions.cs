@@ -1,11 +1,8 @@
 ﻿using ArdNet.Server;
 using ArdNet.Server.DependencyInjection;
 using ArdNet.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TankSim;
 
 namespace Microsoft.Extensions.DependencyInjection

@@ -1,8 +1,4 @@
-﻿ using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TankSim.Client.Config
+﻿namespace TankSim.Config
 {
     //TODO
     /// <summary>
@@ -18,17 +14,17 @@ namespace TankSim.Client.Config
             /// <summary>
             /// Drive forward
             /// </summary>
-            public string Forward { get; set; }
+            public string Forward { get; private set; }
             /// <summary>
             /// Drive backward
             /// </summary>
-            public string Backward { get; set; }
+            public string Backward { get; private set; }
         }
 
         /// <summary>
         /// Driver key bindings
         /// </summary>
-        public DriverConfig Driver { get; set; }
+        public DriverConfig Driver { get; private set; }
 
     }
 }

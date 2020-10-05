@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TankSim.Client.OperatorModules;
 
 namespace TankSim.Client.CLI.OperatorModules

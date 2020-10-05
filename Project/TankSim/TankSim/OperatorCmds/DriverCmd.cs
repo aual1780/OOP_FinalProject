@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TankSim.OperatorCmds
+﻿namespace TankSim.OperatorCmds
 {
     /// <summary>
     /// Channel command - driver operation

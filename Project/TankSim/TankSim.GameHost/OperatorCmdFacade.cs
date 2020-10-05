@@ -2,8 +2,6 @@
 using ArdNet.Server;
 using ArdNet.Topics;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TankSim.OperatorCmds;
 
 namespace TankSim.GameHost

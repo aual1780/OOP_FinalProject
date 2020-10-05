@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using TankSim.Client.CLI.Services;
+﻿using TankSim.Client.CLI.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

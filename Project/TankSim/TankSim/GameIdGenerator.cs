@@ -1,9 +1,4 @@
-﻿using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System;
 using System.Threading;
 using TIPC.Core.Tools.Extensions;
 

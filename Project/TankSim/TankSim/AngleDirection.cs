@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TankSim
+﻿namespace TankSim
 {
     /// <summary>
     /// Left/Right directions.  Used for turning and gun angle

@@ -1,22 +1,16 @@
-﻿using ArdNet.Client;
-using ArdNet.DependencyInjection;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 using TankSim.Client.CLI.OperatorModules;
 using TankSim.Client.CLI.Services;
-using TankSim.Client.Config;
-using TankSim.Client.Services;
+using TankSim.Config;
 
 namespace TankSim.Client.CLI
 {
     class Program
     {
         public static IServiceProvider ServiceProvider { get; private set; }
-        public static IConfiguration Configuration { get; private set; }
-
 
         static async Task<int> Main()
         {
@@ -24,24 +18,10 @@ namespace TankSim.Client.CLI
                 new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("config.json", optional: false, reloadOnChange: true);
-            Configuration = configBuilder.Build();
+            var config = configBuilder.Build();
 
             var serviceCollection = new ServiceCollection();
-            _ = serviceCollection
-                .Configure<KeyBindingConfig>(Configuration.GetSection(nameof(KeyBindingConfig)));
-            _ = serviceCollection
-                .AddGameIDService()
-                .AddGameScopeService();
-            _ = serviceCollection
-                .AddMessageHubSingleton()
-                .AddIpResolver()
-                .AddArdNet(Configuration.GetSection("ArdNet"))
-                .AddClientScoped()
-                .AddTankSimConfig()
-                .AutoRestart();
-            _ = serviceCollection
-                .AddSingleton<OperatorModuleFactory>()
-                .AddControllerExecService();
+            ConfigureServices(serviceCollection, config);
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
             //application scope
@@ -59,6 +39,28 @@ namespace TankSim.Client.CLI
                 }
             }
             return 0;
+        }
+
+
+        private static void ConfigureServices(IServiceCollection services, IConfiguration config)
+        {
+            //setup keybinding configs
+            _ = services
+                .AddKeyBindings(config.GetSection(nameof(KeyBindingConfig)));
+            //setup game services
+            _ = services
+                .AddGameIDService()
+                .AddGameScopeService()
+                .AddScoped<OperatorModuleFactory>()
+                .AddControllerExecService();
+            //setup ArdNet
+            _ = services
+                .AddMessageHubSingleton()
+                .AddIpResolver()
+                .AddArdNet(config.GetSection("ArdNet"))
+                .AddClientScoped()
+                .AddTankSimConfig()
+                .AutoRestart();
         }
     }
 }

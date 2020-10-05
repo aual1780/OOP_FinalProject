@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TankSim.Client.Services
+﻿namespace TankSim.Client.Services
 {
     /// <summary>
     /// Class to set/modify game ID for ardNet connector

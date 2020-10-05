@@ -4,30 +4,29 @@
         <name>TankSim.Client</name>
     </assembly>
     <members>
-        <member name="T:TankSim.Client.Config.KeyBindingConfig">
-            <summary>
-            Key binding configuration
-            </summary>
-        </member>
-        <member name="T:TankSim.Client.Config.KeyBindingConfig.DriverConfig">
+        <member name="T:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions">
             <summary>
             
             </summary>
         </member>
-        <member name="P:TankSim.Client.Config.KeyBindingConfig.DriverConfig.Forward">
+        <member name="M:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions.AddGameIDService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Drive forward
+            Add GameIDService to set GameID for ardNet config
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions">
+            <summary>
+            
             </summary>
         </member>
-        <member name="P:TankSim.Client.Config.KeyBindingConfig.DriverConfig.Backward">
+        <member name="M:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions.AddTankSimConfig(ArdNet.Client.DependencyInjection.ArdNetClientConfigurator)">
             <summary>
-            Drive backward
+            Add ArdNet config for tank sim
             </summary>
-        </member>
-        <member name="P:TankSim.Client.Config.KeyBindingConfig.Driver">
-            <summary>
-            Driver key bindings
-            </summary>
+            <param name="Config"></param>
+            <returns></returns>
         </member>
         <member name="T:TankSim.Client.OperatorDelegates.DriverDelegate">
             <summary>
@@ -133,30 +132,6 @@
             <summary>
             Get ServiceScope with valid ArdNet game connection
             </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions.AddGameIDService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Add GameIDService to set GameID for ardNet config
-            </summary>
-            <param name="services"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions.AddTankSimConfig(ArdNet.Client.DependencyInjection.ArdNetClientConfigurator)">
-            <summary>
-            Add ArdNet config for tank sim
-            </summary>
-            <param name="Config"></param>
             <returns></returns>
         </member>
     </members>
