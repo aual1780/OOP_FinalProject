@@ -20,8 +20,10 @@ namespace TankSim.Client.CLI
 
         static async Task<int> Main(string[] args)
         {
-            var configBuilder = new ConfigurationBuilder();
-            _ = configBuilder.AddJsonFile("config.json", optional: false, reloadOnChange: true);
+            var configBuilder = 
+                new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("config.json", optional: false, reloadOnChange: true);
             Configuration = configBuilder.Build();
 
             var serviceCollection = new ServiceCollection();
