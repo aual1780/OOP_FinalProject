@@ -1,4 +1,5 @@
 ﻿using ArdNet.Client;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,11 @@ namespace TankSim.Client.CLI.OperatorModules
 {
     public class OperatorModuleFactory
     {
-        readonly IArdNetClient _ardClient;
-        readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
+        readonly IServiceProvider _serviceProvider;
 
-        public OperatorModuleFactory(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public OperatorModuleFactory(IServiceProvider ServiceProvider)
         {
-            _ardClient = (ArdClient ?? throw new ArgumentNullException(nameof(ArdClient)));
-            _keyBinding = KeyBinding;
+            _serviceProvider = ServiceProvider;
         }
 
         public IOperatorModuleCollection GetModuleCollection(OperatorRoles Roles)
@@ -25,7 +24,8 @@ namespace TankSim.Client.CLI.OperatorModules
             var collection = new OperatorModuleCollection();
             if((Roles & OperatorRoles.Driver) != 0)
             {
-                collection.AddModule(new CliDriver(_ardClient, _keyBinding));
+                var driver = ActivatorUtilities.CreateInstance<CliDriver>(_serviceProvider);
+                collection.AddModule(driver);
             }
             return collection;
         }
