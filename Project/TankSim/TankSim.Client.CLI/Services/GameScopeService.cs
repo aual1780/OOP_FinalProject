@@ -40,16 +40,17 @@ namespace TankSim.Client.CLI.Services
 
                 var scope = _serviceProvider.CreateScope();
                 var ardClient = scope.ServiceProvider.GetRequiredService<IArdNetClient>();
-                var appID = ((ArdNetClientConfig)ardClient.NetConfig).UDP.AppID;
-                Console.WriteLine(appID);
 
                 using (var tokenSrc = new CancellationTokenSource(_connectionTimeout))
                 {
                     try
                     {
-                        var endpt = await ardClient.ConnectAsync(tokenSrc.Token);
-                        if(endpt != null && !tokenSrc.IsCancellationRequested)
+                        var endptTask = ardClient.ConnectAsync(tokenSrc.Token);
+                        Console.WriteLine("Connecting...");
+                        var endpt = await endptTask;
+                        if (endpt != null && !tokenSrc.IsCancellationRequested)
                         {
+                            Console.WriteLine("Connected.");
                             return scope;
                         }
                         else
