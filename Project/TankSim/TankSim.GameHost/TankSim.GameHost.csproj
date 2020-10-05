@@ -10,6 +10,9 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>.\TankSim.GameHost.xml</DocumentationFile>
+    <!--Force releases to include all dependencies-->
+    <!--This allows all references dlls to be seen by unity symlink-->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
