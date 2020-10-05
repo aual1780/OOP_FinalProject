@@ -18,7 +18,7 @@ namespace TankSim.Client.CLI
         public static IConfiguration Configuration { get; private set; }
 
 
-        static async Task<int> Main(string[] args)
+        static async Task<int> Main()
         {
             var configBuilder = 
                 new ConfigurationBuilder()

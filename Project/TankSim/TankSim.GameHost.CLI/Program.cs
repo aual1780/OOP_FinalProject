@@ -11,7 +11,7 @@ namespace TankSim.GameHost.CLI
         public static IConfiguration Configuration { get; private set; }
 
 
-        static void Main(string[] args)
+        static void Main()
         {
             var configBuilder =
                 new ConfigurationBuilder()
