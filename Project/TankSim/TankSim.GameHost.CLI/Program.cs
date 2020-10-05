@@ -2,6 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
+using System.Threading;
+using TankSim.Extensions;
+using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.GameHost.CLI
 {
@@ -32,10 +36,22 @@ namespace TankSim.GameHost.CLI
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
+            //get player count as int
+            Range playerCountRange = 1..6;
+            int playerCount = -1;
+            do
+            {
+                Console.Write("How many players? ");
+            } while (!int.TryParse(Console.ReadLine(), out playerCount) || !playerCountRange.Contains(playerCount));
+            var roleSets = OperatorRoleSets.GetDistributionSets(playerCount);
 
+        GameStart:
             //application scope
             using (var appScope = ServiceProvider.CreateScope())
             {
+                var randRoleSets = roleSets.ToList();
+                randRoleSets.Randomize();
+                CountdownEvent playerWaiter = new CountdownEvent(randRoleSets.Count);
                 var server = appScope.ServiceProvider.GetRequiredService<IArdNetServer>();
                 var config = (ArdNetServerConfig)server.NetConfig;
                 var gameID = config.UDP.AppID.Split('.')[^1];
@@ -46,15 +62,29 @@ namespace TankSim.GameHost.CLI
                 {
                     if (e.Request == Constants.Queries.ControllerInit.GetOperatorRoles)
                     {
-                        var roles = OperatorRoles.Driver;
-                        server.SendTcpQueryResponse(e, roles.ToString());
+                        lock (randRoleSets)
+                        {
+                            var roleSet = randRoleSets[^1];
+                            randRoleSets.RemoveAt(randRoleSets.Count - 1);
+                            server.SendTcpQueryResponse(e, roleSet.ToString());
+                        }
+                        _ = playerWaiter.Signal();
                     }
                 };
+
+                //wait for all players to join
+                playerWaiter.Wait();
+                Console.WriteLine("Game Started.");
 
                 var cmdFacade = appScope.ServiceProvider.GetRequiredService<OperatorCmdFacade>();
                 cmdFacade.DriverCommandReceived += (sender, e) => Console.WriteLine($"{sender}: {e.Direction}");
 
-                _ = Console.ReadLine();
+                while (true)
+                {
+                    Thread.Sleep(10);
+                    if(server.ConnectedClientCount < playerCount)
+                    goto GameStart;
+                }
             }
 
 

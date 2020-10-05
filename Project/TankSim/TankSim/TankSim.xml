@@ -239,6 +239,19 @@
             Gun loader.  Load the gun and change ammo type
             </summary>
         </member>
+        <member name="T:TankSim.OperatorRoleSets">
+            <summary>
+            These are the distribution sets that roles will be divided into given n game players
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorRoleSets.GetDistributionSets(System.Int32)">
+            <summary>
+            Return the list of operator role distributions for the given number of players.
+            Each array index can be randomly assigned to a game client
+            </summary>
+            <param name="PlayerCount"></param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.KeyBindingExtensions">
             <summary>
             
