@@ -18,17 +18,17 @@ namespace TankSim.Client.Config
             /// <summary>
             /// Drive forward
             /// </summary>
-            public string Forward { get; private set; }
+            public string Forward { get; set; }
             /// <summary>
             /// Drive backward
             /// </summary>
-            public string Backward { get; private set; }
+            public string Backward { get; set; }
         }
 
         /// <summary>
         /// Driver key bindings
         /// </summary>
-        public DriverConfig Driver { get; private set; }
+        public DriverConfig Driver { get; set; }
 
     }
 }

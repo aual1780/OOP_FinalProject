@@ -16,5 +16,33 @@
             <param name="Config"></param>
             <returns></returns>
         </member>
+        <member name="T:TankSim.GameHost.DriverCmdEventHandler">
+            <summary>
+            Callback delegate to handle driver command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.GameHost.OperatorCmdFacade">
+            <summary>
+            Operator role facade to encapsulate ArdNet behavior
+            </summary>
+        </member>
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.DriverCommandReceived">
+            <summary>
+            Event triggered when driver command is received
+            </summary>
+        </member>
+        <member name="M:TankSim.GameHost.OperatorCmdFacade.#ctor(ArdNet.Server.IArdNetServer)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="ArdServer"></param>
+        </member>
+        <member name="M:TankSim.GameHost.OperatorCmdFacade.Dispose">
+            <summary>
+            Release proxy hooks
+            </summary>
+        </member>
     </members>
 </doc>

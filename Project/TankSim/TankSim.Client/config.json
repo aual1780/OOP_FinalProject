@@ -9,7 +9,7 @@
 
 	"KeyBindingConfig": {
 		"Driver": {
-			"Forward": "F",
+			"Forward": "W",
 			"Backward":  "S"
 		}
 	}

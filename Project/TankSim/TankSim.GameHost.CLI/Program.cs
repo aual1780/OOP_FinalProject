@@ -25,17 +25,34 @@ namespace TankSim.GameHost.CLI
                 .AddServerScoped()
                 .AutoStart()
                 .AddTankSimConfig();
+            _ = serviceCollection
+                .AddScoped<OperatorCmdFacade>();
+
             ServiceProvider = serviceCollection.BuildServiceProvider();
+
 
             //application scope
             using (var appScope = ServiceProvider.CreateScope())
             {
                 var server = appScope.ServiceProvider.GetRequiredService<IArdNetServer>();
-
                 var config = (ArdNetServerConfig)server.NetConfig;
                 var gameID = config.UDP.AppID.Split('.')[^1];
                 Console.WriteLine($"Game ID: {gameID}");
-                Console.ReadLine();
+
+
+                server.TcpQueryReceived += (sender, e) =>
+                {
+                    if (e.Request == Constants.Queries.ControllerInit.GetOperatorRoles)
+                    {
+                        var roles = OperatorRoles.Driver;
+                        server.SendTcpQueryResponse(e, roles.ToString());
+                    }
+                };
+
+                var cmdFacade = appScope.ServiceProvider.GetRequiredService<OperatorCmdFacade>();
+                cmdFacade.DriverCommandReceived += (sender, e) => Console.WriteLine($"{sender}: {e.Direction}");
+
+                _ = Console.ReadLine();
             }
 
 

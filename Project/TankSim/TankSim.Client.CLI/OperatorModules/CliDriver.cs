@@ -10,7 +10,7 @@ namespace TankSim.Client.CLI.OperatorModules
     {
         readonly DriverDelegate _driver;
         readonly KeyBindingConfig _keyBinding;
-        readonly DriveDirection _currDirection;
+        DriveDirection _currDirection;
 
         public CliDriver(IArdNetClient ArdClient, KeyBindingConfig KeyBinding)
         {
@@ -32,21 +32,33 @@ namespace TankSim.Client.CLI.OperatorModules
 
         public void HandleInput(IOperatorInputMsg Input)
         {
-            if (string.Equals(_keyBinding.Driver.Forward, Input.KeyInfo.KeyChar.ToString()))
+            if (string.Equals(_keyBinding.Driver.Forward, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 if (_currDirection == DriveDirection.Forward)
+                {
+                    _currDirection = DriveDirection.Stop;
                     _driver.Stop();
+                }
                 else
+                {
+                    _currDirection = DriveDirection.Forward;
                     _driver.DriveForward();
+                }
 
                 Input.IsHandled = true;
             }
-            else if (string.Equals(_keyBinding.Driver.Backward, Input.KeyInfo.KeyChar.ToString()))
+            else if (string.Equals(_keyBinding.Driver.Backward, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 if (_currDirection == DriveDirection.Backward)
+                {
+                    _currDirection = DriveDirection.Stop;
                     _driver.Stop();
+                }
                 else
+                {
+                    _currDirection = DriveDirection.Backward;
                     _driver.DriveBackward();
+                }
 
                 Input.IsHandled = true;
             }
