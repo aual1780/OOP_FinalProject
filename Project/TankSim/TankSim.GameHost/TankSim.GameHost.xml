@@ -23,6 +23,13 @@
             <param name="Endpoint"></param>
             <param name="Cmd"></param>
         </member>
+        <member name="T:TankSim.GameHost.NavigatorCmdEventHandler">
+            <summary>
+            Callback delegate to handle nav command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
         <member name="T:TankSim.GameHost.OperatorCmdFacade">
             <summary>
             Operator role facade to encapsulate ArdNet behavior
@@ -31,6 +38,11 @@
         <member name="E:TankSim.GameHost.OperatorCmdFacade.DriverCommandReceived">
             <summary>
             Event triggered when driver command is received
+            </summary>
+        </member>
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.NavigatorCommandReceived">
+            <summary>
+            Event triggered when nav command is received
             </summary>
         </member>
         <member name="M:TankSim.GameHost.OperatorCmdFacade.#ctor(ArdNet.Server.IArdNetServer)">

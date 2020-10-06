@@ -34,6 +34,7 @@ namespace TankSim.Client.CLI.OperatorModules
         public void HandleInput(IOperatorInputMsg Input)
         {
             var driverConfig = _keyBinding.CurrentValue.Driver;
+            //forward
             if (string.Equals(driverConfig.Forward, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 if (_currDirection == DriveDirection.Forward)
@@ -49,6 +50,7 @@ namespace TankSim.Client.CLI.OperatorModules
 
                 Input.IsHandled = true;
             }
+            //back
             else if (string.Equals(driverConfig.Backward, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 if (_currDirection == DriveDirection.Backward)

@@ -44,9 +44,29 @@
             Drive backward
             </summary>
         </member>
+        <member name="T:TankSim.Config.KeyBindingConfig.NavigatorConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.NavigatorConfig.Left">
+            <summary>
+            Turn left
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.NavigatorConfig.Right">
+            <summary>
+            Turn right
+            </summary>
+        </member>
         <member name="P:TankSim.Config.KeyBindingConfig.Driver">
             <summary>
             Driver key bindings
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.Navigator">
+            <summary>
+            Navigator key bindings
             </summary>
         </member>
         <member name="T:TankSim.Constants">
@@ -193,6 +213,37 @@
             </summary>
         </member>
         <member name="M:TankSim.OperatorCmds.DriverCmd.#ctor(TankSim.DriveDirection)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="Direction">Drive direction</param>
+        </member>
+        <member name="T:TankSim.OperatorCmds.NavigatorCmd">
+            <summary>
+            Channel command - navigator operation
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.Stop">
+            <summary>
+            Static immutable stop command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.Left">
+            <summary>
+            Static immutable forward command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.Right">
+            <summary>
+            Static immutable backward command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.Direction">
+            <summary>
+            Drive direction
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorCmds.NavigatorCmd.#ctor(TankSim.AngleDirection)">
             <summary>
             Create new instance
             </summary>

@@ -30,7 +30,7 @@ namespace TankSim.GameHost.CLI.Extensions
         {
             var result = list[^1];
             list.RemoveAt(^1);
-            return result
+            return result;
         }
     }
 }

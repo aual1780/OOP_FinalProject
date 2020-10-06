@@ -19,8 +19,11 @@ namespace TankSim.Client.CLI.OperatorModules
             var collection = new OperatorModuleCollection();
             if((Roles & OperatorRoles.Driver) != 0)
             {
-                var driver = ActivatorUtilities.CreateInstance<CliDriver>(_serviceProvider);
-                collection.AddModule(driver);
+                collection.AddModule(ActivatorUtilities.CreateInstance<CliDriver>(_serviceProvider));
+            }
+            if ((Roles & OperatorRoles.Navigator) != 0)
+            {
+                collection.AddModule(ActivatorUtilities.CreateInstance<CliNavigator>(_serviceProvider));
             }
             return collection;
         }

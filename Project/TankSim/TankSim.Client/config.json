@@ -10,7 +10,11 @@
 	"KeyBindingConfig": {
 		"Driver": {
 			"Forward": "W",
-			"Backward":  "S"
+			"Backward": "S"
+		},
+		"Navigator": {
+			"Left": "A",
+			"Right": "D"
 		}
 	}
 }

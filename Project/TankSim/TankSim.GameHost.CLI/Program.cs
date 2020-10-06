@@ -76,6 +76,7 @@ namespace TankSim.GameHost.CLI
 
                 var cmdFacade = appScope.ServiceProvider.GetRequiredService<OperatorCmdFacade>();
                 cmdFacade.DriverCommandReceived += (sender, e) => Console.WriteLine($"{sender}: {e.Direction}");
+                cmdFacade.NavigatorCommandReceived += (sender, e) => Console.WriteLine($"{sender}: {e.Direction}");
 
                 while (true)
                 {

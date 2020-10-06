@@ -2,7 +2,9 @@
 using ArdNet.Server;
 using ArdNet.Topics;
 using System;
+using System.Collections.Generic;
 using TankSim.OperatorCmds;
+using TIPC.Core.Tools.Extensions.IEnumerable;
 
 namespace TankSim.GameHost
 {
@@ -14,16 +16,28 @@ namespace TankSim.GameHost
     public delegate void DriverCmdEventHandler(IConnectedSystemEndpoint Endpoint, DriverCmd Cmd);
 
     /// <summary>
+    /// Callback delegate to handle nav command
+    /// </summary>
+    /// <param name="Endpoint"></param>
+    /// <param name="Cmd"></param>
+    public delegate void NavigatorCmdEventHandler(IConnectedSystemEndpoint Endpoint, NavigatorCmd Cmd);
+
+    /// <summary>
     /// Operator role facade to encapsulate ArdNet behavior
     /// </summary>
     public class OperatorCmdFacade : IDisposable
     {
-        private ITopicMessageProxy<DriverCmd> _driverProxy;
+        private readonly List<ITopicProxy> _proxySet = new List<ITopicProxy>();
 
         /// <summary>
         /// Event triggered when driver command is received
         /// </summary>
         public event DriverCmdEventHandler DriverCommandReceived;
+
+        /// <summary>
+        /// Event triggered when nav command is received
+        /// </summary>
+        public event NavigatorCmdEventHandler NavigatorCommandReceived;
 
 
         /// <summary>
@@ -33,8 +47,16 @@ namespace TankSim.GameHost
         public OperatorCmdFacade(IArdNetServer ArdServer)
         {
             //TODO: add all modules
-            _driverProxy = ArdServer.TopicManager.GetProxy<DriverCmd>(Constants.ChannelNames.TankOperations.Driver);
-            _driverProxy.MessageReceived += (sender, e)=> DriverCommandReceived?.Invoke(e.SourceEndpoint, e.Message);
+            {
+                var proxy = ArdServer.TopicManager.GetProxy<DriverCmd>(Constants.ChannelNames.TankOperations.Driver);
+                proxy.MessageReceived += (sender, e) => DriverCommandReceived?.Invoke(e.SourceEndpoint, e.Message);
+                _proxySet.Add(proxy);
+            }
+            {
+                var proxy = ArdServer.TopicManager.GetProxy<NavigatorCmd>(Constants.ChannelNames.TankOperations.Navigator);
+                proxy.MessageReceived += (sender, e) => NavigatorCommandReceived?.Invoke(e.SourceEndpoint, e.Message);
+                _proxySet.Add(proxy);
+            }
         }
 
 
@@ -43,7 +65,7 @@ namespace TankSim.GameHost
         /// </summary>
         public void Dispose()
         {
-            _driverProxy.Dispose();
+            _proxySet.DisposeAll();
         }
     }
 }

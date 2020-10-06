@@ -59,6 +59,37 @@
             Unhook topics
             </summary>
         </member>
+        <member name="T:TankSim.Client.OperatorDelegates.NavigatorDelegate">
+            <summary>
+            Operator module - driver
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.NavigatorDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.NavigatorDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.NavigatorDelegate.TurnLeft">
+            <summary>
+            Send left command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.NavigatorDelegate.TurnRight">
+            <summary>
+            Send right command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.NavigatorDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
         <member name="T:TankSim.Client.OperatorModules.IOperatorInputMsg">
             <summary>
             Operator input message
