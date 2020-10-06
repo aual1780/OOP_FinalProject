@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet.Server.DependencyInjection" Version="1.9.0" />
+    <PackageReference Include="ArdNet.Server.DependencyInjection" Version="1.10.0" />
   </ItemGroup>
 
   <ItemGroup>

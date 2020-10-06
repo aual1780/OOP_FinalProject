@@ -1,10 +1,11 @@
-﻿using ArdNet.Server;
+﻿using ArdNet.Messaging;
+using ArdNet.Server;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading;
-using TankSim.Extensions;
+using TankSim.GameHost.CLI.Extensions;
 using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.GameHost.CLI
@@ -53,10 +54,8 @@ namespace TankSim.GameHost.CLI
                 randRoleSets.Randomize();
                 CountdownEvent playerWaiter = new CountdownEvent(randRoleSets.Count);
                 var server = appScope.ServiceProvider.GetRequiredService<IArdNetServer>();
-                var config = (ArdNetServerConfig)server.NetConfig;
-                var gameID = config.UDP.AppID.Split('.')[^1];
+                var gameID = server.NetConfig.UDP.AppID.Split('.')[^1];
                 Console.WriteLine($"Game ID: {gameID}");
-
 
                 server.TcpQueryReceived += (sender, e) =>
                 {
@@ -64,8 +63,7 @@ namespace TankSim.GameHost.CLI
                     {
                         lock (randRoleSets)
                         {
-                            var roleSet = randRoleSets[^1];
-                            randRoleSets.RemoveAt(randRoleSets.Count - 1);
+                            var roleSet = randRoleSets.Pop();
                             server.SendTcpQueryResponse(e, roleSet.ToString());
                         }
                         _ = playerWaiter.Signal();
@@ -82,8 +80,8 @@ namespace TankSim.GameHost.CLI
                 while (true)
                 {
                     Thread.Sleep(10);
-                    if(server.ConnectedClientCount < playerCount)
-                    goto GameStart;
+                    if (server.ConnectedClientCount < playerCount)
+                        goto GameStart;
                 }
             }
 
