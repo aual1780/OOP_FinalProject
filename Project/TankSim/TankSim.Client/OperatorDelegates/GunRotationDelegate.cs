@@ -6,24 +6,24 @@ using TankSim.OperatorCmds;
 namespace TankSim.Client.OperatorDelegates
 {
     /// <summary>
-    /// Operator module - driver
+    /// Operator module - gun rotation
     /// </summary>
-    public sealed class NavigatorDelegate : IDisposable
+    public sealed class GunRotationDelegate : IDisposable
     {
-        private readonly ITopicMessageProxy<NavigatorCmd> _cmdProxy;
+        private readonly ITopicMessageProxy<GunRotationCmd> _cmdProxy;
 
         /// <summary>
         /// Create instance.
         /// </summary>
         /// <param name="ArdSys"></param>
-        public NavigatorDelegate(IArdNetSystem ArdSys)
+        public GunRotationDelegate(IArdNetSystem ArdSys)
         {
             if (ArdSys is null)
             {
                 throw new ArgumentNullException(nameof(ArdSys));
             }
 
-            _cmdProxy = ArdSys.TopicManager.GetProxy<NavigatorCmd>(Constants.ChannelNames.TankOperations.Navigator);
+            _cmdProxy = ArdSys.TopicManager.GetProxy<GunRotationCmd>(Constants.ChannelNames.TankOperations.GunRotation);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace TankSim.Client.OperatorDelegates
         /// </summary>
         public void Stop()
         {
-            _cmdProxy.SendMessage(NavigatorCmd.Stop);
+            _cmdProxy.SendMessage(GunRotationCmd.Stop);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace TankSim.Client.OperatorDelegates
         /// </summary>
         public void TurnLeft()
         {
-            _cmdProxy.SendMessage(NavigatorCmd.Left);
+            _cmdProxy.SendMessage(GunRotationCmd.Left);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace TankSim.Client.OperatorDelegates
         /// </summary>
         public void TurnRight()
         {
-            _cmdProxy.SendMessage(NavigatorCmd.Right);
+            _cmdProxy.SendMessage(GunRotationCmd.Right);
         }
 
         /// <summary>

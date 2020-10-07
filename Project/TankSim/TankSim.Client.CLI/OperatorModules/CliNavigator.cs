@@ -7,11 +7,11 @@ using TankSim.Config;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
-    public class CliNavigator : IOperatorModule
+    public sealed class CliNavigator : CliModuleBase
     {
-        readonly NavigatorDelegate _navigator;
+        readonly NavigatorDelegate _ardDelegate;
         readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
-        AngleDirection _currDirection;
+        RotationDirection _currDirection;
 
         public CliNavigator(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
@@ -25,43 +25,43 @@ namespace TankSim.Client.CLI.OperatorModules
                 throw new ArgumentNullException(nameof(KeyBinding));
             }
 
-            _navigator = new NavigatorDelegate(ArdClient);
+            _ardDelegate = new NavigatorDelegate(ArdClient);
             _keyBinding = KeyBinding;
-            _currDirection = AngleDirection.Stop;
+            _currDirection = RotationDirection.Stop;
         }
 
 
-        public void HandleInput(IOperatorInputMsg Input)
+        public override void HandleInput(IOperatorInputMsg Input)
         {
-            var navigatorConfig = _keyBinding.CurrentValue.Navigator;
+            var keyConfig = _keyBinding.CurrentValue.Navigator;
             //left
-            if (string.Equals(navigatorConfig.Left, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
+            if (ValidateKeyPress(Input, keyConfig.Left))
             {
-                if (_currDirection == AngleDirection.Left)
+                if (_currDirection == RotationDirection.Left)
                 {
-                    _currDirection = AngleDirection.Stop;
-                    _navigator.Stop();
+                    _currDirection = RotationDirection.Stop;
+                    _ardDelegate.Stop();
                 }
                 else
                 {
-                    _currDirection = AngleDirection.Left;
-                    _navigator.TurnLeft();
+                    _currDirection = RotationDirection.Left;
+                    _ardDelegate.TurnLeft();
                 }
 
                 Input.IsHandled = true;
             }
             //right
-            else if (string.Equals(navigatorConfig.Right, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase))
+            if (ValidateKeyPress(Input, keyConfig.Right))
             {
-                if (_currDirection == AngleDirection.Right)
+                if (_currDirection == RotationDirection.Right)
                 {
-                    _currDirection = AngleDirection.Stop;
-                    _navigator.Stop();
+                    _currDirection = RotationDirection.Stop;
+                    _ardDelegate.Stop();
                 }
                 else
                 {
-                    _currDirection = AngleDirection.Right;
-                    _navigator.TurnRight();
+                    _currDirection = RotationDirection.Right;
+                    _ardDelegate.TurnRight();
                 }
 
                 Input.IsHandled = true;
@@ -69,9 +69,9 @@ namespace TankSim.Client.CLI.OperatorModules
         }
 
 
-        public void Dispose()
+        public override void Dispose()
         {
-            _navigator.Dispose();
+            _ardDelegate.Dispose();
         }
     }
 }

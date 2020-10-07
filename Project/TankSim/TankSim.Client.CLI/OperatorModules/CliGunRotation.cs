@@ -7,13 +7,13 @@ using TankSim.Config;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
-    public sealed class CliDriver : CliModuleBase
+    public sealed class CliGunRotation : CliModuleBase
     {
-        readonly DriverDelegate _ardDelegate;
+        readonly GunRotationDelegate _ardDelegate;
         readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
-        DriveDirection _currDirection;
+        RotationDirection _currDirection;
 
-        public CliDriver(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public CliGunRotation(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
@@ -25,43 +25,43 @@ namespace TankSim.Client.CLI.OperatorModules
                 throw new ArgumentNullException(nameof(KeyBinding));
             }
 
-            _ardDelegate = new DriverDelegate(ArdClient);
+            _ardDelegate = new GunRotationDelegate(ArdClient);
             _keyBinding = KeyBinding;
-            _currDirection = DriveDirection.Stop;
+            _currDirection = RotationDirection.Stop;
         }
 
 
         public override void HandleInput(IOperatorInputMsg Input)
         {
-            var keyConfig = _keyBinding.CurrentValue.Driver;
-            //forward
-            if (ValidateKeyPress(Input, keyConfig.Forward))
+            var keyConfig = _keyBinding.CurrentValue.GunRotation;
+            //left
+            if (ValidateKeyPress(Input, keyConfig.Left))
             {
-                if (_currDirection == DriveDirection.Forward)
+                if (_currDirection == RotationDirection.Left)
                 {
-                    _currDirection = DriveDirection.Stop;
+                    _currDirection = RotationDirection.Stop;
                     _ardDelegate.Stop();
                 }
                 else
                 {
-                    _currDirection = DriveDirection.Forward;
-                    _ardDelegate.DriveForward();
+                    _currDirection = RotationDirection.Left;
+                    _ardDelegate.TurnLeft();
                 }
 
                 Input.IsHandled = true;
             }
-            //back
-            else if (ValidateKeyPress(Input, keyConfig.Backward))
+            //right
+            if (ValidateKeyPress(Input, keyConfig.Right))
             {
-                if (_currDirection == DriveDirection.Backward)
+                if (_currDirection == RotationDirection.Right)
                 {
-                    _currDirection = DriveDirection.Stop;
+                    _currDirection = RotationDirection.Stop;
                     _ardDelegate.Stop();
                 }
                 else
                 {
-                    _currDirection = DriveDirection.Backward;
-                    _ardDelegate.DriveBackward();
+                    _currDirection = RotationDirection.Right;
+                    _ardDelegate.TurnRight();
                 }
 
                 Input.IsHandled = true;

@@ -10,7 +10,7 @@ namespace TankSim.Client.OperatorDelegates
     /// </summary>
     public sealed class DriverDelegate : IDisposable
     {
-        private ITopicMessageProxy<DriverCmd> DriveCmdProxy { get; }
+        private readonly ITopicMessageProxy<DriverCmd> _cmdProxy;
 
         /// <summary>
         /// Create instance.
@@ -23,7 +23,7 @@ namespace TankSim.Client.OperatorDelegates
                 throw new ArgumentNullException(nameof(ArdSys));
             }
 
-            DriveCmdProxy = ArdSys.TopicManager.GetProxy<DriverCmd>(Constants.ChannelNames.TankOperations.Driver);
+            _cmdProxy = ArdSys.TopicManager.GetProxy<DriverCmd>(Constants.ChannelNames.TankOperations.Driver);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace TankSim.Client.OperatorDelegates
         /// </summary>
         public void Stop()
         {
-            DriveCmdProxy.SendMessage(DriverCmd.Stop);
+            _cmdProxy.SendMessage(DriverCmd.Stop);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace TankSim.Client.OperatorDelegates
         /// </summary>
         public void DriveForward()
         {
-            DriveCmdProxy.SendMessage(DriverCmd.Forward);
+            _cmdProxy.SendMessage(DriverCmd.Forward);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace TankSim.Client.OperatorDelegates
         /// </summary>
         public void DriveBackward()
         {
-            DriveCmdProxy.SendMessage(DriverCmd.Backward);
+            _cmdProxy.SendMessage(DriverCmd.Backward);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace TankSim.Client.OperatorDelegates
         /// </summary>
         public void Dispose()
         {
-            DriveCmdProxy.Dispose();
+            _cmdProxy.Dispose();
         }
 
     }

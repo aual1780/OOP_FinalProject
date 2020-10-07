@@ -3,7 +3,7 @@
     /// <summary>
     /// Left/Right directions.  Used for turning and gun angle
     /// </summary>
-    public enum AngleDirection
+    public enum RotationDirection
     {
         /// <summary>
         /// Stop movement

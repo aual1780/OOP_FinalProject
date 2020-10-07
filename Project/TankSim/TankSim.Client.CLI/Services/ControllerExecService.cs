@@ -31,7 +31,7 @@ namespace TankSim.Client.CLI.Services
             _operatorFactory = OperatorFactory;
         }
 
-        public async Task LoadOperatorRoles()
+        public async Task<OperatorRoles> LoadOperatorRoles()
         {
             var qry = Constants.Queries.ControllerInit.GetOperatorRoles;
             var request = new AsyncRequestPushedArgs(qry, null, CancellationToken.None, Timeout.InfiniteTimeSpan);
@@ -40,6 +40,7 @@ namespace TankSim.Client.CLI.Services
             var roleSet = Enum.Parse<OperatorRoles>(responseStr);
 
             _opCollection = _operatorFactory.GetModuleCollection(roleSet);
+            return roleSet;
         }
 
         public void HandleUserInput()

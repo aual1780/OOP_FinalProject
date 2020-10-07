@@ -24,7 +24,7 @@ namespace TankSim
         /// <summary>
         /// Gun angle operator.  Turn the main turret left/right
         /// </summary>
-        GunAngle = 1 << 2,
+        GunRotation = 1 << 2,
         /// <summary>
         /// Weapon range finder.  Control gun distance
         /// </summary>
@@ -36,7 +36,7 @@ namespace TankSim
         /// <summary>
         /// Gun loader.  Load the gun and change ammo type
         /// </summary>
-        Loader = 1 << 5,
+        GunLoader = 1 << 5,
 
     }
 }

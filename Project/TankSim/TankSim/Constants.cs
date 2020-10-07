@@ -24,9 +24,9 @@
                 /// </summary>
                 public static string Navigator { get; } = $"Cmd.TankOperations.{nameof(Navigator)}";
                 /// <summary>
-                /// Gun angle operator.  Turn the main turret left/right
+                /// Gun rotation operator.  Turn the main turret left/right
                 /// </summary>
-                public static string GunAngle { get; } = $"Cmd.TankOperations.{nameof(GunAngle)}";
+                public static string GunRotation { get; } = $"Cmd.TankOperations.{nameof(GunRotation)}";
                 /// <summary>
                 /// Weapon range finder.  Control gun distance
                 /// </summary>
@@ -38,7 +38,7 @@
                 /// <summary>
                 /// Gun loader.  Load the gun and change ammo type
                 /// </summary>
-                public static string Loader { get; } = $"Cmd.TankOperations.{nameof(Loader)}";
+                public static string GunLoader { get; } = $"Cmd.TankOperations.{nameof(GunLoader)}";
 
             }
         }

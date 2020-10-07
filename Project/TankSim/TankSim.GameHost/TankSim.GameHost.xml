@@ -23,9 +23,37 @@
             <param name="Endpoint"></param>
             <param name="Cmd"></param>
         </member>
+        <member name="T:TankSim.GameHost.FireControlCmdEventHandler">
+            <summary>
+            Callback delegate to handle fire control command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.GameHost.GunLoaderCmdEventHandler">
+            <summary>
+            Callback delegate to handle gun loader command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.GameHost.GunRotationCmdEventHandler">
+            <summary>
+            Callback delegate to handle gun rotation command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
         <member name="T:TankSim.GameHost.NavigatorCmdEventHandler">
             <summary>
             Callback delegate to handle nav command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.GameHost.RangeFinderCmdEventHandler">
+            <summary>
+            Callback delegate to handle range command
             </summary>
             <param name="Endpoint"></param>
             <param name="Cmd"></param>
@@ -35,14 +63,34 @@
             Operator role facade to encapsulate ArdNet behavior
             </summary>
         </member>
-        <member name="E:TankSim.GameHost.OperatorCmdFacade.DriverCommandReceived">
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.DriverCmdReceived">
             <summary>
             Event triggered when driver command is received
             </summary>
         </member>
-        <member name="E:TankSim.GameHost.OperatorCmdFacade.NavigatorCommandReceived">
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.FireControlCmdReceived">
             <summary>
-            Event triggered when nav command is received
+            Event triggered when fire control command is received
+            </summary>
+        </member>
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.GunLoaderCmdReceived">
+            <summary>
+            Event triggered when gun loader command is received
+            </summary>
+        </member>
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.GunRotationCmdReceived">
+            <summary>
+            Event triggered when gun rotation command is received
+            </summary>
+        </member>
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.NavigatorCmdReceived">
+            <summary>
+            Event triggered when navigator command is received
+            </summary>
+        </member>
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.RangeFinderCmdReceived">
+            <summary>
+            Event triggered when range finder command is received
             </summary>
         </member>
         <member name="M:TankSim.GameHost.OperatorCmdFacade.#ctor(ArdNet.Server.IArdNetServer)">

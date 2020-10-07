@@ -23,48 +23,48 @@ namespace TankSim
                     return new OperatorRoles[]
                     {
                         OperatorRoles.Driver | OperatorRoles.Navigator
-                        | OperatorRoles.GunAngle | OperatorRoles.RangeFinder
-                        | OperatorRoles.FireControl | OperatorRoles.Loader
+                        | OperatorRoles.GunRotation | OperatorRoles.RangeFinder
+                        | OperatorRoles.FireControl | OperatorRoles.GunLoader
                     };
                 case 2:
                     return new OperatorRoles[]
                     {
-                        OperatorRoles.Driver | OperatorRoles.Navigator | OperatorRoles.Loader,
-                        OperatorRoles.GunAngle | OperatorRoles.RangeFinder, OperatorRoles.FireControl
+                        OperatorRoles.Driver | OperatorRoles.Navigator | OperatorRoles.GunLoader,
+                        OperatorRoles.GunRotation | OperatorRoles.RangeFinder| OperatorRoles.FireControl
                     };
                 case 3:
                     return new OperatorRoles[]
                     {
                         OperatorRoles.Driver | OperatorRoles.Navigator,
-                        OperatorRoles.GunAngle | OperatorRoles.RangeFinder,
-                        OperatorRoles.FireControl | OperatorRoles.Loader
+                        OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
+                        OperatorRoles.FireControl | OperatorRoles.GunLoader
                     };
                 case 4:
                     return new OperatorRoles[]
                     {
                         OperatorRoles.Driver | OperatorRoles.Navigator,
-                        OperatorRoles.GunAngle | OperatorRoles.RangeFinder,
+                        OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
                         OperatorRoles.FireControl,
-                        OperatorRoles.Loader
+                        OperatorRoles.GunLoader
                     };
                 case 5:
                     return new OperatorRoles[]
                     {
                         OperatorRoles.Driver,
                         OperatorRoles.Navigator,
-                        OperatorRoles.GunAngle | OperatorRoles.RangeFinder,
+                        OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
                         OperatorRoles.FireControl,
-                        OperatorRoles.Loader
+                        OperatorRoles.GunLoader
                     };
                 case 6:
                     return new OperatorRoles[]
                     {
                         OperatorRoles.Driver,
                         OperatorRoles.Navigator,
-                        OperatorRoles.GunAngle,
+                        OperatorRoles.GunRotation,
                         OperatorRoles.RangeFinder,
                         OperatorRoles.FireControl,
-                        OperatorRoles.Loader
+                        OperatorRoles.GunLoader
                     };
                 default:
                     throw new ArgumentOutOfRangeException(nameof(PlayerCount), $"{nameof(PlayerCount)} must be between 1 and 6, inclusive");

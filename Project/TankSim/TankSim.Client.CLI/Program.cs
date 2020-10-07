@@ -33,7 +33,8 @@ namespace TankSim.Client.CLI
                 {
                     //run main controller code
                     var controllerService = gameScope.ServiceProvider.GetRequiredService<ControllerExecService>();
-                    await controllerService.LoadOperatorRoles();
+                    var roles = await controllerService.LoadOperatorRoles();
+                    Console.WriteLine($"Your roles: {roles}");
                     //blocking call to handle user controls
                     controllerService.HandleUserInput();
                 }

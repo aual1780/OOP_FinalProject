@@ -59,6 +59,89 @@
             Unhook topics
             </summary>
         </member>
+        <member name="T:TankSim.Client.OperatorDelegates.FireControlDelegate">
+            <summary>
+            Operator module - fire control
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.FireControlDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.FireControlDelegate.FirePrimary">
+            <summary>
+            Send primary fire command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.FireControlDelegate.FireSecondary">
+            <summary>
+            Send secondary fire command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.FireControlDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorDelegates.GunLoaderDelegate">
+            <summary>
+            Operator module - gun loader
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunLoaderDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunLoaderDelegate.Load">
+            <summary>
+            Send load command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunLoaderDelegate.CycleAmmoType">
+            <summary>
+            Send cycle ammo command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunLoaderDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorDelegates.GunRotationDelegate">
+            <summary>
+            Operator module - gun rotation
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunRotationDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunRotationDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunRotationDelegate.TurnLeft">
+            <summary>
+            Send left command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunRotationDelegate.TurnRight">
+            <summary>
+            Send right command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.GunRotationDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
         <member name="T:TankSim.Client.OperatorDelegates.NavigatorDelegate">
             <summary>
             Operator module - driver
@@ -86,6 +169,37 @@
             </summary>
         </member>
         <member name="M:TankSim.Client.OperatorDelegates.NavigatorDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorDelegates.RangeFinderDelegate">
+            <summary>
+            Operator module - range finder
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.RangeFinderDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.RangeFinderDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.RangeFinderDelegate.AimFarther">
+            <summary>
+            Send farther command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.RangeFinderDelegate.AimCloser">
+            <summary>
+            Send closer command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.RangeFinderDelegate.Dispose">
             <summary>
             Unhook topics
             </summary>

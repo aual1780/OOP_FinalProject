@@ -9,7 +9,7 @@ namespace TankSim
     /// </summary>
     public static class GameIdGenerator
     {
-        private const int _keyLength = 6;
+        private const int _keyLength = 4;
 
         /// <summary>
         /// Generate a new GameID string

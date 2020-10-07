@@ -21,9 +21,25 @@ namespace TankSim.Client.CLI.OperatorModules
             {
                 collection.AddModule(ActivatorUtilities.CreateInstance<CliDriver>(_serviceProvider));
             }
+            if ((Roles & OperatorRoles.FireControl) != 0)
+            {
+                collection.AddModule(ActivatorUtilities.CreateInstance<CliFireControl>(_serviceProvider));
+            }
+            if ((Roles & OperatorRoles.GunLoader) != 0)
+            {
+                collection.AddModule(ActivatorUtilities.CreateInstance<CliGunLoader>(_serviceProvider));
+            }
+            if ((Roles & OperatorRoles.GunRotation) != 0)
+            {
+                collection.AddModule(ActivatorUtilities.CreateInstance<CliGunRotation>(_serviceProvider));
+            }
             if ((Roles & OperatorRoles.Navigator) != 0)
             {
                 collection.AddModule(ActivatorUtilities.CreateInstance<CliNavigator>(_serviceProvider));
+            }
+            if ((Roles & OperatorRoles.RangeFinder) != 0)
+            {
+                collection.AddModule(ActivatorUtilities.CreateInstance<CliRangeFinder>(_serviceProvider));
             }
             return collection;
         }

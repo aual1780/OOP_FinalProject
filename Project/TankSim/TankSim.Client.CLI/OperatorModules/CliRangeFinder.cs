@@ -7,13 +7,13 @@ using TankSim.Config;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
-    public sealed class CliDriver : CliModuleBase
+    public sealed class CliRangeFinder : CliModuleBase
     {
-        readonly DriverDelegate _ardDelegate;
+        readonly RangeFinderDelegate _ardDelegate;
         readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
-        DriveDirection _currDirection;
+        RangeDirection _currDirection;
 
-        public CliDriver(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public CliRangeFinder(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
@@ -25,43 +25,43 @@ namespace TankSim.Client.CLI.OperatorModules
                 throw new ArgumentNullException(nameof(KeyBinding));
             }
 
-            _ardDelegate = new DriverDelegate(ArdClient);
+            _ardDelegate = new RangeFinderDelegate(ArdClient);
             _keyBinding = KeyBinding;
-            _currDirection = DriveDirection.Stop;
+            _currDirection = RangeDirection.Stop;
         }
 
 
         public override void HandleInput(IOperatorInputMsg Input)
         {
-            var keyConfig = _keyBinding.CurrentValue.Driver;
-            //forward
-            if (ValidateKeyPress(Input, keyConfig.Forward))
+            var keyConfig = _keyBinding.CurrentValue.RangeFinder;
+            //farther
+            if (ValidateKeyPress(Input, keyConfig.Farther))
             {
-                if (_currDirection == DriveDirection.Forward)
+                if (_currDirection == RangeDirection.Farther)
                 {
-                    _currDirection = DriveDirection.Stop;
+                    _currDirection = RangeDirection.Stop;
                     _ardDelegate.Stop();
                 }
                 else
                 {
-                    _currDirection = DriveDirection.Forward;
-                    _ardDelegate.DriveForward();
+                    _currDirection = RangeDirection.Farther;
+                    _ardDelegate.AimFarther();
                 }
 
                 Input.IsHandled = true;
             }
-            //back
-            else if (ValidateKeyPress(Input, keyConfig.Backward))
+            //closer
+            if (ValidateKeyPress(Input, keyConfig.Closer))
             {
-                if (_currDirection == DriveDirection.Backward)
+                if (_currDirection == RangeDirection.Closer)
                 {
-                    _currDirection = DriveDirection.Stop;
+                    _currDirection = RangeDirection.Stop;
                     _ardDelegate.Stop();
                 }
                 else
                 {
-                    _currDirection = DriveDirection.Backward;
-                    _ardDelegate.DriveBackward();
+                    _currDirection = RangeDirection.Closer;
+                    _ardDelegate.AimCloser();
                 }
 
                 Input.IsHandled = true;

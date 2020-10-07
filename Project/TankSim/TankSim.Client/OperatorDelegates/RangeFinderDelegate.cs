@@ -6,24 +6,24 @@ using TankSim.OperatorCmds;
 namespace TankSim.Client.OperatorDelegates
 {
     /// <summary>
-    /// Operator module - driver
+    /// Operator module - range finder
     /// </summary>
-    public sealed class NavigatorDelegate : IDisposable
+    public sealed class RangeFinderDelegate : IDisposable
     {
-        private readonly ITopicMessageProxy<NavigatorCmd> _cmdProxy;
+        private readonly ITopicMessageProxy<RangeFinderCmd> _cmdProxy;
 
         /// <summary>
         /// Create instance.
         /// </summary>
         /// <param name="ArdSys"></param>
-        public NavigatorDelegate(IArdNetSystem ArdSys)
+        public RangeFinderDelegate(IArdNetSystem ArdSys)
         {
             if (ArdSys is null)
             {
                 throw new ArgumentNullException(nameof(ArdSys));
             }
 
-            _cmdProxy = ArdSys.TopicManager.GetProxy<NavigatorCmd>(Constants.ChannelNames.TankOperations.Navigator);
+            _cmdProxy = ArdSys.TopicManager.GetProxy<RangeFinderCmd>(Constants.ChannelNames.TankOperations.RangeFinder);
         }
 
         /// <summary>
@@ -31,23 +31,23 @@ namespace TankSim.Client.OperatorDelegates
         /// </summary>
         public void Stop()
         {
-            _cmdProxy.SendMessage(NavigatorCmd.Stop);
+            _cmdProxy.SendMessage(RangeFinderCmd.Stop);
         }
 
         /// <summary>
-        /// Send left command to host
+        /// Send farther command to host
         /// </summary>
-        public void TurnLeft()
+        public void AimFarther()
         {
-            _cmdProxy.SendMessage(NavigatorCmd.Left);
+            _cmdProxy.SendMessage(RangeFinderCmd.Farther);
         }
 
         /// <summary>
-        /// Send right command to host
+        /// Send closer command to host
         /// </summary>
-        public void TurnRight()
+        public void AimCloser()
         {
-            _cmdProxy.SendMessage(NavigatorCmd.Right);
+            _cmdProxy.SendMessage(RangeFinderCmd.Closer);
         }
 
         /// <summary>

@@ -1,22 +1,22 @@
 ﻿namespace TankSim.OperatorCmds
 {
     /// <summary>
-    /// Channel command - navigator operation
+    /// Channel command - gun rotation operation
     /// </summary>
-    public class NavigatorCmd
+    public sealed class GunRotationCmd
     {
         /// <summary>
         /// Static immutable stop command
         /// </summary>
-        public static NavigatorCmd Stop { get; } = new NavigatorCmd(RotationDirection.Stop);
+        public static GunRotationCmd Stop { get; } = new GunRotationCmd(RotationDirection.Stop);
         /// <summary>
         /// Static immutable left command
         /// </summary>
-        public static NavigatorCmd Left { get; } = new NavigatorCmd(RotationDirection.Left);
+        public static GunRotationCmd Left { get; } = new GunRotationCmd(RotationDirection.Left);
         /// <summary>
         /// Static immutable right command
         /// </summary>
-        public static NavigatorCmd Right { get; } = new NavigatorCmd(RotationDirection.Right);
+        public static GunRotationCmd Right { get; } = new GunRotationCmd(RotationDirection.Right);
 
 
         /// <summary>
@@ -28,7 +28,7 @@
         /// Create new instance
         /// </summary>
         /// <param name="Direction">Rotation direction</param>
-        public NavigatorCmd(RotationDirection Direction)
+        public GunRotationCmd(RotationDirection Direction)
         {
             this.Direction = Direction;
         }

@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using TankSim.GameHost.CLI.Extensions;
+using TIPC.Core.Tools;
 using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.GameHost.CLI
@@ -74,9 +75,13 @@ namespace TankSim.GameHost.CLI
                 playerWaiter.Wait();
                 Console.WriteLine("Game Started.");
 
-                var cmdFacade = appScope.ServiceProvider.GetRequiredService<OperatorCmdFacade>();
-                cmdFacade.DriverCommandReceived += (sender, e) => Console.WriteLine($"{sender}: {e.Direction}");
-                cmdFacade.NavigatorCommandReceived += (sender, e) => Console.WriteLine($"{sender}: {e.Direction}");
+                using var cmdFacade = appScope.ServiceProvider.GetRequiredService<OperatorCmdFacade>();
+                cmdFacade.DriverCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Drive.{e.Direction} ({(HighResolutionDateTime.UtcNow - e.InitTime).TotalMilliseconds})");
+                cmdFacade.FireControlCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Fire.{e.WeaponType}");
+                cmdFacade.GunLoaderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Loader.{e.LoaderType}");
+                cmdFacade.GunRotationCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: GunRot.{e.Direction}");
+                cmdFacade.NavigatorCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Nav.{e.Direction}");
+                cmdFacade.RangeFinderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Range.{e.Direction}");
 
                 while (true)
                 {

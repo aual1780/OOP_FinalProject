@@ -1,4 +1,7 @@
-﻿namespace TankSim.OperatorCmds
+﻿using System;
+using TIPC.Core.Tools;
+
+namespace TankSim.OperatorCmds
 {
     /// <summary>
     /// Channel command - driver operation
@@ -23,6 +26,8 @@
         /// Drive direction
         /// </summary>
         public DriveDirection Direction { get; private set; }
+
+        public DateTime InitTime { get; private set; } = HighResolutionDateTime.UtcNow;
 
         /// <summary>
         /// Create new instance

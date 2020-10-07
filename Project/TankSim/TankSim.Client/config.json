@@ -12,9 +12,25 @@
 			"Forward": "W",
 			"Backward": "S"
 		},
+		"FireControl": {
+			"Primary": "E",
+			"Secondary": "Q"
+		},
+		"GunLoader": {
+			"Load": "R",
+			"CycleAmmo": "F"
+		},
+		"GunRotation": {
+			"Left": "LeftArrow",
+			"Right": "RightArrow"
+		},
 		"Navigator": {
 			"Left": "A",
 			"Right": "D"
+		},
+		"RangeFinder": {
+			"Farther": "UpArrow",
+			"Closer": "DownArrow"
 		}
 	}
 }
