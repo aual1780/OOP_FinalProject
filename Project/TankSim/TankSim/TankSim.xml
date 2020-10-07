@@ -302,6 +302,11 @@
             Drive direction
             </summary>
         </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
         <member name="M:TankSim.OperatorCmds.DriverCmd.#ctor(TankSim.DriveDirection)">
             <summary>
             Create new instance
@@ -328,6 +333,11 @@
             Weapon type
             </summary>
         </member>
+        <member name="P:TankSim.OperatorCmds.FireControlCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
         <member name="M:TankSim.OperatorCmds.FireControlCmd.#ctor(TankSim.FireControlType)">
             <summary>
             Create new instance
@@ -352,6 +362,11 @@
         <member name="P:TankSim.OperatorCmds.GunLoaderCmd.LoaderType">
             <summary>
             Loader type
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunLoaderCmd.InitTime">
+            <summary>
+            Command creation time
             </summary>
         </member>
         <member name="M:TankSim.OperatorCmds.GunLoaderCmd.#ctor(TankSim.GunLoaderType)">
@@ -385,6 +400,11 @@
             Rotation direction
             </summary>
         </member>
+        <member name="P:TankSim.OperatorCmds.GunRotationCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
         <member name="M:TankSim.OperatorCmds.GunRotationCmd.#ctor(TankSim.RotationDirection)">
             <summary>
             Create new instance
@@ -416,6 +436,11 @@
             Rotation direction
             </summary>
         </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
         <member name="M:TankSim.OperatorCmds.NavigatorCmd.#ctor(TankSim.RotationDirection)">
             <summary>
             Create new instance
@@ -445,6 +470,11 @@
         <member name="P:TankSim.OperatorCmds.RangeFinderCmd.Direction">
             <summary>
             Range direction
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.RangeFinderCmd.InitTime">
+            <summary>
+            Command creation time
             </summary>
         </member>
         <member name="M:TankSim.OperatorCmds.RangeFinderCmd.#ctor(TankSim.RangeDirection)">

@@ -27,8 +27,11 @@ namespace TankSim.OperatorCmds
         /// </summary>
         public DriveDirection Direction { get; private set; }
 
+        /// <summary>
+        /// Command creation time
+        /// </summary>
         public DateTime InitTime { get; private set; } = HighResolutionDateTime.UtcNow;
-
+        
         /// <summary>
         /// Create new instance
         /// </summary>

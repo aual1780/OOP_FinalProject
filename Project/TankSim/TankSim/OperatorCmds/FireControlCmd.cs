@@ -1,4 +1,7 @@
-﻿namespace TankSim.OperatorCmds
+﻿using System;
+using TIPC.Core.Tools;
+
+namespace TankSim.OperatorCmds
 {
     /// <summary>
     /// Channel command - fire control operation
@@ -19,6 +22,11 @@
         /// Weapon type
         /// </summary>
         public FireControlType WeaponType { get; private set; }
+
+        /// <summary>
+        /// Command creation time
+        /// </summary>
+        public DateTime InitTime { get; private set; } = HighResolutionDateTime.UtcNow;
 
         /// <summary>
         /// Create new instance

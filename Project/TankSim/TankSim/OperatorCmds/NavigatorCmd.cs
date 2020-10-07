@@ -1,4 +1,7 @@
-﻿namespace TankSim.OperatorCmds
+﻿using System;
+using TIPC.Core.Tools;
+
+namespace TankSim.OperatorCmds
 {
     /// <summary>
     /// Channel command - navigator operation
@@ -23,6 +26,11 @@
         /// Rotation direction
         /// </summary>
         public RotationDirection Direction { get; private set; }
+
+        /// <summary>
+        /// Command creation time
+        /// </summary>
+        public DateTime InitTime { get; private set; } = HighResolutionDateTime.UtcNow;
 
         /// <summary>
         /// Create new instance

@@ -76,12 +76,12 @@ namespace TankSim.GameHost.CLI
                 Console.WriteLine("Game Started.");
 
                 using var cmdFacade = appScope.ServiceProvider.GetRequiredService<OperatorCmdFacade>();
-                cmdFacade.DriverCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Drive.{e.Direction} ({(HighResolutionDateTime.UtcNow - e.InitTime).TotalMilliseconds})");
-                cmdFacade.FireControlCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Fire.{e.WeaponType}");
-                cmdFacade.GunLoaderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Loader.{e.LoaderType}");
-                cmdFacade.GunRotationCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: GunRot.{e.Direction}");
-                cmdFacade.NavigatorCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Nav.{e.Direction}");
-                cmdFacade.RangeFinderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Range.{e.Direction}");
+                cmdFacade.DriverCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Drive.{e.Direction} ({e.InitTime.GetTimeDiff()} ms)");
+                cmdFacade.FireControlCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Fire.{e.WeaponType} ({e.InitTime.GetTimeDiff()} ms)");
+                cmdFacade.GunLoaderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Loader.{e.LoaderType} ({e.InitTime.GetTimeDiff()} ms)");
+                cmdFacade.GunRotationCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: GunRot.{e.Direction} ({e.InitTime.GetTimeDiff()} ms)");
+                cmdFacade.NavigatorCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Nav.{e.Direction} ({e.InitTime.GetTimeDiff()} ms)");
+                cmdFacade.RangeFinderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Range.{e.Direction} ({e.InitTime.GetTimeDiff()} ms)");
 
                 while (true)
                 {
