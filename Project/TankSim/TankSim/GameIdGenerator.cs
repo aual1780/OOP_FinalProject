@@ -38,6 +38,8 @@ namespace TankSim
         /// <returns></returns>
         public static bool Validate(string GameID)
         {
+            if (GameID is null)
+                return false;
             return GameID.RgxIsMatch($@"^[0-9]{{{_keyLength}}}$");
         }
 

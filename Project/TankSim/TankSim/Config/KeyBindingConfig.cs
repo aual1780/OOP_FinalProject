@@ -1,6 +1,5 @@
 ﻿namespace TankSim.Config
 {
-    //TODO
     /// <summary>
     /// Key binding configuration
     /// </summary>

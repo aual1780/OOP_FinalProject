@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TankSim.Client.GUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <DockPanel LastChildFill="True">
+        <ContentControl Content="{Binding FrameContent}" ></ContentControl>
+    </DockPanel>
 </Window>

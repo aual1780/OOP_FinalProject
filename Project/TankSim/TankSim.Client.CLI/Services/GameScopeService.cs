@@ -10,13 +10,11 @@ namespace TankSim.Client.CLI.Services
     public class GameScopeService : IGameScopeService
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly GameIdService _idService;
         private readonly TimeSpan _connectionTimeout = TimeSpan.FromSeconds(3);
 
-        public GameScopeService(IServiceProvider ServiceProvider, GameIdService IdService)
+        public GameScopeService(IServiceProvider ServiceProvider)
         {
             _serviceProvider = ServiceProvider;
-            _idService = IdService;
         }
 
 
@@ -33,10 +31,11 @@ namespace TankSim.Client.CLI.Services
                     continue;
                 }
 
-                _idService.GameID = gameID;
 
 
                 var scope = _serviceProvider.CreateScope();
+                var idService = scope.ServiceProvider.GetRequiredService<GameIdService>();
+                idService.GameID = gameID;
                 var ardClient = scope.ServiceProvider.GetRequiredService<IArdNetClient>();
 
                 using (var tokenSrc = new CancellationTokenSource(_connectionTimeout))
@@ -56,7 +55,7 @@ namespace TankSim.Client.CLI.Services
                             Console.Write("Cannot connect to the target host. ");
                         }
                     }
-                    catch(OperationCanceledException)
+                    catch (OperationCanceledException)
                     {
                         //noop
                         //continue search

@@ -15,7 +15,6 @@ namespace TankSim.Client.CLI.OperatorModules
 
         public IOperatorModuleCollection GetModuleCollection(OperatorRoles Roles)
         {
-            //TODO: add all modules
             var collection = new OperatorModuleCollection();
             if((Roles & OperatorRoles.Driver) != 0)
             {

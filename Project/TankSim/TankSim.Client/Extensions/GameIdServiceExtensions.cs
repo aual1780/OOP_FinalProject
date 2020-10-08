@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddGameIDService(this IServiceCollection services)
         {
-            _ = services.AddSingleton<GameIdService>();
+            _ = services.AddScoped<GameIdService>();
             return services;
         }
     }
