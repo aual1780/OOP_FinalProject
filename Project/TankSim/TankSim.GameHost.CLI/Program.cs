@@ -46,6 +46,7 @@ namespace TankSim.GameHost.CLI
                 Console.Write("How many players? ");
             } while (!int.TryParse(Console.ReadLine(), out playerCount) || !playerCountRange.Contains(playerCount));
             var roleSets = OperatorRoleSets.GetDistributionSets(playerCount);
+            var roleLock = new object();
 
         GameStart:
             //application scope
@@ -58,18 +59,24 @@ namespace TankSim.GameHost.CLI
                 var gameID = server.NetConfig.UDP.AppID.Split('.')[^1];
                 Console.WriteLine($"Game ID: {gameID}");
 
-                server.TcpQueryReceived += (sender, e) =>
-                {
-                    if (e.Request == Constants.Queries.ControllerInit.GetOperatorRoles)
+                server.TcpCommandRequestProcessor.RegisterProcessor(
+                    Constants.Commands.ControllerInit.SetClientName,
+                    (sender, request) =>
                     {
-                        lock (randRoleSets)
+                        Console.WriteLine($"Hi {request.RequestArg.RequestArgs[0]} ({request.RequestArg.Endpoint})");
+                    });
+
+                server.TcpQueryRequestProcessor.RegisterProcessor(
+                    Constants.Queries.ControllerInit.GetOperatorRoles,
+                    (sender, request) =>
+                    {
+                        lock (roleLock)
                         {
                             var roleSet = randRoleSets.Pop();
-                            server.SendTcpQueryResponse(e, roleSet.ToString());
+                            request.Respond(roleSet.ToString());
                         }
                         _ = playerWaiter.Signal();
-                    }
-                };
+                    });
 
                 //wait for all players to join
                 playerWaiter.Wait();

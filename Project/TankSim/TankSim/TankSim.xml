@@ -189,6 +189,21 @@
             Get operator roles for a controller
             </summary>
         </member>
+        <member name="T:TankSim.Constants.Commands">
+            <summary>
+            System commmand strings
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.Commands.ControllerInit">
+            <summary>
+            Get commands relevant to controller startup
+            </summary>
+        </member>
+        <member name="F:TankSim.Constants.Commands.ControllerInit.SetClientName">
+            <summary>
+            Set client name
+            </summary>
+        </member>
         <member name="T:TankSim.DriveDirection">
             <summary>
             Front/Back direction.  Used for driving and range finding

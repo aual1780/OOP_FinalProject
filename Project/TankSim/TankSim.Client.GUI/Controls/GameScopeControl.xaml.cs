@@ -1,10 +1,8 @@
 ﻿using ArdNet.Client;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TankSim.Client.GUI.ViewModels;
@@ -22,10 +20,16 @@ namespace TankSim.Client.GUI.Controls
 
         public GameScopeControl(IServiceProvider ServiceProvider, GameScopeControlVM vm)
         {
+            this.Initialized += GameScopeControl_Initialized;
             _sp = ServiceProvider;
             _vm = vm;
             this.DataContext = _vm;
             InitializeComponent();
+        }
+
+        private async void GameScopeControl_Initialized(object sender, EventArgs e)
+        {
+            await _vm.InitializeAsync();
         }
 
         private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)

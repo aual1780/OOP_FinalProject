@@ -60,6 +60,25 @@
             }
         }
 
+        /// <summary>
+        /// System commmand strings
+        /// </summary>
+        public static class Commands
+        {
+            /// <summary>
+            /// Get commands relevant to controller startup
+            /// </summary>
+            public static class ControllerInit
+            {
+                /// <summary>
+                /// Set client name
+                /// </summary>
+                public static string SetClientName = "Command.ClientInfo.SetName";
+            }
+        }
+
+
+
 
     }
 }

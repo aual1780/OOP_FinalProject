@@ -49,9 +49,9 @@ namespace TankSim.Client.GUI
             //setup game services
             _ = services
                 .AddGameIDService();
-                //.AddGameScopeService()
-                //.AddScoped<OperatorModuleFactory>()
-                //.AddControllerExecService();
+            //.AddGameScopeService()
+            //.AddScoped<OperatorModuleFactory>()
+            //.AddControllerExecService();
             //setup ArdNet
             _ = services
                 .AddMessageHubSingleton()
@@ -65,7 +65,13 @@ namespace TankSim.Client.GUI
                 .AddTransient<MainWindow>()
                 .AddTransient<MainWindowVM>()
                 .AddTransient<GameScopeControl>()
-                .AddTransient<GameScopeControlVM>();
+                .AddTransient<GameScopeControlVM>()
+                .AddTransient<ClientNameControl>()
+                .AddTransient<ClientNameControlVM>()
+                .AddTransient<OperatorModuleControl>()
+                .AddTransient<OperatorModuleControlVM>()
+            ;
+
         }
     }
 }

@@ -1,10 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Text;
 using System.Threading.Tasks;
-using TankSim.Client.Services;
 using TIPC.Core.ComponentModel;
 
 namespace TankSim.Client.GUI.ViewModels
