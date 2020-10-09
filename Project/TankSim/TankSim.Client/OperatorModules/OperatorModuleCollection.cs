@@ -1,18 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using TankSim.Client.OperatorModules;
+using TIPC.Core.Tools.Extensions.IEnumerable;
 
-namespace TankSim.Client.CLI.OperatorModules
+namespace TankSim.Client.OperatorModules
 {
+    /// <summary>
+    /// Operator module collection
+    /// </summary>
     public class OperatorModuleCollection : IOperatorModuleCollection
     {
         private readonly List<IOperatorModule> _modules = new List<IOperatorModule>();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public OperatorModuleCollection()
         {
 
         }
 
+        /// <summary>
+        /// Add new operator module
+        /// </summary>
+        /// <param name="Module"></param>
         public void AddModule(IOperatorModule Module)
         {
             if (Module is null)
@@ -23,6 +34,11 @@ namespace TankSim.Client.CLI.OperatorModules
             _modules.Add(Module);
         }
 
+        /// <summary>
+        /// Send input to all managed modules.
+        /// Propagation stops after the input command is handled
+        /// </summary>
+        /// <param name="Input"></param>
         public void SendInput(IOperatorInputMsg Input)
         {
             foreach (var module in _modules)
@@ -35,20 +51,12 @@ namespace TankSim.Client.CLI.OperatorModules
             }
         }
 
+        /// <summary>
+        /// Dispose all operator modules
+        /// </summary>
         public void Dispose()
         {
-            foreach (var module in _modules)
-            {
-                try
-                {
-                    module.Dispose();
-                }
-                catch
-                {
-                    //noop
-                }
-
-            }
+            _modules.DisposeAll();
         }
     }
 }

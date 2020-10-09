@@ -15,7 +15,7 @@ namespace TankSim.Client.CLI.Services
         readonly IArdNetClient _ardClient;
         readonly OperatorModuleFactory _operatorFactory;
 
-        public ControllerExecService(IArdNetClient ArdClient, OperatorModuleFactory OperatorFactory)
+        public ControllerExecService(IArdNetClient ArdClient, IOperatorModuleFactory OperatorFactory)
         {
             if (ArdClient is null)
             {

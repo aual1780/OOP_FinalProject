@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using TankSim.Client.CLI.OperatorModules;
 using TankSim.Client.CLI.Services;
+using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
 namespace TankSim.Client.CLI
@@ -14,7 +15,7 @@ namespace TankSim.Client.CLI
 
         static async Task<int> Main()
         {
-            var configBuilder = 
+            var configBuilder =
                 new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("config.json", optional: false, reloadOnChange: true);
@@ -52,7 +53,7 @@ namespace TankSim.Client.CLI
             _ = services
                 .AddGameIDService()
                 .AddGameScopeService()
-                .AddScoped<OperatorModuleFactory>()
+                .AddScoped<IOperatorModuleFactory, OperatorModuleFactory>()
                 .AddControllerExecService();
             //setup ArdNet
             _ = services

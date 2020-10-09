@@ -17,6 +17,7 @@ namespace TankSim.Client.GUI.Controls
         public ClientNameControl(ClientNameControlVM vm)
         {
             this.Initialized += ClientNameControl_Initialized;
+            this.Loaded += ClientNameControl_Loaded;
             _vm = vm;
             this.DataContext = _vm;
             InitializeComponent();
@@ -25,6 +26,11 @@ namespace TankSim.Client.GUI.Controls
         private async void ClientNameControl_Initialized(object sender, EventArgs e)
         {
             await _vm.InitializeAsync();
+        }
+
+        private void ClientNameControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            txt_Username.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,6 +44,15 @@ namespace TankSim.Client.GUI.Controls
         public Task SendClientNameAsync()
         {
             return _vm.NameTaskSource.Task;
+        }
+
+        private void txt_Username_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                Button_Click(null, null);
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using TankSim.Client.OperatorModules;
 
-namespace TankSim.Client.CLI.OperatorModules
+namespace TankSim.Client.GUI.OperatorModules
 {
     public class OperatorModuleFactory : IOperatorModuleFactory
     {
@@ -18,27 +18,27 @@ namespace TankSim.Client.CLI.OperatorModules
             var collection = new OperatorModuleCollection();
             if ((Roles & OperatorRoles.Driver) != 0)
             {
-                collection.AddModule(ActivatorUtilities.CreateInstance<CliDriver>(_serviceProvider));
+                collection.AddModule(ActivatorUtilities.CreateInstance<GuiDriver>(_serviceProvider));
             }
             if ((Roles & OperatorRoles.FireControl) != 0)
             {
-                collection.AddModule(ActivatorUtilities.CreateInstance<CliFireControl>(_serviceProvider));
+                collection.AddModule(ActivatorUtilities.CreateInstance<GuiFireControl>(_serviceProvider));
             }
             if ((Roles & OperatorRoles.GunLoader) != 0)
             {
-                collection.AddModule(ActivatorUtilities.CreateInstance<CliGunLoader>(_serviceProvider));
+                collection.AddModule(ActivatorUtilities.CreateInstance<GuiGunLoader>(_serviceProvider));
             }
             if ((Roles & OperatorRoles.GunRotation) != 0)
             {
-                collection.AddModule(ActivatorUtilities.CreateInstance<CliGunRotation>(_serviceProvider));
+                collection.AddModule(ActivatorUtilities.CreateInstance<GuiGunRotation>(_serviceProvider));
             }
             if ((Roles & OperatorRoles.Navigator) != 0)
             {
-                collection.AddModule(ActivatorUtilities.CreateInstance<CliNavigator>(_serviceProvider));
+                collection.AddModule(ActivatorUtilities.CreateInstance<GuiNavigator>(_serviceProvider));
             }
             if ((Roles & OperatorRoles.RangeFinder) != 0)
             {
-                collection.AddModule(ActivatorUtilities.CreateInstance<CliRangeFinder>(_serviceProvider));
+                collection.AddModule(ActivatorUtilities.CreateInstance<GuiRangeFinder>(_serviceProvider));
             }
             return collection;
         }

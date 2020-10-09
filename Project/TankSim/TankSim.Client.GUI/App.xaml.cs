@@ -3,7 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using TankSim.Client.GUI.Controls;
+using TankSim.Client.GUI.OperatorModules;
 using TankSim.Client.GUI.ViewModels;
+using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
 namespace TankSim.Client.GUI
@@ -48,10 +50,8 @@ namespace TankSim.Client.GUI
                 .AddKeyBindings(config.GetSection(nameof(KeyBindingConfig)));
             //setup game services
             _ = services
-                .AddGameIDService();
-            //.AddGameScopeService()
-            //.AddScoped<OperatorModuleFactory>()
-            //.AddControllerExecService();
+                .AddGameIDService()
+                .AddScoped<IOperatorModuleFactory, OperatorModuleFactory>();
             //setup ArdNet
             _ = services
                 .AddMessageHubSingleton()

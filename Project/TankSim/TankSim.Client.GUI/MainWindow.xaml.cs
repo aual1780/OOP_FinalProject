@@ -13,6 +13,7 @@ namespace TankSim.Client.GUI
     {
         readonly IServiceProvider _sp;
         readonly MainWindowVM _vm;
+        IServiceScope _scope;
 
         public MainWindow(IServiceProvider ServiceProvider, MainWindowVM vm)
         {
@@ -37,21 +38,20 @@ namespace TankSim.Client.GUI
             //build ardClient
             var gameScopeCtrl = _sp.GetRequiredService<GameScopeControl>();
             _vm.FrameContent = gameScopeCtrl;
-            using var scope = await gameScopeCtrl.GetGameScopeAsync();
+            _scope = await gameScopeCtrl.GetGameScopeAsync();
             //get username
-            var clientNameCtrl = scope.ServiceProvider.GetRequiredService<ClientNameControl>();
+            var clientNameCtrl = _scope.ServiceProvider.GetRequiredService<ClientNameControl>();
             _vm.FrameContent = clientNameCtrl;
             await clientNameCtrl.SendClientNameAsync();
             //load operator module frame
-            var opModuleCtrl = scope.ServiceProvider.GetRequiredService<OperatorModuleControl>();
+            var opModuleCtrl = _scope.ServiceProvider.GetRequiredService<OperatorModuleControl>();
             _vm.FrameContent = opModuleCtrl;
-            await opModuleCtrl.ControllerExecAsync();
         }
 
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            _scope?.Dispose();
         }
     }
 }

@@ -258,6 +258,61 @@
             <param name="Roles"></param>
             <returns></returns>
         </member>
+        <member name="T:TankSim.Client.OperatorModules.OperatorInputMsg">
+            <summary>
+            Operator input message
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputMsg.IsHandled">
+            <summary>
+            Flag switch to determine if a handler has reacted to this message
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputMsg.KeyInfo">
+            <summary>
+            Key data
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputMsg.InputType">
+            <summary>
+            UI key input action
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputMsg.#ctor(System.ConsoleKeyInfo,TankSim.KeyInputType)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="KeyInfo">Key info from input</param>
+            <param name="InputType">Input action</param>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.OperatorModuleCollection">
+            <summary>
+            Operator module collection
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.AddModule(TankSim.Client.OperatorModules.IOperatorModule)">
+            <summary>
+            Add new operator module
+            </summary>
+            <param name="Module"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.SendInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
+            <summary>
+            Send input to all managed modules.
+            Propagation stops after the input command is handled
+            </summary>
+            <param name="Input"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.Dispose">
+            <summary>
+            Dispose all operator modules
+            </summary>
+        </member>
         <member name="T:TankSim.Client.Services.GameIdService">
             <summary>
             Class to set/modify game ID for ardNet connector

@@ -21,10 +21,11 @@
         <StackPanel Grid.Column="1" Grid.Row="1">
             <Label Content="Game ID" />
             <TextBox 
+                Name="txt_GameID"
                 Text="{Binding GameID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 IsEnabled="{Binding IsUIEnabled}"
-                
-                HorizontalAlignment="Center" Width="120" FontSize="14pt"/>
+                HorizontalAlignment="Center" Width="120" FontSize="14pt"
+                KeyDown="txt_GameID_KeyDown"/>
             <Label Content="{Binding StatusMsg}" />
         </StackPanel>
 

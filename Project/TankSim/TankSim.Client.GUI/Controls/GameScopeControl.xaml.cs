@@ -21,6 +21,7 @@ namespace TankSim.Client.GUI.Controls
         public GameScopeControl(IServiceProvider ServiceProvider, GameScopeControlVM vm)
         {
             this.Initialized += GameScopeControl_Initialized;
+            this.Loaded += GameScopeControl_Loaded;
             _sp = ServiceProvider;
             _vm = vm;
             this.DataContext = _vm;
@@ -30,6 +31,11 @@ namespace TankSim.Client.GUI.Controls
         private async void GameScopeControl_Initialized(object sender, EventArgs e)
         {
             await _vm.InitializeAsync();
+        }
+
+        private void GameScopeControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            txt_GameID.Focus();
         }
 
         private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -112,6 +118,15 @@ namespace TankSim.Client.GUI.Controls
         public Task<IServiceScope> GetGameScopeAsync()
         {
             return _vm.IdTaskSource.Task;
+        }
+
+        private void txt_GameID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                Button_Click(null, null);
+            }
         }
     }
 }
