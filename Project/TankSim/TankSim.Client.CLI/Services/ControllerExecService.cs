@@ -13,7 +13,7 @@ namespace TankSim.Client.CLI.Services
     {
         IOperatorModuleCollection _opCollection;
         readonly IArdNetClient _ardClient;
-        readonly OperatorModuleFactory _operatorFactory;
+        readonly IOperatorModuleFactory _operatorFactory;
 
         public ControllerExecService(IArdNetClient ArdClient, IOperatorModuleFactory OperatorFactory)
         {
