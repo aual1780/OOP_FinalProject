@@ -1,6 +1,9 @@
 ﻿using ArdNet.Client;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using TIPC.Core.ComponentModel;
+using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.Client.GUI.ViewModels
 {
@@ -18,9 +21,11 @@ namespace TankSim.Client.GUI.ViewModels
             get => _username;
             set
             {
-                if (value.Length < _maxNameLength)
+                var procVal = value.Trim();
+                var trueLen = procVal.GraphemeClusters().Count();
+                if (trueLen <= _maxNameLength)
                 {
-                    _ = SetField(ref _username, value);
+                    _ = SetField(ref _username, procVal);
                 }
             }
         }

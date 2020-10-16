@@ -23,7 +23,7 @@
                 Name="txt_Username"
                 Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 IsEnabled="{Binding IsUIEnabled}"
-                HorizontalAlignment="Center" Width="200" FontSize="14pt"
+                HorizontalAlignment="Center" Width="220" FontSize="14pt"
                 KeyDown="txt_Username_KeyDown"/>
             <Label Content="{Binding StatusMsg}" />
         </StackPanel>
