@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.GUI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.GunLoader)]
     public sealed class GuiGunLoader : GuiModuleBase
     {
         private readonly GunLoaderDelegate _cmdDelegate;

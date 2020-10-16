@@ -4,6 +4,23 @@
         <name>TankSim</name>
     </assembly>
     <members>
+        <member name="T:TankSim.OperatorRoleAttribute">
+            <summary>
+            Attribute to define operator role mappings for operator modules.
+            Used for dynamic factory loading
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorRoleAttribute.OpRoles">
+            <summary>
+            Associated perator roles
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorRoleAttribute.#ctor(TankSim.OperatorRoles)">
+            <summary>
+            Create isntance
+            </summary>
+            <param name="OpRoles"></param>
+        </member>
         <member name="T:TankSim.Config.KeyBindingConfig">
             <summary>
             Key binding configuration

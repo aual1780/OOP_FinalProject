@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
-using TankSim.Client.CLI.OperatorModules;
 using TankSim.Client.CLI.Services;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;

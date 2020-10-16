@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.RangeFinder)]
     public sealed class CliRangeFinder : CliModuleBase
     {
         readonly RangeFinderDelegate _ardDelegate;

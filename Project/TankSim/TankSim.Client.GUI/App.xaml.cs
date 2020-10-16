@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using TankSim.Client.GUI.Controls;
-using TankSim.Client.GUI.OperatorModules;
 using TankSim.Client.GUI.ViewModels;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;

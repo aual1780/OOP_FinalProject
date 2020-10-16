@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.GUI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.RangeFinder)]
     public sealed class GuiRangeFinder : GuiModuleBase
     {
         private readonly RangeFinderDelegate _cmdDelegate;

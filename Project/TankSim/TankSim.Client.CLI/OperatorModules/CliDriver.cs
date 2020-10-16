@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.Driver)]
     public sealed class CliDriver : CliModuleBase
     {
         readonly DriverDelegate _ardDelegate;

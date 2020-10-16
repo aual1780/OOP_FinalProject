@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.GUI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.GunRotation)]
     public sealed class GuiGunRotation : GuiModuleBase
     {
         private readonly GunRotationDelegate _cmdDelegate;

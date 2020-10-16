@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.GUI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.Driver)]
     public sealed class GuiDriver : GuiModuleBase
     {
         private readonly DriverDelegate _cmdDelegate;

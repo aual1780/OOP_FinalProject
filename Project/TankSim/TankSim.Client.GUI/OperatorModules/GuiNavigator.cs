@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.GUI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.Navigator)]
     public sealed class GuiNavigator : GuiModuleBase
     {
         private readonly NavigatorDelegate _cmdDelegate;

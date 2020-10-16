@@ -35,6 +35,25 @@ namespace TankSim.Client.OperatorModules
         }
 
         /// <summary>
+        /// Add new operator module
+        /// </summary>
+        /// <param name="Modules"></param>
+        public void AddModules(IEnumerable<IOperatorModule> Modules)
+        {
+            if (Modules is null)
+            {
+                throw new ArgumentNullException(nameof(Modules));
+            }
+            foreach (var mod in Modules)
+            {
+                if (mod != null)
+                {
+                    _modules.Add(mod);
+                }
+            }
+        }
+
+        /// <summary>
         /// Send input to all managed modules.
         /// Propagation stops after the input command is handled
         /// </summary>

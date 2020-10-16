@@ -301,6 +301,12 @@
             </summary>
             <param name="Module"></param>
         </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.AddModules(System.Collections.Generic.IEnumerable{TankSim.Client.OperatorModules.IOperatorModule})">
+            <summary>
+            Add new operator module
+            </summary>
+            <param name="Modules"></param>
+        </member>
         <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.SendInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
             <summary>
             Send input to all managed modules.

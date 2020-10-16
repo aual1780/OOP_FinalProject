@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.GUI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.FireControl)]
     public sealed class GuiFireControl : GuiModuleBase
     {
         private readonly FireControlDelegate _cmdDelegate;

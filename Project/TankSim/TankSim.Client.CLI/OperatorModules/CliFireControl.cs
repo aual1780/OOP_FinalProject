@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.FireControl)]
     public sealed class CliFireControl : CliModuleBase
     {
         readonly FireControlDelegate _ardDelegate;

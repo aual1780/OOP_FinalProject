@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.Navigator)]
     public sealed class CliNavigator : CliModuleBase
     {
         readonly NavigatorDelegate _ardDelegate;

@@ -7,6 +7,7 @@ using TankSim.Config;
 
 namespace TankSim.Client.CLI.OperatorModules
 {
+    [OperatorRole(OperatorRoles.GunLoader)]
     public sealed class CliGunLoader : CliModuleBase
     {
         readonly GunLoaderDelegate _ardDelegate;
