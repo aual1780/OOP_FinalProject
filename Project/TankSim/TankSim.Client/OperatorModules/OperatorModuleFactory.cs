@@ -86,7 +86,7 @@ namespace TankSim.Client.OperatorModules
                 .Where(role => (Roles & role) != 0)
                 .SelectMany(r => _roleMap[r])
                 .Where(x => !(x is null))
-                .Select(x => ActivatorUtilities.CreateInstance(_serviceProvider, x))
+                .Select(x => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, x))
                 .OfType<IOperatorModule>();
 
             collection.AddModules(qry);
