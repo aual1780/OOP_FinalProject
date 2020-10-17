@@ -8,7 +8,7 @@ using TankSim.Config;
 namespace TankSim.Client.GUI.OperatorModules
 {
     [OperatorRole(OperatorRoles.Navigator)]
-    public sealed class GuiNavigator : GuiModuleBase
+    public sealed class GuiNavigator : OperatorModuleBase
     {
         private readonly NavigatorDelegate _cmdDelegate;
         private readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;

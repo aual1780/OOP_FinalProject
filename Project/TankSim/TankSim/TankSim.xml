@@ -556,6 +556,11 @@
             Gun loader.  Load the gun and change ammo type
             </summary>
         </member>
+        <member name="F:TankSim.OperatorRoles.All">
+            <summary>
+            Trigger all possible operator flags
+            </summary>
+        </member>
         <member name="T:TankSim.OperatorRoleSets">
             <summary>
             These are the distribution sets that roles will be divided into given n game players

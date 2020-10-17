@@ -1,15 +1,26 @@
 ﻿using System;
-using TankSim.Client.OperatorModules;
+using System.Collections.Generic;
+using System.Text;
 
-namespace TankSim.Client.GUI.OperatorModules
+namespace TankSim.Client.OperatorModules
 {
     /// <summary>
-    /// 
+    /// Shared base for operator modules
     /// </summary>
-    public abstract class GuiModuleBase : IOperatorModule
+    public abstract class OperatorModuleBase : IOperatorModule
     {
+        /// <summary>
+        /// Handle input key sequence
+        /// </summary>
+        /// <param name="Input"></param>
         public abstract void HandleInput(IOperatorInputMsg Input);
 
+        /// <summary>
+        /// Validate input keycode against target key sequence
+        /// </summary>
+        /// <param name="Input"></param>
+        /// <param name="TargetInput"></param>
+        /// <returns></returns>
         public bool ValidateKeyPress(IOperatorInputMsg Input, string TargetInput)
         {
             var eq1 = string.Equals(TargetInput, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase);
@@ -18,6 +29,9 @@ namespace TankSim.Client.GUI.OperatorModules
             return eq3;
         }
 
+        /// <summary>
+        /// Dispose
+        /// </summary>
         public abstract void Dispose();
     }
 }

@@ -37,6 +37,9 @@ namespace TankSim
         /// Gun loader.  Load the gun and change ammo type
         /// </summary>
         GunLoader = 1 << 5,
-
+        /// <summary>
+        /// Trigger all possible operator flags
+        /// </summary>
+        All = -1
     }
 }

@@ -8,7 +8,7 @@ using TankSim.Config;
 namespace TankSim.Client.CLI.OperatorModules
 {
     [OperatorRole(OperatorRoles.Driver)]
-    public sealed class CliDriver : CliModuleBase
+    public sealed class CliDriver : OperatorModuleBase
     {
         readonly DriverDelegate _ardDelegate;
         readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;

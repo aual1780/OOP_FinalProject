@@ -8,7 +8,7 @@ using TankSim.Config;
 namespace TankSim.Client.CLI.OperatorModules
 {
     [OperatorRole(OperatorRoles.FireControl)]
-    public sealed class CliFireControl : CliModuleBase
+    public sealed class CliFireControl : OperatorModuleBase
     {
         readonly FireControlDelegate _ardDelegate;
         readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;

@@ -8,7 +8,7 @@ using TankSim.Config;
 namespace TankSim.Client.CLI.OperatorModules
 {
     [OperatorRole(OperatorRoles.GunRotation)]
-    public sealed class CliGunRotation : CliModuleBase
+    public sealed class CliGunRotation : OperatorModuleBase
     {
         readonly GunRotationDelegate _ardDelegate;
         readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;

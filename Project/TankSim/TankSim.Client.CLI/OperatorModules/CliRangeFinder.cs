@@ -8,7 +8,7 @@ using TankSim.Config;
 namespace TankSim.Client.CLI.OperatorModules
 {
     [OperatorRole(OperatorRoles.RangeFinder)]
-    public sealed class CliRangeFinder : CliModuleBase
+    public sealed class CliRangeFinder : OperatorModuleBase
     {
         readonly RangeFinderDelegate _ardDelegate;
         readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;

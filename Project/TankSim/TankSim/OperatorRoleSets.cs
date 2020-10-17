@@ -22,9 +22,7 @@ namespace TankSim
                 case 1:
                     return new OperatorRoles[]
                     {
-                        OperatorRoles.Driver | OperatorRoles.Navigator
-                        | OperatorRoles.GunRotation | OperatorRoles.RangeFinder
-                        | OperatorRoles.FireControl | OperatorRoles.GunLoader
+                        OperatorRoles.All
                     };
                 case 2:
                     return new OperatorRoles[]
