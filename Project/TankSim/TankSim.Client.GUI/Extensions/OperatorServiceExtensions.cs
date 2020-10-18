@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TankSim.Client.GUI.OperatorModules;
+using TankSim.Client.OperatorModules;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -11,8 +12,8 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             _ = services
                 .AddTransient<GuiDriver>()
-                .AddTransient<GuiFireControl>()
-                .AddTransient<GuiGunLoader>()
+                .AddTransient<FireControlModule>()
+                .AddTransient<GunLoaderModule>()
                 .AddTransient<GuiGunRotation>()
                 .AddTransient<GuiNavigator>()
                 .AddTransient<GuiRangeFinder>()

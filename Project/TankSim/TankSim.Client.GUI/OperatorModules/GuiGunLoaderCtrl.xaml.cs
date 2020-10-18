@@ -15,12 +15,12 @@ using TankSim.Client.OperatorModules;
 namespace TankSim.Client.GUI.OperatorModules
 {
     /// <summary>
-    /// Interaction logic for GuiDriverCtrl.xaml
+    /// Interaction logic for GuiGunLoaderCtrl.xaml
     /// </summary>
-    [OperatorRole(OperatorRoles.Driver)]
-    public partial class GuiDriverCtrl : UserControl, IOperatorModule
+    [OperatorRole(OperatorRoles.FireControl)]
+    public partial class GuiGunLoaderCtrl : UserControl, IOperatorModule
     {
-        public GuiDriverCtrl()
+        public GuiGunLoaderCtrl()
         {
             InitializeComponent();
         }

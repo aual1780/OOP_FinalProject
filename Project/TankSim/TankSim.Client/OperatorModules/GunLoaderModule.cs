@@ -5,15 +5,15 @@ using TankSim.Client.OperatorDelegates;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
-namespace TankSim.Client.GUI.OperatorModules
+namespace TankSim.Client.OperatorModules
 {
     [OperatorRole(OperatorRoles.GunLoader)]
-    public sealed class GuiGunLoader : OperatorModuleBase
+    public sealed class GunLoaderModule : OperatorModuleBase
     {
         private readonly GunLoaderDelegate _cmdDelegate;
         private readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
 
-        public GuiGunLoader(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public GunLoaderModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {

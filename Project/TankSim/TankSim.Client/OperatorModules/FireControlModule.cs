@@ -5,52 +5,51 @@ using TankSim.Client.OperatorDelegates;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
-namespace TankSim.Client.CLI.OperatorModules
+namespace TankSim.Client.OperatorModules
 {
     [OperatorRole(OperatorRoles.FireControl)]
-    public sealed class CliFireControl : OperatorModuleBase
+    public sealed class FireControlModule : OperatorModuleBase
     {
-        readonly FireControlDelegate _ardDelegate;
-        readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
+        private readonly FireControlDelegate _cmdDelegate;
+        private readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
 
-        public CliFireControl(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public FireControlModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
                 throw new ArgumentNullException(nameof(ArdClient));
             }
-
             if (KeyBinding is null)
             {
                 throw new ArgumentNullException(nameof(KeyBinding));
             }
-
-            _ardDelegate = new FireControlDelegate(ArdClient);
             _keyBinding = KeyBinding;
+            _cmdDelegate = new FireControlDelegate(ArdClient);
         }
-
 
         public override void HandleInput(IOperatorInputMsg Input)
         {
+            if (Input.InputType == KeyInputType.KeyUp)
+                return;
+
             var keyConfig = _keyBinding.CurrentValue.FireControl;
-            //primary
+            //fire primary
             if (ValidateKeyPress(Input, keyConfig.Primary))
             {
-                _ardDelegate.FirePrimary();
+                _cmdDelegate.FirePrimary();
                 Input.IsHandled = true;
             }
-            //secondary
-            if (ValidateKeyPress(Input, keyConfig.Secondary))
+            //fire secondary
+            else if (ValidateKeyPress(Input, keyConfig.Secondary))
             {
-                _ardDelegate.FireSecondary();
+                _cmdDelegate.FireSecondary();
                 Input.IsHandled = true;
             }
         }
 
-
         public override void Dispose()
         {
-            _ardDelegate.Dispose();
+            _cmdDelegate.Dispose();
         }
     }
 }
