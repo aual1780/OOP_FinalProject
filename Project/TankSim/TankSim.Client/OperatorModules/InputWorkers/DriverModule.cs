@@ -4,6 +4,7 @@ using System;
 using TankSim.Client.OperatorDelegates;
 using TankSim.Config;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 namespace TankSim.Client.OperatorModules
 {
     [OperatorRole(OperatorRoles.Driver)]
@@ -102,3 +103,4 @@ namespace TankSim.Client.OperatorModules
         }
     }
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
