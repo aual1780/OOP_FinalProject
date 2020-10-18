@@ -5,16 +5,16 @@ using TankSim.Client.OperatorDelegates;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
-namespace TankSim.Client.GUI.OperatorModules
+namespace TankSim.Client.OperatorModules
 {
     [OperatorRole(OperatorRoles.Driver)]
-    public sealed class GuiDriver : OperatorModuleBase
+    public sealed class DriverModule : OperatorModuleBase
     {
         private readonly DriverDelegate _cmdDelegate;
         private readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
         private DriveDirection _currDirection = DriveDirection.Stop;
 
-        public GuiDriver(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public DriverModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
@@ -34,7 +34,20 @@ namespace TankSim.Client.GUI.OperatorModules
             //forward
             if (ValidateKeyPress(Input, keyConfig.Forward))
             {
-                if (Input.InputType == KeyInputType.KeyDown)
+                if (Input.InputType == KeyInputType.KeyPress)
+                {
+                    if (_currDirection == DriveDirection.Forward)
+                    {
+                        _currDirection = DriveDirection.Stop;
+                        _cmdDelegate.Stop();
+                    }
+                    else
+                    {
+                        _currDirection = DriveDirection.Forward;
+                        _cmdDelegate.DriveForward();
+                    }
+                }
+                else if (Input.InputType == KeyInputType.KeyDown)
                 {
                     _currDirection = DriveDirection.Forward;
                     _cmdDelegate.DriveForward();
@@ -53,7 +66,20 @@ namespace TankSim.Client.GUI.OperatorModules
             //back
             else if (ValidateKeyPress(Input, keyConfig.Backward))
             {
-                if (Input.InputType == KeyInputType.KeyDown)
+                if (Input.InputType == KeyInputType.KeyPress)
+                {
+                    if (_currDirection == DriveDirection.Backward)
+                    {
+                        _currDirection = DriveDirection.Stop;
+                        _cmdDelegate.Stop();
+                    }
+                    else
+                    {
+                        _currDirection = DriveDirection.Backward;
+                        _cmdDelegate.DriveBackward();
+                    }
+                }
+                else if (Input.InputType == KeyInputType.KeyDown)
                 {
                     _currDirection = DriveDirection.Backward;
                     _cmdDelegate.DriveBackward();

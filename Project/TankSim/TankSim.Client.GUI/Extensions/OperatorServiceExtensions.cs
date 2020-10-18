@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddOperatorModules(this IServiceCollection services)
         {
             _ = services
-                .AddTransient<GuiDriver>()
+                .AddTransient<DriverModule>()
                 .AddTransient<FireControlModule>()
                 .AddTransient<GunLoaderModule>()
                 .AddTransient<GuiGunRotation>()
