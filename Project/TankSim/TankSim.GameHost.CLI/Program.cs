@@ -31,6 +31,12 @@ namespace TankSim.GameHost.CLI
                 .AddIpResolver()
                 .AddArdNet(Configuration.GetSection("ArdNet"))
                 .AddServerScoped()
+                .AddConfigModifier((x, y) =>
+                {
+                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = false;
+                    y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
+                    y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromSeconds(1);
+                })
                 .AutoStart()
                 .AddTankSimConfig();
             _ = serviceCollection

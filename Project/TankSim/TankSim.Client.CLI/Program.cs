@@ -60,6 +60,12 @@ namespace TankSim.Client.CLI
                 .AddIpResolver()
                 .AddArdNet(config.GetSection("ArdNet"))
                 .AddClientScoped()
+                .AddConfigModifier((x, y) =>
+                {
+                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = false;
+                    y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
+                    y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromSeconds(1);
+                })
                 .AddTankSimConfig()
                 .AutoRestart();
         }
