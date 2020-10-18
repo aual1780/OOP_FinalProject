@@ -62,7 +62,7 @@ namespace TankSim.Client.GUI
                 {
                     y.TCP.HeartbeatConfig.ForceStrictHeartbeat = false;
                     y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
-                    var pingRate = config.GetValue<int>("ArdNet.PingRateMillis");
+                    var pingRate = config.GetValue<int>("ArdNet.PingRateMillis") + 50;
                     y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);
                 })
                 .AddTankSimConfig()

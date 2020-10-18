@@ -204,6 +204,33 @@
             Unhook topics
             </summary>
         </member>
+        <member name="T:TankSim.Client.OperatorDelegates.TankMovementCmdEventHandler">
+            <summary>
+            Callback delegate to handle movement commands
+            </summary>
+            <param name="Dir"></param>
+        </member>
+        <member name="T:TankSim.Client.OperatorDelegates.TankMovementDelegate">
+            <summary>
+            Delegate for tracking tank true movement direction
+            </summary>
+        </member>
+        <member name="E:TankSim.Client.OperatorDelegates.TankMovementDelegate.MovementChanged">
+            <summary>
+            Event triggered when movement direction is changed
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.TankMovementDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorDelegates.TankMovementDelegate.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
         <member name="T:TankSim.Client.OperatorModules.IOperatorInputMsg">
             <summary>
             Operator input message

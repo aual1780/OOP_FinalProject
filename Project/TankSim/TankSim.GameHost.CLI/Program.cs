@@ -35,7 +35,7 @@ namespace TankSim.GameHost.CLI
                 .AddServerScoped()
                 .AddConfigModifier((x, y) =>
                 {
-                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = false;
+                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = true;
                     y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
                     var pingRate = Configuration.GetValue<int>("ArdNet.PingRateMillis");
                     y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);

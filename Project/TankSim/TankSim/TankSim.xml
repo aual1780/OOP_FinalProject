@@ -309,6 +309,36 @@
             Key down event
             </summary>
         </member>
+        <member name="T:TankSim.MovementDirection">
+            <summary>
+            Actual tank movement direction accounting for both driver and navigator vectors
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.Stop">
+            <summary>
+            No movement
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.West">
+            <summary>
+            West vector applied
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.North">
+            <summary>
+            North vector applied
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.East">
+            <summary>
+            East vector applied
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.South">
+            <summary>
+            South vector applied
+            </summary>
+        </member>
         <member name="T:TankSim.OperatorCmds.DriverCmd">
             <summary>
             Channel command - driver operation

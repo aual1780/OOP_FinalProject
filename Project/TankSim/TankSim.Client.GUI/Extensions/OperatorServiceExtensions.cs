@@ -17,11 +17,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddTransient<GunRotationModule>()
                 .AddTransient<NavigatorModule>()
                 .AddTransient<RangeFinderModule>()
-                .AddTransient<GuiDriverCtrl>()
+                .AddTransient<GuiDriver>()
                 .AddTransient<GuiFireControlCtrl>()
                 .AddTransient<GuiGunLoaderCtrl>()
                 .AddTransient<GuiGunRotationCtrl>()
-                .AddTransient<GuiNavigatorCtrl>()
                 .AddTransient<GuiRangeFinderCtrl>()
                 ;
             return services;
