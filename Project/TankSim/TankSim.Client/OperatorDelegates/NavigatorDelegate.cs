@@ -8,7 +8,7 @@ namespace TankSim.Client.OperatorDelegates
     /// <summary>
     /// Operator module - driver
     /// </summary>
-    public sealed class NavigatorDelegate : IDisposable
+    internal sealed class NavigatorDelegate : IDisposable
     {
         private readonly ITopicMessageProxy<NavigatorCmd> _cmdProxy;
 

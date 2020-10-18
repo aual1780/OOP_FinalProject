@@ -8,7 +8,7 @@ namespace TankSim.Client.OperatorDelegates
     /// <summary>
     /// Operator module - gun rotation
     /// </summary>
-    public sealed class GunRotationDelegate : IDisposable
+    internal sealed class GunRotationDelegate : IDisposable
     {
         private readonly ITopicMessageProxy<GunRotationCmd> _cmdProxy;
 

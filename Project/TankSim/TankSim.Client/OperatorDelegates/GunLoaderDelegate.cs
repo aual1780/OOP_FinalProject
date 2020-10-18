@@ -8,7 +8,7 @@ namespace TankSim.Client.OperatorDelegates
     /// <summary>
     /// Operator module - gun loader
     /// </summary>
-    public sealed class GunLoaderDelegate : IDisposable
+    internal sealed class GunLoaderDelegate : IDisposable
     {
         private readonly ITopicMessageProxy<GunLoaderCmd> _cmdProxy;
 

@@ -8,7 +8,7 @@ namespace TankSim.Client.OperatorDelegates
     /// <summary>
     /// Operator module - fire control
     /// </summary>
-    public sealed class FireControlDelegate : IDisposable
+    internal sealed class FireControlDelegate : IDisposable
     {
         private readonly ITopicMessageProxy<FireControlCmd> _cmdProxy;
 

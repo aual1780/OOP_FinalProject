@@ -8,7 +8,7 @@ namespace TankSim.Client.OperatorDelegates
     /// <summary>
     /// Operator module - range finder
     /// </summary>
-    public sealed class RangeFinderDelegate : IDisposable
+    internal sealed class RangeFinderDelegate : IDisposable
     {
         private readonly ITopicMessageProxy<RangeFinderCmd> _cmdProxy;
 
