@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="LocalPublish.bat" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TankSim.Client\TankSim.Client.csproj" />
   </ItemGroup>
 
