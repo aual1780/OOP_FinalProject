@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using TankSim.Client.OperatorModules;
 using TIPC.Core.Tools.Extensions.IEnumerable;
 
 namespace TankSim.Client.OperatorModules
@@ -68,6 +68,20 @@ namespace TankSim.Client.OperatorModules
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Return list enumerator for the contained modules
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<IOperatorModule> GetEnumerator()
+        {
+            return _modules.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _modules.GetEnumerator();
         }
 
         /// <summary>

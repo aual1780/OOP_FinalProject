@@ -20,11 +20,11 @@ namespace TankSim.Client.GUI.Controls
 
         public GameScopeControl(IServiceProvider ServiceProvider, GameScopeControlVM vm)
         {
-            this.Initialized += GameScopeControl_Initialized;
-            this.Loaded += GameScopeControl_Loaded;
             _sp = ServiceProvider;
             _vm = vm;
             this.DataContext = _vm;
+            this.Initialized += GameScopeControl_Initialized;
+            this.Loaded += GameScopeControl_Loaded;
             InitializeComponent();
         }
 

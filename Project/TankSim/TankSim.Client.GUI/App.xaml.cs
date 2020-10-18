@@ -50,6 +50,7 @@ namespace TankSim.Client.GUI
             //setup game services
             _ = services
                 .AddGameIDService()
+                .AddOperatorModules()
                 .AddScoped<IOperatorModuleFactory, OperatorModuleFactory>();
             //setup ArdNet
             _ = services

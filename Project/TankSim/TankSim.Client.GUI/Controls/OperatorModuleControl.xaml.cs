@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,12 +21,17 @@ namespace TankSim.Client.GUI.Controls
 
         public OperatorModuleControl(OperatorModuleControlVM vm)
         {
+            this._vm = vm;
+            this.DataContext = _vm;
             this.Initialized += OperatorModuleControl_Initialized;
             this.Loaded += OperatorModuleControl_Loaded;
             this.Unloaded += OperatorModuleControl_Unloaded;
-            this._vm = vm;
-            this.DataContext = _vm;
             InitializeComponent();
+        }
+
+        private async void OperatorModuleControl_Initialized(object sender, EventArgs e)
+        {
+            await _vm.InitializeAsync();
         }
 
         private void OperatorModuleControl_Loaded(object sender, RoutedEventArgs e)
@@ -56,11 +62,6 @@ namespace TankSim.Client.GUI.Controls
             var consoleKey = e.Key.ToConsoleKey();
             var input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
             _vm.ModuleCollection?.SendInput(input);
-        }
-
-        private async void OperatorModuleControl_Initialized(object sender, EventArgs e)
-        {
-            await Task.Run(_vm.InitializeAsync);
         }
 
         public void Dispose()

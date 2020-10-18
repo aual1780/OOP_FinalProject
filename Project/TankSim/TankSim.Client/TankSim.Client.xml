@@ -338,6 +338,12 @@
             </summary>
             <param name="Input"></param>
         </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.GetEnumerator">
+            <summary>
+            Return list enumerator for the contained modules
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.Dispose">
             <summary>
             Dispose all operator modules

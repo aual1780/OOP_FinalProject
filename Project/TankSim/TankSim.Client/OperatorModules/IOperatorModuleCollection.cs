@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TankSim.Client.OperatorModules
 {
     /// <summary>
     /// Collection of operator modules
     /// </summary>
-    public interface IOperatorModuleCollection : IDisposable
+    public interface IOperatorModuleCollection : IEnumerable<IOperatorModule>, IDisposable
     {
         /// <summary>
         /// Send user input to modules

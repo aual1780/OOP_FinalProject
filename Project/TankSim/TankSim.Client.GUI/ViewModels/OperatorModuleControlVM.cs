@@ -2,9 +2,12 @@
 using ArdNet.Client;
 using ArdNet.Messaging;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using TankSim.Client.OperatorModules;
 using TIPC.Core.ComponentModel;
 
@@ -28,7 +31,21 @@ namespace TankSim.Client.GUI.ViewModels
             get => _gameHost;
             set => SetField(ref _gameHost, value);
         }
-        public IOperatorModuleCollection ModuleCollection => _moduleCollection;
+        public IOperatorModuleCollection ModuleCollection
+        {
+            get => _moduleCollection;
+            set
+            {
+                if (SetField(ref _moduleCollection, value))
+                {
+                    InvokePropertyChanged(nameof(ModuleCtrlCollection));
+                }
+            }
+        }
+        public IEnumerable<UserControl> ModuleCtrlCollection
+        {
+            get => _moduleCollection?.OfType<UserControl>();
+        }
 
         public OperatorModuleControlVM(IArdNetClient ArdClient, IOperatorModuleFactory ModuleFactory)
         {
@@ -44,7 +61,7 @@ namespace TankSim.Client.GUI.ViewModels
             var response = await _ardClient.SendTcpQueryAsync(request);
             var responseStr = response.Single().Response;
             Roles = Enum.Parse<OperatorRoles>(responseStr);
-            _moduleCollection = _moduleFactory.GetModuleCollection(Roles);
+            ModuleCollection = _moduleFactory.GetModuleCollection(Roles);
         }
 
         public void Dispose()

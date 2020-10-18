@@ -10,6 +10,9 @@
         <StackPanel>
             <Label Content="{Binding GameHost.Endpoint}" ContentStringFormat="Game Host: {0}"/>
             <Label Content="{Binding Roles}" ContentStringFormat="Your Roles: {0}"/>
+            <ItemsControl 
+                ItemsSource="{Binding ModuleCtrlCollection}"
+                Margin="0 20px 0 0" />
         </StackPanel>
 
     </Grid>

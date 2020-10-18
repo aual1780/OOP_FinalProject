@@ -17,7 +17,7 @@ namespace TankSim.Client.OperatorModules
     public class OperatorModuleFactory : IOperatorModuleFactory
     {
         private static readonly object _startupLock = new object();
-        private static readonly ListDictionary<OperatorRoles, Type> _roleMap;
+        private static readonly ListDictionary<OperatorRoles, HashSet<Type>, Type> _roleMap;
 
         /// <summary>
         /// Load role->module map at startup
@@ -36,7 +36,7 @@ namespace TankSim.Client.OperatorModules
                 {
                     return;
                 }
-                _roleMap = new ListDictionary<OperatorRoles, Type>();
+                _roleMap = new ListDictionary<OperatorRoles, HashSet<Type>, Type>();
                 Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 var typeOpMod = typeof(IOperatorModule);
                 var qry = assemblies
@@ -86,6 +86,7 @@ namespace TankSim.Client.OperatorModules
                 .Where(role => (Roles & role) != 0)
                 .SelectMany(r => _roleMap[r])
                 .Where(x => !(x is null))
+                .Distinct()
                 .Select(x => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, x))
                 .OfType<IOperatorModule>();
 

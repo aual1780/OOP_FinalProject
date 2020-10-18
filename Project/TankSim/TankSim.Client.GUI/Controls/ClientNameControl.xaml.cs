@@ -16,10 +16,10 @@ namespace TankSim.Client.GUI.Controls
 
         public ClientNameControl(ClientNameControlVM vm)
         {
-            this.Initialized += ClientNameControl_Initialized;
-            this.Loaded += ClientNameControl_Loaded;
             _vm = vm;
             this.DataContext = _vm;
+            this.Initialized += ClientNameControl_Initialized;
+            this.Loaded += ClientNameControl_Loaded;
             InitializeComponent();
         }
 
