@@ -5,16 +5,16 @@ using TankSim.Client.OperatorDelegates;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
-namespace TankSim.Client.GUI.OperatorModules
+namespace TankSim.Client.OperatorModules
 {
     [OperatorRole(OperatorRoles.RangeFinder)]
-    public sealed class GuiRangeFinder : OperatorModuleBase
+    public sealed class RangeFinderModule : OperatorModuleBase
     {
         private readonly RangeFinderDelegate _cmdDelegate;
         private readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
         private RangeDirection _currDirection = RangeDirection.Stop;
 
-        public GuiRangeFinder(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public RangeFinderModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
@@ -34,7 +34,20 @@ namespace TankSim.Client.GUI.OperatorModules
             //farther
             if (ValidateKeyPress(Input, keyConfig.Farther))
             {
-                if (Input.InputType == KeyInputType.KeyDown)
+                if (Input.InputType == KeyInputType.KeyPress)
+                {
+                    if (_currDirection == RangeDirection.Farther)
+                    {
+                        _currDirection = RangeDirection.Stop;
+                        _cmdDelegate.Stop();
+                    }
+                    else
+                    {
+                        _currDirection = RangeDirection.Farther;
+                        _cmdDelegate.AimFarther();
+                    }
+                }
+                else if (Input.InputType == KeyInputType.KeyDown)
                 {
                     _currDirection = RangeDirection.Farther;
                     _cmdDelegate.AimFarther();
@@ -53,7 +66,20 @@ namespace TankSim.Client.GUI.OperatorModules
             //closer
             else if (ValidateKeyPress(Input, keyConfig.Closer))
             {
-                if (Input.InputType == KeyInputType.KeyDown)
+                if (Input.InputType == KeyInputType.KeyPress)
+                {
+                    if (_currDirection == RangeDirection.Closer)
+                    {
+                        _currDirection = RangeDirection.Stop;
+                        _cmdDelegate.Stop();
+                    }
+                    else
+                    {
+                        _currDirection = RangeDirection.Closer;
+                        _cmdDelegate.AimCloser();
+                    }
+                }
+                else if (Input.InputType == KeyInputType.KeyDown)
                 {
                     _currDirection = RangeDirection.Closer;
                     _cmdDelegate.AimCloser();

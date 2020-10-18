@@ -5,16 +5,16 @@ using TankSim.Client.OperatorDelegates;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
-namespace TankSim.Client.GUI.OperatorModules
+namespace TankSim.Client.OperatorModules
 {
-    [OperatorRole(OperatorRoles.GunRotation)]
-    public sealed class GuiGunRotation : OperatorModuleBase
+    [OperatorRole(OperatorRoles.Navigator)]
+    public sealed class NavigatorModule : OperatorModuleBase
     {
-        private readonly GunRotationDelegate _cmdDelegate;
+        private readonly NavigatorDelegate _cmdDelegate;
         private readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
         private RotationDirection _currDirection = RotationDirection.Stop;
 
-        public GuiGunRotation(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public NavigatorModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
@@ -25,16 +25,29 @@ namespace TankSim.Client.GUI.OperatorModules
                 throw new ArgumentNullException(nameof(KeyBinding));
             }
             _keyBinding = KeyBinding;
-            _cmdDelegate = new GunRotationDelegate(ArdClient);
+            _cmdDelegate = new NavigatorDelegate(ArdClient);
         }
 
         public override void HandleInput(IOperatorInputMsg Input)
         {
-            var keyConfig = _keyBinding.CurrentValue.GunRotation;
+            var keyConfig = _keyBinding.CurrentValue.Navigator;
             //left
             if (ValidateKeyPress(Input, keyConfig.Left))
             {
-                if (Input.InputType == KeyInputType.KeyDown)
+                if (Input.InputType == KeyInputType.KeyPress)
+                {
+                    if (_currDirection == RotationDirection.Left)
+                    {
+                        _currDirection = RotationDirection.Stop;
+                        _cmdDelegate.Stop();
+                    }
+                    else
+                    {
+                        _currDirection = RotationDirection.Left;
+                        _cmdDelegate.TurnLeft();
+                    }
+                }
+                else if (Input.InputType == KeyInputType.KeyDown)
                 {
                     _currDirection = RotationDirection.Left;
                     _cmdDelegate.TurnLeft();
@@ -53,7 +66,20 @@ namespace TankSim.Client.GUI.OperatorModules
             //right
             else if (ValidateKeyPress(Input, keyConfig.Right))
             {
-                if (Input.InputType == KeyInputType.KeyDown)
+                if (Input.InputType == KeyInputType.KeyPress)
+                {
+                    if (_currDirection == RotationDirection.Right)
+                    {
+                        _currDirection = RotationDirection.Stop;
+                        _cmdDelegate.Stop();
+                    }
+                    else
+                    {
+                        _currDirection = RotationDirection.Right;
+                        _cmdDelegate.TurnRight();
+                    }
+                }
+                else if (Input.InputType == KeyInputType.KeyDown)
                 {
                     _currDirection = RotationDirection.Right;
                     _cmdDelegate.TurnRight();

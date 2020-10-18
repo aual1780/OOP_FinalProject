@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using TankSim.Client.CLI.OperatorModules;
 using TankSim.Client.OperatorModules;
 
 namespace TankSim.Client.CLI.Services
