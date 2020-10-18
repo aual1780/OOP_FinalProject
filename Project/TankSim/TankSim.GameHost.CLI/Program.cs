@@ -1,7 +1,9 @@
-﻿using ArdNet.Messaging;
+﻿using ArdNet.DependencyInjection;
+using ArdNet.Messaging;
 using ArdNet.Server;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading;
@@ -35,7 +37,8 @@ namespace TankSim.GameHost.CLI
                 {
                     y.TCP.HeartbeatConfig.ForceStrictHeartbeat = false;
                     y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
-                    y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromSeconds(1);
+                    var pingRate = Configuration.GetValue<int>("ArdNet.PingRateMillis");
+                    y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);
                 })
                 .AutoStart()
                 .AddTankSimConfig();
