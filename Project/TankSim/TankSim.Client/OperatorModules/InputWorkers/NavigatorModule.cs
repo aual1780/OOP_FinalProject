@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using System;
 using TankSim.OperatorDelegates;
-using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

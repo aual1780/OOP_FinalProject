@@ -2,7 +2,6 @@
 using ArdNet.Topics;
 using System;
 using TankSim.OperatorCmds;
-using TIPC.Core.Tools.Threading;
 
 namespace TankSim.OperatorDelegates
 {
