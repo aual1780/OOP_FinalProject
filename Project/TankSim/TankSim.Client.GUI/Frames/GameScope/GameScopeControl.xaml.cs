@@ -5,10 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TankSim.Client.GUI.ViewModels;
 using TankSim.Client.Services;
 
-namespace TankSim.Client.GUI.Controls
+namespace TankSim.Client.GUI.Frames.GameScope
 {
     /// <summary>
     /// Interaction logic for GameScopeControl.xaml
@@ -35,7 +34,7 @@ namespace TankSim.Client.GUI.Controls
 
         private void GameScopeControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            txt_GameID.Focus();
+            _ = txt_GameID.Focus();
         }
 
         private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -120,7 +119,9 @@ namespace TankSim.Client.GUI.Controls
             return _vm.IdTaskSource.Task;
         }
 
+#pragma warning disable IDE1006 // Naming Styles
         private void txt_GameID_KeyDown(object sender, KeyEventArgs e)
+#pragma warning restore IDE1006 // Naming Styles
         {
             if (e.Key == Key.Enter)
             {

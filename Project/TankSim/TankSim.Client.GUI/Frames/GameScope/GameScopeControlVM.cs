@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using TIPC.Core.ComponentModel;
 
-namespace TankSim.Client.GUI.ViewModels
+namespace TankSim.Client.GUI.Frames.GameScope
 {
     public class GameScopeControlVM : ViewModelBase
     {

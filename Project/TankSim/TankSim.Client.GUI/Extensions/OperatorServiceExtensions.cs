@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TankSim.Client.GUI.OperatorModules;
+﻿using TankSim.Client.GUI.Frames.Operations;
 using TankSim.Client.OperatorModules;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -18,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddTransient<NavigatorModule>()
                 .AddTransient<RangeFinderModule>()
                 .AddTransient<GuiDriver>()
+                .AddTransient<GuiDriverVM>()
                 .AddTransient<GuiFireControlCtrl>()
                 .AddTransient<GuiGunLoaderCtrl>()
                 .AddTransient<GuiGunRotationCtrl>()

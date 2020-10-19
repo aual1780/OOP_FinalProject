@@ -2,8 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
-using TankSim.Client.GUI.Controls;
-using TankSim.Client.GUI.ViewModels;
+using TankSim.Client.GUI.Frames.ClientName;
+using TankSim.Client.GUI.Frames.GameScope;
+using TankSim.Client.GUI.Frames.Operations;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;
 

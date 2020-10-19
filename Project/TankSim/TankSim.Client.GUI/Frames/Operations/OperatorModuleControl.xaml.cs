@@ -1,16 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TankSim.Client.GUI.Extensions;
-using TankSim.Client.GUI.OperatorModules;
-using TankSim.Client.GUI.ViewModels;
 using TankSim.Client.OperatorModules;
 
-namespace TankSim.Client.GUI.Controls
+namespace TankSim.Client.GUI.Frames.Operations
 {
     /// <summary>
     /// Interaction logic for OperatorModuleControl.xaml

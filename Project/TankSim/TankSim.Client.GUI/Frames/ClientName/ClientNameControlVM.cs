@@ -1,11 +1,10 @@
 ﻿using ArdNet.Client;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using TIPC.Core.ComponentModel;
 using TIPC.Core.Tools.Extensions;
 
-namespace TankSim.Client.GUI.ViewModels
+namespace TankSim.Client.GUI.Frames.ClientName
 {
     public class ClientNameControlVM : ViewModelBase
     {

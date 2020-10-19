@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TankSim.Client.GUI.ViewModels;
 
-namespace TankSim.Client.GUI.Controls
+namespace TankSim.Client.GUI.Frames.ClientName
 {
     /// <summary>
     /// Interaction logic for ClientNameControl.xaml
@@ -30,7 +29,7 @@ namespace TankSim.Client.GUI.Controls
 
         private void ClientNameControl_Loaded(object sender, RoutedEventArgs e)
         {
-            txt_Username.Focus();
+            _ = txt_Username.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -46,7 +45,9 @@ namespace TankSim.Client.GUI.Controls
             return _vm.NameTaskSource.Task;
         }
 
+#pragma warning disable IDE1006 // Naming Styles
         private void txt_Username_KeyDown(object sender, KeyEventArgs e)
+#pragma warning restore IDE1006 // Naming Styles
         {
             if (e.Key == Key.Enter)
             {

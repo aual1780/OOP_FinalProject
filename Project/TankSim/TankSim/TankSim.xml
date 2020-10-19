@@ -256,24 +256,6 @@
             Fire secondary weapon
             </summary>
         </member>
-        <member name="T:TankSim.GameIdGenerator">
-            <summary>
-            GameID generator/validator
-            </summary>
-        </member>
-        <member name="M:TankSim.GameIdGenerator.GetID">
-            <summary>
-            Generate a new GameID string
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:TankSim.GameIdGenerator.Validate(System.String)">
-            <summary>
-            Validate GameID string
-            </summary>
-            <param name="GameID"></param>
-            <returns></returns>
-        </member>
         <member name="T:TankSim.GunLoaderType">
             <summary>
             Gun loader operation type
@@ -338,6 +320,64 @@
             <summary>
             South vector applied
             </summary>
+        </member>
+        <member name="T:TankSim.RangeDirection">
+            <summary>
+            Range finder targeting direction
+            </summary>
+        </member>
+        <member name="F:TankSim.RangeDirection.Stop">
+            <summary>
+            Stop movement
+            </summary>
+        </member>
+        <member name="F:TankSim.RangeDirection.Farther">
+            <summary>
+            Aim farther away
+            </summary>
+        </member>
+        <member name="F:TankSim.RangeDirection.Closer">
+            <summary>
+            Aim closer
+            </summary>
+        </member>
+        <member name="T:TankSim.RotationDirection">
+            <summary>
+            Left/Right directions.  Used for turning and gun angle
+            </summary>
+        </member>
+        <member name="F:TankSim.RotationDirection.Stop">
+            <summary>
+            Stop movement
+            </summary>
+        </member>
+        <member name="F:TankSim.RotationDirection.Left">
+            <summary>
+            Turn left
+            </summary>
+        </member>
+        <member name="F:TankSim.RotationDirection.Right">
+            <summary>
+            Turn right
+            </summary>
+        </member>
+        <member name="T:TankSim.GameIdGenerator">
+            <summary>
+            GameID generator/validator
+            </summary>
+        </member>
+        <member name="M:TankSim.GameIdGenerator.GetID">
+            <summary>
+            Generate a new GameID string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.GameIdGenerator.Validate(System.String)">
+            <summary>
+            Validate GameID string
+            </summary>
+            <param name="GameID"></param>
+            <returns></returns>
         </member>
         <member name="T:TankSim.OperatorCmds.DriverCmd">
             <summary>
@@ -879,46 +919,6 @@
             </summary>
             <param name="PlayerCount"></param>
             <returns></returns>
-        </member>
-        <member name="T:TankSim.RangeDirection">
-            <summary>
-            Range finder targeting direction
-            </summary>
-        </member>
-        <member name="F:TankSim.RangeDirection.Stop">
-            <summary>
-            Stop movement
-            </summary>
-        </member>
-        <member name="F:TankSim.RangeDirection.Farther">
-            <summary>
-            Aim farther away
-            </summary>
-        </member>
-        <member name="F:TankSim.RangeDirection.Closer">
-            <summary>
-            Aim closer
-            </summary>
-        </member>
-        <member name="T:TankSim.RotationDirection">
-            <summary>
-            Left/Right directions.  Used for turning and gun angle
-            </summary>
-        </member>
-        <member name="F:TankSim.RotationDirection.Stop">
-            <summary>
-            Stop movement
-            </summary>
-        </member>
-        <member name="F:TankSim.RotationDirection.Left">
-            <summary>
-            Turn left
-            </summary>
-        </member>
-        <member name="F:TankSim.RotationDirection.Right">
-            <summary>
-            Turn right
-            </summary>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.KeyBindingExtensions">
             <summary>

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TIPC.Core.ComponentModel;
 
-namespace TankSim.Client.GUI.ViewModels
+namespace TankSim.Client.GUI
 {
     public class MainWindowVM : ViewModelBase
     {

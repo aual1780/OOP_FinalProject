@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 using TankSim.Client.OperatorModules;
 
-namespace TankSim.Client.GUI.OperatorModules
+namespace TankSim.Client.GUI.Frames.Operations
 {
     /// <summary>
     /// Interaction logic for GuiRangeFinderCtrl.xaml

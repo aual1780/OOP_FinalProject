@@ -3,7 +3,6 @@ using ArdNet.Client;
 using ArdNet.Messaging;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ using System.Windows.Controls;
 using TankSim.Client.OperatorModules;
 using TIPC.Core.ComponentModel;
 
-namespace TankSim.Client.GUI.ViewModels
+namespace TankSim.Client.GUI.Frames.Operations
 {
     public class OperatorModuleControlVM : ViewModelBase, IDisposable
     {
