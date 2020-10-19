@@ -49,8 +49,10 @@ namespace TankSim.Client.OperatorModules
 
                 foreach (var (type, attr) in qry)
                 {
-                    foreach (OperatorRoles r in Enum.GetValues(typeof(OperatorRoles)))
+                    int bits = sizeof(OperatorRoles) * 8;
+                    for (int i = 0; i < bits; ++i)
                     {
+                        var r = (OperatorRoles)i;
                         if ((attr.OpRoles & r) != 0)
                         {
                             _roleMap.Add(r, type);
