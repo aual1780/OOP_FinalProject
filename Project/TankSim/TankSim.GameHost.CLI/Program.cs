@@ -68,6 +68,15 @@ namespace TankSim.GameHost.CLI
                 var gameID = server.NetConfig.UDP.AppID.Split('.')[^1];
                 Console.WriteLine($"Game ID: {gameID}");
 
+                server.TcpEndpointConnected += (sender, arg) =>
+                {
+                    Console.WriteLine($"Connected: {arg.ConnectedSystem.Endpoint}");
+                };
+                server.TcpEndpointDisconnected += (sender, arg) =>
+                {
+                    Console.WriteLine($"Disconnected: {arg.Endpoint}");
+                };
+
                 server.TcpCommandRequestProcessor.RegisterProcessor(
                     Constants.Commands.ControllerInit.SetClientName,
                     (sender, request) =>

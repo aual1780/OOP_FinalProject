@@ -19,6 +19,7 @@ namespace TankSim.Client.GUI.Frames.Operations
         private IConnectedSystemEndpoint _gameHost;
         private OperatorRoles _roles = 0;
         private IOperatorModuleCollection _moduleCollection;
+        private readonly CancellationTokenSource _initSyncTokenSrc = new CancellationTokenSource();
 
         public OperatorRoles Roles
         {
@@ -56,15 +57,30 @@ namespace TankSim.Client.GUI.Frames.Operations
         {
             GameHost = await _ardClient.ConnectAsync();
             var qry = Constants.Queries.ControllerInit.GetOperatorRoles;
-            var request = new AsyncRequestPushedArgs(qry, null, CancellationToken.None, Timeout.InfiniteTimeSpan);
-            var response = await _ardClient.SendTcpQueryAsync(request);
-            var responseStr = response.Single().Response;
-            Roles = Enum.Parse<OperatorRoles>(responseStr);
-            ModuleCollection = _moduleFactory.GetModuleCollection(Roles);
+            var request = new AsyncRequestPushedArgs(qry, null, _initSyncTokenSrc.Token, Timeout.InfiniteTimeSpan);
+            try
+            {
+                var task = _ardClient.SendTcpQueryAsync(request);
+                var response = await task;
+                var responseStr = response?.Single()?.Response ?? "0";
+                Roles = Enum.Parse<OperatorRoles>(responseStr);
+                ModuleCollection = _moduleFactory.GetModuleCollection(Roles);
+            }
+            catch (OperationCanceledException)
+            {
+                //noop
+                //early shutdown
+            }
         }
 
         public void Dispose()
         {
+            try
+            {
+                _initSyncTokenSrc.Cancel();
+                _initSyncTokenSrc.Dispose();
+            }
+            catch { }
             _moduleCollection?.Dispose();
         }
     }
