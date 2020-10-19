@@ -3,14 +3,57 @@ using ArdNet.Topics;
 using System;
 using TankSim.OperatorCmds;
 
-namespace TankSim.Client.OperatorDelegates
+namespace TankSim.OperatorDelegates
 {
+    /// <summary>
+    /// Callback delegate to handle gun rotation command
+    /// </summary>
+    /// <param name="Endpoint"></param>
+    /// <param name="Cmd"></param>
+    public delegate void GunRotationCmdEventHandler(IConnectedSystemEndpoint Endpoint, GunRotationCmd Cmd);
+
     /// <summary>
     /// Operator module - gun rotation
     /// </summary>
     public sealed class GunRotationDelegate : IDisposable
     {
         private readonly ITopicMessageProxy<GunRotationCmd> _cmdProxy;
+        private readonly object _cmdHandlerLock = new object();
+        private GunRotationCmdEventHandler _cmdHandler;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event GunRotationCmdEventHandler CmdReceived
+        {
+            add
+            {
+                lock (_cmdHandlerLock)
+                {
+                    _cmdHandler += value;
+                    if (_cmdHandler != null)
+                    {
+                        _cmdProxy.MessageReceived += CmdProxy_MessageReceived;
+                    }
+                }
+            }
+            remove
+            {
+                lock (_cmdHandlerLock)
+                {
+                    _cmdHandler -= value;
+                    if (_cmdHandler == null)
+                    {
+                        _cmdProxy.MessageReceived -= CmdProxy_MessageReceived;
+                    }
+                }
+            }
+        }
+
+        private void CmdProxy_MessageReceived(object Sender, TopicProxyMessageEventArgs<GunRotationCmd> e)
+        {
+            _cmdHandler?.Invoke(e.SourceEndpoint, e.Message);
+        }
 
         /// <summary>
         /// Create instance.

@@ -3,14 +3,57 @@ using ArdNet.Topics;
 using System;
 using TankSim.OperatorCmds;
 
-namespace TankSim.Client.OperatorDelegates
+namespace TankSim.OperatorDelegates
 {
+    /// <summary>
+    /// Callback delegate to handle range command
+    /// </summary>
+    /// <param name="Endpoint"></param>
+    /// <param name="Cmd"></param>
+    public delegate void RangeFinderCmdEventHandler(IConnectedSystemEndpoint Endpoint, RangeFinderCmd Cmd);
+
     /// <summary>
     /// Operator module - range finder
     /// </summary>
     public sealed class RangeFinderDelegate : IDisposable
     {
         private readonly ITopicMessageProxy<RangeFinderCmd> _cmdProxy;
+        private readonly object _cmdHandlerLock = new object();
+        private RangeFinderCmdEventHandler _cmdHandler;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event RangeFinderCmdEventHandler CmdReceived
+        {
+            add
+            {
+                lock (_cmdHandlerLock)
+                {
+                    _cmdHandler += value;
+                    if (_cmdHandler != null)
+                    {
+                        _cmdProxy.MessageReceived += CmdProxy_MessageReceived;
+                    }
+                }
+            }
+            remove
+            {
+                lock (_cmdHandlerLock)
+                {
+                    _cmdHandler -= value;
+                    if (_cmdHandler == null)
+                    {
+                        _cmdProxy.MessageReceived -= CmdProxy_MessageReceived;
+                    }
+                }
+            }
+        }
+
+        private void CmdProxy_MessageReceived(object Sender, TopicProxyMessageEventArgs<RangeFinderCmd> e)
+        {
+            _cmdHandler?.Invoke(e.SourceEndpoint, e.Message);
+        }
 
         /// <summary>
         /// Create instance.

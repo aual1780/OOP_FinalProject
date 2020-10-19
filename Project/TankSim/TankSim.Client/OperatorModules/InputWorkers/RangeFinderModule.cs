@@ -1,7 +1,7 @@
 ﻿using ArdNet.Client;
 using Microsoft.Extensions.Options;
 using System;
-using TankSim.Client.OperatorDelegates;
+using TankSim.OperatorDelegates;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;
 

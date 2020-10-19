@@ -1,7 +1,7 @@
 ﻿using ArdNet.Client;
 using Microsoft.Extensions.Options;
 using System;
-using TankSim.Client.OperatorDelegates;
+using TankSim.OperatorDelegates;
 using TankSim.Config;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

@@ -4,58 +4,22 @@ using ArdNet.Topics;
 using System;
 using System.Collections.Generic;
 using TankSim.OperatorCmds;
+using TankSim.OperatorDelegates;
 using TIPC.Core.Tools.Extensions.IEnumerable;
 
 namespace TankSim.GameHost
 {
     /// <summary>
-    /// Callback delegate to handle driver command
-    /// </summary>
-    /// <param name="Endpoint"></param>
-    /// <param name="Cmd"></param>
-    public delegate void DriverCmdEventHandler(IConnectedSystemEndpoint Endpoint, DriverCmd Cmd);
-
-    /// <summary>
-    /// Callback delegate to handle fire control command
-    /// </summary>
-    /// <param name="Endpoint"></param>
-    /// <param name="Cmd"></param>
-    public delegate void FireControlCmdEventHandler(IConnectedSystemEndpoint Endpoint, FireControlCmd Cmd);
-
-    /// <summary>
-    /// Callback delegate to handle gun loader command
-    /// </summary>
-    /// <param name="Endpoint"></param>
-    /// <param name="Cmd"></param>
-    public delegate void GunLoaderCmdEventHandler(IConnectedSystemEndpoint Endpoint, GunLoaderCmd Cmd);
-
-    /// <summary>
-    /// Callback delegate to handle gun rotation command
-    /// </summary>
-    /// <param name="Endpoint"></param>
-    /// <param name="Cmd"></param>
-    public delegate void GunRotationCmdEventHandler(IConnectedSystemEndpoint Endpoint, GunRotationCmd Cmd);
-
-    /// <summary>
-    /// Callback delegate to handle nav command
-    /// </summary>
-    /// <param name="Endpoint"></param>
-    /// <param name="Cmd"></param>
-    public delegate void NavigatorCmdEventHandler(IConnectedSystemEndpoint Endpoint, NavigatorCmd Cmd);
-
-    /// <summary>
-    /// Callback delegate to handle range command
-    /// </summary>
-    /// <param name="Endpoint"></param>
-    /// <param name="Cmd"></param>
-    public delegate void RangeFinderCmdEventHandler(IConnectedSystemEndpoint Endpoint, RangeFinderCmd Cmd);
-
-    /// <summary>
     /// Operator role facade to encapsulate ArdNet behavior
     /// </summary>
     public class OperatorCmdFacade : IDisposable
     {
-        private readonly List<ITopicProxy> _proxySet = new List<ITopicProxy>();
+        private readonly List<IDisposable> _proxySet = new List<IDisposable>();
+
+        /// <summary>
+        /// Event triggered when tank movement vector is changed
+        /// </summary>
+        public event TankMovementCmdEventHandler MovementChanged;
 
         /// <summary>
         /// Event triggered when driver command is received
@@ -95,33 +59,38 @@ namespace TankSim.GameHost
         public OperatorCmdFacade(IArdNetServer ArdServer)
         {
             {
-                var proxy = ArdServer.TopicManager.GetProxy<DriverCmd>(Constants.ChannelNames.TankOperations.Driver);
-                proxy.MessageReceived += (sender, e) => DriverCmdReceived?.Invoke(e.SourceEndpoint, e.Message);
+                var proxy = new TankMovementDelegate(ArdServer);
+                proxy.MovementChanged += (x, y) => MovementChanged(x, y);
                 _proxySet.Add(proxy);
             }
             {
-                var proxy = ArdServer.TopicManager.GetProxy<FireControlCmd>(Constants.ChannelNames.TankOperations.FireControl);
-                proxy.MessageReceived += (sender, e) => FireControlCmdReceived?.Invoke(e.SourceEndpoint, e.Message);
+                var proxy = new DriverDelegate(ArdServer);
+                proxy.CmdReceived += (x, y) => DriverCmdReceived(x, y);
                 _proxySet.Add(proxy);
             }
             {
-                var proxy = ArdServer.TopicManager.GetProxy<GunLoaderCmd>(Constants.ChannelNames.TankOperations.GunLoader);
-                proxy.MessageReceived += (sender, e) => GunLoaderCmdReceived?.Invoke(e.SourceEndpoint, e.Message);
+                var proxy = new FireControlDelegate(ArdServer);
+                proxy.CmdReceived += (x, y) => FireControlCmdReceived(x, y);
                 _proxySet.Add(proxy);
             }
             {
-                var proxy = ArdServer.TopicManager.GetProxy<GunRotationCmd>(Constants.ChannelNames.TankOperations.GunRotation);
-                proxy.MessageReceived += (sender, e) => GunRotationCmdReceived?.Invoke(e.SourceEndpoint, e.Message);
+                var proxy = new GunLoaderDelegate(ArdServer);
+                proxy.CmdReceived += (x, y) => GunLoaderCmdReceived(x, y);
                 _proxySet.Add(proxy);
             }
             {
-                var proxy = ArdServer.TopicManager.GetProxy<NavigatorCmd>(Constants.ChannelNames.TankOperations.Navigator);
-                proxy.MessageReceived += (sender, e) => NavigatorCmdReceived?.Invoke(e.SourceEndpoint, e.Message);
+                var proxy = new GunRotationDelegate(ArdServer);
+                proxy.CmdReceived += (x, y) => GunRotationCmdReceived(x, y);
                 _proxySet.Add(proxy);
             }
             {
-                var proxy = ArdServer.TopicManager.GetProxy<RangeFinderCmd>(Constants.ChannelNames.TankOperations.RangeFinder);
-                proxy.MessageReceived += (sender, e) => RangeFinderCmdReceived?.Invoke(e.SourceEndpoint, e.Message);
+                var proxy = new NavigatorDelegate(ArdServer);
+                proxy.CmdReceived += (x, y) => NavigatorCmdReceived(x, y);
+                _proxySet.Add(proxy);
+            }
+            {
+                var proxy = new RangeFinderDelegate(ArdServer);
+                proxy.CmdReceived += (x, y) => RangeFinderCmdReceived(x, y);
                 _proxySet.Add(proxy);
             }
         }

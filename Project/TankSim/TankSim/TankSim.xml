@@ -545,6 +545,282 @@
             </summary>
             <param name="Direction">Range direction</param>
         </member>
+        <member name="T:TankSim.OperatorDelegates.DriverCmdEventHandler">
+            <summary>
+            Callback delegate to handle driver command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.DriverDelegate">
+            <summary>
+            Operator module - driver
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.DriverDelegate.CmdReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.DriveForward">
+            <summary>
+            Send forward command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.DriveBackward">
+            <summary>
+            Send backward command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.FireControlCmdEventHandler">
+            <summary>
+            Callback delegate to handle fire control command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.FireControlDelegate">
+            <summary>
+            Operator module - fire control
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.FireControlDelegate.CmdReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.FireControlDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.FireControlDelegate.FirePrimary">
+            <summary>
+            Send primary fire command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.FireControlDelegate.FireSecondary">
+            <summary>
+            Send secondary fire command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.FireControlDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.GunLoaderCmdEventHandler">
+            <summary>
+            Callback delegate to handle gun loader command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.GunLoaderDelegate">
+            <summary>
+            Operator module - gun loader
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.GunLoaderDelegate.CmdReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunLoaderDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunLoaderDelegate.Load">
+            <summary>
+            Send load command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunLoaderDelegate.CycleAmmoType">
+            <summary>
+            Send cycle ammo command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunLoaderDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.GunRotationCmdEventHandler">
+            <summary>
+            Callback delegate to handle gun rotation command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.GunRotationDelegate">
+            <summary>
+            Operator module - gun rotation
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.GunRotationDelegate.CmdReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.TurnLeft">
+            <summary>
+            Send left command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.TurnRight">
+            <summary>
+            Send right command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.NavigatorCmdEventHandler">
+            <summary>
+            Callback delegate to handle nav command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.NavigatorDelegate">
+            <summary>
+            Operator module - driver
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.NavigatorDelegate.CmdReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.TurnLeft">
+            <summary>
+            Send left command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.TurnRight">
+            <summary>
+            Send right command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.RangeFinderCmdEventHandler">
+            <summary>
+            Callback delegate to handle range command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.RangeFinderDelegate">
+            <summary>
+            Operator module - range finder
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.RangeFinderDelegate.CmdReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.AimFarther">
+            <summary>
+            Send farther command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.AimCloser">
+            <summary>
+            Send closer command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.TankMovementCmdEventHandler">
+            <summary>
+            Callback delegate to handle movement commands
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Dir"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.TankMovementDelegate">
+            <summary>
+            Delegate for tracking tank true movement direction
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.TankMovementDelegate.MovementChanged">
+            <summary>
+            Event triggered when movement direction is changed
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankMovementDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankMovementDelegate.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
         <member name="T:TankSim.OperatorRoles">
             <summary>
             Tank operator roles.

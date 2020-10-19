@@ -2,15 +2,61 @@
 using ArdNet.Topics;
 using System;
 using TankSim.OperatorCmds;
+using TIPC.Core.Tools.Threading;
 
-namespace TankSim.Client.OperatorDelegates
+namespace TankSim.OperatorDelegates
 {
+    /// <summary>
+    /// Callback delegate to handle driver command
+    /// </summary>
+    /// <param name="Endpoint"></param>
+    /// <param name="Cmd"></param>
+    public delegate void DriverCmdEventHandler(IConnectedSystemEndpoint Endpoint, DriverCmd Cmd);
+
+
     /// <summary>
     /// Operator module - driver
     /// </summary>
     public sealed class DriverDelegate : IDisposable
     {
         private readonly ITopicMessageProxy<DriverCmd> _cmdProxy;
+        private readonly object _cmdHandlerLock = new object();
+        private DriverCmdEventHandler _cmdHandler;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event DriverCmdEventHandler CmdReceived
+        {
+            add
+            {
+                lock (_cmdHandlerLock)
+                {
+                    _cmdHandler += value;
+                    if (_cmdHandler != null)
+                    {
+                        _cmdProxy.MessageReceived += CmdProxy_MessageReceived;
+                    }
+                }
+            }
+            remove
+            {
+                lock (_cmdHandlerLock)
+                {
+                    _cmdHandler -= value;
+                    if (_cmdHandler == null)
+                    {
+                        _cmdProxy.MessageReceived -= CmdProxy_MessageReceived;
+                    }
+                }
+            }
+        }
+
+        private void CmdProxy_MessageReceived(object Sender, TopicProxyMessageEventArgs<DriverCmd> e)
+        {
+            _cmdHandler?.Invoke(e.SourceEndpoint, e.Message);
+        }
+
 
         /// <summary>
         /// Create instance.

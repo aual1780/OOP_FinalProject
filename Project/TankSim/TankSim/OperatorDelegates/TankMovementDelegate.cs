@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Text;
 using TankSim.OperatorCmds;
 
-namespace TankSim.Client.OperatorDelegates
+namespace TankSim.OperatorDelegates
 {
     /// <summary>
     /// Callback delegate to handle movement commands
     /// </summary>
+    /// <param name="Endpoint"></param>
     /// <param name="Dir"></param>
-    public delegate void TankMovementCmdEventHandler(MovementDirection Dir);
+    public delegate void TankMovementCmdEventHandler(IConnectedSystemEndpoint Endpoint, MovementDirection Dir);
 
 
     /// <summary>
@@ -66,7 +67,7 @@ namespace TankSim.Client.OperatorDelegates
                     }
                     dirCopy = _dir;
                 }
-                MovementChanged?.Invoke(dirCopy);
+                MovementChanged?.Invoke(arg.SourceEndpoint, dirCopy);
             };
             _navProxy = ArdSys.TopicManager.GetProxy<NavigatorCmd>(Constants.ChannelNames.TankOperations.Navigator);
             _navProxy.MessageReceived += (sender, arg) =>
@@ -90,7 +91,7 @@ namespace TankSim.Client.OperatorDelegates
                     }
                     dirCopy = _dir;
                 }
-                MovementChanged?.Invoke(dirCopy);
+                MovementChanged?.Invoke(arg.SourceEndpoint, dirCopy);
             };
         }
 

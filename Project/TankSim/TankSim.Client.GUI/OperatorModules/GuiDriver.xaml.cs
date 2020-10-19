@@ -1,4 +1,5 @@
-﻿using ArdNet.Client;
+﻿using ArdNet;
+using ArdNet.Client;
 using ArdNet.Topics;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TankSim.Client.OperatorDelegates;
 using TankSim.Client.OperatorModules;
 using TankSim.OperatorCmds;
+using TankSim.OperatorDelegates;
 using TIPC.Core.Tools.Threading;
 
 namespace TankSim.Client.GUI.OperatorModules
@@ -56,10 +57,10 @@ namespace TankSim.Client.GUI.OperatorModules
 
         private void GuiDriverCtrl_Loaded(object sender, RoutedEventArgs e)
         {
-            _movDelegate.MovementChanged += _movDelegate_MovementChanged;
+            _movDelegate.MovementChanged += MovDelegate_MovementChanged;
         }
 
-        private void _movDelegate_MovementChanged(MovementDirection Dir)
+        private void MovDelegate_MovementChanged(IConnectedSystemEndpoint Endpoint, MovementDirection Dir)
         {
             _dir = Dir;
 
