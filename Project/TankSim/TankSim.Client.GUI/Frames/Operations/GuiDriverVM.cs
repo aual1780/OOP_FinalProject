@@ -40,7 +40,15 @@ namespace TankSim.Client.GUI.Frames.Operations
 
         private void MovDelegate_MovementChanged(IConnectedSystemEndpoint Endpoint, MovementDirection Dir)
         {
-            _dir = Dir;
+            //dont show ui input if not connected
+            if (_ardClient.IsServerConnected)
+            {
+                _dir = Dir;
+            }
+            else
+            {
+                _dir = MovementDirection.Stop;
+            }
 
             InvokePropertyChanged(nameof(DirNW));
             InvokePropertyChanged(nameof(DirN));
