@@ -58,6 +58,7 @@ namespace TankSim.GameHost.CLI
             //application scope
             using (var appScope = ServiceProvider.CreateScope())
             {
+                var gameStarted = false;
                 var randRoleSets = roleSets.ToList();
                 randRoleSets.Randomize();
                 CountdownEvent playerWaiter = new CountdownEvent(randRoleSets.Count);
@@ -67,34 +68,69 @@ namespace TankSim.GameHost.CLI
 
                 server.TcpEndpointConnected += (sender, arg) =>
                 {
-                    Console.WriteLine($"Connected: {arg.ConnectedSystem.Endpoint}");
+                    Console.WriteLine($"Connected: {arg.System.Endpoint}");
+                    var state = new TankControllerState();
+                    arg.System.UserState = state;
+                    lock (arg.System.SyncRoot)
+                    {
+                        state.Name = $"Anon{arg.System.Endpoint.Port}";
+                    }
+
                 };
                 server.TcpEndpointDisconnected += (sender, arg) =>
                 {
-                    Console.WriteLine($"Disconnected: {arg.Endpoint}");
+                    var system = arg.System;
+                    var state = (TankControllerState)system.UserState;
+
+                    lock (system.SyncRoot)
+                    {
+                        if (state.IsReady && !gameStarted)
+                        {
+                            playerWaiter.AddCount();
+                        }
+                    }
+                    Console.WriteLine($"Disconnected: {arg.System.Endpoint}");
                 };
 
+                //set client name on system state
                 server.TcpCommandRequestProcessor.RegisterProcessor(
                     Constants.Commands.ControllerInit.SetClientName,
                     (sender, request) =>
                     {
-                        Console.WriteLine($"Hi {request.RequestArg.RequestArgs[0]} ({request.RequestArg.Endpoint})");
+                        var system = request.RequestArg.ConnectedSystem;
+                        var state = (TankControllerState)system.UserState;
+                        lock (system.SyncRoot)
+                        {
+                            if ((request.RequestArg.RequestArgs?.Length ?? 0) > 0)
+                            {
+                                state.Name = request.RequestArg.RequestArgs[0];
+                            }
+                        }
+                        Console.WriteLine($"Hi {state.Name} ({request.RequestArg.Endpoint})");
                     });
 
                 server.TcpQueryRequestProcessor.RegisterProcessor(
                     Constants.Queries.ControllerInit.GetOperatorRoles,
                     (sender, request) =>
                     {
+                        var system = request.RequestArg.ConnectedSystem;
+                        var state = (TankControllerState)system.UserState;
                         lock (roleLock)
                         {
                             var roleSet = randRoleSets.Pop();
                             request.Respond(roleSet.ToString());
+                            state.Roles = roleSet;
                         }
-                        _ = playerWaiter.Signal();
+                        lock (system.SyncRoot)
+                        {
+                            _ = playerWaiter.Signal();
+                            state.IsReady = true;
+                        }
                     });
 
                 //wait for all players to join
                 playerWaiter.Wait();
+                gameStarted = true;
                 Console.WriteLine("Game Started.");
 
                 using var cmdFacade = appScope.ServiceProvider.GetRequiredService<OperatorCmdFacade>();
