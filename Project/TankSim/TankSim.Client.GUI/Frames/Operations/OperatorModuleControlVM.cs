@@ -66,12 +66,12 @@ namespace TankSim.Client.GUI.Frames.Operations
             _ardClient.TcpEndpointDisconnected += ArdClient_TcpEndpointDisconnected;
         }
 
-        private void ArdClient_TcpEndpointConnected(object Sender, ConnectedSystemEndpointArgs e)
+        private void ArdClient_TcpEndpointConnected(object Sender, IConnectedSystemEndpoint e)
         {
-            GameHost = e.System;
+            GameHost = e;
         }
 
-        private void ArdClient_TcpEndpointDisconnected(object Sender, SystemEndpointArgs e)
+        private void ArdClient_TcpEndpointDisconnected(object Sender, ISystemEndpoint e)
         {
             GameHost = null;
         }

@@ -66,30 +66,29 @@ namespace TankSim.GameHost.CLI
                 var gameID = server.NetConfig.UDP.AppID.Split('.')[^1];
                 Console.WriteLine($"Game ID: {gameID}");
 
-                server.TcpEndpointConnected += (sender, arg) =>
+                server.TcpEndpointConnected += (sender, sys) =>
                 {
-                    Console.WriteLine($"Connected: {arg.System.Endpoint}");
+                    Console.WriteLine($"Connected: {sys.Endpoint}");
                     var state = new TankControllerState();
-                    arg.System.UserState = state;
-                    lock (arg.System.SyncRoot)
+                    sys.UserState = state;
+                    lock (sys.SyncRoot)
                     {
-                        state.Name = $"Anon{arg.System.Endpoint.Port}";
+                        state.Name = $"Anon{sys.Endpoint.Port}";
                     }
 
                 };
-                server.TcpEndpointDisconnected += (sender, arg) =>
+                server.TcpEndpointDisconnected += (sender, sys) =>
                 {
-                    var system = arg.System;
-                    var state = (TankControllerState)system.UserState;
+                    var state = (TankControllerState)sys.UserState;
 
-                    lock (system.SyncRoot)
+                    lock (sys.SyncRoot)
                     {
                         if (state.IsReady && !gameStarted)
                         {
                             playerWaiter.AddCount();
                         }
                     }
-                    Console.WriteLine($"Disconnected: {arg.System.Endpoint}");
+                    Console.WriteLine($"Disconnected: {sys.Endpoint}");
                 };
 
                 //set client name on system state
