@@ -4,6 +4,7 @@ using ArdNet.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -29,7 +30,17 @@ namespace TankSim.Client.GUI.Frames.Operations
         public IConnectedSystemEndpoint GameHost
         {
             get => _gameHost;
-            set => SetField(ref _gameHost, value);
+            set
+            {
+                if (SetField(ref _gameHost, value))
+                {
+                    InvokePropertyChanged(nameof(GameHostEndpoint));
+                }
+            }
+        }
+        public string GameHostEndpoint
+        {
+            get => _gameHost?.Endpoint?.ToString() ?? "N/A";
         }
         public IOperatorModuleCollection ModuleCollection
         {
@@ -51,11 +62,23 @@ namespace TankSim.Client.GUI.Frames.Operations
         {
             _ardClient = ArdClient;
             _moduleFactory = ModuleFactory;
+            _ardClient.TcpEndpointConnected += ArdClient_TcpEndpointConnected;
+            _ardClient.TcpEndpointDisconnected += ArdClient_TcpEndpointDisconnected;
+        }
+
+        private void ArdClient_TcpEndpointConnected(object Sender, ConnectedSystemEndpointArgs e)
+        {
+            GameHost = e.System;
+        }
+
+        private void ArdClient_TcpEndpointDisconnected(object Sender, SystemEndpointArgs e)
+        {
+            GameHost = null;
         }
 
         public override async Task InitializeAsync()
         {
-            GameHost = await _ardClient.ConnectAsync();
+            _ = await _ardClient.ConnectAsync();
             var qry = Constants.Queries.ControllerInit.GetOperatorRoles;
             var request = new AsyncRequestPushedArgs(qry, null, _initSyncTokenSrc.Token, Timeout.InfiniteTimeSpan);
             try

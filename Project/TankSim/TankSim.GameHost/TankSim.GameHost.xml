@@ -67,5 +67,30 @@
             Release proxy hooks
             </summary>
         </member>
+        <member name="T:TankSim.GameHost.TankControllerState">
+            <summary>
+            Tank controller system state object
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankControllerState.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankControllerState.Roles">
+            <summary>
+            Roles
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankControllerState.IsReady">
+            <summary>
+            IsReady
+            </summary>
+        </member>
+        <member name="M:TankSim.GameHost.TankControllerState.#ctor">
+            <summary>
+            Create new instance
+            </summary>
+        </member>
     </members>
 </doc>

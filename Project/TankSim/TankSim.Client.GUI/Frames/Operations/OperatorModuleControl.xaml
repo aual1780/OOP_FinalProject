@@ -6,9 +6,21 @@
              xmlns:local="clr-namespace:TankSim.Client.GUI.Frames.Operations"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="GameHostStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="Green" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Content, RelativeSource={RelativeSource Self}}" Value="N/A">
+                    <Setter Property="Foreground" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <StackPanel>
-            <Label Content="{Binding GameHost.Endpoint}" ContentStringFormat="Game Host: {0}"/>
+            <Label
+                Content="{Binding GameHostEndpoint}" ContentStringFormat="Game Host: {0}"
+                Style="{StaticResource GameHostStyle}"/>
             <Label Content="{Binding Roles}" ContentStringFormat="Your Roles: {0}"/>
             <ItemsControl 
                 ItemsSource="{Binding ModuleCtrlCollection}"
