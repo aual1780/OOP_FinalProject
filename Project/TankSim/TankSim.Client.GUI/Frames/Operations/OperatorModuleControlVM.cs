@@ -104,6 +104,8 @@ namespace TankSim.Client.GUI.Frames.Operations
                 _initSyncTokenSrc.Dispose();
             }
             catch { }
+            _ardClient.TcpEndpointConnected -= ArdClient_TcpEndpointConnected;
+            _ardClient.TcpEndpointDisconnected -= ArdClient_TcpEndpointDisconnected;
             _moduleCollection?.Dispose();
         }
     }
