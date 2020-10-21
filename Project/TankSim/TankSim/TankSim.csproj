@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet" Version="2.2.0" />
-    <PackageReference Include="ArdNet.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="ArdNet" Version="2.3.0" />
+    <PackageReference Include="ArdNet.DependencyInjection" Version="2.3.0" />
     <PackageReference Include="TIPC.Core.Channels.DependencyInjection" Version="3.0.0" />
   </ItemGroup>
 
