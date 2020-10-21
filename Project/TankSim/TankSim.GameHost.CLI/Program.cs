@@ -7,22 +7,17 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TankSim.GameHost.CLI.Extensions;
+using TIPC.Core.Channels;
 using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.GameHost.CLI
 {
     class Program
     {
-        public static IServiceProvider ServiceProvider { get; private set; }
-
-
         static async Task<int> Main()
         {
-            var serviceCollection = new ServiceCollection();
-            _ = serviceCollection
-                .AddScoped<IArdNetServer>((sp) => ArdNetFactory.GetArdServer());
-
-            ServiceProvider = serviceCollection.BuildServiceProvider();
+            using var msgHub = new MessageHub();
+            msgHub.Start();
 
             //get player count as int
             Range playerCountRange = 1..6;
@@ -33,11 +28,10 @@ namespace TankSim.GameHost.CLI
             } while (!int.TryParse(Console.ReadLine(), out playerCount) || !playerCountRange.Contains(playerCount));
 
 
-        GameStart:
             //application scope
-            using (var appScope = ServiceProvider.CreateScope())
+            while (true)
             {
-                var server = appScope.ServiceProvider.GetRequiredService<IArdNetServer>();
+                using var server = ArdNetFactory.GetArdServer(msgHub);
                 using var commState = new TankSimCommService(server, playerCount);
                 Console.WriteLine($"Game ID: {commState.GameID}");
 
@@ -55,8 +49,9 @@ namespace TankSim.GameHost.CLI
                 while (true)
                 {
                     Thread.Sleep(10);
+                    //if player count drops, then restart outer loop
                     if (server.ConnectedClientCount < playerCount)
-                        goto GameStart;
+                        break;
                 }
             }
 

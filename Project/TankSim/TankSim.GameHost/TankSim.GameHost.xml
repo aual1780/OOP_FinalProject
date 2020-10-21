@@ -9,10 +9,11 @@
             ArdNet server factory
             </summary>
         </member>
-        <member name="M:TankSim.GameHost.ArdNetFactory.GetArdServer(System.String,System.Int32,System.Int32)">
+        <member name="M:TankSim.GameHost.ArdNetFactory.GetArdServer(TIPC.Core.Channels.MessageHub,System.String,System.Int32,System.Int32)">
             <summary>
             Get new fully configured ardnet server
             </summary>
+            <param name="MsgHub"></param>
             <param name="GameID"></param>
             <param name="PingRateMills"></param>
             <param name="ServerPort"></param>
