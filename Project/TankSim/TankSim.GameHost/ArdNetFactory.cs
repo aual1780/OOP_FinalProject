@@ -19,7 +19,7 @@ namespace TankSim.GameHost
         /// <param name="PingRateMills"></param>
         /// <param name="ServerPort"></param>
         /// <returns></returns>
-        public static IArdNetServer GetArdServer(string GameID = "", int PingRateMills = 500, int ServerPort = 52518)
+        public static IArdNetServer GetArdServer(string GameID = "", int PingRateMills = 250, int ServerPort = 52518)
         {
             if (string.IsNullOrWhiteSpace(GameID))
             {

@@ -18,6 +18,18 @@
             <param name="ServerPort"></param>
             <returns></returns>
         </member>
+        <member name="T:TankSim.GameHost.Extensions.ListExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TankSim.GameHost.Extensions.ListExtensions.Pop``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Remove the last element from the list and return it
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+        </member>
         <member name="T:TankSim.GameHost.OperatorCmdFacade">
             <summary>
             Operator role facade to encapsulate ArdNet behavior
@@ -92,6 +104,85 @@
         <member name="M:TankSim.GameHost.TankControllerState.#ctor">
             <summary>
             Create new instance
+            </summary>
+        </member>
+        <member name="T:TankSim.GameHost.TankSimCommService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankSimCommService.ArdServer">
+            <summary>
+            Underlying ardserver instance
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankSimCommService.GameID">
+            <summary>
+            Game ID code
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankSimCommService.CmdFacade">
+            <summary>
+            Cmd hook interface
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankSimCommService.PlayerCountTarget">
+            <summary>
+            Game full lobby player count
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankSimCommService.PlayerCountCurrent">
+            <summary>
+            Count of players in lobby
+            </summary>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.#ctor(ArdNet.Server.IArdNetServer,System.Int32)">
+            <summary>
+            Create instance
+            </summary>
+            <param name="ArdServer"></param>
+            <param name="PlayerCount"></param>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.WaitForPlayers">
+            <summary>
+            Wait for all players to connect
+            </summary>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.WaitForPlayers(System.Threading.CancellationToken)">
+            <summary>
+            Wait for all players to connect
+            </summary>
+            <param name="Token"></param>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.WaitForPlayers(System.TimeSpan)">
+            <summary>
+            Wait for all players to connect
+            </summary>
+            <param name="Timeout"></param>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.GetConnectionTask">
+            <summary>
+            Get task that triggers when all clients are connected.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.GetConnectionTask(System.Threading.CancellationToken)">
+            <summary>
+            Get task that triggers when all clients are connected.
+            </summary>
+            <param name="Token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.GetConnectionTask(System.TimeSpan)">
+            <summary>
+            Get task that triggers when all clients are connected.
+            </summary>
+            <param name="Timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.Dispose">
+            <summary>
+            Dispose
             </summary>
         </member>
     </members>

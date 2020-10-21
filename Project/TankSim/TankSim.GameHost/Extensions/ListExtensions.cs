@@ -9,17 +9,20 @@ namespace TankSim.GameHost.Extensions
     public static class ListExtensions
     {
         /// <summary>
-        /// Add index support to RemoveAt
+        /// Remove the last element from the list and return it
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
-        /// <param name="Idx"></param>
-        public static void RemoveAt<T>(this List<T> list, Index Idx)
+        public static T Pop<T>(this List<T> list)
         {
-            if (!Idx.IsFromEnd)
-                list.RemoveAt(Idx.Value);
-            else
-                list.RemoveAt(list.Count - Idx.Value);
+            if (list.Count == 0)
+            {
+                return default;
+            }
+            var idx = list.Count - 1;
+            var result = list[idx];
+            list.RemoveAt(idx);
+            return result;
         }
     }
 }
