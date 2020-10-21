@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TIPC.Core.Collections.Generic;
+using TIPC.Core.Tools;
 
 namespace TankSim.Client.OperatorModules
 {
@@ -48,14 +49,9 @@ namespace TankSim.Client.OperatorModules
 
                 foreach (var (type, attr) in qry)
                 {
-                    int bits = sizeof(OperatorRoles) * 8;
-                    for (int i = 0; i < bits; ++i)
+                    foreach (var r in EnumTools.GetSelectedFlags(attr.OpRoles))
                     {
-                        var r = (OperatorRoles)i;
-                        if ((attr.OpRoles & r) != 0)
-                        {
-                            _roleMap.Add(r, type);
-                        }
+                        _roleMap.Add(r, type);
                     }
                 }
             }
@@ -82,8 +78,7 @@ namespace TankSim.Client.OperatorModules
         {
             var collection = new OperatorModuleCollection();
 
-            var qry = Enum.GetValues(typeof(OperatorRoles))
-                .Cast<OperatorRoles>()
+            var qry = EnumTools.GetValues<OperatorRoles>()
                 .Where(role => (Roles & role) != 0)
                 .SelectMany(r => _roleMap[r])
                 .Where(x => !(x is null))
