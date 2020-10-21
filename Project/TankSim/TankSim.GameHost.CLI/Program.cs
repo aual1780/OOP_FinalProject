@@ -3,6 +3,7 @@ using ArdNet.Server;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,9 @@ namespace TankSim.GameHost.CLI
     {
         static async Task<int> Main()
         {
+            TraceListener t = new ConsoleTraceListener();
+            _ = Trace.Listeners.Add(t);
+
             using var msgHub = new MessageHub();
             msgHub.Start();
 
