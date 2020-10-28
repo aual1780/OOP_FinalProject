@@ -7,14 +7,14 @@ using TankSim.Config;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 namespace TankSim.Client.OperatorModules
 {
-    [OperatorRole(OperatorRoles.GunRotation)]
-    public sealed class GunRotationModule : OperatorModuleBase
+    [OperatorRole(OperatorRoles.Driver)]
+    public sealed class DriverModule : OperatorInputModuleBase
     {
-        private readonly GunRotationDelegate _cmdDelegate;
+        private readonly DriverDelegate _cmdDelegate;
         private readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
-        private RotationDirection _currDirection = RotationDirection.Stop;
+        private DriveDirection _currDirection = DriveDirection.Stop;
 
-        public GunRotationModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public DriverModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
@@ -25,70 +25,70 @@ namespace TankSim.Client.OperatorModules
                 throw new ArgumentNullException(nameof(KeyBinding));
             }
             _keyBinding = KeyBinding;
-            _cmdDelegate = new GunRotationDelegate(ArdClient);
+            _cmdDelegate = new DriverDelegate(ArdClient);
         }
 
         public override void HandleInput(IOperatorInputMsg Input)
         {
-            var keyConfig = _keyBinding.CurrentValue.GunRotation;
-            //left
-            if (ValidateKeyPress(Input, keyConfig.Left))
+            var keyConfig = _keyBinding.CurrentValue.Driver;
+            //forward
+            if (ValidateKeyPress(Input, keyConfig.Forward))
             {
                 if (Input.InputType == KeyInputType.KeyPress)
                 {
-                    if (_currDirection == RotationDirection.Left)
+                    if (_currDirection == DriveDirection.Forward)
                     {
-                        _currDirection = RotationDirection.Stop;
+                        _currDirection = DriveDirection.Stop;
                         _cmdDelegate.Stop();
                     }
                     else
                     {
-                        _currDirection = RotationDirection.Left;
-                        _cmdDelegate.TurnLeft();
+                        _currDirection = DriveDirection.Forward;
+                        _cmdDelegate.DriveForward();
                     }
                 }
                 else if (Input.InputType == KeyInputType.KeyDown)
                 {
-                    _currDirection = RotationDirection.Left;
-                    _cmdDelegate.TurnLeft();
+                    _currDirection = DriveDirection.Forward;
+                    _cmdDelegate.DriveForward();
                 }
                 else
                 {
-                    if (_currDirection == RotationDirection.Left)
+                    if (_currDirection == DriveDirection.Forward)
                     {
-                        _currDirection = RotationDirection.Stop;
+                        _currDirection = DriveDirection.Stop;
                         _cmdDelegate.Stop();
                     }
                 }
 
                 Input.IsHandled = true;
             }
-            //right
-            else if (ValidateKeyPress(Input, keyConfig.Right))
+            //back
+            else if (ValidateKeyPress(Input, keyConfig.Backward))
             {
                 if (Input.InputType == KeyInputType.KeyPress)
                 {
-                    if (_currDirection == RotationDirection.Right)
+                    if (_currDirection == DriveDirection.Backward)
                     {
-                        _currDirection = RotationDirection.Stop;
+                        _currDirection = DriveDirection.Stop;
                         _cmdDelegate.Stop();
                     }
                     else
                     {
-                        _currDirection = RotationDirection.Right;
-                        _cmdDelegate.TurnRight();
+                        _currDirection = DriveDirection.Backward;
+                        _cmdDelegate.DriveBackward();
                     }
                 }
                 else if (Input.InputType == KeyInputType.KeyDown)
                 {
-                    _currDirection = RotationDirection.Right;
-                    _cmdDelegate.TurnRight();
+                    _currDirection = DriveDirection.Backward;
+                    _cmdDelegate.DriveBackward();
                 }
                 else
                 {
-                    if (_currDirection == RotationDirection.Right)
+                    if (_currDirection == DriveDirection.Backward)
                     {
-                        _currDirection = RotationDirection.Stop;
+                        _currDirection = DriveDirection.Stop;
                         _cmdDelegate.Stop();
                     }
                 }

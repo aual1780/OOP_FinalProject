@@ -58,8 +58,6 @@ namespace TankSim.GameHost.CLI
                         break;
                 }
             }
-
-            return 0;
         }
     }
 }

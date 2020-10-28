@@ -7,21 +7,11 @@ namespace TankSim.Client.GUI.Frames.Operations
     /// Interaction logic for GuiRangeFinderCtrl.xaml
     /// </summary>
     [OperatorRole(OperatorRoles.RangeFinder)]
-    public partial class GuiRangeFinderCtrl : UserControl, IOperatorModule
+    public partial class GuiRangeFinderCtrl : UserControl, IOperatorUIModule
     {
         public GuiRangeFinderCtrl()
         {
             InitializeComponent();
-        }
-
-        public void HandleInput(IOperatorInputMsg Input)
-        {
-            //noop
-        }
-
-        public void Dispose()
-        {
-            //noop
         }
     }
 }

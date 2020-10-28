@@ -10,16 +10,19 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using TankSim.Client.OperatorModules;
 using TIPC.Core.ComponentModel;
+using TIPC.Core.Tools.Extensions.IEnumerable;
 
 namespace TankSim.Client.GUI.Frames.Operations
 {
     public class OperatorModuleControlVM : ViewModelBase, IDisposable
     {
         private readonly IArdNetClient _ardClient;
-        private readonly IOperatorModuleFactory _moduleFactory;
+        private readonly IOperatorModuleFactory<IOperatorInputModule> _inputModuleFactory;
+        private readonly IOperatorModuleFactory<IOperatorUIModule> _uiModuleFactory;
+        private IEnumerable<IOperatorInputModule> _inputModuleCollection;
+        private IEnumerable<UserControl> _uiModuleCollection;
         private IConnectedSystemEndpoint _gameHost;
         private OperatorRoles _roles = 0;
-        private IOperatorModuleCollection _moduleCollection;
         private readonly CancellationTokenSource _initSyncTokenSrc = new CancellationTokenSource();
 
         public OperatorRoles Roles
@@ -42,26 +45,25 @@ namespace TankSim.Client.GUI.Frames.Operations
         {
             get => _gameHost?.Endpoint?.ToString() ?? "N/A";
         }
-        public IOperatorModuleCollection ModuleCollection
+        public IEnumerable<IOperatorInputModule> InputModuleCollection
         {
-            get => _moduleCollection;
-            set
-            {
-                if (SetField(ref _moduleCollection, value))
-                {
-                    InvokePropertyChanged(nameof(ModuleCtrlCollection));
-                }
-            }
+            get => _inputModuleCollection;
+            set => SetField(ref _inputModuleCollection, value);
         }
-        public IEnumerable<UserControl> ModuleCtrlCollection
+        public IEnumerable<UserControl> UIModuleCollection
         {
-            get => _moduleCollection?.OfType<UserControl>();
+            get => _uiModuleCollection;
+            set => SetField(ref _uiModuleCollection, value);
         }
 
-        public OperatorModuleControlVM(IArdNetClient ArdClient, IOperatorModuleFactory ModuleFactory)
+        public OperatorModuleControlVM(
+            IArdNetClient ArdClient,
+            IOperatorModuleFactory<IOperatorInputModule> InputModuleFactory,
+            IOperatorModuleFactory<IOperatorUIModule> UIModuleFactory)
         {
             _ardClient = ArdClient;
-            _moduleFactory = ModuleFactory;
+            _inputModuleFactory = InputModuleFactory;
+            _uiModuleFactory = UIModuleFactory;
             _ardClient.TcpEndpointConnected += ArdClient_TcpEndpointConnected;
             _ardClient.TcpEndpointDisconnected += ArdClient_TcpEndpointDisconnected;
         }
@@ -87,7 +89,8 @@ namespace TankSim.Client.GUI.Frames.Operations
                 var response = await task;
                 var responseStr = response?.Single()?.Response ?? "0";
                 Roles = Enum.Parse<OperatorRoles>(responseStr);
-                ModuleCollection = _moduleFactory.GetModuleCollection(Roles);
+                InputModuleCollection = _inputModuleFactory.GetModuleCollection(Roles);
+                UIModuleCollection = _uiModuleFactory.GetModuleCollection(Roles).OfType<UserControl>();
             }
             catch (OperationCanceledException)
             {
@@ -106,7 +109,7 @@ namespace TankSim.Client.GUI.Frames.Operations
             catch { }
             _ardClient.TcpEndpointConnected -= ArdClient_TcpEndpointConnected;
             _ardClient.TcpEndpointDisconnected -= ArdClient_TcpEndpointDisconnected;
-            _moduleCollection?.Dispose();
+            _inputModuleCollection?.DisposeAll();
         }
     }
 }

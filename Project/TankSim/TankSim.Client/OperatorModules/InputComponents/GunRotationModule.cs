@@ -7,14 +7,14 @@ using TankSim.Config;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 namespace TankSim.Client.OperatorModules
 {
-    [OperatorRole(OperatorRoles.Navigator)]
-    public sealed class NavigatorModule : OperatorModuleBase
+    [OperatorRole(OperatorRoles.GunRotation)]
+    public sealed class GunRotationModule : OperatorInputModuleBase
     {
-        private readonly NavigatorDelegate _cmdDelegate;
+        private readonly GunRotationDelegate _cmdDelegate;
         private readonly IOptionsMonitor<KeyBindingConfig> _keyBinding;
         private RotationDirection _currDirection = RotationDirection.Stop;
 
-        public NavigatorModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
+        public GunRotationModule(IArdNetClient ArdClient, IOptionsMonitor<KeyBindingConfig> KeyBinding)
         {
             if (ArdClient is null)
             {
@@ -25,12 +25,12 @@ namespace TankSim.Client.OperatorModules
                 throw new ArgumentNullException(nameof(KeyBinding));
             }
             _keyBinding = KeyBinding;
-            _cmdDelegate = new NavigatorDelegate(ArdClient);
+            _cmdDelegate = new GunRotationDelegate(ArdClient);
         }
 
         public override void HandleInput(IOperatorInputMsg Input)
         {
-            var keyConfig = _keyBinding.CurrentValue.Navigator;
+            var keyConfig = _keyBinding.CurrentValue.GunRotation;
             //left
             if (ValidateKeyPress(Input, keyConfig.Left))
             {

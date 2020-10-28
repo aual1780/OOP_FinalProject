@@ -8,7 +8,7 @@ namespace TankSim.Client.GUI.Frames.Operations
     /// Interaction logic for GuiDriverCtrl.xaml
     /// </summary>
     [OperatorRole(OperatorRoles.Driver | OperatorRoles.Navigator)]
-    public partial class GuiDriver : UserControl, IOperatorModule
+    public partial class GuiDriver : UserControl, IOperatorUIModule, IDisposable
     {
         private readonly IDisposable _vm;
 
@@ -17,11 +17,6 @@ namespace TankSim.Client.GUI.Frames.Operations
             _vm = vm;
             DataContext = _vm;
             InitializeComponent();
-        }
-
-        public void HandleInput(IOperatorInputMsg Input)
-        {
-            //noop
         }
 
         public void Dispose()

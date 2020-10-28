@@ -7,21 +7,11 @@ namespace TankSim.Client.GUI.Frames.Operations
     /// Interaction logic for GuiGunRotationCtrl.xaml
     /// </summary>
     [OperatorRole(OperatorRoles.GunRotation)]
-    public partial class GuiGunRotationCtrl : UserControl, IOperatorModule
+    public partial class GuiGunRotationCtrl : UserControl, IOperatorUIModule
     {
         public GuiGunRotationCtrl()
         {
             InitializeComponent();
-        }
-
-        public void HandleInput(IOperatorInputMsg Input)
-        {
-            //noop
-        }
-
-        public void Dispose()
-        {
-            //noop
         }
     }
 }

@@ -53,7 +53,8 @@ namespace TankSim.Client.GUI
             _ = services
                 .AddGameIDService()
                 .AddOperatorModules()
-                .AddScoped<IOperatorModuleFactory, OperatorModuleFactory>();
+                .AddScoped<IOperatorModuleFactory<IOperatorInputModule>, OperatorModuleFactory<IOperatorInputModule>>()
+                .AddScoped<IOperatorModuleFactory<IOperatorUIModule>, OperatorModuleFactory<IOperatorUIModule>>();
             //setup ArdNet
             _ = services
                 .AddMessageHubSingleton()

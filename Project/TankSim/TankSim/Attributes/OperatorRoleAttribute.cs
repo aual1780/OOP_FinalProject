@@ -6,7 +6,7 @@ namespace TankSim
     /// Attribute to define operator role mappings for operator modules.
     /// Used for dynamic factory loading
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public class OperatorRoleAttribute : Attribute
     {
         /// <summary>

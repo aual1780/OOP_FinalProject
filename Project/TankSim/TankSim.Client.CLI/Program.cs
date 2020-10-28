@@ -52,7 +52,8 @@ namespace TankSim.Client.CLI
             _ = services
                 .AddGameIDService()
                 .AddGameScopeService()
-                .AddScoped<IOperatorModuleFactory, OperatorModuleFactory>()
+                .AddScoped<IOperatorModuleFactory, OperatorModuleFactory<IOperatorInputModule>>()
+                .AddScoped<IOperatorModuleFactory<IOperatorInputModule>, OperatorModuleFactory<IOperatorInputModule>>()
                 .AddControllerExecService();
             //setup ArdNet
             _ = services

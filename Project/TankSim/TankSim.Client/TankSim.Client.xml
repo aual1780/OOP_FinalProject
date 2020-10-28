@@ -4,29 +4,28 @@
         <name>TankSim.Client</name>
     </assembly>
     <members>
-        <member name="T:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions">
+        <member name="T:TankSim.Client.Extensions.EnumerableExtensions">
             <summary>
-            
+            IEnumerable extensions
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions.AddGameIDService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:TankSim.Client.Extensions.EnumerableExtensions.SendInput(System.Collections.Generic.IEnumerable{TankSim.Client.OperatorModules.IOperatorInputModule},TankSim.Client.OperatorModules.IOperatorInputMsg)">
             <summary>
-            Add GameIDService to set GameID for ardNet config
+            Input extension for <see cref="T:TankSim.Client.OperatorModules.IOperatorInputModule"/>.  Uses early return semantics based on IsHandled flag
             </summary>
-            <param name="services"></param>
-            <returns></returns>
+            <param name="list"></param>
+            <param name="msg"></param>
         </member>
-        <member name="T:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions">
+        <member name="T:TankSim.Client.OperatorModules.IOperatorInputModule">
             <summary>
-            
+            Operator role module for user input modules
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions.AddTankSimConfig(ArdNet.Client.DependencyInjection.ArdNetClientConfigurator)">
+        <member name="M:TankSim.Client.OperatorModules.IOperatorInputModule.HandleInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
             <summary>
-            Add ArdNet config for tank sim
+            Handle user input
             </summary>
-            <param name="Config"></param>
-            <returns></returns>
+            <param name="Input"></param>
         </member>
         <member name="T:TankSim.Client.OperatorModules.IOperatorInputMsg">
             <summary>
@@ -50,25 +49,8 @@
         </member>
         <member name="T:TankSim.Client.OperatorModules.IOperatorModule">
             <summary>
-            Operator role module
+            Operator role module base
             </summary>
-        </member>
-        <member name="M:TankSim.Client.OperatorModules.IOperatorModule.HandleInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
-            <summary>
-            Handle user input
-            </summary>
-            <param name="Input"></param>
-        </member>
-        <member name="T:TankSim.Client.OperatorModules.IOperatorModuleCollection">
-            <summary>
-            Collection of operator modules
-            </summary>
-        </member>
-        <member name="M:TankSim.Client.OperatorModules.IOperatorModuleCollection.SendInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
-            <summary>
-            Send user input to modules
-            </summary>
-            <param name="Input"></param>
         </member>
         <member name="T:TankSim.Client.OperatorModules.IOperatorModuleFactory">
             <summary>
@@ -82,18 +64,35 @@
             <param name="Roles"></param>
             <returns></returns>
         </member>
-        <member name="T:TankSim.Client.OperatorModules.OperatorModuleBase">
+        <member name="T:TankSim.Client.OperatorModules.IOperatorModuleFactory`1">
+            <summary>
+            Factory to get operator role modules once the client knows its responsibilities
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.IOperatorModuleFactory`1.GetModuleCollection(TankSim.OperatorRoles)">
+            <summary>
+            Get collection of UI operator modules for the required role sets
+            </summary>
+            <param name="Roles"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorUIModule">
+            <summary>
+            Operator role module for ui display
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.OperatorInputModuleBase">
             <summary>
             Shared base for operator modules
             </summary>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleBase.HandleInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputModuleBase.HandleInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
             <summary>
             Handle input key sequence
             </summary>
             <param name="Input"></param>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleBase.ValidateKeyPress(TankSim.Client.OperatorModules.IOperatorInputMsg,System.String)">
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputModuleBase.ValidateKeyPress(TankSim.Client.OperatorModules.IOperatorInputMsg,System.String)">
             <summary>
             Validate input keycode against target key sequence
             </summary>
@@ -101,7 +100,7 @@
             <param name="TargetInput"></param>
             <returns></returns>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleBase.Dispose">
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputModuleBase.Dispose">
             <summary>
             Dispose
             </summary>
@@ -133,47 +132,7 @@
             <param name="KeyInfo">Key info from input</param>
             <param name="InputType">Input action</param>
         </member>
-        <member name="T:TankSim.Client.OperatorModules.OperatorModuleCollection">
-            <summary>
-            Operator module collection
-            </summary>
-        </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.AddModule(TankSim.Client.OperatorModules.IOperatorModule)">
-            <summary>
-            Add new operator module
-            </summary>
-            <param name="Module"></param>
-        </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.AddModules(System.Collections.Generic.IEnumerable{TankSim.Client.OperatorModules.IOperatorModule})">
-            <summary>
-            Add new operator module
-            </summary>
-            <param name="Modules"></param>
-        </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.SendInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
-            <summary>
-            Send input to all managed modules.
-            Propagation stops after the input command is handled
-            </summary>
-            <param name="Input"></param>
-        </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.GetEnumerator">
-            <summary>
-            Return list enumerator for the contained modules
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleCollection.Dispose">
-            <summary>
-            Dispose all operator modules
-            </summary>
-        </member>
-        <member name="T:TankSim.Client.OperatorModules.OperatorModuleFactory">
+        <member name="T:TankSim.Client.OperatorModules.OperatorModuleFactory`1">
             <summary>
             Magic factory for loading operator modules from execution context at runtime.
             Searches execution process for <see cref="T:TankSim.Client.OperatorModules.IOperatorModule"/> implementations with <see cref="T:TankSim.OperatorRoleAttribute"/> defined.
@@ -181,18 +140,18 @@
             Instantiates modules on-demand when a role is requested.
             </summary>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory.#cctor">
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory`1.#cctor">
             <summary>
             Load role->module map at startup
             </summary>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory.#ctor(System.IServiceProvider)">
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory`1.#ctor(System.IServiceProvider)">
             <summary>
             Create instance
             </summary>
             <param name="ServiceProvider"></param>
         </member>
-        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory.GetModuleCollection(TankSim.OperatorRoles)">
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory`1.GetModuleCollection(TankSim.OperatorRoles)">
             <summary>
             Get module collection based on requested operator roles.
             </summary>
@@ -218,6 +177,30 @@
             <summary>
             Get ServiceScope with valid ArdNet game connection
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions.AddGameIDService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add GameIDService to set GameID for ardNet config
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions.AddTankSimConfig(ArdNet.Client.DependencyInjection.ArdNetClientConfigurator)">
+            <summary>
+            Add ArdNet config for tank sim
+            </summary>
+            <param name="Config"></param>
             <returns></returns>
         </member>
     </members>

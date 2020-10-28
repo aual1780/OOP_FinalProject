@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using TankSim.Client.GUI.Extensions;
 using TankSim.Client.OperatorModules;
+using TankSim.Client.Extensions;
 
 namespace TankSim.Client.GUI.Frames.Operations
 {
@@ -45,7 +46,7 @@ namespace TankSim.Client.GUI.Frames.Operations
         {
             var consoleKey = e.Key.ToConsoleKey();
             var input = new OperatorInputMsg(consoleKey, KeyInputType.KeyUp);
-            _vm.ModuleCollection?.SendInput(input);
+            _vm.InputModuleCollection?.SendInput(input);
         }
 
         private void OperatorModuleControl_KeyDown(object sender, KeyEventArgs e)
@@ -56,7 +57,7 @@ namespace TankSim.Client.GUI.Frames.Operations
             }
             var consoleKey = e.Key.ToConsoleKey();
             var input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
-            _vm.ModuleCollection?.SendInput(input);
+            _vm.InputModuleCollection?.SendInput(input);
         }
 
         public void Dispose()

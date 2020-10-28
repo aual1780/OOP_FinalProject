@@ -5,7 +5,7 @@ namespace TankSim.Client.OperatorModules
     /// <summary>
     /// Shared base for operator modules
     /// </summary>
-    public abstract class OperatorModuleBase : IOperatorModule
+    public abstract class OperatorInputModuleBase : IOperatorInputModule
     {
         /// <summary>
         /// Handle input key sequence

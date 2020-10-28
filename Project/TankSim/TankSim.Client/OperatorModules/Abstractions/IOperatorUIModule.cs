@@ -3,9 +3,9 @@
 namespace TankSim.Client.OperatorModules
 {
     /// <summary>
-    /// Operator role module base
+    /// Operator role module for ui display
     /// </summary>
-    public interface IOperatorModule
+    public interface IOperatorUIModule : IOperatorModule
     {
 
     }

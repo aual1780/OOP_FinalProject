@@ -23,7 +23,7 @@
                 Style="{StaticResource GameHostStyle}"/>
             <Label Content="{Binding Roles}" ContentStringFormat="Your Roles: {0}"/>
             <ItemsControl 
-                ItemsSource="{Binding ModuleCtrlCollection}"
+                ItemsSource="{Binding UIModuleCollection}"
                 Margin="0 20px 0 0" />
         </StackPanel>
 

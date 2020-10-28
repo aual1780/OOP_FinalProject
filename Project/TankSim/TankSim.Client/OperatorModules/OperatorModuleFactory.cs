@@ -14,7 +14,8 @@ namespace TankSim.Client.OperatorModules
     /// Maps operator role to tagged modules.
     /// Instantiates modules on-demand when a role is requested.
     /// </summary>
-    public class OperatorModuleFactory : IOperatorModuleFactory
+    public class OperatorModuleFactory<T> : IOperatorModuleFactory<T>, IOperatorModuleFactory
+        where T : IOperatorModule
     {
         private static readonly object _startupLock = new object();
         private static readonly ListDictionary<OperatorRoles, HashSet<Type>, Type> _roleMap;
@@ -38,18 +39,23 @@ namespace TankSim.Client.OperatorModules
                 }
                 _roleMap = new ListDictionary<OperatorRoles, HashSet<Type>, Type>();
                 Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                var typeOpMod = typeof(IOperatorModule);
+                var typeOpMod = typeof(T);
                 var qry = assemblies
                     .SelectMany(x => x.GetTypes())
                     .Where(x => (x.Attributes & TypeAttributes.Abstract) == 0)
                     .Where(x => (x.Attributes & TypeAttributes.Interface) == 0)
                     .Where(x => typeOpMod.IsAssignableFrom(x))
-                    .Select(x => (type: x, attr: x.GetCustomAttribute<OperatorRoleAttribute>()))
-                    .Where(x => !(x.attr is null));
+                    .Select(x => (type: x, attrs: x.GetCustomAttributes<OperatorRoleAttribute>().ToList()))
+                    .Where(x => !(x.attrs is null) && x.attrs.Count > 0);
 
-                foreach (var (type, attr) in qry)
+                foreach (var (type, attrs) in qry)
                 {
-                    foreach (var r in EnumTools.GetSelectedFlags(attr.OpRoles))
+                    var roles =
+                        attrs
+                        .SelectMany(x => EnumTools.GetSelectedFlags(x.OpRoles))
+                        .Distinct();
+
+                    foreach (var r in roles)
                     {
                         _roleMap.Add(r, type);
                     }
@@ -69,24 +75,25 @@ namespace TankSim.Client.OperatorModules
         }
 
 
+        IEnumerable<IOperatorModule> IOperatorModuleFactory.GetModuleCollection(OperatorRoles Roles) => GetModuleCollection(Roles).Cast<IOperatorModule>();
+
         /// <summary>
         /// Get module collection based on requested operator roles.
         /// </summary>
         /// <param name="Roles">Set of required operator roles to load</param>
         /// <returns>Return a module collection loaded with modules for all requested operator roles</returns>
-        public IOperatorModuleCollection GetModuleCollection(OperatorRoles Roles)
+        public IEnumerable<T> GetModuleCollection(OperatorRoles Roles)
         {
-            var collection = new OperatorModuleCollection();
+            var collection = new List<T>();
 
-            var qry = EnumTools.GetValues<OperatorRoles>()
-                .Where(role => (Roles & role) != 0)
+            var qry = EnumTools.GetSelectedFlags(Roles)
                 .SelectMany(r => _roleMap[r])
                 .Where(x => !(x is null))
                 .Distinct()
                 .Select(x => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, x))
-                .OfType<IOperatorModule>();
+                .OfType<T>();
 
-            collection.AddModules(qry);
+            collection.AddRange(qry);
             return collection;
         }
     }
