@@ -101,12 +101,12 @@ namespace TankSim.Client.GUI.Frames.Operations
             }
         }
 
-        public void HandleKeyEvent(KeyEventArgs e)
+        public void HandleKeyEvent(KeyEventArgs e, KeyInputType PressType)
         {
             var consoleKey = e.Key.ToConsoleKey();
             OperatorInputMsg input;
             //keydown
-            if (e.KeyStates == KeyStates.Down)
+            if (PressType == KeyInputType.KeyDown)
             {
                 if (e.IsRepeat)
                 {
@@ -115,14 +115,9 @@ namespace TankSim.Client.GUI.Frames.Operations
                 input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
             }
             //keyup
-            else if (e.KeyStates == KeyStates.None)
-            {
-                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyUp);
-            }
-            //other?
             else
             {
-                return;
+                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyUp);
             }
             InputModuleCollection?.SendInput(input);
         }

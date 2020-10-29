@@ -36,9 +36,9 @@ namespace TankSim.Client.GUI.Frames.Operations
 
         void OperatorModuleControl_Unloaded(object sender, RoutedEventArgs e) => this.Dispose();
 
-        void OperatorModuleControl_KeyUp(object sender, KeyEventArgs e) => _vm.HandleKeyEvent(e);
+        void OperatorModuleControl_KeyUp(object sender, KeyEventArgs e) => _vm.HandleKeyEvent(e, KeyInputType.KeyUp);
 
-        void OperatorModuleControl_KeyDown(object sender, KeyEventArgs e) => _vm.HandleKeyEvent(e);
+        void OperatorModuleControl_KeyDown(object sender, KeyEventArgs e) => _vm.HandleKeyEvent(e, KeyInputType.KeyDown);
 
         public void Dispose()
         {
