@@ -5,16 +5,17 @@ namespace TankSim.Client.GUI
 {
     public class MainWindowVM : ViewModelBase
     {
-        public override Task InitializeAsync()
-        {
-            return Task.CompletedTask;
-        }
-
         private object _frameContent;
         public object FrameContent
         {
             get => _frameContent;
             set => SetField(ref _frameContent, value);
+        }
+
+
+        public override Task InitializeAsync()
+        {
+            return Task.CompletedTask;
         }
     }
 }

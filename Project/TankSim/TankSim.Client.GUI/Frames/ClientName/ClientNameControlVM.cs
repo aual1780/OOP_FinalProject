@@ -56,5 +56,11 @@ namespace TankSim.Client.GUI.Frames.ClientName
         {
             return Task.CompletedTask;
         }
+
+        public async Task SubmitName()
+        {
+            _ = await ArdClient.SendTcpCommandAsync(Constants.Commands.ControllerInit.SetClientName, Username);
+            _ = NameTaskSource.TrySetResult(null);
+        }
     }
 }

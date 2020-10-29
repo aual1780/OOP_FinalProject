@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Diagnostics;
 using System.Windows;
 using TankSim.Client.GUI.Frames.ClientName;
 using TankSim.Client.GUI.Frames.GameScope;

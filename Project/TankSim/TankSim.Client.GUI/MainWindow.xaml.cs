@@ -28,9 +28,9 @@ namespace TankSim.Client.GUI
             InitializeComponent();
         }
 
-        private void MainWindow_Initialized(object sender, EventArgs e)
+        private async void MainWindow_Initialized(object sender, EventArgs e)
         {
-
+            await _vm.InitializeAsync();
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)

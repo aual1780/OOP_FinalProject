@@ -32,12 +32,23 @@ namespace TankSim.Client.GUI.Frames.ClientName
             _ = txt_Username.Focus();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             _vm.IsUIEnabled = false;
             Cursor = Cursors.Wait;
-            _vm.ArdClient.SendTcpCommand(Constants.Commands.ControllerInit.SetClientName, _vm.Username);
-            _ = _vm.NameTaskSource.TrySetResult(null);
+            try
+            {
+                await _vm.SubmitName();
+            }
+            catch
+            {
+                _vm.StatusMsg = "Unable to submit name";
+            }
+            finally
+            {
+                _vm.IsUIEnabled = false;
+                Cursor = Cursors.Arrow;
+            }
         }
 
         public Task SendClientNameAsync()

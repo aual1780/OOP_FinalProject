@@ -138,6 +138,7 @@ namespace TankSim.GameHost
                     {
                         state.Name = e.RequestArgs[0];
                     }
+                    ArdServer.SendTcpCommandResponse(e, CtrlSymbols.ACK);
                 }
                 Debug.WriteLine($"Hi {state.Name} ({e.Endpoint})");
             }

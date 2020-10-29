@@ -4,13 +4,15 @@ using ArdNet.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
+using TankSim.Client.GUI.Extensions;
 using TankSim.Client.OperatorModules;
 using TIPC.Core.ComponentModel;
 using TIPC.Core.Tools.Extensions.IEnumerable;
+using TankSim.Client.Extensions;
 
 namespace TankSim.Client.GUI.Frames.Operations
 {
@@ -97,6 +99,32 @@ namespace TankSim.Client.GUI.Frames.Operations
                 //noop
                 //early shutdown
             }
+        }
+
+        public void HandleKeyEvent(KeyEventArgs e)
+        {
+            var consoleKey = e.Key.ToConsoleKey();
+            OperatorInputMsg input;
+            //keydown
+            if (e.KeyStates == KeyStates.Down)
+            {
+                if (e.IsRepeat)
+                {
+                    return;
+                }
+                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
+            }
+            //keyup
+            else if (e.KeyStates == KeyStates.None)
+            {
+                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyUp);
+            }
+            //other?
+            else
+            {
+                return;
+            }
+            InputModuleCollection?.SendInput(input);
         }
 
         public void Dispose()
