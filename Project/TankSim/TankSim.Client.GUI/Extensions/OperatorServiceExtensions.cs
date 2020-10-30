@@ -16,8 +16,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddTransient<RangeFinderModule>()
                 .AddTransient<GuiDriver>()
                 .AddTransient<GuiDriverVM>()
-                .AddTransient<GuiFireControlCtrl>()
                 .AddTransient<GuiGunLoaderCtrl>()
+                .AddTransient<GuiGunLoaderVM>()
                 .AddTransient<GuiGunAimCtrl>()
                 .AddTransient<GuiGunAimVM>()
                 ;

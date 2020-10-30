@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TankSim.Client.OperatorModules
+﻿namespace TankSim.Client.OperatorModules
 {
     /// <summary>
     /// Operator role module for ui display

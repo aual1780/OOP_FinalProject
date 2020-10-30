@@ -7,7 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="500">
     <Grid>
-        <Label Content="Hello gun loader"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Gun Loader"/>
+            <ProgressBar 
+                Value="{Binding FillPercent}"
+                Width="200"/>
+        </StackPanel>
 
     </Grid>
 </UserControl>

@@ -1,6 +1,4 @@
 ﻿using ArdNet;
-using ArdNet.Topics;
-using System;
 using TankSim.OperatorCmds;
 
 namespace TankSim.OperatorDelegates

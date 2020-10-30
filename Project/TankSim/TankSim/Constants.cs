@@ -1,4 +1,6 @@
-﻿namespace TankSim
+﻿using System;
+
+namespace TankSim
 {
     /// <summary>
     /// Game constances
@@ -56,7 +58,7 @@
                 /// <summary>
                 /// Get operator roles for a controller
                 /// </summary>
-                public static string GetOperatorRoles = "Request.OperatorRoles.GetCurrent";
+                public static string GetOperatorRoles { get; } = "Request.OperatorRoles.GetCurrent";
             }
         }
 
@@ -73,10 +75,20 @@
                 /// <summary>
                 /// Set client name
                 /// </summary>
-                public static string SetClientName = "Command.ClientInfo.SetName";
+                public static string SetClientName { get; } = "Command.ClientInfo.SetName";
             }
         }
 
+        /// <summary>
+        /// Gameplay configs
+        /// </summary>
+        public static class Gameplay
+        {
+            /// <summary>
+            /// Main gun reload time
+            /// </summary>
+            public static TimeSpan ReloadDuration { get; } = TimeSpan.FromMilliseconds(1000);
+        }
 
 
 

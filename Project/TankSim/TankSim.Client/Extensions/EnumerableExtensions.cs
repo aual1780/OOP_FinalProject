@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TankSim.Client.OperatorModules;
-using TIPC.Core.Tools.Extensions.IEnumerable;
 
 namespace TankSim.Client.Extensions
 {

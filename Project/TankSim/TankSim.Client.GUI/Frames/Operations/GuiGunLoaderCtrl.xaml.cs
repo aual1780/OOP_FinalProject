@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using TankSim.Client.OperatorModules;
 
 namespace TankSim.Client.GUI.Frames.Operations
@@ -7,11 +8,20 @@ namespace TankSim.Client.GUI.Frames.Operations
     /// Interaction logic for GuiGunLoaderCtrl.xaml
     /// </summary>
     [OperatorRole(OperatorRoles.GunLoader)]
-    public partial class GuiGunLoaderCtrl : UserControl, IOperatorUIModule
+    public partial class GuiGunLoaderCtrl : UserControl, IOperatorUIModule, IDisposable
     {
-        public GuiGunLoaderCtrl()
+        private readonly IDisposable _vm;
+
+        public GuiGunLoaderCtrl(GuiGunLoaderVM vm)
         {
+            _vm = vm;
+            DataContext = _vm;
             InitializeComponent();
+        }
+
+        public void Dispose()
+        {
+            _vm.Dispose();
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TankSim.GameHost
+﻿namespace TankSim.GameHost
 {
     /// <summary>
     /// Tank controller system state object

@@ -201,7 +201,7 @@
             Get queries relevant to controller startup
             </summary>
         </member>
-        <member name="F:TankSim.Constants.Queries.ControllerInit.GetOperatorRoles">
+        <member name="P:TankSim.Constants.Queries.ControllerInit.GetOperatorRoles">
             <summary>
             Get operator roles for a controller
             </summary>
@@ -216,9 +216,19 @@
             Get commands relevant to controller startup
             </summary>
         </member>
-        <member name="F:TankSim.Constants.Commands.ControllerInit.SetClientName">
+        <member name="P:TankSim.Constants.Commands.ControllerInit.SetClientName">
             <summary>
             Set client name
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.Gameplay">
+            <summary>
+            Gameplay configs
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.Gameplay.ReloadDuration">
+            <summary>
+            Main gun reload time
             </summary>
         </member>
         <member name="T:TankSim.DriveDirection">

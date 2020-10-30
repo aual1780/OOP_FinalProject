@@ -1,8 +1,6 @@
 ﻿using ArdNet;
 using ArdNet.Client;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TankSim.OperatorDelegates;
 using TIPC.Core.ComponentModel;
