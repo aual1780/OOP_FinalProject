@@ -191,5 +191,10 @@
             Dispose
             </summary>
         </member>
+        <member name="T:TankSim.GameHost.TankSystems.IPrimaryAmmoType">
+            <summary>
+            Interface representing ammo types for the primary gun
+            </summary>
+        </member>
     </members>
 </doc>

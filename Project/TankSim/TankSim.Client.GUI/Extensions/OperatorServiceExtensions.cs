@@ -18,8 +18,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddTransient<GuiDriverVM>()
                 .AddTransient<GuiFireControlCtrl>()
                 .AddTransient<GuiGunLoaderCtrl>()
-                .AddTransient<GuiGunRotationCtrl>()
-                .AddTransient<GuiRangeFinderCtrl>()
+                .AddTransient<GuiGunAimCtrl>()
+                .AddTransient<GuiGunAimVM>()
                 ;
             return services;
         }
