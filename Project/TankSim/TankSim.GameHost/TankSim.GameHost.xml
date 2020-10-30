@@ -41,6 +41,11 @@
             Event triggered when tank movement vector is changed
             </summary>
         </member>
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.AimChanged">
+            <summary>
+            Event triggered when tank movement vector is changed
+            </summary>
+        </member>
         <member name="E:TankSim.GameHost.OperatorCmdFacade.DriverCmdReceived">
             <summary>
             Event triggered when driver command is received

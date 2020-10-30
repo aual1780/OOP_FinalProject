@@ -20,6 +20,11 @@ namespace TankSim.GameHost
         public event TankMovementCmdEventHandler MovementChanged;
 
         /// <summary>
+        /// Event triggered when tank movement vector is changed
+        /// </summary>
+        public event TankMovementCmdEventHandler AimChanged;
+
+        /// <summary>
         /// Event triggered when driver command is received
         /// </summary>
         public event OperatorCmdEventHandler<DriverCmd> DriverCmdReceived;
@@ -74,7 +79,34 @@ namespace TankSim.GameHost
                         if ((e.Dir & ew) == 0)
                             return true;
                     }
-                    else if ((state.Roles & OperatorRoles.Driver) != 0)
+                    else if ((state.Roles & OperatorRoles.Navigator) != 0)
+                    {
+                        if ((e.Dir & ns) == 0)
+                            return true;
+                    }
+                    return false;
+                });
+                _proxySet.Add(proxy);
+            }
+            {
+                var proxy = new TankAimingDelegate(ArdServer);
+                proxy.AimChanged += (x, y) => AimChanged(x, y);
+                proxy.Validator.AddFilter(e =>
+                {
+                    var state = (TankControllerState)e.Endpt.UserState;
+                    var roles = OperatorRoles.RangeFinder | OperatorRoles.GunRotation;
+                    var ns = MovementDirection.North | MovementDirection.South;
+                    var ew = MovementDirection.East | MovementDirection.West;
+                    if ((state.Roles & roles) == roles)
+                    {
+                        return true;
+                    }
+                    else if ((state.Roles & OperatorRoles.RangeFinder) != 0)
+                    {
+                        if ((e.Dir & ew) == 0)
+                            return true;
+                    }
+                    else if ((state.Roles & OperatorRoles.GunRotation) != 0)
                     {
                         if ((e.Dir & ns) == 0)
                             return true;

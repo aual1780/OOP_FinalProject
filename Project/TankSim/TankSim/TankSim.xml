@@ -798,6 +798,33 @@
             Send closer command to host
             </summary>
         </member>
+        <member name="T:TankSim.OperatorDelegates.TankAimingDelegate">
+            <summary>
+            Delegate for tracking tank true movement direction
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorDelegates.TankAimingDelegate.Validator">
+            <summary>
+            Event preprocess validator.
+            Use to intercept events and prevent bubbling
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.TankAimingDelegate.AimChanged">
+            <summary>
+            Event triggered when movement direction is changed
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankAimingDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankAimingDelegate.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
         <member name="T:TankSim.OperatorDelegates.TankMovementCmdEventHandler">
             <summary>
             Callback delegate to handle movement commands

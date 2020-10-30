@@ -12,10 +12,10 @@
         /// <summary>
         /// Aim farther away
         /// </summary>
-        Farther = 1,
+        Farther = MovementDirection.North,
         /// <summary>
         /// Aim closer
         /// </summary>
-        Closer = 2
+        Closer = MovementDirection.South
     }
 }
