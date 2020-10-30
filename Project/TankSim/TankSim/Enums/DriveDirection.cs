@@ -12,10 +12,10 @@
         /// <summary>
         /// Forward command
         /// </summary>
-        Forward = 1,
+        Forward = MovementDirection.North,
         /// <summary>
         /// Backward command
         /// </summary>
-        Backward = 2
+        Backward = MovementDirection.South
     }
 }

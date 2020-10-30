@@ -12,10 +12,10 @@
         /// <summary>
         /// Turn left
         /// </summary>
-        Left = 1, 
+        Left = MovementDirection.West,
         /// <summary>
         /// Turn right
         /// </summary>
-        Right = 2
+        Right = MovementDirection.East
     }
 }

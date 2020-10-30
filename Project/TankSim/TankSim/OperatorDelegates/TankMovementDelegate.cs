@@ -18,14 +18,118 @@ namespace TankSim.OperatorDelegates
     /// </summary>
     public sealed class TankMovementDelegate : IDisposable
     {
+        const MovementDirection _ns = (MovementDirection.North | MovementDirection.South);
+        const MovementDirection _ew = (MovementDirection.East | MovementDirection.West);
         private MovementDirection _dir;
+        readonly object _nsLock = new object();
+        readonly object _ewLock = new object();
         private readonly ITopicMessageProxy<DriverCmd> _driveProxy;
         private readonly ITopicMessageProxy<NavigatorCmd> _navProxy;
+        private readonly object _cmdHandlerLock = new object();
+        private TankMovementCmdEventHandler _cmdHandler;
+
+        /// <summary>
+        /// Event preprocess validator.
+        /// Use to intercept events and prevent bubbling
+        /// </summary>
+        public DelegateEventValidator<(IConnectedSystemEndpoint Endpt, MovementDirection Dir)> Validator
+        {
+            get;
+        } = new DelegateEventValidator<(IConnectedSystemEndpoint Endpt, MovementDirection Dir)>();
+
 
         /// <summary>
         /// Event triggered when movement direction is changed
         /// </summary>
-        public event TankMovementCmdEventHandler MovementChanged;
+        public event TankMovementCmdEventHandler MovementChanged
+        {
+            add
+            {
+                lock (_cmdHandlerLock)
+                {
+                    _cmdHandler += value;
+                    if (_cmdHandler != null)
+                    {
+                        _driveProxy.MessageReceived += DriveProxy_MessageReceived;
+                        _navProxy.MessageReceived += NavProxy_MessageReceived;
+                    }
+                }
+            }
+            remove
+            {
+                lock (_cmdHandlerLock)
+                {
+                    _cmdHandler -= value;
+                    if (_cmdHandler == null)
+                    {
+                        _driveProxy.MessageReceived -= DriveProxy_MessageReceived;
+                    }
+                }
+            }
+        }
+
+        void DriveProxy_MessageReceived(
+            object Sender,
+            TopicProxyMessageEventArgs<DriverCmd> e)
+        {
+            var tup = (e.SourceEndpoint, (MovementDirection)e.Message.Direction);
+            if (!Validator.Validate(tup))
+            {
+                return;
+            }
+            MovementDirection dirCopy = 0;
+            lock (_nsLock)
+            {
+                switch (e.Message.Direction)
+                {
+                    case DriveDirection.Stop:
+                        _dir &= _ew;
+                        break;
+                    case DriveDirection.Forward:
+                        _dir &= _ew;
+                        _dir |= MovementDirection.North;
+                        break;
+                    case DriveDirection.Backward:
+                        _dir &= _ew;
+                        _dir |= MovementDirection.South;
+                        break;
+                }
+                dirCopy = _dir;
+            }
+            _cmdHandler?.Invoke(e.SourceEndpoint, dirCopy);
+        }
+
+        void NavProxy_MessageReceived(
+            object Sender,
+            TopicProxyMessageEventArgs<NavigatorCmd> e)
+        {
+            var tup = (e.SourceEndpoint, (MovementDirection)e.Message.Direction);
+            if (!Validator.Validate(tup))
+            {
+                return;
+            }
+            MovementDirection dirCopy = 0;
+            lock (_ewLock)
+            {
+                switch (e.Message.Direction)
+                {
+                    case RotationDirection.Stop:
+                        _dir &= _ns;
+                        break;
+                    case RotationDirection.Left:
+                        _dir &= _ns;
+                        _dir |= MovementDirection.West;
+                        break;
+                    case RotationDirection.Right:
+                        _dir &= _ns;
+                        _dir |= MovementDirection.East;
+                        break;
+                }
+                dirCopy = _dir;
+            }
+            _cmdHandler?.Invoke(e.SourceEndpoint, dirCopy);
+        }
+
 
         /// <summary>
         /// Create instance.
@@ -38,59 +142,8 @@ namespace TankSim.OperatorDelegates
                 throw new ArgumentNullException(nameof(ArdSys));
             }
 
-            var ns = (MovementDirection.North | MovementDirection.South);
-            var ew = (MovementDirection.East | MovementDirection.West);
-            var nsLock = new object();
-            var ewLock = new object();
-
             _driveProxy = ArdSys.TopicManager.GetProxy<DriverCmd>(Constants.ChannelNames.TankOperations.Driver);
-            _driveProxy.MessageReceived += (sender, arg) =>
-            {
-                MovementDirection dirCopy = 0;
-                lock (nsLock)
-                {
-                    switch (arg.Message.Direction)
-                    {
-                        case DriveDirection.Stop:
-                            _dir &= ew;
-                            break;
-                        case DriveDirection.Forward:
-                            _dir &= ew;
-                            _dir |= MovementDirection.North;
-                            break;
-                        case DriveDirection.Backward:
-                            _dir &= ew;
-                            _dir |= MovementDirection.South;
-                            break;
-                    }
-                    dirCopy = _dir;
-                }
-                MovementChanged?.Invoke(arg.SourceEndpoint, dirCopy);
-            };
             _navProxy = ArdSys.TopicManager.GetProxy<NavigatorCmd>(Constants.ChannelNames.TankOperations.Navigator);
-            _navProxy.MessageReceived += (sender, arg) =>
-            {
-                MovementDirection dirCopy = 0;
-                lock (ewLock)
-                {
-                    switch (arg.Message.Direction)
-                    {
-                        case RotationDirection.Stop:
-                            _dir &= ns;
-                            break;
-                        case RotationDirection.Left:
-                            _dir &= ns;
-                            _dir |= MovementDirection.West;
-                            break;
-                        case RotationDirection.Right:
-                            _dir &= ns;
-                            _dir |= MovementDirection.East;
-                            break;
-                    }
-                    dirCopy = _dir;
-                }
-                MovementChanged?.Invoke(arg.SourceEndpoint, dirCopy);
-            };
         }
 
 
@@ -99,8 +152,9 @@ namespace TankSim.OperatorDelegates
         /// </summary>
         public void Dispose()
         {
-            _driveProxy?.Dispose();
-            _navProxy?.Dispose();
+            _cmdHandler = null;
+            _driveProxy.Dispose();
+            _navProxy.Dispose();
         }
     }
 }
