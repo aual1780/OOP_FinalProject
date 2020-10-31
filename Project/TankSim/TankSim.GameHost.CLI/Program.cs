@@ -35,7 +35,7 @@ namespace TankSim.GameHost.CLI
             //application scope
             while (true)
             {
-                GamepadService gamepadSvc;
+                GamepadService gamepadSvc = null;
                 try
                 {
                     //create ardnet server
