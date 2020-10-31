@@ -46,9 +46,21 @@ namespace J2i.Net.XInputWrapper
             return (wButtons & buttonFlags) == buttonFlags;
         }
 
+        public bool IsButtonPressed(ButtonFlags buttonFlags)
+        {
+            int btnFlg = (int)buttonFlags;
+            return (wButtons & btnFlg) == btnFlg;
+        }
+
         public bool IsButtonPresent(int buttonFlags)
         {
             return (wButtons & buttonFlags) == buttonFlags;
+        }
+
+        public bool IsButtonPresent(ButtonFlags buttonFlags)
+        {
+            int btnFlg = (int)buttonFlags;
+            return (wButtons & btnFlg) == btnFlg;
         }
 
 

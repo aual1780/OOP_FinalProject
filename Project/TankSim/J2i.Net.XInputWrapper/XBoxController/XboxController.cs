@@ -138,11 +138,6 @@ namespace J2i.Net.XInputWrapper
 
         //XInputCapabilities _capabilities;
 
-        internal XInputState GamepadStatePrev
-        {
-            get => _gamepadStatePrev;
-            private set => _gamepadStatePrev = value;
-        }
         internal XInputState GamepadStateCurrent
         {
             get => _gamepadStateCurrent;
@@ -188,7 +183,7 @@ namespace J2i.Net.XInputWrapper
         {
             _playerIndex = playerIndex;
             DPad = new DPadState(this);
-            GamepadStatePrev.Copy(GamepadStateCurrent);
+            _gamepadStatePrev.Copy(GamepadStateCurrent);
         }
 
         /// <summary>
@@ -212,7 +207,12 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         protected void OnStateChanged()
         {
-            StateChanged?.Invoke(this, new XboxControllerStateChangedEventArgs() { CurrentInputState = GamepadStateCurrent, PreviousInputState = GamepadStatePrev });
+            var arg = new XboxControllerStateChangedEventArgs()
+            {
+                CurrentInputState = GamepadStateCurrent,
+                PreviousInputState = _gamepadStatePrev
+            };
+            StateChanged?.Invoke(this, arg);
         }
 
         /// <summary>
@@ -426,11 +426,11 @@ namespace J2i.Net.XInputWrapper
             IsConnected = (result == 0);
 
             UpdateBatteryState();
-            if (GamepadStateCurrent.PacketNumber != GamepadStatePrev.PacketNumber)
+            if (GamepadStateCurrent.PacketNumber != _gamepadStatePrev.PacketNumber)
             {
                 OnStateChanged();
             }
-            GamepadStatePrev.Copy(GamepadStateCurrent);
+            _gamepadStatePrev.Copy(GamepadStateCurrent);
 
             if (_stopMotorTimerActive && (DateTime.Now >= _stopMotorTime))
             {

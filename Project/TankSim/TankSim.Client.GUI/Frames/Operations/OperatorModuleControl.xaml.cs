@@ -29,8 +29,6 @@ namespace TankSim.Client.GUI.Frames.Operations
             if (keyConfig.Value.EnableGlobalHooks)
             {
                 _globalHook = new GlobalKeyHook(true);
-                _globalHook.KeyDown += GlobalHook_KeyDown;
-                _globalHook.KeyUp += GlobalHook_KeyUp;
             }
             InitializeComponent();
         }
@@ -45,6 +43,11 @@ namespace TankSim.Client.GUI.Frames.Operations
             _myWindow = Window.GetWindow(this);
             _myWindow.KeyDown += OperatorModuleControl_KeyDown;
             _myWindow.KeyUp += OperatorModuleControl_KeyUp;
+            if (_globalHook != null)
+            {
+                _globalHook.KeyDown += GlobalHook_KeyDown;
+                _globalHook.KeyUp += GlobalHook_KeyUp;
+            }
         }
 
         void OperatorModuleControl_Unloaded(object sender, RoutedEventArgs e) => this.Dispose();
@@ -66,6 +69,23 @@ namespace TankSim.Client.GUI.Frames.Operations
                 return;
             }
             _vm.HandleKeyEvent(e, KeyInputType.KeyUp);
+        }
+
+        private void GamepadRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            MenuItem mi = (MenuItem)sender;
+            var selectedController = mi.Header.ToString();
+            foreach (var itm in mnu_GamepadRadio.Items)
+            {
+                if (itm != sender)
+                {
+                    ((MenuItem)itm).IsChecked = false;
+                }
+            }
+            if (int.TryParse(selectedController, out var idx))
+            {
+                _vm.GamepadIndex = idx;
+            }
         }
 
         public void Dispose()

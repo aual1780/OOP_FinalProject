@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel LastChildFill="True">
-        <ContentControl Content="{Binding FrameContent}" ></ContentControl>
+        <ContentControl 
+            Content="{Binding FrameContent}" 
+            IsTabStop="False"/>
     </DockPanel>
 </Window>

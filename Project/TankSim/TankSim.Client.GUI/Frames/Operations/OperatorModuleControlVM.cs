@@ -28,9 +28,12 @@ namespace TankSim.Client.GUI.Frames.Operations
         private IEnumerable<UserControl> _uiModuleCollection;
         private IConnectedSystemEndpoint _gameHost;
         private OperatorRoles _roles = 0;
+        private int _gamepadIndex = 1;
+        private readonly IGamepadService _gamepadService;
         private readonly CancellationTokenSource _initSyncTokenSrc = new CancellationTokenSource();
         private readonly CancelThread<object> _inputProcessorThread;
         readonly PriorityBlockingQueue<(Key, bool, KeyInputType)> _keyQueue = new PriorityBlockingQueue<(Key, bool, KeyInputType)>();
+
 
         public OperatorRoles Roles
         {
@@ -62,11 +65,25 @@ namespace TankSim.Client.GUI.Frames.Operations
             get => _uiModuleCollection;
             set => SetField(ref _uiModuleCollection, value);
         }
+        public int GamepadIndex
+        {
+            get => _gamepadIndex;
+            set
+            {
+                if (!_gamepadService.TrySetControllerIndex(value - 1))
+                {
+                    return;
+                }
+                _ = SetField(ref _gamepadIndex, value);
+            }
+        }
+
 
         public OperatorModuleControlVM(
             IArdNetClient ArdClient,
             IOperatorModuleFactory<IOperatorInputModule> InputModuleFactory,
-            IOperatorModuleFactory<IOperatorUIModule> UIModuleFactory)
+            IOperatorModuleFactory<IOperatorUIModule> UIModuleFactory,
+            IGamepadService GamepadService)
         {
             _ardClient = ArdClient;
             _inputModuleFactory = InputModuleFactory;
@@ -75,6 +92,7 @@ namespace TankSim.Client.GUI.Frames.Operations
             _inputProcessorThread.Start();
             _ardClient.TcpEndpointConnected += ArdClient_TcpEndpointConnected;
             _ardClient.TcpEndpointDisconnected += ArdClient_TcpEndpointDisconnected;
+            _gamepadService = GamepadService;
         }
 
         private void ArdClient_TcpEndpointConnected(object Sender, IConnectedSystemEndpoint e)
@@ -100,6 +118,7 @@ namespace TankSim.Client.GUI.Frames.Operations
                 Roles = Enum.Parse<OperatorRoles>(responseStr);
                 InputModuleCollection = _inputModuleFactory.GetModuleCollection(Roles);
                 UIModuleCollection = _uiModuleFactory.GetModuleCollection(Roles).OfType<UserControl>();
+                _gamepadService.SetRoles(Roles);
             }
             catch (OperationCanceledException)
             {

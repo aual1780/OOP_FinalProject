@@ -18,13 +18,26 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel>
+            <Menu Height="20">
+                <MenuItem x:Name="mnu_GamepadRadio" Header="{Binding GamepadIndex}" HeaderStringFormat="Selected Gamepad ({0})" IsTabStop="False">
+                    <MenuItem Header="1" IsCheckable="True" IsChecked="True" Checked="GamepadRadio_Checked"/>
+                    <MenuItem Header="2" IsCheckable="True" IsChecked="False" Checked="GamepadRadio_Checked"/>
+                    <MenuItem Header="3" IsCheckable="True" IsChecked="False" Checked="GamepadRadio_Checked"/>
+                    <MenuItem Header="4" IsCheckable="True" IsChecked="False" Checked="GamepadRadio_Checked"/>
+                    <MenuItem Header="5" IsCheckable="True" IsChecked="False" Checked="GamepadRadio_Checked"/>
+                    <MenuItem Header="6" IsCheckable="True" IsChecked="False" Checked="GamepadRadio_Checked"/>
+                    <MenuItem Header="7" IsCheckable="True" IsChecked="False" Checked="GamepadRadio_Checked"/>
+                    <MenuItem Header="8" IsCheckable="True" IsChecked="False" Checked="GamepadRadio_Checked"/>
+                </MenuItem>
+            </Menu>
             <Label
                 Content="{Binding GameHostEndpoint}" ContentStringFormat="Game Host: {0}"
                 Style="{StaticResource GameHostStyle}"/>
             <Label Content="{Binding Roles}" ContentStringFormat="Your Roles: {0}"/>
-            <ItemsControl 
+            <ItemsControl
                 ItemsSource="{Binding UIModuleCollection}"
-                Margin="0 20px 0 0" />
+                Margin="0 20px 0 0"
+                IsTabStop="False"/>
         </StackPanel>
 
     </Grid>
