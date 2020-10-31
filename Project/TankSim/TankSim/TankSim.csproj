@@ -23,4 +23,8 @@
     <PackageReference Include="TIPC.Core.Channels.DependencyInjection" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\J2i.Net.XInputWrapper\J2i.Net.XInputWrapper.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,4 @@
 ﻿using ArdNet;
-using ArdNet.Client;
 using J2i.Net.XInputWrapper;
 using System;
 using System.Collections.Generic;
@@ -11,27 +10,49 @@ using TankSim.OperatorDelegates;
 using TIPC.Core.Tools;
 using TIPC.Core.Tools.Extensions.IEnumerable;
 
-namespace TankSim.Client.GUI.Frames.Operations
+namespace TankSim
 {
-    public interface IGamepadService
+    /// <summary>
+    /// Gamepad service interface
+    /// </summary>
+    public interface IGamepadService : IDisposable
     {
-        int GamepadIndex { get; set; }
+        /// <summary>
+        /// Gamepad ID.  Lets user select gamepad to use
+        /// </summary>
+        int GamepadIndex { get; }
+        /// <summary>
+        /// Attempt to change the target controller.
+        /// Must be in range 0-7
+        /// </summary>
+        /// <param name="Idx"></param>
+        /// <returns></returns>
         bool TrySetControllerIndex(int Idx);
+        /// <summary>
+        /// Set operator roles.
+        /// Configures bindings to hook proper controls for the assigned operator roles
+        /// </summary>
+        /// <param name="Roles"></param>
         void SetRoles(OperatorRoles Roles);
     }
 
-    public class GamepadService : IGamepadService, IDisposable
+    /// <summary>
+    /// Gamepad binding service
+    /// </summary>
+    public class GamepadService : IGamepadService
     {
-        private readonly IArdNetClient _ardClient;
+        private readonly IArdNetSystem _ardSys;
         private int _gamepadIndex = -1;
         private readonly object _controllerLock = new object();
         private XboxController _controller;
-        private OperatorRoles _roles;
         private readonly List<IDisposable> _operatorDelegates = new List<IDisposable>();
         private event EventHandler<XboxControllerStateChangedEventArgs> ControllerStateChanged;
         const int _thumbThreshhold = (int)(XboxController.ThumbStick.MAX_THUMBSTICK_VAL / 2.0);
         const int _triggerThreshhold = (int)(XboxController.Trigger.MAX_TRIGGER_VAL / 2.0);
 
+        /// <summary>
+        /// Current gamepad ID
+        /// </summary>
         public int GamepadIndex
         {
             get => _gamepadIndex;
@@ -54,7 +75,10 @@ namespace TankSim.Client.GUI.Frames.Operations
             }
         }
 
-        public XboxController Controller => _controller;
+        /// <summary>
+        /// Get current gamepad
+        /// </summary>
+        public XboxController Gamepad => _controller;
 
 
         private void Controller_StateChanged(object sender, XboxControllerStateChangedEventArgs e)
@@ -62,12 +86,22 @@ namespace TankSim.Client.GUI.Frames.Operations
             ControllerStateChanged?.Invoke(sender, e);
         }
 
-        public GamepadService(IArdNetClient ArdClient)
+        /// <summary>
+        /// Create instance
+        /// </summary>
+        /// <param name="ArdClient"></param>
+        public GamepadService(IArdNetSystem ArdClient)
         {
             GamepadIndex = 0;
-            _ardClient = ArdClient;
+            _ardSys = ArdClient;
         }
 
+        /// <summary>
+        /// Attempt to change the target controller.
+        /// Must be in range 0-7
+        /// </summary>
+        /// <param name="Idx"></param>
+        /// <returns></returns>
         public bool TrySetControllerIndex(int Idx)
         {
             if (Idx < XboxController.FIRST_CONTROLLER_INDEX)
@@ -82,45 +116,49 @@ namespace TankSim.Client.GUI.Frames.Operations
             return true;
         }
 
+        /// <summary>
+        /// Set operator roles.
+        /// Configures bindings to hook proper controls for the assigned operator roles
+        /// </summary>
+        /// <param name="Roles"></param>
         public void SetRoles(OperatorRoles Roles)
         {
             this.Dispose();
             XboxController.StartPolling();
-            _roles = Roles;
-            var flags = EnumTools.GetSelectedFlags(Roles).ToHashSet();
+            var flags = new HashSet<OperatorRoles>(EnumTools.GetSelectedFlags(Roles));
             if (flags.Contains(OperatorRoles.Driver))
             {
-                var proxy = new DriverDelegate(_ardClient);
+                var proxy = new DriverDelegate(_ardSys);
                 AddOperatorHandler(proxy);
                 _operatorDelegates.Add(proxy);
             }
             if (flags.Contains(OperatorRoles.FireControl))
             {
-                var proxy = new FireControlDelegate(_ardClient);
+                var proxy = new FireControlDelegate(_ardSys);
                 AddOperatorHandler(proxy);
                 _operatorDelegates.Add(proxy);
             }
             if (flags.Contains(OperatorRoles.GunLoader))
             {
-                var proxy = new GunLoaderDelegate(_ardClient);
+                var proxy = new GunLoaderDelegate(_ardSys);
                 AddOperatorHandler(proxy);
                 _operatorDelegates.Add(proxy);
             }
             if (flags.Contains(OperatorRoles.GunRotation))
             {
-                var proxy = new GunRotationDelegate(_ardClient);
+                var proxy = new GunRotationDelegate(_ardSys);
                 AddOperatorHandler(proxy);
                 _operatorDelegates.Add(proxy);
             }
             if (flags.Contains(OperatorRoles.Navigator))
             {
-                var proxy = new NavigatorDelegate(_ardClient);
+                var proxy = new NavigatorDelegate(_ardSys);
                 AddOperatorHandler(proxy);
                 _operatorDelegates.Add(proxy);
             }
             if (flags.Contains(OperatorRoles.RangeFinder))
             {
-                var proxy = new RangeFinderDelegate(_ardClient);
+                var proxy = new RangeFinderDelegate(_ardSys);
                 AddOperatorHandler(proxy);
                 _operatorDelegates.Add(proxy);
             }
@@ -294,6 +332,9 @@ namespace TankSim.Client.GUI.Frames.Operations
             };
         }
 
+        /// <summary>
+        /// Unhook bindings and stop controller polling
+        /// </summary>
         public void Dispose()
         {
             ControllerStateChanged = null;

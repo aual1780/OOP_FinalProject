@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\J2i.Net.XInputWrapper\J2i.Net.XInputWrapper.csproj" />
     <ProjectReference Include="..\TankSim.Client\TankSim.Client.csproj" />
   </ItemGroup>
 

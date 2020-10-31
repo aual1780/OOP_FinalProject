@@ -394,6 +394,72 @@
             <param name="GameID"></param>
             <returns></returns>
         </member>
+        <member name="T:TankSim.IGamepadService">
+            <summary>
+            Gamepad service interface
+            </summary>
+        </member>
+        <member name="P:TankSim.IGamepadService.GamepadIndex">
+            <summary>
+            Gamepad ID.  Lets user select gamepad to use
+            </summary>
+        </member>
+        <member name="M:TankSim.IGamepadService.TrySetControllerIndex(System.Int32)">
+            <summary>
+            Attempt to change the target controller.
+            Must be in range 0-7
+            </summary>
+            <param name="Idx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.IGamepadService.SetRoles(TankSim.OperatorRoles)">
+            <summary>
+            Set operator roles.
+            Configures bindings to hook proper controls for the assigned operator roles
+            </summary>
+            <param name="Roles"></param>
+        </member>
+        <member name="T:TankSim.GamepadService">
+            <summary>
+            Gamepad binding service
+            </summary>
+        </member>
+        <member name="P:TankSim.GamepadService.GamepadIndex">
+            <summary>
+            Current gamepad ID
+            </summary>
+        </member>
+        <member name="P:TankSim.GamepadService.Gamepad">
+            <summary>
+            Get current gamepad
+            </summary>
+        </member>
+        <member name="M:TankSim.GamepadService.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance
+            </summary>
+            <param name="ArdClient"></param>
+        </member>
+        <member name="M:TankSim.GamepadService.TrySetControllerIndex(System.Int32)">
+            <summary>
+            Attempt to change the target controller.
+            Must be in range 0-7
+            </summary>
+            <param name="Idx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.GamepadService.SetRoles(TankSim.OperatorRoles)">
+            <summary>
+            Set operator roles.
+            Configures bindings to hook proper controls for the assigned operator roles
+            </summary>
+            <param name="Roles"></param>
+        </member>
+        <member name="M:TankSim.GamepadService.Dispose">
+            <summary>
+            Unhook bindings and stop controller polling
+            </summary>
+        </member>
         <member name="T:TankSim.OperatorCmds.DriverCmd">
             <summary>
             Channel command - driver operation
