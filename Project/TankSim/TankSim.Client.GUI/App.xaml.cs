@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using ArdNet;
+using ArdNet.Client;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
@@ -74,6 +76,7 @@ namespace TankSim.Client.GUI
                 .AddDebugLogger()
                 .AddReleaseCrasher()
                 ;
+            _ = services.AddScoped<IArdNetSystem>((sp) => sp.GetRequiredService<IArdNetClient>());
             //setup main window
             _ = services
                 .AddTransient<MainWindow>()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using TankSim.Client.GUI.Frames.ClientName;
 using TankSim.Client.GUI.Frames.GameScope;
@@ -50,9 +51,12 @@ namespace TankSim.Client.GUI
         }
 
 
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            _scope?.Dispose();
+            await Task.Run(() =>
+            {
+                _scope?.Dispose();
+            });
         }
     }
 }
