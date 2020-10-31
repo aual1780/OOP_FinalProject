@@ -14,6 +14,8 @@ using TIPC.Core.ComponentModel;
 using TIPC.Core.Tools.Extensions.IEnumerable;
 using TankSim.Client.Extensions;
 using TankSim.Client.GUI.Tools;
+using TIPC.Core.Tools.Threading;
+using TIPC.Core.Collections.Generic;
 
 namespace TankSim.Client.GUI.Frames.Operations
 {
@@ -27,6 +29,8 @@ namespace TankSim.Client.GUI.Frames.Operations
         private IConnectedSystemEndpoint _gameHost;
         private OperatorRoles _roles = 0;
         private readonly CancellationTokenSource _initSyncTokenSrc = new CancellationTokenSource();
+        private readonly CancelThread<object> _inputProcessorThread;
+        readonly PriorityBlockingQueue<(Key, bool, KeyInputType)> _keyQueue = new PriorityBlockingQueue<(Key, bool, KeyInputType)>();
 
         public OperatorRoles Roles
         {
@@ -67,6 +71,8 @@ namespace TankSim.Client.GUI.Frames.Operations
             _ardClient = ArdClient;
             _inputModuleFactory = InputModuleFactory;
             _uiModuleFactory = UIModuleFactory;
+            _inputProcessorThread = new CancelThread<object>(KeyProcessingLoop);
+            _inputProcessorThread.Start();
             _ardClient.TcpEndpointConnected += ArdClient_TcpEndpointConnected;
             _ardClient.TcpEndpointDisconnected += ArdClient_TcpEndpointDisconnected;
         }
@@ -104,44 +110,44 @@ namespace TankSim.Client.GUI.Frames.Operations
 
         public void HandleKeyEvent(KeyEventArgs e, KeyInputType PressType)
         {
-            var consoleKey = e.Key.ToConsoleKey();
-            OperatorInputMsg input;
-            //keydown
-            if (PressType == KeyInputType.KeyDown)
-            {
-                if (e.IsRepeat)
-                {
-                    return;
-                }
-                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
-            }
-            //keyup
-            else
-            {
-                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyUp);
-            }
-            InputModuleCollection?.SendInput(input);
+            _ = _keyQueue.TryAdd((e.Key, e.IsRepeat, PressType));
         }
 
         public void HandleKeyEvent(RawKeyEventArgs e, KeyInputType PressType)
         {
-            var consoleKey = e.Key.ToConsoleKey();
-            OperatorInputMsg input;
-            //keydown
-            if (PressType == KeyInputType.KeyDown)
+            _ = _keyQueue.TryAdd((e.Key, e.IsRepeat, PressType));
+        }
+
+        private void KeyProcessingLoop(object state, CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
             {
-                if (e.IsRepeat)
+                if (!_keyQueue.TryTake(out var tuple, token))
                 {
                     return;
                 }
-                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
+                var key = tuple.Item1;
+                var isRepeat = tuple.Item2;
+                var pressType = tuple.Item3;
+
+                var consoleKey = key.ToConsoleKey();
+                OperatorInputMsg input;
+                //keydown
+                if (pressType == KeyInputType.KeyDown)
+                {
+                    if (isRepeat)
+                    {
+                        continue;
+                    }
+                    input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
+                }
+                //keyup
+                else
+                {
+                    input = new OperatorInputMsg(consoleKey, KeyInputType.KeyUp);
+                }
+                InputModuleCollection?.SendInput(input);
             }
-            //keyup
-            else
-            {
-                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyUp);
-            }
-            InputModuleCollection?.SendInput(input);
         }
 
         public void Dispose()
@@ -155,6 +161,7 @@ namespace TankSim.Client.GUI.Frames.Operations
             catch { }
             _ardClient.TcpEndpointConnected -= ArdClient_TcpEndpointConnected;
             _ardClient.TcpEndpointDisconnected -= ArdClient_TcpEndpointDisconnected;
+            _inputProcessorThread.Dispose();
             _inputModuleCollection?.DisposeAll();
         }
     }

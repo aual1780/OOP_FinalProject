@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -23,27 +24,15 @@ namespace TankSim.Client.GUI.Tools
         /// <summary>
         /// defines the callback type for the hook
         /// </summary>
-        public delegate int KeyboardHookProc(int code, int wParam, ref KeyboardHookStruct lParam);
+        public delegate int KeyboardHookProc1(int code, int wParam, ref KeyboardHookStruct lParam);
+
+        private delegate IntPtr KeyboardHookProc2(int nCode, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
         /// Track keyboard keystate (down/up).  Used to determine if a key is being held or pressed repeatedly
         /// </summary>
-        public bool[] KeyPressStateArr = new bool[256];
+        public bool[] KeyPressStateArr { get; } = new bool[256];
 
-        /// <summary>
-        /// Keyboard hook data
-        /// </summary>
-        /// <remarks>
-        /// https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-kbdllhookstruct?redirectedfrom=MSDN
-        /// </remarks>
-        public struct KeyboardHookStruct
-        {
-            public int vkCode;
-            public int scanCode;
-            public int flags;
-            public int time;
-            public int dwExtraInfo;
-        }
 
 #pragma warning disable IDE1006 // Naming Styles
         const int WH_KEYBOARD_LL = 13;
@@ -78,7 +67,7 @@ namespace TankSim.Client.GUI.Tools
         /// </summary>
         public GlobalKeyHook()
         {
-            Hook();
+            //Hook();
         }
 
         /// <summary>
@@ -105,16 +94,20 @@ namespace TankSim.Client.GUI.Tools
         /// <summary>
         /// Installs the global hook
         /// </summary>
-        private void Hook()
+        public void Hook()
         {
-            IntPtr hInstance = LoadLibrary("User32");
-            _hhook = SetWindowsHookEx(WH_KEYBOARD_LL, HookProc, hInstance, 0);
+            using (Process curProcess = Process.GetCurrentProcess())
+            using (ProcessModule curModule = curProcess.MainModule)
+            {
+                var modHandle = GetModuleHandle(curModule.ModuleName);
+                _hhook = SetWindowsHookEx(WH_KEYBOARD_LL, HookProc1, modHandle, 0);
+            }
         }
 
         /// <summary>
         /// Uninstalls the global hook
         /// </summary>
-        private bool Unhook()
+        public bool Unhook()
         {
             return UnhookWindowsHookEx(_hhook);
         }
@@ -126,27 +119,74 @@ namespace TankSim.Client.GUI.Tools
         /// <param name="wParam">The event type</param>
         /// <param name="lParam">The keyhook event information</param>
         /// <returns></returns>
-        public int HookProc(int code, int wParam, ref KeyboardHookStruct lParam)
+        public int HookProc1(int code, int wParam, ref KeyboardHookStruct lParam)
         {
             if (code >= 0)
             {
-                bool isSysKey = (wParam == WM_SYSKEYDOWN || wParam == WM_SYSKEYUP);
+                try
+                {
+                    bool isSysKey = (wParam == WM_SYSKEYDOWN || wParam == WM_SYSKEYUP);
 
-                if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
-                {
-                    bool isHeld = KeyPressStateArr[lParam.vkCode];
-                    var keyArg = new RawKeyEventArgs(lParam.vkCode, isSysKey, isHeld);
-                    KeyPressStateArr[lParam.vkCode] = true;
-                    KeyDown?.Invoke(this, keyArg);
+                    if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
+                    {
+                        bool isHeld = KeyPressStateArr[lParam.vkCode];
+                        var keyArg = new RawKeyEventArgs(lParam.vkCode, isSysKey, isHeld);
+                        KeyPressStateArr[lParam.vkCode] = true;
+                        KeyDown?.Invoke(this, keyArg);
+                    }
+                    else if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
+                    {
+                        var keyArg = new RawKeyEventArgs(lParam.vkCode, isSysKey, false);
+                        KeyPressStateArr[lParam.vkCode] = false;
+                        KeyUp?.Invoke(this, keyArg);
+                    }
                 }
-                else if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
+                catch
                 {
-                    var keyArg = new RawKeyEventArgs(lParam.vkCode, isSysKey, false);
-                    KeyPressStateArr[lParam.vkCode] = false;
-                    KeyUp?.Invoke(this, keyArg);
+                    //noop
                 }
             }
             return CallNextHookEx(_hhook, code, wParam, ref lParam);
+        }
+
+        /// <summary>
+        /// The callback for the keyboard hook
+        /// </summary>
+        /// <param name="code">The hook code, if it isn't >= 0, the function shouldn't do anyting</param>
+        /// <param name="wParam">The event type</param>
+        /// <param name="lParam">The keyhook event information</param>
+        /// <returns></returns>
+        public IntPtr HookProc2(int code, IntPtr wParam, IntPtr lParam)
+        {
+            if (code >= 0)
+            {
+                try
+                {
+                    int vkCode = Marshal.ReadInt32(lParam);
+                    int wParamInt = Marshal.ReadInt32(wParam);
+
+                    bool isSysKey = (wParamInt == WM_SYSKEYDOWN || wParamInt == WM_SYSKEYUP);
+
+                    if (wParamInt == WM_KEYDOWN || wParamInt == WM_SYSKEYDOWN)
+                    {
+                        bool isHeld = KeyPressStateArr[vkCode];
+                        var keyArg = new RawKeyEventArgs(vkCode, isSysKey, isHeld);
+                        KeyPressStateArr[vkCode] = true;
+                        KeyDown?.Invoke(this, keyArg);
+                    }
+                    else if (wParamInt == WM_KEYUP || wParamInt == WM_SYSKEYUP)
+                    {
+                        var keyArg = new RawKeyEventArgs(vkCode, isSysKey, false);
+                        KeyPressStateArr[vkCode] = false;
+                        KeyUp?.Invoke(this, keyArg);
+                    }
+                }
+                catch
+                {
+                    //noop
+                }
+            }
+            return CallNextHookEx(_hhook, code, wParam, lParam);
         }
 
         #endregion
@@ -160,15 +200,27 @@ namespace TankSim.Client.GUI.Tools
         /// <param name="hInstance">The handle you want to attach the event to, can be null</param>
         /// <param name="threadId">The thread you want to attach the event to, can be null</param>
         /// <returns>a handle to the desired hook</returns>
-        [DllImport("user32.dll")]
-        static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookProc callback, IntPtr hInstance, uint threadId);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookProc1 callback, IntPtr hInstance, uint threadId);
+
+        /// <summary>
+        /// Sets the windows hook, do the desired event, one of hInstance or threadId must be non-null
+        /// </summary>
+        /// <param name="idHook">The id of the event you want to hook</param>
+        /// <param name="callback">The callback.</param>
+        /// <param name="hInstance">The handle you want to attach the event to, can be null</param>
+        /// <param name="threadId">The thread you want to attach the event to, can be null</param>
+        /// <returns>a handle to the desired hook</returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookProc2 callback, IntPtr hInstance, uint threadId);
 
         /// <summary>
         /// Unhooks the windows hook.
         /// </summary>
         /// <param name="hInstance">The hook handle that was returned from SetWindowsHookEx</param>
         /// <returns>True if successful, false otherwise</returns>
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool UnhookWindowsHookEx(IntPtr hInstance);
 
         /// <summary>
@@ -179,19 +231,68 @@ namespace TankSim.Client.GUI.Tools
         /// <param name="wParam">The wparam.</param>
         /// <param name="lParam">The lparam.</param>
         /// <returns></returns>
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern int CallNextHookEx(IntPtr idHook, int nCode, int wParam, ref KeyboardHookStruct lParam);
+
+        /// <summary>
+        /// Calls the next hook.
+        /// </summary>
+        /// <param name="idHook">The hook id</param>
+        /// <param name="nCode">The hook code</param>
+        /// <param name="wParam">The wparam.</param>
+        /// <param name="lParam">The lparam.</param>
+        /// <returns></returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
         /// Loads the library.
         /// </summary>
         /// <param name="lpFileName">Name of the library</param>
         /// <returns>A handle to the library</returns>
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern IntPtr LoadLibrary(string lpFileName);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lpModuleName"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
         #endregion
     }
 
+    /// <summary>
+    /// Keyboard hook data
+    /// </summary>
+    /// <remarks>
+    /// https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-kbdllhookstruct?redirectedfrom=MSDN
+    /// </remarks>
+    [Serializable]
+    public struct KeyboardHookStruct
+    {
+        /// <summary>
+        /// Virtual keycode.  Must be between 1-254
+        /// </summary>
+        public int vkCode;
+        /// <summary>
+        /// A hardware scan code for the key.
+        /// </summary>
+        public int scanCode;
+        /// <summary>
+        /// bit flags
+        /// </summary>
+        public int flags;
+        /// <summary>
+        /// The time stamp for this message, equivalent to what GetMessageTime would return for this message.
+        /// </summary>
+        public int time;
+        /// <summary>
+        /// Additional information associated with the message.
+        /// </summary>
+        public int dwExtraInfo;
+    }
 
     /// <summary>
     /// Keyboard hook event arg
