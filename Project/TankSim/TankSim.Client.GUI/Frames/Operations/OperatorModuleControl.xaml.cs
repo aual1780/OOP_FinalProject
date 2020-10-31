@@ -28,7 +28,7 @@ namespace TankSim.Client.GUI.Frames.Operations
             this.Unloaded += OperatorModuleControl_Unloaded;
             if (keyConfig.Value.EnableGlobalHooks)
             {
-                _globalHook = new GlobalKeyHook();
+                _globalHook = new GlobalKeyHook(true);
                 _globalHook.KeyDown += GlobalHook_KeyDown;
                 _globalHook.KeyUp += GlobalHook_KeyUp;
             }
@@ -45,14 +45,13 @@ namespace TankSim.Client.GUI.Frames.Operations
             _myWindow = Window.GetWindow(this);
             _myWindow.KeyDown += OperatorModuleControl_KeyDown;
             _myWindow.KeyUp += OperatorModuleControl_KeyUp;
-            _globalHook?.Hook();
         }
 
         void OperatorModuleControl_Unloaded(object sender, RoutedEventArgs e) => this.Dispose();
 
         void OperatorModuleControl_KeyDown(object sender, KeyEventArgs e) => _vm.HandleKeyEvent(e, KeyInputType.KeyDown);
         void OperatorModuleControl_KeyUp(object sender, KeyEventArgs e) => _vm.HandleKeyEvent(e, KeyInputType.KeyUp);
-        void GlobalHook_KeyDown(object sender, RawKeyEventArgs e)
+        void GlobalHook_KeyDown(RawKeyEventArgs e)
         {
             if (_myWindow.IsActive)
             {
@@ -60,7 +59,7 @@ namespace TankSim.Client.GUI.Frames.Operations
             }
             _vm.HandleKeyEvent(e, KeyInputType.KeyDown);
         }
-        void GlobalHook_KeyUp(object sender, RawKeyEventArgs e)
+        void GlobalHook_KeyUp(RawKeyEventArgs e)
         {
             if (_myWindow.IsActive)
             {
