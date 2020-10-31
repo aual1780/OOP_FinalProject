@@ -29,46 +29,60 @@ namespace TankSim.GameHost.CLI
                 Console.Write("How many players? ");
             } while (!int.TryParse(Console.ReadLine(), out playerCount) || !playerCountRange.Contains(playerCount));
 
+            Console.Write("Bind local controller (Y|N)? ");
+            bool bindLocalController = string.Equals(Console.ReadLine(), "y", StringComparison.OrdinalIgnoreCase);
 
             //application scope
             while (true)
             {
-                //create ardnet server
-                using var ardServ = ArdNetFactory.GetArdServer(msgHub);
-                //create game communincation manager
-                //watches for clients
-                //tracks command inputs
-                using var commState = new TankSimCommService(ardServ, playerCount);
-                //create gamepad watcher
-                //hook into server event stream
-                //bind controls for all operator roles
-                using var gamepadSvc = new GamepadService(ardServ);
-                _ = gamepadSvc.TrySetControllerIndex(0);
-                gamepadSvc.SetRoles(OperatorRoles.All);
-
-                //print game ID so clients know where to connect
-                Console.WriteLine($"Game ID: {commState.GameID}");
-
-                //wait for all players to join
-                await commState.GetConnectionTask();
-                Console.WriteLine("Game Started.");
-
-                //setup async command event watchers
-                //any inbound events will trigger the associated handler
-                var cmdFacade = commState.CmdFacade;
-                cmdFacade.MovementChanged += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Dir: {e}");
-                cmdFacade.AimChanged += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Aim.{e}");
-                cmdFacade.FireControlCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Fire.{e.WeaponType} ({e.InitTime.GetTimeDiff()} ms)");
-                cmdFacade.GunLoaderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Loader.{e.LoaderType} ({e.InitTime.GetTimeDiff()} ms)");
-
-                while (true)
+                GamepadService gamepadSvc;
+                try
                 {
-                    Thread.Sleep(10);
-                    //if player count drops, then restart outer loop
-                    if (ardServ.ConnectedClientCount < playerCount)
-                        break;
+                    //create ardnet server
+                    using var ardServ = ArdNetFactory.GetArdServer(msgHub);
+                    //create game communincation manager
+                    //watches for clients
+                    //tracks command inputs
+                    using var commState = new TankSimCommService(ardServ, playerCount);
+                    //create gamepad watcher
+                    //hook into server event stream
+                    //bind controls for all operator roles
+                    if (bindLocalController)
+                    {
+                        gamepadSvc = new GamepadService(ardServ);
+                        _ = gamepadSvc.TrySetControllerIndex(0);
+                        gamepadSvc.SetRoles(OperatorRoles.All);
+                    }
+
+                    //print game ID so clients know where to connect
+                    Console.WriteLine($"Game ID: {commState.GameID}");
+
+                    //wait for all players to join
+                    await commState.GetConnectionTask();
+                    Console.WriteLine("Game Started.");
+
+                    //setup async command event watchers
+                    //any inbound events will trigger the associated handler
+                    var cmdFacade = commState.CmdFacade;
+                    cmdFacade.MovementChanged += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Dir: {e}");
+                    cmdFacade.AimChanged += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Aim.{e}");
+                    cmdFacade.FireControlCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Fire.{e.WeaponType} ({e.InitTime.GetTimeDiff()} ms)");
+                    cmdFacade.GunLoaderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Loader.{e.LoaderType} ({e.InitTime.GetTimeDiff()} ms)");
+
+                    while (true)
+                    {
+                        Thread.Sleep(10);
+                        //if player count drops, then restart outer loop
+                        if (ardServ.ConnectedClientCount < playerCount)
+                            break;
+                    }
+                }
+                finally
+                {
+                    gamepadSvc?.Dispose();
                 }
             }
+
         }
     }
 }
