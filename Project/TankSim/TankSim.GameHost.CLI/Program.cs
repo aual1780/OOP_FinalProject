@@ -43,7 +43,7 @@ namespace TankSim.GameHost.CLI
                 //hook into server event stream
                 //bind controls for all operator roles
                 using var gamepadSvc = new GamepadService(ardServ);
-                gamepadSvc.TrySetControllerIndex(0);
+                _ = gamepadSvc.TrySetControllerIndex(0);
                 gamepadSvc.SetRoles(OperatorRoles.All);
 
                 //print game ID so clients know where to connect

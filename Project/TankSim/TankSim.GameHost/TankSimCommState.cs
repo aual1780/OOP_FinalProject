@@ -18,7 +18,7 @@ namespace TankSim.GameHost
     /// </summary>
     public class TankSimCommService : IDisposable
     {
-        ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint> _connectedSystems = new ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint>();
+        readonly ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint> _connectedSystems = new ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint>();
         private readonly object _roleLock = new object();
         private readonly List<OperatorRoles> _roleSets;
         private readonly CountdownEvent _playerWaiter;
@@ -166,7 +166,7 @@ namespace TankSim.GameHost
         /// <param name="Timeout"></param>
         public void WaitForPlayers(TimeSpan Timeout)
         {
-            _playerWaiter.Wait(Timeout);
+            _ = _playerWaiter.Wait(Timeout);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace TankSim.GameHost
             //dirty hack
             return Task.Run(() =>
             {
-                _playerWaiter.Wait(Timeout);
+                _ = _playerWaiter.Wait(Timeout);
             });
         }
 
