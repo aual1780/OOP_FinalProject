@@ -141,7 +141,6 @@ namespace J2i.Net.XInputWrapper
         internal XInputState GamepadStateCurrent
         {
             get => _gamepadStateCurrent;
-            private set => _gamepadStateCurrent = value;
         }
 
 
@@ -183,7 +182,7 @@ namespace J2i.Net.XInputWrapper
         {
             _playerIndex = playerIndex;
             DPad = new DPadState(this);
-            _gamepadStatePrev.Copy(GamepadStateCurrent);
+            _gamepadStatePrev.Copy(_gamepadStateCurrent);
         }
 
         /// <summary>
@@ -209,7 +208,7 @@ namespace J2i.Net.XInputWrapper
         {
             var arg = new XboxControllerStateChangedEventArgs()
             {
-                CurrentInputState = GamepadStateCurrent,
+                CurrentInputState = _gamepadStateCurrent,
                 PreviousInputState = _gamepadStatePrev
             };
             StateChanged?.Invoke(this, arg);
@@ -239,7 +238,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsAPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_A); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_A); }
         }
 
         /// <summary>
@@ -247,7 +246,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsBPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_B); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_B); }
         }
 
         /// <summary>
@@ -255,7 +254,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsXPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_X); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_X); }
         }
 
         /// <summary>
@@ -263,7 +262,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsYPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_Y); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_Y); }
         }
 
         /// <summary>
@@ -271,7 +270,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsBackPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_BACK); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_BACK); }
         }
 
         /// <summary>
@@ -279,7 +278,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsStartPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_START); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_START); }
         }
 
         /// <summary>
@@ -287,7 +286,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsLeftShoulderPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_LEFT_SHOULDER); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_LEFT_SHOULDER); }
         }
 
         /// <summary>
@@ -295,7 +294,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsRightShoulderPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_RIGHT_SHOULDER); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_RIGHT_SHOULDER); }
         }
 
         /// <summary>
@@ -303,7 +302,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsLeftStickPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_LEFT_THUMB); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_LEFT_THUMB); }
         }
 
         /// <summary>
@@ -311,7 +310,7 @@ namespace J2i.Net.XInputWrapper
         /// </summary>
         public bool IsRightStickPressed
         {
-            get { return GamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_RIGHT_THUMB); }
+            get { return _gamepadStateCurrent.Gamepad.IsButtonPressed((int)ButtonFlags.XINPUT_GAMEPAD_RIGHT_THUMB); }
         }
         #endregion
 
@@ -319,12 +318,12 @@ namespace J2i.Net.XInputWrapper
         /// <summary>
         /// Left trigger state
         /// </summary>
-        public int LeftTrigger => GamepadStateCurrent.Gamepad.bLeftTrigger;
+        public int LeftTrigger => _gamepadStateCurrent.Gamepad.bLeftTrigger;
 
         /// <summary>
         /// Right trigger state
         /// </summary>
-        public int RightTrigger => GamepadStateCurrent.Gamepad.bRightTrigger;
+        public int RightTrigger => _gamepadStateCurrent.Gamepad.bRightTrigger;
 
         /// <summary>
         /// Left thumbstick X/Y orientation
@@ -335,8 +334,8 @@ namespace J2i.Net.XInputWrapper
             {
                 Point p = new Point()
                 {
-                    X = GamepadStateCurrent.Gamepad.sThumbLX,
-                    Y = GamepadStateCurrent.Gamepad.sThumbLY
+                    X = _gamepadStateCurrent.Gamepad.sThumbLX,
+                    Y = _gamepadStateCurrent.Gamepad.sThumbLY
                 };
                 return p;
             }
@@ -351,8 +350,8 @@ namespace J2i.Net.XInputWrapper
             {
                 Point p = new Point()
                 {
-                    X = GamepadStateCurrent.Gamepad.sThumbRX,
-                    Y = GamepadStateCurrent.Gamepad.sThumbRY
+                    X = _gamepadStateCurrent.Gamepad.sThumbRX,
+                    Y = _gamepadStateCurrent.Gamepad.sThumbRY
                 };
                 return p;
             }
@@ -426,11 +425,11 @@ namespace J2i.Net.XInputWrapper
             IsConnected = (result == 0);
 
             UpdateBatteryState();
-            if (GamepadStateCurrent.PacketNumber != _gamepadStatePrev.PacketNumber)
+            if (_gamepadStateCurrent.PacketNumber != _gamepadStatePrev.PacketNumber)
             {
                 OnStateChanged();
             }
-            _gamepadStatePrev.Copy(GamepadStateCurrent);
+            _gamepadStatePrev.Copy(_gamepadStateCurrent);
 
             if (_stopMotorTimerActive && (DateTime.Now >= _stopMotorTime))
             {

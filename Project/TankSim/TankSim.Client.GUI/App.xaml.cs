@@ -1,5 +1,6 @@
 ﻿using ArdNet;
 using ArdNet.Client;
+using J2i.Net.XInputWrapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -47,6 +48,7 @@ namespace TankSim.Client.GUI
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration config)
         {
+            XboxController.UpdateFrequency = 50;
             //setup keybinding configs
             _ = services
                 .AddKeyBindings(config.GetSection(nameof(KeyBindingConfig)));
@@ -56,7 +58,7 @@ namespace TankSim.Client.GUI
                 .AddOperatorModules()
                 .AddScoped<IOperatorModuleFactory<IOperatorInputModule>, OperatorModuleFactory<IOperatorInputModule>>()
                 .AddScoped<IOperatorModuleFactory<IOperatorUIModule>, OperatorModuleFactory<IOperatorUIModule>>()
-                .AddScoped<IGamepadService, GamepadService>();
+                .AddScoped<IGamepadService, GamepadService>()
             ;
             //setup ArdNet
             _ = services
