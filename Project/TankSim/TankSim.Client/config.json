@@ -9,7 +9,7 @@
   },
 
   "KeyBindingConfig": {
-    "EnableGlobalHooks": true,
+    "EnableGlobalHooks": false,
     "Driver": {
       "Forward": "W",
       "Backward": "S"

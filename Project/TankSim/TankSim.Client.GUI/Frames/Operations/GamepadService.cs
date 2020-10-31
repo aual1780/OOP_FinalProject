@@ -185,16 +185,16 @@ namespace TankSim.Client.GUI.Frames.Operations
         {
             ControllerStateChanged += (sender, arg) =>
             {
-                var currentX = arg.CurrentInputState.Gamepad.IsButtonPressed(ButtonFlags.XINPUT_GAMEPAD_X);
-                var prevX = arg.PreviousInputState.Gamepad.IsButtonPressed(ButtonFlags.XINPUT_GAMEPAD_X);
-                var currentY = arg.CurrentInputState.Gamepad.IsButtonPressed(ButtonFlags.XINPUT_GAMEPAD_Y);
-                var prevY = arg.PreviousInputState.Gamepad.IsButtonPressed(ButtonFlags.XINPUT_GAMEPAD_Y);
+                var currentRB = arg.CurrentInputState.Gamepad.IsButtonPressed(ButtonFlags.XINPUT_GAMEPAD_RIGHT_SHOULDER);
+                var prevRB = arg.PreviousInputState.Gamepad.IsButtonPressed(ButtonFlags.XINPUT_GAMEPAD_RIGHT_SHOULDER);
+                var currentLB = arg.CurrentInputState.Gamepad.IsButtonPressed(ButtonFlags.XINPUT_GAMEPAD_LEFT_SHOULDER);
+                var prevLB = arg.PreviousInputState.Gamepad.IsButtonPressed(ButtonFlags.XINPUT_GAMEPAD_LEFT_SHOULDER);
 
-                if (currentX && !prevX)
+                if (currentRB && !prevRB)
                 {
                     proxy.Load();
                 }
-                if (currentY && !prevY)
+                if (currentLB && !prevLB)
                 {
                     proxy.CycleAmmoType();
                 }
