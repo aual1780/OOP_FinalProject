@@ -2,10 +2,6 @@
 using J2i.Net.XInputWrapper;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows;
 using TankSim.OperatorDelegates;
 using TIPC.Core.Tools;
 using TIPC.Core.Tools.Extensions.IEnumerable;
