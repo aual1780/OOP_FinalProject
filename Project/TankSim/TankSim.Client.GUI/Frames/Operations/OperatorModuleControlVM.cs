@@ -13,6 +13,7 @@ using TankSim.Client.OperatorModules;
 using TIPC.Core.ComponentModel;
 using TIPC.Core.Tools.Extensions.IEnumerable;
 using TankSim.Client.Extensions;
+using TankSim.Client.GUI.Tools;
 
 namespace TankSim.Client.GUI.Frames.Operations
 {
@@ -122,11 +123,33 @@ namespace TankSim.Client.GUI.Frames.Operations
             InputModuleCollection?.SendInput(input);
         }
 
+        public void HandleKeyEvent(RawKeyEventArgs e, KeyInputType PressType)
+        {
+            var consoleKey = e.Key.ToConsoleKey();
+            OperatorInputMsg input;
+            //keydown
+            if (PressType == KeyInputType.KeyDown)
+            {
+                if (e.IsRepeat)
+                {
+                    return;
+                }
+                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
+            }
+            //keyup
+            else
+            {
+                input = new OperatorInputMsg(consoleKey, KeyInputType.KeyUp);
+            }
+            InputModuleCollection?.SendInput(input);
+        }
+
         public void Dispose()
         {
             try
             {
                 _initSyncTokenSrc.Cancel();
+                Thread.MemoryBarrier();
                 _initSyncTokenSrc.Dispose();
             }
             catch { }

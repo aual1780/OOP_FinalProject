@@ -6,6 +6,10 @@
     public class KeyBindingConfig
     {
         /// <summary>
+        /// Enable global keyhooks
+        /// </summary>
+        public bool EnableGlobalHooks { get; private set; }
+        /// <summary>
         /// Driver key bindings
         /// </summary>
         public DriverConfig Driver { get; private set; }

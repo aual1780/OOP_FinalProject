@@ -26,6 +26,11 @@
             Key binding configuration
             </summary>
         </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.EnableGlobalHooks">
+            <summary>
+            Enable global keyhooks
+            </summary>
+        </member>
         <member name="P:TankSim.Config.KeyBindingConfig.Driver">
             <summary>
             Driver key bindings
