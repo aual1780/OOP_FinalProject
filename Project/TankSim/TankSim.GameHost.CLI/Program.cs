@@ -15,6 +15,9 @@ namespace TankSim.GameHost.CLI
             TraceListener t = new ConsoleTraceListener();
             _ = Trace.Listeners.Add(t);
 
+            //create local message broker
+            //used to pass messages between ardnet feature nodes
+            //can also be hooked by other systems
             using var msgHub = new MessageHub();
             msgHub.Start();
 
@@ -30,14 +33,28 @@ namespace TankSim.GameHost.CLI
             //application scope
             while (true)
             {
-                using var server = ArdNetFactory.GetArdServer(msgHub);
-                using var commState = new TankSimCommService(server, playerCount);
+                //create ardnet server
+                using var ardServ = ArdNetFactory.GetArdServer(msgHub);
+                //create game communincation manager
+                //watches for clients
+                //tracks command inputs
+                using var commState = new TankSimCommService(ardServ, playerCount);
+                //create gamepad watcher
+                //hook into server event stream
+                //bind controls for all operator roles
+                using var gamepadSvc = new GamepadService(ardServ);
+                gamepadSvc.TrySetControllerIndex(0);
+                gamepadSvc.SetRoles(OperatorRoles.All);
+
+                //print game ID so clients know where to connect
                 Console.WriteLine($"Game ID: {commState.GameID}");
 
                 //wait for all players to join
                 await commState.GetConnectionTask();
                 Console.WriteLine("Game Started.");
 
+                //setup async command event watchers
+                //any inbound events will trigger the associated handler
                 var cmdFacade = commState.CmdFacade;
                 cmdFacade.MovementChanged += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Dir: {e}");
                 cmdFacade.AimChanged += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Aim.{e}");
@@ -48,7 +65,7 @@ namespace TankSim.GameHost.CLI
                 {
                     Thread.Sleep(10);
                     //if player count drops, then restart outer loop
-                    if (server.ConnectedClientCount < playerCount)
+                    if (ardServ.ConnectedClientCount < playerCount)
                         break;
                 }
             }
