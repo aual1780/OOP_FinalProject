@@ -158,50 +158,5 @@
             <param name="Roles">Set of required operator roles to load</param>
             <returns>Return a module collection loaded with modules for all requested operator roles</returns>
         </member>
-        <member name="T:TankSim.Client.Services.GameIdService">
-            <summary>
-            Class to set/modify game ID for ardNet connector
-            </summary>
-        </member>
-        <member name="P:TankSim.Client.Services.GameIdService.GameID">
-            <summary>
-            GameID property
-            </summary>
-        </member>
-        <member name="T:TankSim.Client.CLI.Services.IGameScopeService">
-            <summary>
-            Service for getting valid ArdNet game connection
-            </summary>
-        </member>
-        <member name="M:TankSim.Client.CLI.Services.IGameScopeService.GetValidGameScope">
-            <summary>
-            Get ServiceScope with valid ArdNet game connection
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.GameIdServiceExtensions.AddGameIDService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Add GameIDService to set GameID for ardNet config
-            </summary>
-            <param name="services"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.GameNetConfigExtensions.AddTankSimConfig(ArdNet.Client.DependencyInjection.ArdNetClientConfigurator)">
-            <summary>
-            Add ArdNet config for tank sim
-            </summary>
-            <param name="Config"></param>
-            <returns></returns>
-        </member>
     </members>
 </doc>

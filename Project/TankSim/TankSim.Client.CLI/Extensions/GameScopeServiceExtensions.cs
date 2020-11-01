@@ -1,4 +1,5 @@
 ﻿using TankSim.Client.CLI.Services;
+using TankSim.Client.DependencyInjection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

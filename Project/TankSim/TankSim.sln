@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TankSim.GameHost.CLI", "Tan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TankSim.Client.GUI", "TankSim.Client.GUI\TankSim.Client.GUI.csproj", "{4C2A0313-9758-4B95-AE38-2E7B4B4B1215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "J2i.Net.XInputWrapper", "J2i.Net.XInputWrapper\J2i.Net.XInputWrapper.csproj", "{B4D66F55-CC72-42D7-8F1F-A035B736E4C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "J2i.Net.XInputWrapper", "J2i.Net.XInputWrapper\J2i.Net.XInputWrapper.csproj", "{B4D66F55-CC72-42D7-8F1F-A035B736E4C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankSim.Client.DependencyInjection", "TankSim.Client.DependencyInjection\TankSim.Client.DependencyInjection.csproj", "{F72A426F-7B7E-458F-A026-8AA5AFF0028E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +88,14 @@ Global
 		{B4D66F55-CC72-42D7-8F1F-A035B736E4C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4D66F55-CC72-42D7-8F1F-A035B736E4C5}.Release|x64.ActiveCfg = Release|Any CPU
 		{B4D66F55-CC72-42D7-8F1F-A035B736E4C5}.Release|x64.Build.0 = Release|Any CPU
+		{F72A426F-7B7E-458F-A026-8AA5AFF0028E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F72A426F-7B7E-458F-A026-8AA5AFF0028E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F72A426F-7B7E-458F-A026-8AA5AFF0028E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F72A426F-7B7E-458F-A026-8AA5AFF0028E}.Debug|x64.Build.0 = Debug|Any CPU
+		{F72A426F-7B7E-458F-A026-8AA5AFF0028E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F72A426F-7B7E-458F-A026-8AA5AFF0028E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F72A426F-7B7E-458F-A026-8AA5AFF0028E}.Release|x64.ActiveCfg = Release|Any CPU
+		{F72A426F-7B7E-458F-A026-8AA5AFF0028E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

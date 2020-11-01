@@ -1,6 +1,4 @@
-﻿using ArdNet;
-using ArdNet.Client;
-using J2i.Net.XInputWrapper;
+﻿using J2i.Net.XInputWrapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -62,23 +60,9 @@ namespace TankSim.Client.GUI
             ;
             //setup ArdNet
             _ = services
-                .AddMessageHubSingleton()
-                .AddIpResolver()
-                .AddArdNet(config.GetSection("ArdNet"))
-                .AddClientScoped()
-                .AddConfigModifier((x, y) =>
-                {
-                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = false;
-                    y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
-                    var pingRate = config.GetValue<int>("ArdNet.PingRateMillis") + 50;
-                    y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);
-                })
-                .AddTankSimConfig()
-                .AutoRestart()
+                .AddArdNetClient(config)
                 .AddDebugLogger()
-                .AddReleaseCrasher()
-                ;
-            _ = services.AddScoped<IArdNetSystem>((sp) => sp.GetRequiredService<IArdNetClient>());
+                .AddReleaseCrasher();
             //setup main window
             _ = services
                 .AddTransient<MainWindow>()

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using TankSim.Client.Services;
+using TankSim.Client.DependencyInjection;
 
 namespace TankSim.Client.CLI.Services
 {

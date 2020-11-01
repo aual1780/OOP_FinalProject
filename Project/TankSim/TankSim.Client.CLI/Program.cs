@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 using TankSim.Client.CLI.Services;
+using TankSim.Client.DependencyInjection;
 using TankSim.Client.OperatorModules;
 using TankSim.Config;
 
@@ -56,20 +57,7 @@ namespace TankSim.Client.CLI
                 .AddScoped<IOperatorModuleFactory<IOperatorInputModule>, OperatorModuleFactory<IOperatorInputModule>>()
                 .AddControllerExecService();
             //setup ArdNet
-            _ = services
-                .AddMessageHubSingleton()
-                .AddIpResolver()
-                .AddArdNet(config.GetSection("ArdNet"))
-                .AddClientScoped()
-                .AddConfigModifier((x, y) =>
-                {
-                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = false;
-                    y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
-                    var pingRate = config.GetValue<int>("ArdNet.PingRateMillis") + 50;
-                    y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);
-                })
-                .AddTankSimConfig()
-                .AutoRestart();
+            _ = services.AddArdNetClient(config);
         }
     }
 }

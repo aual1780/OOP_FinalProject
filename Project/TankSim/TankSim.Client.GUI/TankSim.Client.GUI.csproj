@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TankSim.Client.DependencyInjection\TankSim.Client.DependencyInjection.csproj" />
     <ProjectReference Include="..\TankSim.Client\TankSim.Client.csproj" />
   </ItemGroup>
 

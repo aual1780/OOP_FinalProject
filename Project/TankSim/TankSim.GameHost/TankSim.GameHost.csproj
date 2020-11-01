@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <PackageReference Include="ArdNet.Server" Version="2.3.1" />
-    <PackageReference Include="ArdNet.Server.DependencyInjection" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
