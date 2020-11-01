@@ -18,6 +18,10 @@ namespace TankSim
         /// </summary>
         int GamepadIndex { get; }
         /// <summary>
+        /// Currently selected controller instance
+        /// </summary>
+        XboxController Gamepad { get; }
+        /// <summary>
         /// Attempt to change the target controller.
         /// Must be in range 0-7
         /// </summary>
