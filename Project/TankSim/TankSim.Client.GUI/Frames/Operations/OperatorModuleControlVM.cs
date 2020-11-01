@@ -16,6 +16,7 @@ using TankSim.Client.Extensions;
 using TankSim.Client.GUI.Tools;
 using TIPC.Core.Tools.Threading;
 using TIPC.Core.Collections.Generic;
+using TankSim.Client.Services;
 
 namespace TankSim.Client.GUI.Frames.Operations
 {
@@ -30,9 +31,9 @@ namespace TankSim.Client.GUI.Frames.Operations
         private OperatorRoles _roles = 0;
         private int _gamepadIndex = 1;
         private readonly IGamepadService _gamepadService;
-        private readonly CancellationTokenSource _initSyncTokenSrc = new CancellationTokenSource();
+        private readonly IRoleResolverService _roleService;
         private readonly CancelThread<object> _inputProcessorThread;
-        readonly PriorityBlockingQueue<(Key, bool, KeyInputType)> _keyQueue = new PriorityBlockingQueue<(Key, bool, KeyInputType)>();
+        readonly PriorityBlockingQueue<(Key, KeyInputType)> _keyQueue = new PriorityBlockingQueue<(Key, KeyInputType)>();
 
 
         public OperatorRoles Roles
@@ -83,7 +84,8 @@ namespace TankSim.Client.GUI.Frames.Operations
             IArdNetClient ArdClient,
             IOperatorModuleFactory<IOperatorInputModule> InputModuleFactory,
             IOperatorModuleFactory<IOperatorUIModule> UIModuleFactory,
-            IGamepadService GamepadService)
+            IGamepadService GamepadService,
+            IRoleResolverService RoleService)
         {
             _ardClient = ArdClient;
             _inputModuleFactory = InputModuleFactory;
@@ -93,6 +95,7 @@ namespace TankSim.Client.GUI.Frames.Operations
             _ardClient.TcpEndpointConnected += ArdClient_TcpEndpointConnected;
             _ardClient.TcpEndpointDisconnected += ArdClient_TcpEndpointDisconnected;
             _gamepadService = GamepadService;
+            _roleService = RoleService;
         }
 
         private void ArdClient_TcpEndpointConnected(object Sender, IConnectedSystemEndpoint e)
@@ -107,15 +110,9 @@ namespace TankSim.Client.GUI.Frames.Operations
 
         public override async Task InitializeAsync()
         {
-            _ = await _ardClient.ConnectAsync();
-            var qry = Constants.Queries.ControllerInit.GetOperatorRoles;
-            var request = new AsyncRequestPushedArgs(qry, null, _initSyncTokenSrc.Token, Timeout.InfiniteTimeSpan);
             try
             {
-                var task = _ardClient.SendTcpQueryAsync(request);
-                var response = await task;
-                var responseStr = response?.Single()?.Response ?? "0";
-                Roles = Enum.Parse<OperatorRoles>(responseStr);
+                Roles = await _roleService.GetRolesAsync();
                 InputModuleCollection = _inputModuleFactory.GetModuleCollection(Roles);
                 UIModuleCollection = _uiModuleFactory.GetModuleCollection(Roles).OfType<UserControl>();
                 _gamepadService.SetRoles(Roles);
@@ -129,12 +126,20 @@ namespace TankSim.Client.GUI.Frames.Operations
 
         public void HandleKeyEvent(KeyEventArgs e, KeyInputType PressType)
         {
-            _ = _keyQueue.TryAdd((e.Key, e.IsRepeat, PressType));
+            if (e.IsRepeat)
+            {
+                return;
+            }
+            _ = _keyQueue.TryAdd((e.Key, PressType));
         }
 
         public void HandleKeyEvent(RawKeyEventArgs e, KeyInputType PressType)
         {
-            _ = _keyQueue.TryAdd((e.Key, e.IsRepeat, PressType));
+            if (e.IsRepeat)
+            {
+                return;
+            }
+            _ = _keyQueue.TryAdd((e.Key, PressType));
         }
 
         private void KeyProcessingLoop(object state, CancellationToken token)
@@ -146,18 +151,13 @@ namespace TankSim.Client.GUI.Frames.Operations
                     return;
                 }
                 var key = tuple.Item1;
-                var isRepeat = tuple.Item2;
-                var pressType = tuple.Item3;
+                var pressType = tuple.Item2;
 
                 var consoleKey = key.ToConsoleKey();
                 OperatorInputMsg input;
                 //keydown
                 if (pressType == KeyInputType.KeyDown)
                 {
-                    if (isRepeat)
-                    {
-                        continue;
-                    }
                     input = new OperatorInputMsg(consoleKey, KeyInputType.KeyDown);
                 }
                 //keyup
@@ -171,13 +171,6 @@ namespace TankSim.Client.GUI.Frames.Operations
 
         public void Dispose()
         {
-            try
-            {
-                _initSyncTokenSrc.Cancel();
-                Thread.MemoryBarrier();
-                _initSyncTokenSrc.Dispose();
-            }
-            catch { }
             _ardClient.TcpEndpointConnected -= ArdClient_TcpEndpointConnected;
             _ardClient.TcpEndpointDisconnected -= ArdClient_TcpEndpointDisconnected;
             _inputProcessorThread.Dispose();

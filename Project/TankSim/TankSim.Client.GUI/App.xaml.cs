@@ -7,6 +7,7 @@ using TankSim.Client.GUI.Frames.ClientName;
 using TankSim.Client.GUI.Frames.GameScope;
 using TankSim.Client.GUI.Frames.Operations;
 using TankSim.Client.OperatorModules;
+using TankSim.Client.Services;
 using TankSim.Config;
 
 namespace TankSim.Client.GUI
@@ -57,6 +58,7 @@ namespace TankSim.Client.GUI
                 .AddScoped<IOperatorModuleFactory<IOperatorInputModule>, OperatorModuleFactory<IOperatorInputModule>>()
                 .AddScoped<IOperatorModuleFactory<IOperatorUIModule>, OperatorModuleFactory<IOperatorUIModule>>()
                 .AddScoped<IGamepadService, GamepadService>()
+                .AddScoped<IRoleResolverService, RoleResolverService>()
             ;
             //setup ArdNet
             _ = services

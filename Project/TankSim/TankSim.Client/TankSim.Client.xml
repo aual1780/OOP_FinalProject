@@ -158,5 +158,38 @@
             <param name="Roles">Set of required operator roles to load</param>
             <returns>Return a module collection loaded with modules for all requested operator roles</returns>
         </member>
+        <member name="T:TankSim.Client.Services.IRoleResolverService">
+            <summary>
+            Service to get operator roles from server
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.Services.IRoleResolverService.GetRolesAsync">
+            <summary>
+            Get roles from server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.Client.Services.RoleResolverService">
+            <summary>
+            Service to get operator roles from server
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.Services.RoleResolverService.#ctor(ArdNet.Client.IArdNetClient)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="ArdClient"></param>
+        </member>
+        <member name="M:TankSim.Client.Services.RoleResolverService.GetRolesAsync">
+            <summary>
+            Request roles from server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.Client.Services.RoleResolverService.Dispose">
+            <summary>
+            Cancel pending requests
+            </summary>
+        </member>
     </members>
 </doc>
