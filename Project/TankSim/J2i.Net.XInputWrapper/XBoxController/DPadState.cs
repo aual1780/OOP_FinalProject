@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace J2i.Net.XInputWrapper
+﻿namespace J2i.Net.XInputWrapper
 {
     /// <summary>
     /// 

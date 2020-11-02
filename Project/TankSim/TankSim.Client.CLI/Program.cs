@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TankSim.Client.CLI.Services;
 using TankSim.Client.DependencyInjection;
 using TankSim.Client.OperatorModules;
+using TankSim.Client.Services;
 using TankSim.Config;
 
 namespace TankSim.Client.CLI
@@ -55,6 +56,8 @@ namespace TankSim.Client.CLI
                 .AddGameScopeService()
                 .AddScoped<IOperatorModuleFactory, OperatorModuleFactory<IOperatorInputModule>>()
                 .AddScoped<IOperatorModuleFactory<IOperatorInputModule>, OperatorModuleFactory<IOperatorInputModule>>()
+                .AddScoped<IRoleResolverService, RoleResolverService>()
+                .AddScoped<IOperatorInputProcessorService, OperatorInputProcessorService>()
                 .AddControllerExecService();
             //setup ArdNet
             _ = services.AddArdNetClient(config);

@@ -26,6 +26,7 @@ namespace TankSim.Client.Services
     {
         private readonly IArdNetClient _ardClient;
         private readonly object _requestLock = new object();
+        private volatile bool _isDisposed = false;
         private volatile bool _isRequestSent = false;
         private readonly CancellationTokenSource _initSyncTokenSrc = new CancellationTokenSource();
         readonly TaskCompletionSource<OperatorRoles> _roleTask = new TaskCompletionSource<OperatorRoles>();
@@ -46,6 +47,10 @@ namespace TankSim.Client.Services
         /// <returns></returns>
         public Task<OperatorRoles> GetRolesAsync()
         {
+            if (_isDisposed)
+            {
+                throw new ObjectDisposedException(nameof(RoleResolverService));
+            }
             if (_isRequestSent)
             {
                 return _roleTask.Task;
@@ -105,6 +110,7 @@ namespace TankSim.Client.Services
         /// </summary>
         public void Dispose()
         {
+            _isDisposed = true;
             _ = _roleTask.TrySetException(new OperationCanceledException());
 
             try

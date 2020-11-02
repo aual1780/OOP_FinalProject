@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using TankSim.OperatorCmds;
 using TankSim.OperatorDelegates;
-using TIPC.Core.Tools.Extensions.IEnumerable;
+using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.GameHost
 {

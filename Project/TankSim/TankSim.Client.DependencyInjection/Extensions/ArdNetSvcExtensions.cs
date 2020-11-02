@@ -3,8 +3,6 @@ using ArdNet.Client;
 using ArdNet.Client.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

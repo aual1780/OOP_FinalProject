@@ -1,34 +1,35 @@
-﻿using System;
+﻿using TIPC.Core.Channels;
 
 namespace TankSim.Client.OperatorModules
 {
     /// <summary>
-    /// Operator input message
+    /// Message for sending operator inputs through TIPC channel hub
     /// </summary>
-    public class OperatorInputMsg : IOperatorInputMsg
+    public class OperatorInputMsg : IChannelMessage<OperatorInputEventArg>
     {
         /// <summary>
-        /// Flag switch to determine if a handler has reacted to this message
+        /// Msg category
         /// </summary>
-        public bool IsHandled { get; set; } = false;
+        public MessageCategoryTypes MessageCategory => MessageCategoryTypes.StandardMessages;
+        IChannelEventArgs IChannelMessage.Arg => Arg;
         /// <summary>
-        /// Key data
+        /// Message src
         /// </summary>
-        public ConsoleKeyInfo KeyInfo { get; }
+        public object Sender { get; }
         /// <summary>
-        /// UI key input action
+        /// Event arg
         /// </summary>
-        public KeyInputType InputType { get; }
+        public OperatorInputEventArg Arg { get; }
 
         /// <summary>
-        /// Create new instance
+        /// Create operator input message for channel hub
         /// </summary>
-        /// <param name="KeyInfo">Key info from input</param>
-        /// <param name="InputType">Input action</param>
-        public OperatorInputMsg(ConsoleKeyInfo KeyInfo, KeyInputType InputType)
+        /// <param name="Sender"></param>
+        /// <param name="Arg"></param>
+        public OperatorInputMsg(object Sender, OperatorInputEventArg Arg)
         {
-            this.KeyInfo = KeyInfo;
-            this.InputType = InputType;
+            this.Sender = Sender;
+            this.Arg = Arg;
         }
     }
 }

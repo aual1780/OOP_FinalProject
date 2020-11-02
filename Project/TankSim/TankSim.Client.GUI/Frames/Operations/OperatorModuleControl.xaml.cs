@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TankSim.Client.GUI.Tools;
 using TankSim.Config;
-using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.Client.GUI.Frames.Operations
 {

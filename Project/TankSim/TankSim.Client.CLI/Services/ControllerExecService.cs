@@ -7,42 +7,37 @@ using System.Threading;
 using System.Threading.Tasks;
 using TankSim.Client.Extensions;
 using TankSim.Client.OperatorModules;
-using TIPC.Core.Tools.Extensions.IEnumerable;
+using TankSim.Client.Services;
+using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.Client.CLI.Services
 {
     public class ControllerExecService : IDisposable
     {
-        IEnumerable<IOperatorInputModule> _opCollection;
         readonly IArdNetClient _ardClient;
-        readonly IOperatorModuleFactory<IOperatorInputModule> _operatorFactory;
-        readonly CancellationTokenSource _tokenSrc = new CancellationTokenSource();
+        readonly IRoleResolverService _roleService;
+        readonly IOperatorInputProcessorService _opInputService;
 
-        public ControllerExecService(IArdNetClient ArdClient, IOperatorModuleFactory<IOperatorInputModule> OperatorFactory)
+        public ControllerExecService(
+            IArdNetClient ArdClient,
+            IRoleResolverService RoleService,
+            IOperatorInputProcessorService OpInputService)
         {
             if (ArdClient is null)
             {
                 throw new ArgumentNullException(nameof(ArdClient));
             }
 
-            if (OperatorFactory is null)
-            {
-                throw new ArgumentNullException(nameof(OperatorFactory));
-            }
-
             _ardClient = ArdClient;
-            _operatorFactory = OperatorFactory;
+            _roleService = RoleService;
+            _opInputService = OpInputService;
         }
 
         public async Task<OperatorRoles> LoadOperatorRoles()
         {
-            var qry = Constants.Queries.ControllerInit.GetOperatorRoles;
-            var request = new AsyncRequestPushedArgs(qry, null, _tokenSrc.Token, Timeout.InfiniteTimeSpan);
-            var responseSet = await _ardClient.SendTcpQueryAsync(request);
-            var responseStr = responseSet.Single().Response;
-            var roleSet = Enum.Parse<OperatorRoles>(responseStr);
-
-            _opCollection = _operatorFactory.GetModuleCollection(roleSet);
+            var opInitTask = _opInputService.Initialize();
+            var roleSet = await _roleService.GetRolesAsync();
+            await opInitTask;
             return roleSet;
         }
 
@@ -53,24 +48,17 @@ namespace TankSim.Client.CLI.Services
             while (true)
             {
                 var key = Console.ReadKey();
-                var msg = new OperatorInputMsg(key, KeyInputType.KeyPress);
-                _opCollection.SendInput(msg);
+                var arg = new OperatorInputEventArg(key, KeyInputType.KeyPress);
+                var msg = new OperatorInputMsg(this, arg);
+                _ardClient.MessageHub.EnqueueMessage(msg);
+
                 Console.SetCursorPosition(CursorLeft, CursorTop);
             }
         }
 
         public void Dispose()
         {
-            try
-            {
-                _tokenSrc.Cancel();
-                _tokenSrc.Dispose();
-            }
-            catch
-            {
-                //noop
-            }
-            _opCollection?.DisposeAll();
+
         }
     }
 }

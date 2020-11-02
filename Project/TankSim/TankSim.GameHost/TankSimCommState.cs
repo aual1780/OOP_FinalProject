@@ -67,8 +67,12 @@ namespace TankSim.GameHost
 
             ArdServer.TcpEndpointConnected += ArdServer_TcpEndpointConnected;
             ArdServer.TcpEndpointDisconnected += ArdServer_TcpEndpointDisconnected;
-            ArdServer.TcpQueryReceived += ArdServer_TcpQueryReceived;
-            ArdServer.TcpCommandReceived += ArdServer_TcpCommandReceived;
+            ArdServer.TcpQueryRequestProcessor.RegisterProcessor(
+                Constants.Queries.ControllerInit.GetOperatorRoles,
+                ArdQry_RoleRequest);
+            ArdServer.TcpCommandRequestProcessor.RegisterProcessor(
+                Constants.Commands.ControllerInit.SetClientName,
+                ArdCmd_SetName);
         }
 
         private void ArdServer_TcpEndpointConnected(object Sender, IConnectedSystemEndpoint e)
@@ -105,42 +109,37 @@ namespace TankSim.GameHost
             _ = Interlocked.Decrement(ref _playerCountCurrent);
         }
 
-        private void ArdServer_TcpQueryReceived(object Sender, ArdNet.Messaging.RequestReceivedArgs e)
+        private void ArdQry_RoleRequest(object Sender, RequestResponderStateObject e)
         {
-            if (e.Request == Constants.Queries.ControllerInit.GetOperatorRoles)
+            var system = e.RequestArg.ConnectedSystem;
+            var state = (TankControllerState)system.UserState;
+            lock (_roleLock)
             {
-                var system = e.ConnectedSystem;
-                var state = (TankControllerState)system.UserState;
-                lock (_roleLock)
-                {
-                    var roleSet = _roleSets.Pop();
-                    ArdServer.SendTcpQueryResponse(e, roleSet.ToString());
-                    state.Roles = roleSet;
-                }
-                lock (system.SyncRoot)
-                {
-                    _ = _playerWaiter.Signal();
-                    state.IsReady = true;
-                }
+                var roleSet = _roleSets.Pop();
+                e.Respond(roleSet.ToString());
+                state.Roles = roleSet;
+            }
+            lock (system.SyncRoot)
+            {
+                _ = _playerWaiter.Signal();
+                state.IsReady = true;
             }
         }
 
-        private void ArdServer_TcpCommandReceived(object Sender, ArdNet.Messaging.RequestReceivedArgs e)
+        private void ArdCmd_SetName(object Sender, RequestResponderStateObject e)
         {
-            if (e.Request == Constants.Commands.ControllerInit.SetClientName)
+            var rqst = e.RequestArg;
+            var system = rqst.ConnectedSystem;
+            var state = (TankControllerState)system.UserState;
+            lock (system.SyncRoot)
             {
-                var system = e.ConnectedSystem;
-                var state = (TankControllerState)system.UserState;
-                lock (system.SyncRoot)
+                if ((rqst.RequestArgs?.Length ?? 0) > 0)
                 {
-                    if ((e.RequestArgs?.Length ?? 0) > 0)
-                    {
-                        state.Name = e.RequestArgs[0];
-                    }
-                    ArdServer.SendTcpCommandResponse(e, CtrlSymbols.ACK);
+                    state.Name = rqst.RequestArgs[0];
                 }
-                Debug.WriteLine($"Hi {state.Name} ({e.Endpoint})");
+                e.Respond(CtrlSymbols.ACK);
             }
+            Debug.WriteLine($"Hi {state.Name} ({rqst.Endpoint})");
         }
 
         /// <summary>
@@ -219,8 +218,12 @@ namespace TankSim.GameHost
             CmdFacade.Dispose();
             ArdServer.TcpEndpointConnected -= ArdServer_TcpEndpointConnected;
             ArdServer.TcpEndpointDisconnected -= ArdServer_TcpEndpointDisconnected;
-            ArdServer.TcpQueryReceived -= ArdServer_TcpQueryReceived;
-            ArdServer.TcpCommandReceived -= ArdServer_TcpCommandReceived;
+            _ = ArdServer.TcpQueryRequestProcessor.UnregisterProcessor(
+                Constants.Queries.ControllerInit.GetOperatorRoles,
+                ArdQry_RoleRequest);
+            _ = ArdServer.TcpCommandRequestProcessor.UnregisterProcessor(
+                Constants.Commands.ControllerInit.SetClientName,
+                ArdCmd_SetName);
         }
     }
 }
