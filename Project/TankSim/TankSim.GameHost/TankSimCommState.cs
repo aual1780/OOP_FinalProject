@@ -19,6 +19,7 @@ namespace TankSim.GameHost
     public class TankSimCommService : IDisposable
     {
         readonly ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint> _connectedSystems = new ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint>();
+        readonly Dictionary<string, OperatorRoles> _opRoleCache = new Dictionary<string, OperatorRoles>();
         private readonly object _roleLock = new object();
         private readonly List<OperatorRoles> _roleSets;
         private readonly CountdownEvent _playerWaiter;
@@ -113,11 +114,19 @@ namespace TankSim.GameHost
         {
             var system = e.RequestArg.ConnectedSystem;
             var state = (TankControllerState)system.UserState;
+            var uid = e.RequestArg.RequestArgs.Length > 0 ? e.RequestArg.RequestArgs[0] : "";
             lock (_roleLock)
             {
-                var roleSet = _roleSets.Pop();
-                e.Respond(roleSet.ToString());
-                state.Roles = roleSet;
+                if (!_opRoleCache.TryGetValue(uid, out var roles))
+                {
+                    roles = _roleSets.Pop();
+                    if (uid.Length > 0)
+                    {
+                        _opRoleCache.Add(uid, roles);
+                    }
+                }
+                e.Respond(roles.ToString());
+                state.Roles = roles;
             }
             lock (system.SyncRoot)
             {

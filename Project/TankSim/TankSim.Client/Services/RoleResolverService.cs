@@ -3,6 +3,7 @@ using ArdNet.Messaging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.Client.Services
 {
@@ -18,7 +19,6 @@ namespace TankSim.Client.Services
         Task<OperatorRoles> GetRolesAsync();
     }
 
-
     /// <summary>
     /// Service to get operator roles from server
     /// </summary>
@@ -30,6 +30,8 @@ namespace TankSim.Client.Services
         private volatile bool _isRequestSent = false;
         private readonly CancellationTokenSource _initSyncTokenSrc = new CancellationTokenSource();
         readonly TaskCompletionSource<OperatorRoles> _roleTask = new TaskCompletionSource<OperatorRoles>();
+        private volatile int _connectCount = 0;
+        private readonly string _clientUid = Guid.NewGuid().ToString();
         private OperatorRoles _roles = 0;
 
         /// <summary>
@@ -39,6 +41,33 @@ namespace TankSim.Client.Services
         public RoleResolverService(IArdNetClient ArdClient)
         {
             _ardClient = ArdClient;
+            _ardClient.TcpEndpointConnected += ArdClient_TcpEndpointConnected;
+        }
+
+        private void ArdClient_TcpEndpointConnected(object Sender, ArdNet.IConnectedSystemEndpoint e)
+        {
+            try
+            {
+                if (_connectCount == 0)
+                {
+                    return;
+                }
+
+                var qry = Constants.Queries.ControllerInit.GetOperatorRoles;
+                var request = new RequestPushedArgs(
+                    Request: qry,
+                    RequestArgs: new string[] { _clientUid },
+                    Callback: RoleResponseReceivedHandler,
+                    UserState: null,
+                    CallbackCancellationToken: _initSyncTokenSrc.Token,
+                    CallbackTimeout: Timeout.InfiniteTimeSpan);
+
+                _ardClient.SendTcpQuery(request);
+            }
+            finally
+            {
+                _ = Interlocked.Increment(ref _connectCount);
+            }
         }
 
         /// <summary>
@@ -58,7 +87,7 @@ namespace TankSim.Client.Services
             var qry = Constants.Queries.ControllerInit.GetOperatorRoles;
             var request = new RequestPushedArgs(
                 Request: qry,
-                RequestArgs: null,
+                RequestArgs: new string[] { _clientUid },
                 Callback: RoleResponseReceivedHandler,
                 UserState: null,
                 CallbackCancellationToken: _initSyncTokenSrc.Token,
@@ -111,6 +140,7 @@ namespace TankSim.Client.Services
         public void Dispose()
         {
             _isDisposed = true;
+            _ardClient.TcpEndpointConnected -= ArdClient_TcpEndpointConnected;
             _ = _roleTask.TrySetException(new OperationCanceledException());
 
             try
