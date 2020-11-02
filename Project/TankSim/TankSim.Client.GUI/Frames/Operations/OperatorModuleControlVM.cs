@@ -11,6 +11,7 @@ using TankSim.Client.OperatorModules;
 using TIPC.Core.ComponentModel;
 using TankSim.Client.GUI.Tools;
 using TankSim.Client.Services;
+using System.Windows;
 
 namespace TankSim.Client.GUI.Frames.Operations
 {

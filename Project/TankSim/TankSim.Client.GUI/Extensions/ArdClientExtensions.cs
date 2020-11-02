@@ -26,11 +26,11 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var msgHub = system.MessageHub;
 
-                void HandleInfo(object sender, IChannelEventArgs log)
+                static void HandleInfo(object sender, IChannelEventArgs log)
                 {
                     _ = MessageBox.Show(log.ToString(), "INFO");
                 }
-                void HandleLog(object sender, ChannelLoggingArgs log)
+                static void HandleLog(object sender, ChannelLoggingArgs log)
                 {
                     switch (log.Severity)
                     {
@@ -66,6 +66,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 LogClient.LogPushed += HandleLog;
                 LogClient.ExceptionPushed += (sender, log) =>
                 {
+                    if (log.Severity == ExceptionSeverity.Expected)
+                    {
+                        return;
+                    }
                     var msg = log.ToString();
                     _ = MessageBox.Show(msg, "Error." + log.Severity);
                 };
@@ -93,7 +97,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var msgHub = system.MessageHub;
 
-                void HandleLog(object sender, ChannelLoggingArgs log)
+                static void HandleLog(object sender, ChannelLoggingArgs log)
                 {
                     switch (log.Severity)
                     {

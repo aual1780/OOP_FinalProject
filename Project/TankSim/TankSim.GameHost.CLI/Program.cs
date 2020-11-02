@@ -29,6 +29,9 @@ namespace TankSim.GameHost.CLI
                 Console.Write("How many players? ");
             } while (!int.TryParse(Console.ReadLine(), out playerCount) || !playerCountRange.Contains(playerCount));
 
+            Console.Write("Keep dead games alive? (Y|N)? ");
+            bool persistDeadGames = string.Equals(Console.ReadLine(), "y", StringComparison.OrdinalIgnoreCase);
+
             Console.Write("Bind local controller (Y|N)? ");
             bool bindLocalController = string.Equals(Console.ReadLine(), "y", StringComparison.OrdinalIgnoreCase);
 
@@ -73,7 +76,12 @@ namespace TankSim.GameHost.CLI
                     {
                         Thread.Sleep(10);
                         //if player count drops, then restart outer loop
-                        if (ardServ.ConnectedClientCount < playerCount)
+                        if (persistDeadGames)
+                        {
+                            _ = Console.ReadLine();
+                            break;
+                        }
+                        else if (ardServ.ConnectedClientCount < playerCount)
                             break;
                     }
                 }

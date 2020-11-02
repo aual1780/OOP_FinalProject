@@ -24,6 +24,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="LocalPublish.bat" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="TIPC.Core.ComponentModel" Version="4.6.0" />
   </ItemGroup>
 

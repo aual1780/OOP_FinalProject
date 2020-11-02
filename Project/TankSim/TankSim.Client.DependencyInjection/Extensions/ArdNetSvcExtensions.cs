@@ -25,13 +25,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddClientScoped()
                 .AddConfigModifier((x, y) =>
                 {
-                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = false;
+                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = true;
                     y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
-                    var pingRate = Config.GetValue<int>("ArdNet.PingRateMillis") + 50;
+                    var pingRate = Config.GetValue<int>("ArdNet.PingRateMillis");
                     y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);
                 })
                 .AddTankSimConfig()
-                .AutoRestart();
+                .AutoRestart()
+                ;
             _ = services.AddScoped<IArdNetSystem>((sp) => sp.GetRequiredService<IArdNetClient>());
             return configurator;
         }
