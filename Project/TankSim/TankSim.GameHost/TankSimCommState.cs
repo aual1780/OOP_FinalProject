@@ -14,8 +14,11 @@ using TIPC.Core.Tools.Extensions;
 namespace TankSim.GameHost
 {
     /// <summary>
-    /// 
+    /// Manage ArdServer communications and messaging
     /// </summary>
+    /// <remarks>
+    /// Pattern: Composite
+    /// </remarks>
     public class TankSimCommService : IDisposable
     {
         readonly ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint> _connectedSystems = new ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint>();
@@ -78,6 +81,7 @@ namespace TankSim.GameHost
 
         private void ArdServer_TcpEndpointConnected(object Sender, IConnectedSystemEndpoint e)
         {
+            //Pattern: State
             Debug.WriteLine($"Connected: {e.Endpoint}");
             var state = new TankControllerState();
             e.UserState = state;

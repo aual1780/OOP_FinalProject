@@ -15,6 +15,10 @@ namespace TankSim.OperatorDelegates
     /// <summary>
     /// Base class for operator delegates
     /// </summary>
+    /// <remarks>
+    /// Pattern: Proxy
+    /// Pattern: Facade
+    /// </remarks>
     /// <typeparam name="T_Data"></typeparam>
     public class OperatorDelegateBase<T_Data> : IDisposable
         where T_Data : class

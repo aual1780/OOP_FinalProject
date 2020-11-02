@@ -15,6 +15,8 @@ namespace TankSim.Client.Extensions
         /// <param name="msg"></param>
         public static void SendInput(this IEnumerable<IOperatorInputModule> list, IOperatorInputMsg msg)
         {
+            //Pattern: Chain of Responsibility
+            //Pattern: Iterator
             foreach (var itm in list)
             {
                 if (msg.IsHandled)

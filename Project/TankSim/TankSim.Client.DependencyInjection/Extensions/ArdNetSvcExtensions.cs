@@ -19,6 +19,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static ArdNetClientConfigurator AddArdNetClient(this IServiceCollection services, IConfiguration Config)
         {
+            //Pattern: Builder
+            //Pattern: DI
+            //Pattern: Strategy
             var configurator = services.AddMessageHubSingleton()
                 .AddIpResolver()
                 .AddArdNet(Config.GetSection("ArdNet"))

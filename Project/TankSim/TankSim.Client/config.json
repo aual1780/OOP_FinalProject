@@ -4,7 +4,7 @@
       "AppID": "ArdNet.TankSim.MultiController",
       "ServerPort": 52518,
       "ClientPort": 0,
-      "PingRateMillis": 250
+      "PingRateMillis": 125
     }
   },
 

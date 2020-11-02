@@ -8,6 +8,9 @@ namespace TankSim.GameHost
     /// <summary>
     /// ArdNet server factory
     /// </summary>
+    /// <remarks>
+    /// Pattern: Facade
+    /// </remarks>
     public static class ArdNetFactory
     {
         /// <summary>
