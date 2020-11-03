@@ -29,8 +29,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddConfigModifier((x, y) =>
                 {
                     y.TCP.HeartbeatConfig.ForceStrictHeartbeat = true;
-                    y.TCP.HeartbeatConfig.RespondToHeartbeats = false;
-                    var pingRate = Config.GetValue<int>("ArdNet.PingRateMillis");
+                    y.TCP.HeartbeatConfig.RespondToHeartbeats = true;
+                    y.TCP.HeartbeatConfig.HeartbeatToleranceMultiplier = 3;
+                    var pingRate = Config.GetValue<int>("ArdNet:ArdNetBasicConfig:PingRateMillis");
                     y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);
                 })
                 .AddTankSimConfig()

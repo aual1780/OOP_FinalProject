@@ -823,6 +823,10 @@
             <summary>
             Base class for operator delegates
             </summary>
+            <remarks>
+            Pattern: Proxy
+            Pattern: Facade
+            </remarks>
             <typeparam name="T_Data"></typeparam>
         </member>
         <member name="P:TankSim.OperatorDelegates.OperatorDelegateBase`1.CmdProxy">

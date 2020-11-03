@@ -31,11 +31,11 @@
                 </MenuItem>
             </Menu>
             <Label
-                Content="{Binding GameHostEndpoint}" ContentStringFormat="Game Host: {0}"
+                Content="{Binding GameHostEndpoint, IsAsync=True}" ContentStringFormat="Game Host: {0}"
                 Style="{StaticResource GameHostStyle}"/>
-            <Label Content="{Binding Roles}" ContentStringFormat="Your Roles: {0}"/>
+            <Label Content="{Binding Roles, IsAsync=True}" ContentStringFormat="Your Roles: {0}"/>
             <ItemsControl
-                ItemsSource="{Binding UIModuleCollection}"
+                ItemsSource="{Binding UIModuleCollection, IsAsync=True}"
                 Margin="0 20px 0 0"
                 IsTabStop="False"/>
         </StackPanel>

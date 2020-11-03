@@ -8,6 +8,9 @@
             <summary>
             ArdNet server factory
             </summary>
+            <remarks>
+            Pattern: Facade
+            </remarks>
         </member>
         <member name="M:TankSim.GameHost.ArdNetFactory.GetArdServer(TIPC.Core.Channels.MessageHub,System.String,System.Int32,System.Int32)">
             <summary>
@@ -114,8 +117,11 @@
         </member>
         <member name="T:TankSim.GameHost.TankSimCommService">
             <summary>
-            
+            Manage ArdServer communications and messaging
             </summary>
+            <remarks>
+            Pattern: Composite
+            </remarks>
         </member>
         <member name="P:TankSim.GameHost.TankSimCommService.ArdServer">
             <summary>

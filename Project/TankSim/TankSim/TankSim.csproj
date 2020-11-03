@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet" Version="2.7.3" />
-    <PackageReference Include="TIPC.Core.Channels" Version="4.6.0" />
+    <PackageReference Include="ArdNet" Version="2.7.6" />
+    <PackageReference Include="TIPC.Core.Channels" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
