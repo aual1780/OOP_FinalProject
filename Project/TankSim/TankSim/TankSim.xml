@@ -156,6 +156,11 @@
             Game constances
             </summary>
         </member>
+        <member name="P:TankSim.Constants.GameName">
+            <summary>
+            Public game name
+            </summary>
+        </member>
         <member name="T:TankSim.Constants.ChannelNames">
             <summary>
             ArdNet channel names

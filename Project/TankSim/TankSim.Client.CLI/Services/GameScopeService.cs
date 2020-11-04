@@ -22,12 +22,12 @@ namespace TankSim.Client.CLI.Services
         {
             while (true)
             {
-                Console.Write("Enter GameID: ");
+                Console.Write("Enter Game ID: ");
                 var gameID = Console.ReadLine();
                 var isValid = GameIdGenerator.Validate(gameID);
                 if (!isValid)
                 {
-                    Console.Write("Invalid GameID.  ");
+                    Console.Write("Invalid Game ID.  ");
                     continue;
                 }
 

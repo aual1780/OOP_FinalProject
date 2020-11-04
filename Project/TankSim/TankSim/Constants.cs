@@ -8,6 +8,11 @@ namespace TankSim
     public static class Constants
     {
         /// <summary>
+        /// Public game name
+        /// </summary>
+        public static string GameName { get; } = "BattleCOD 3: Eastern Front 2";
+
+        /// <summary>
         /// ArdNet channel names
         /// </summary>
         public static class ChannelNames
@@ -89,8 +94,6 @@ namespace TankSim
             /// </summary>
             public static TimeSpan ReloadDuration { get; } = TimeSpan.FromMilliseconds(1000);
         }
-
-
 
     }
 }

@@ -12,6 +12,7 @@ namespace TankSim.GameHost.CLI
     {
         static async Task<int> Main()
         {
+            Console.Title = Constants.GameName;
             TraceListener t = new ConsoleTraceListener();
             _ = Trace.Listeners.Add(t);
 

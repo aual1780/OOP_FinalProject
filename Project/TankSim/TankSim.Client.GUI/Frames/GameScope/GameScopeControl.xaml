@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TankSim.Client.GUI.Frames.GameScope"
-             mc:Ignorable="d" 
+             xmlns:tSim="clr-namespace:TankSim;assembly=TankSim"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-
+    <UserControl.Resources>
+        <Style x:Key="lbl_TitleTxt" TargetType="Label">
+            <Setter Property="FontSize" Value="26"></Setter>
+            <Setter Property="Margin" Value="0 0 0 16"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -19,7 +25,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <Label Content="Game ID" />
+            <Label 
+                Content="{Binding Source={x:Static tSim:Constants.GameName}}"
+                Style="{StaticResource lbl_TitleTxt}" />
+            <Label Content="Game ID" HorizontalAlignment="Center" />
             <TextBox 
                 Name="txt_GameID"
                 Text="{Binding GameID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

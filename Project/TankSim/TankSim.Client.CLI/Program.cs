@@ -12,22 +12,14 @@ namespace TankSim.Client.CLI
 {
     class Program
     {
-        public static IServiceProvider ServiceProvider { get; private set; }
-
         static async Task<int> Main()
         {
-            var configBuilder =
-                new ConfigurationBuilder()
-                .SetBasePath(Environment.CurrentDirectory)
-                .AddJsonFile("config.json", optional: false, reloadOnChange: true);
-            var config = configBuilder.Build();
-
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection, config);
-            ServiceProvider = serviceCollection.BuildServiceProvider();
+            Console.WriteLine(Constants.GameName);
+            Console.Title = Constants.GameName;
+            var sp = BuildServiceProvider();
 
             //application scope
-            using (var appScope = ServiceProvider.CreateScope())
+            using (var appScope = sp.CreateScope())
             {
                 //get valid ArdNet game connection
                 var scopeService = appScope.ServiceProvider.GetRequiredService<IGameScopeService>();
@@ -44,6 +36,18 @@ namespace TankSim.Client.CLI
             return 0;
         }
 
+        private static ServiceProvider BuildServiceProvider()
+        {
+            var configBuilder =
+                new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("config.json", optional: false, reloadOnChange: true);
+            var config = configBuilder.Build();
+
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection, config);
+            return serviceCollection.BuildServiceProvider();
+        }
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration config)
         {
