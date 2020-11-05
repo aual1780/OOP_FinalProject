@@ -12,12 +12,11 @@
             Pattern: Facade
             </remarks>
         </member>
-        <member name="M:TankSim.GameHost.ArdNetFactory.GetArdServer(TIPC.Core.Channels.MessageHub,System.String,System.Int32,System.Int32)">
+        <member name="M:TankSim.GameHost.ArdNetFactory.GetArdServer(TIPC.Core.Channels.MessageHub,System.Int32,System.Int32)">
             <summary>
             Get new fully configured ardnet server
             </summary>
             <param name="MsgHub"></param>
-            <param name="GameID"></param>
             <param name="PingRateMills"></param>
             <param name="ServerPort"></param>
             <returns></returns>
@@ -147,6 +146,14 @@
             <summary>
             Count of players in lobby
             </summary>
+        </member>
+        <member name="M:TankSim.GameHost.TankSimCommService.Create(ArdNet.Server.IArdNetServer,System.Int32)">
+            <summary>
+            Create service
+            </summary>
+            <param name="ArdServer"></param>
+            <param name="PlayerCount"></param>
+            <returns></returns>
         </member>
         <member name="M:TankSim.GameHost.TankSimCommService.#ctor(ArdNet.Server.IArdNetServer,System.Int32)">
             <summary>

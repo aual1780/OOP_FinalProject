@@ -44,12 +44,10 @@ namespace TankSim.GameHost.CLI
                 {
                     //create ardnet server
                     using var ardServ = ArdNetFactory.GetArdServer(msgHub);
-                    var servIP = await ardServ.GetTcpAddrAsync();
-                    Console.WriteLine(servIP.ToString());
                     //create game communincation manager
                     //watches for clients
                     //tracks command inputs
-                    using var commState = new TankSimCommService(ardServ, playerCount);
+                    using var commState = await TankSimCommService.Create(ardServ, playerCount);
                     //create gamepad watcher
                     //hook into server event stream
                     //bind controls for all operator roles

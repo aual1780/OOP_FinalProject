@@ -35,7 +35,7 @@ namespace TankSim.GameHost
         /// <summary>
         /// Game ID code
         /// </summary>
-        public string GameID { get; }
+        public string GameID { get; private set; }
         /// <summary>
         /// Cmd hook interface
         /// </summary>
@@ -50,11 +50,25 @@ namespace TankSim.GameHost
         public int PlayerCountCurrent => _playerCountCurrent;
 
         /// <summary>
+        /// Create service
+        /// </summary>
+        /// <param name="ArdServer"></param>
+        /// <param name="PlayerCount"></param>
+        /// <returns></returns>
+        public static async Task<TankSimCommService> Create(IArdNetServer ArdServer, int PlayerCount)
+        {
+            var svc = new TankSimCommService(ArdServer, PlayerCount);
+            var udpIP = await ArdServer.GetUdpAddrAsync();
+            svc.GameID = udpIP.Port.ToString();
+            return svc;
+        }
+
+        /// <summary>
         /// Create instance
         /// </summary>
         /// <param name="ArdServer"></param>
         /// <param name="PlayerCount"></param>
-        public TankSimCommService(IArdNetServer ArdServer, int PlayerCount)
+        private TankSimCommService(IArdNetServer ArdServer, int PlayerCount)
         {
             if (ArdServer is null)
             {
@@ -62,7 +76,6 @@ namespace TankSim.GameHost
             }
 
             this.ArdServer = ArdServer;
-            GameID = ArdServer.NetConfig.UDP.AppID.Split('.').Last();
             CmdFacade = new OperatorCmdFacade(ArdServer);
             this.PlayerCountTarget = PlayerCount;
             _roleSets = OperatorRoleSets.GetDistributionSets(PlayerCount).ToList();

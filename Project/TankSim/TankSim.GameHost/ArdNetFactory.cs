@@ -17,22 +17,12 @@ namespace TankSim.GameHost
         /// Get new fully configured ardnet server
         /// </summary>
         /// <param name="MsgHub"></param>
-        /// <param name="GameID"></param>
         /// <param name="PingRateMills"></param>
         /// <param name="ServerPort"></param>
         /// <returns></returns>
-        public static IArdNetServer GetArdServer(MessageHub MsgHub, string GameID = "", int PingRateMills = 250, int ServerPort = 52518)
+        public static IArdNetServer GetArdServer(MessageHub MsgHub, int PingRateMills = 250, int ServerPort = 0)
         {
-            if (string.IsNullOrWhiteSpace(GameID))
-            {
-                GameID = GameIdGenerator.GetID();
-            }
-            if (!GameIdGenerator.Validate(GameID))
-            {
-                throw new ArgumentException(nameof(GameID));
-            }
-
-            var appID = $"ArdNet.TankSim.MultiController.{GameID}";
+            var appID = $"ArdNet.TankSim.MultiController";
             var ipAddr = IPTools.GetLocalIP();
             var config = new ArdNetServerConfig(appID, ipAddr, ServerPort);
 

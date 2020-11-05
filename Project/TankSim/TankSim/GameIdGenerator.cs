@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading;
 using TIPC.Core.Tools.Extensions;
 
@@ -15,6 +16,7 @@ namespace TankSim
         /// Generate a new GameID string
         /// </summary>
         /// <returns></returns>
+        [Obsolete("", true)]
         public static string GetID()
         {
             var rand = Thread.CurrentThread.LocalRandom();
@@ -24,7 +26,7 @@ namespace TankSim
                 str += rand.Next(0, 10);
             }
 
-            if(!Validate(str))
+            if (!Validate(str))
             {
                 throw new Exception("Failed to generate valid GameID");
             }
@@ -40,7 +42,19 @@ namespace TankSim
         {
             if (GameID is null)
                 return false;
-            return GameID.RgxIsMatch($@"^[0-9]{{{_keyLength}}}$");
+            if (!int.TryParse(GameID, out var gameInt))
+            {
+                return false;
+            }
+            if (!GameID.RgxIsMatch($@"^[0-9]+$"))
+            {
+                return false;
+            }
+            if (gameInt < IPEndPoint.MinPort || gameInt > IPEndPoint.MaxPort)
+            {
+                return false;
+            }
+            return true;
         }
 
     }
