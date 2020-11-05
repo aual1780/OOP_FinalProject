@@ -14,11 +14,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="config.json" />
     <None Remove="TankSim.Client.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet.Client" Version="2.7.6" />
+    <Content Include="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ArdNet.Client" Version="2.10.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
@@ -30,13 +38,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TankSim\TankSim.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="config.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </None>
   </ItemGroup>
   
 </Project>

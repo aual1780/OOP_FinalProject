@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="TIPC.Core.ComponentModel" Version="5.0.1" />
+    <PackageReference Include="TIPC.Core.ComponentModel" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>

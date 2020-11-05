@@ -44,6 +44,8 @@ namespace TankSim.GameHost.CLI
                 {
                     //create ardnet server
                     using var ardServ = ArdNetFactory.GetArdServer(msgHub);
+                    var servIP = await ardServ.GetTcpAddrAsync();
+                    Console.WriteLine(servIP.ToString());
                     //create game communincation manager
                     //watches for clients
                     //tracks command inputs
