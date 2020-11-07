@@ -1,6 +1,7 @@
 ﻿using ArdNet;
 using ArdNet.Client;
 using ArdNet.Client.DependencyInjection;
+using ArdNet.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System;
 
@@ -22,9 +23,10 @@ namespace Microsoft.Extensions.DependencyInjection
             //Pattern: Builder
             //Pattern: DI
             //Pattern: Strategy
+            services.Configure<ArdNetBasicConfig>(Config.GetSection("ArdNet").GetSection(nameof(ArdNetBasicConfig)));
             var configurator = services.AddMessageHubSingleton()
                 .AddIpResolver()
-                .AddArdNet(Config.GetSection("ArdNet"))
+                .AddArdNet()
                 .AddClientScoped()
                 .AddConfigModifier((x, y) =>
                 {
