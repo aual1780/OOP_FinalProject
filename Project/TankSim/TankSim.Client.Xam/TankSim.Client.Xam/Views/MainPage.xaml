@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TankSim.Client.Xam.Views.MainPage"
              Title="{Binding Title}">
-
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!" />
-    </StackLayout>
+    <Grid>
+        <Label>asdasd</Label>
+    </Grid>
 
 </ContentPage>

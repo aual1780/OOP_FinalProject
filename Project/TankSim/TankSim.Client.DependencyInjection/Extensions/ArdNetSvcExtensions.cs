@@ -18,13 +18,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="Config"></param>
         /// <returns></returns>
-        public static ArdNetClientConfigurator AddArdNetClient(this IServiceCollection services, IConfiguration Config)
+        public static ArdNetInjectionClientBuilder AddArdNetClient(this IServiceCollection services, IConfiguration Config)
         {
             //Pattern: Builder
             //Pattern: DI
             //Pattern: Strategy
-            services.Configure<ArdNetBasicConfig>(Config.GetSection("ArdNet").GetSection(nameof(ArdNetBasicConfig)));
-            var configurator = services.AddMessageHubSingleton()
+            _ = services.Configure<ArdNetBasicConfig>(Config.GetSection("ArdNet").GetSection(nameof(ArdNetBasicConfig)));
+            var builder = 
+                services.AddMessageHubSingleton()
                 .AddIpResolver()
                 .AddArdNet()
                 .AddClientScoped()
@@ -40,7 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AutoRestart()
                 ;
             _ = services.AddScoped<IArdNetSystem>((sp) => sp.GetRequiredService<IArdNetClient>());
-            return configurator;
+            return builder;
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using ArdNet.DependencyInjection;
 using Unity.Microsoft.DependencyInjection;
+using System;
 
 namespace TankSim.Client.Xam
 {
@@ -24,12 +25,12 @@ namespace TankSim.Client.Xam
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            _ = await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
+            _ = containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
@@ -37,12 +38,25 @@ namespace TankSim.Client.Xam
             var unityContainer = containerRegistry.GetContainer();
 
             IServiceCollection services = new ServiceCollection();
+            //add game services
+            _ = services
+                .AddGameIDService();
+            //add ardnet
             _ = services
                 .AddMessageHubSingleton()
                 .AddIpResolver()
                 .AddArdNet()
                 .AddClientScoped()
-                .AddTankSimConfig();
+                .AddTankSimConfig()
+                .AddConfigModifier((x, y) =>
+                {
+                    y.TCP.HeartbeatConfig.ForceStrictHeartbeat = true;
+                    y.TCP.HeartbeatConfig.RespondToHeartbeats = true;
+                    y.TCP.HeartbeatConfig.HeartbeatToleranceMultiplier = 3;
+                    var pingRate = 300;
+                    y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);
+                })
+                .AutoRestart();
 
             _ = services.BuildServiceProvider(unityContainer);
         }

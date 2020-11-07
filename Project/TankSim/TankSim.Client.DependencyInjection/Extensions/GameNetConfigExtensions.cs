@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="Config"></param>
         /// <returns></returns>
-        public static ArdNetClientConfigurator AddTankSimConfig(this ArdNetClientConfigurator Config)
+        public static ArdNetInjectionClientBuilder AddTankSimConfig(this ArdNetInjectionClientBuilder Config)
         {
             ArdNetClientConfig configFactory(IServiceProvider sp)
             {

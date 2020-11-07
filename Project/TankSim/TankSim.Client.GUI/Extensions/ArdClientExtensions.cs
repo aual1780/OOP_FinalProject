@@ -13,14 +13,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        public static ArdNetClientConfigurator AddDebugLogger(this ArdNetClientConfigurator config)
+        public static ArdNetInjectionClientBuilder AddDebugLogger(this ArdNetInjectionClientBuilder config)
         {
             AddDebugLoggerHelper(config);
             return config;
         }
 
         [Conditional("DEBUG")]
-        private static void AddDebugLoggerHelper(this ArdNetClientConfigurator config)
+        private static void AddDebugLoggerHelper(this ArdNetInjectionClientBuilder config)
         {
             _ = config.AddSystemModifier((sp, system) =>
             {
@@ -84,14 +84,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        public static ArdNetClientConfigurator AddReleaseCrasher(this ArdNetClientConfigurator config)
+        public static ArdNetInjectionClientBuilder AddReleaseCrasher(this ArdNetInjectionClientBuilder config)
         {
             AddReleaseCrasherHelper(config);
             return config;
         }
 
         [Conditional("RELEASE")]
-        private static void AddReleaseCrasherHelper(this ArdNetClientConfigurator config)
+        private static void AddReleaseCrasherHelper(this ArdNetInjectionClientBuilder config)
         {
             _ = config.AddSystemModifier((sp, system) =>
             {
