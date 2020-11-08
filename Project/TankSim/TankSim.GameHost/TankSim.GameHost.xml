@@ -53,16 +53,6 @@
             Event triggered when driver command is received
             </summary>
         </member>
-        <member name="E:TankSim.GameHost.OperatorCmdFacade.FireControlCmdReceived">
-            <summary>
-            Event triggered when fire control command is received
-            </summary>
-        </member>
-        <member name="E:TankSim.GameHost.OperatorCmdFacade.GunLoaderCmdReceived">
-            <summary>
-            Event triggered when gun loader command is received
-            </summary>
-        </member>
         <member name="E:TankSim.GameHost.OperatorCmdFacade.GunRotationCmdReceived">
             <summary>
             Event triggered when gun rotation command is received
@@ -207,6 +197,26 @@
         <member name="T:TankSim.GameHost.TankSystems.IPrimaryAmmoType">
             <summary>
             Interface representing ammo types for the primary gun
+            </summary>
+        </member>
+        <member name="T:TankSim.GameHost.TankSystems.PrimaryWeaponFiredEventArgs">
+            <summary>
+            Event arg for primary weapons
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankSystems.PrimaryWeaponFiredEventArgs.IsLoaded">
+            <summary>
+            Indicates that the gun was not loaded when the fire command was sent
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankSystems.PrimaryWeaponFiredEventArgs.IsMisfire">
+            <summary>
+            Indicates that the gun was midload then the fire command was sent
+            </summary>
+        </member>
+        <member name="P:TankSim.GameHost.TankSystems.PrimaryWeaponFiredEventArgs.ShouldShoot">
+            <summary>
+            Indicates whether or not the gun should fire
             </summary>
         </member>
     </members>

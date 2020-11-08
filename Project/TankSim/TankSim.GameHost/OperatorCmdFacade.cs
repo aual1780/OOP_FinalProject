@@ -1,8 +1,11 @@
-﻿using ArdNet.Server;
+﻿using ArdNet;
+using ArdNet.Server;
 using System;
 using System.Collections.Generic;
+using TankSim.GameHost.TankSystems;
 using TankSim.OperatorCmds;
 using TankSim.OperatorDelegates;
+using TIPC.Core.Tools;
 using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.GameHost
@@ -12,7 +15,12 @@ namespace TankSim.GameHost
     /// </summary>
     public class OperatorCmdFacade : IDisposable
     {
+        private readonly object _loadLockObj = new object();
+        private bool _isLoaded = false;
+        private DateTime _lastLoadTime = DateTime.MinValue;
         private readonly List<IDisposable> _proxySet = new List<IDisposable>();
+
+
 
         /// <summary>
         /// Event triggered when tank movement vector is changed
@@ -29,15 +37,13 @@ namespace TankSim.GameHost
         /// </summary>
         public event OperatorCmdEventHandler<DriverCmd> DriverCmdReceived;
 
-        /// <summary>
-        /// Event triggered when fire control command is received
-        /// </summary>
-        public event OperatorCmdEventHandler<FireControlCmd> FireControlCmdReceived;
+        public event Action<IConnectedSystemEndpoint, PrimaryWeaponFiredEventArgs> PrimaryWeaponFired;
 
-        /// <summary>
-        /// Event triggered when gun loader command is received
-        /// </summary>
-        public event OperatorCmdEventHandler<GunLoaderCmd> GunLoaderCmdReceived;
+        public event Action<IConnectedSystemEndpoint> SecondaryWeaponFired;
+
+        public event Action<IConnectedSystemEndpoint> PrimaryGunLoaded;
+
+        public event Action<IConnectedSystemEndpoint> PrimaryAmmoCycled;
 
         /// <summary>
         /// Event triggered when gun rotation command is received
@@ -127,7 +133,29 @@ namespace TankSim.GameHost
             }
             {
                 var proxy = new FireControlDelegate(ArdServer);
-                proxy.CmdReceived += (x, y) => FireControlCmdReceived(x, y);
+                proxy.CmdReceived += (x, y) =>
+                {
+                    if (y.WeaponType == FireControlType.Primary)
+                    {
+                        lock (_loadLockObj)
+                        {
+                            var now = HighResolutionDateTime.UtcNow;
+                            var diff = now - _lastLoadTime;
+                            var isValidFire = diff >= Constants.Gameplay.ReloadDuration;
+                            var isLoaded = _isLoaded && isValidFire;
+                            var isMisfire = _isLoaded && !isValidFire;
+
+                            var arg = new PrimaryWeaponFiredEventArgs(isLoaded, isMisfire);
+                            PrimaryWeaponFired?.Invoke(x, arg);
+
+                            _isLoaded = false;
+                        }
+                    }
+                    else if (y.WeaponType == FireControlType.Secondary)
+                    {
+                        SecondaryWeaponFired?.Invoke(x);
+                    }
+                };
                 proxy.Validator.AddFilter(x =>
                 {
                     var state = (TankControllerState)x.SourceEndpoint.UserState;
@@ -137,7 +165,22 @@ namespace TankSim.GameHost
             }
             {
                 var proxy = new GunLoaderDelegate(ArdServer);
-                proxy.CmdReceived += (x, y) => GunLoaderCmdReceived(x, y);
+                proxy.CmdReceived += (x, y) =>
+                {
+                    if (y.LoaderType == GunLoaderType.Load)
+                    {
+                        lock (_loadLockObj)
+                        {
+                            _isLoaded = true;
+                            _lastLoadTime = HighResolutionDateTime.UtcNow;
+                            PrimaryGunLoaded?.Invoke(x);
+                        }
+                    }
+                    else if (y.LoaderType == GunLoaderType.CycleAmmoType)
+                    {
+                        PrimaryAmmoCycled?.Invoke(x);
+                    }
+                };
                 proxy.Validator.AddFilter(x =>
                 {
                     var state = (TankControllerState)x.SourceEndpoint.UserState;

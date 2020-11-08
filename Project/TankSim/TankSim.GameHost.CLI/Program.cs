@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TankSim.GameHost.CLI.Extensions;
 using TIPC.Core.Channels;
+using static System.Console;
 
 namespace TankSim.GameHost.CLI
 {
@@ -27,14 +28,14 @@ namespace TankSim.GameHost.CLI
             int playerCount = -1;
             do
             {
-                Console.Write("How many players? ");
-            } while (!int.TryParse(Console.ReadLine(), out playerCount) || !playerCountRange.Contains(playerCount));
+                Write("How many players? ");
+            } while (!int.TryParse(ReadLine(), out playerCount) || !playerCountRange.Contains(playerCount));
 
-            Console.Write("Keep dead games alive? (Y|N)? ");
-            bool persistDeadGames = string.Equals(Console.ReadLine(), "y", StringComparison.OrdinalIgnoreCase);
+            Write("Keep dead games alive? (Y|N)? ");
+            bool persistDeadGames = string.Equals(ReadLine(), "y", StringComparison.OrdinalIgnoreCase);
 
-            Console.Write("Bind local controller (Y|N)? ");
-            bool bindLocalController = string.Equals(Console.ReadLine(), "y", StringComparison.OrdinalIgnoreCase);
+            Write("Bind local controller (Y|N)? ");
+            bool bindLocalController = string.Equals(ReadLine(), "y", StringComparison.OrdinalIgnoreCase);
 
             //application scope
             while (true)
@@ -59,19 +60,29 @@ namespace TankSim.GameHost.CLI
                     }
 
                     //print game ID so clients know where to connect
-                    Console.WriteLine($"Game ID: {commState.GameID}");
+                    WriteLine($"Game ID: {commState.GameID}");
 
                     //wait for all players to join
                     await commState.GetConnectionTask();
-                    Console.WriteLine("Game Started.");
+                    WriteLine("Game Started.");
 
                     //setup async command event watchers
                     //any inbound events will trigger the associated handler
                     var cmdFacade = commState.CmdFacade;
-                    cmdFacade.MovementChanged += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Dir: {e}");
-                    cmdFacade.AimChanged += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Aim.{e}");
-                    cmdFacade.FireControlCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Fire.{e.WeaponType} ({e.InitTime.GetTimeDiff()} ms)");
-                    cmdFacade.GunLoaderCmdReceived += (sender, e) => Console.WriteLine($"{sender.Endpoint}: Loader.{e.LoaderType} ({e.InitTime.GetTimeDiff()} ms)");
+                    cmdFacade.MovementChanged += (s, e) => WriteLine($"{s.Endpoint}: Dir: {e}");
+                    cmdFacade.AimChanged += (s, e) => WriteLine($"{s.Endpoint}: Aim.{e}");
+                    cmdFacade.PrimaryWeaponFired += (s, e) =>
+                    {
+                        if (e.ShouldShoot)
+                            WriteLine($"{s.Endpoint}: Fire.Primary");
+                        else if (e.IsMisfire)
+                            WriteLine($"{s.Endpoint}: Fire.Primary (MISFIRE)");
+                        else if (!e.IsLoaded)
+                            WriteLine($"{s.Endpoint}: Fire.Primary (EMPTY)");
+                    };
+                    cmdFacade.SecondaryWeaponFired += (s) => WriteLine($"{s.Endpoint}: Fire.Secondary");
+                    cmdFacade.PrimaryGunLoaded += (s) => WriteLine($"{s.Endpoint}: Loader.Load");
+                    cmdFacade.PrimaryAmmoCycled += (s) => WriteLine($"{s.Endpoint}: Loader.Cycle");
 
                     while (true)
                     {
@@ -79,7 +90,7 @@ namespace TankSim.GameHost.CLI
                         //if player count drops, then restart outer loop
                         if (persistDeadGames)
                         {
-                            _ = Console.ReadLine();
+                            _ = ReadLine();
                             break;
                         }
                         else if (ardServ.ConnectedClientCount < playerCount)
