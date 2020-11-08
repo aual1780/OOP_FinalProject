@@ -130,7 +130,7 @@
     <PackageReference Include="Prism.Unity.Forms" Version="8.0.0.1909" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TankSim.Client.Xam\TankSim.Client.Xam.csproj">
+    <ProjectReference Include="..\Xam\TankSim.Client.Xam.csproj">
       <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
       <Name>TankSim.Client.Xam</Name>
     </ProjectReference>

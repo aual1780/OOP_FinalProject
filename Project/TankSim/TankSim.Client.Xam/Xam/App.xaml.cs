@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using ArdNet.DependencyInjection;
 using Unity.Microsoft.DependencyInjection;
 using System;
+using Microsoft.Extensions.Options;
 
 namespace TankSim.Client.Xam
 {
@@ -43,6 +44,17 @@ namespace TankSim.Client.Xam
                 .AddGameIDService();
             //add ardnet
             _ = services
+                .AddSingleton<IOptions<ArdNetBasicConfig>>((sp) =>
+                {
+                    var opt = new ArdNetBasicConfig()
+                    {
+                        AppID = "ArdNet.TankSim.MultiController",
+                        ServerPort = 52518,
+                        ClientPort = 0
+                    };
+
+                    return Options.Create(opt);
+                })
                 .AddMessageHubSingleton()
                 .AddIpResolver()
                 .AddArdNet()
