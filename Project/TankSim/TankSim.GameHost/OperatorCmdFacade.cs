@@ -37,12 +37,24 @@ namespace TankSim.GameHost
         /// </summary>
         public event OperatorCmdEventHandler<DriverCmd> DriverCmdReceived;
 
-        public event Action<IConnectedSystemEndpoint, PrimaryWeaponFiredEventArgs> PrimaryWeaponFired;
+        /// <summary>
+        /// 
+        /// </summary>
+        public event Action<IConnectedSystemEndpoint, PrimaryWeaponFireType> PrimaryWeaponFired;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public event Action<IConnectedSystemEndpoint> SecondaryWeaponFired;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public event Action<IConnectedSystemEndpoint> PrimaryGunLoaded;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public event Action<IConnectedSystemEndpoint> PrimaryAmmoCycled;
 
         /// <summary>
@@ -142,11 +154,13 @@ namespace TankSim.GameHost
                             var now = HighResolutionDateTime.UtcNow;
                             var diff = now - _lastLoadTime;
                             var isValidFire = diff >= Constants.Gameplay.ReloadDuration;
-                            var isLoaded = _isLoaded && isValidFire;
-                            var isMisfire = _isLoaded && !isValidFire;
 
-                            var arg = new PrimaryWeaponFiredEventArgs(isLoaded, isMisfire);
-                            PrimaryWeaponFired?.Invoke(x, arg);
+                            int fireType = 0;
+                            var isLoaded = Convert.ToInt32(_isLoaded);
+                            var isMisfire = Convert.ToInt32(_isLoaded & !isValidFire);
+                            fireType += isLoaded + isMisfire;
+
+                            PrimaryWeaponFired?.Invoke(x, (PrimaryWeaponFireType)fireType);
 
                             _isLoaded = false;
                         }

@@ -73,11 +73,11 @@ namespace TankSim.GameHost.CLI
                     cmdFacade.AimChanged += (s, e) => WriteLine($"{s.Endpoint}: Aim.{e}");
                     cmdFacade.PrimaryWeaponFired += (s, e) =>
                     {
-                        if (e.ShouldShoot)
+                        if (e == PrimaryWeaponFireType.Valid)
                             WriteLine($"{s.Endpoint}: Fire.Primary");
-                        else if (e.IsMisfire)
+                        else if (e == PrimaryWeaponFireType.Misfire)
                             WriteLine($"{s.Endpoint}: Fire.Primary (MISFIRE)");
-                        else if (!e.IsLoaded)
+                        else if (e == PrimaryWeaponFireType.Empty)
                             WriteLine($"{s.Endpoint}: Fire.Primary (EMPTY)");
                     };
                     cmdFacade.SecondaryWeaponFired += (s) => WriteLine($"{s.Endpoint}: Fire.Secondary");

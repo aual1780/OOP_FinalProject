@@ -199,24 +199,24 @@
             Interface representing ammo types for the primary gun
             </summary>
         </member>
-        <member name="T:TankSim.GameHost.TankSystems.PrimaryWeaponFiredEventArgs">
+        <member name="T:PrimaryWeaponFireType">
             <summary>
-            Event arg for primary weapons
+            Calculated primary weapon fire method
             </summary>
         </member>
-        <member name="P:TankSim.GameHost.TankSystems.PrimaryWeaponFiredEventArgs.IsLoaded">
+        <member name="F:PrimaryWeaponFireType.Empty">
             <summary>
-            Indicates that the gun was not loaded when the fire command was sent
+            Weapon unloaded
             </summary>
         </member>
-        <member name="P:TankSim.GameHost.TankSystems.PrimaryWeaponFiredEventArgs.IsMisfire">
+        <member name="F:PrimaryWeaponFireType.Valid">
             <summary>
-            Indicates that the gun was midload then the fire command was sent
+            Valid shoot
             </summary>
         </member>
-        <member name="P:TankSim.GameHost.TankSystems.PrimaryWeaponFiredEventArgs.ShouldShoot">
+        <member name="F:PrimaryWeaponFireType.Misfire">
             <summary>
-            Indicates whether or not the gun should fire
+            Weapon mid-load, explosive misfire
             </summary>
         </member>
     </members>
