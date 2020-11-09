@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TankSim.GameHost.CLI.Extensions;
+using TankSim.TankSystems;
 using TIPC.Core.Channels;
 using static System.Console;
 
@@ -73,11 +74,11 @@ namespace TankSim.GameHost.CLI
                     cmdFacade.AimChanged += (s, e) => WriteLine($"{s.Endpoint}: Aim.{e}");
                     cmdFacade.PrimaryWeaponFired += (s, e) =>
                     {
-                        if (e == PrimaryWeaponFireType.Valid)
+                        if (e == PrimaryWeaponFireState.Valid)
                             WriteLine($"{s.Endpoint}: Fire.Primary");
-                        else if (e == PrimaryWeaponFireType.Misfire)
+                        else if (e == PrimaryWeaponFireState.Misfire)
                             WriteLine($"{s.Endpoint}: Fire.Primary (MISFIRE)");
-                        else if (e == PrimaryWeaponFireType.Empty)
+                        else if (e == PrimaryWeaponFireState.Empty)
                             WriteLine($"{s.Endpoint}: Fire.Primary (EMPTY)");
                     };
                     cmdFacade.SecondaryWeaponFired += (s) => WriteLine($"{s.Endpoint}: Fire.Secondary");

@@ -48,24 +48,25 @@
             Event triggered when tank movement vector is changed
             </summary>
         </member>
-        <member name="E:TankSim.GameHost.OperatorCmdFacade.DriverCmdReceived">
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.PrimaryWeaponFired">
             <summary>
-            Event triggered when driver command is received
+            Event triggered when main gun is fired.
+            Arg indicates the state that the weapon was in at the moment of firing
             </summary>
         </member>
-        <member name="E:TankSim.GameHost.OperatorCmdFacade.GunRotationCmdReceived">
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.SecondaryWeaponFired">
             <summary>
-            Event triggered when gun rotation command is received
+            Event triggered when secondary gun is fired
             </summary>
         </member>
-        <member name="E:TankSim.GameHost.OperatorCmdFacade.NavigatorCmdReceived">
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.PrimaryGunLoaded">
             <summary>
-            Event triggered when navigator command is received
+            Event triggered when main gun is loaded
             </summary>
         </member>
-        <member name="E:TankSim.GameHost.OperatorCmdFacade.RangeFinderCmdReceived">
+        <member name="E:TankSim.GameHost.OperatorCmdFacade.PrimaryAmmoCycled">
             <summary>
-            Event triggered when range finder command is received
+            Event triggered when primary ammo type is cycled
             </summary>
         </member>
         <member name="M:TankSim.GameHost.OperatorCmdFacade.#ctor(ArdNet.Server.IArdNetServer)">
@@ -197,26 +198,6 @@
         <member name="T:TankSim.GameHost.TankSystems.IPrimaryAmmoType">
             <summary>
             Interface representing ammo types for the primary gun
-            </summary>
-        </member>
-        <member name="T:PrimaryWeaponFireType">
-            <summary>
-            Calculated primary weapon fire method
-            </summary>
-        </member>
-        <member name="F:PrimaryWeaponFireType.Empty">
-            <summary>
-            Weapon unloaded
-            </summary>
-        </member>
-        <member name="F:PrimaryWeaponFireType.Valid">
-            <summary>
-            Valid shoot
-            </summary>
-        </member>
-        <member name="F:PrimaryWeaponFireType.Misfire">
-            <summary>
-            Weapon mid-load, explosive misfire
             </summary>
         </member>
     </members>

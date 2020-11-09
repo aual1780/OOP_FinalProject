@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TankSim.GameHost.TankSystems;
 using TankSim.OperatorCmds;
 using TankSim.OperatorDelegates;
+using TankSim.TankSystems;
 using TIPC.Core.Tools;
 using TIPC.Core.Tools.Extensions;
 
@@ -15,12 +16,7 @@ namespace TankSim.GameHost
     /// </summary>
     public class OperatorCmdFacade : IDisposable
     {
-        private readonly object _loadLockObj = new object();
-        private bool _isLoaded = false;
-        private DateTime _lastLoadTime = DateTime.MinValue;
         private readonly List<IDisposable> _proxySet = new List<IDisposable>();
-
-
 
         /// <summary>
         /// Event triggered when tank movement vector is changed
@@ -33,45 +29,25 @@ namespace TankSim.GameHost
         public event TankMovementCmdEventHandler AimChanged;
 
         /// <summary>
-        /// Event triggered when driver command is received
+        /// Event triggered when main gun is fired.
+        /// Arg indicates the state that the weapon was in at the moment of firing
         /// </summary>
-        public event OperatorCmdEventHandler<DriverCmd> DriverCmdReceived;
+        public event Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> PrimaryWeaponFired;
 
         /// <summary>
-        /// 
-        /// </summary>
-        public event Action<IConnectedSystemEndpoint, PrimaryWeaponFireType> PrimaryWeaponFired;
-
-        /// <summary>
-        /// 
+        /// Event triggered when secondary gun is fired
         /// </summary>
         public event Action<IConnectedSystemEndpoint> SecondaryWeaponFired;
 
         /// <summary>
-        /// 
+        /// Event triggered when main gun is loaded
         /// </summary>
         public event Action<IConnectedSystemEndpoint> PrimaryGunLoaded;
 
         /// <summary>
-        /// 
+        /// Event triggered when primary ammo type is cycled
         /// </summary>
         public event Action<IConnectedSystemEndpoint> PrimaryAmmoCycled;
-
-        /// <summary>
-        /// Event triggered when gun rotation command is received
-        /// </summary>
-        public event OperatorCmdEventHandler<GunRotationCmd> GunRotationCmdReceived;
-
-        /// <summary>
-        /// Event triggered when navigator command is received
-        /// </summary>
-        public event OperatorCmdEventHandler<NavigatorCmd> NavigatorCmdReceived;
-
-        /// <summary>
-        /// Event triggered when range finder command is received
-        /// </summary>
-        public event OperatorCmdEventHandler<RangeFinderCmd> RangeFinderCmdReceived;
-
 
         /// <summary>
         /// Create new instance
@@ -79,159 +55,94 @@ namespace TankSim.GameHost
         /// <param name="ArdServer"></param>
         public OperatorCmdFacade(IArdNetServer ArdServer)
         {
+            RegisterTankMovement(ArdServer);
+            RegisterTankAiming(ArdServer);
+            RegisterTankWeapons(ArdServer);
+        }
+
+
+        private void RegisterTankMovement(IArdNetServer ArdServer)
+        {
+            var proxy = new TankMovementDelegate(ArdServer);
+            proxy.MovementChanged += (x, y) => MovementChanged(x, y);
+            proxy.Validator.AddFilter(e =>
             {
-                var proxy = new TankMovementDelegate(ArdServer);
-                proxy.MovementChanged += (x, y) => MovementChanged(x, y);
-                proxy.Validator.AddFilter(e =>
+                var state = (TankControllerState)e.Endpt.UserState;
+                var roles = OperatorRoles.Driver | OperatorRoles.Navigator;
+                var ns = MovementDirection.North | MovementDirection.South;
+                var ew = MovementDirection.East | MovementDirection.West;
+                if ((state.Roles & roles) == roles)
                 {
-                    var state = (TankControllerState)e.Endpt.UserState;
-                    var roles = OperatorRoles.Driver | OperatorRoles.Navigator;
-                    var ns = MovementDirection.North | MovementDirection.South;
-                    var ew = MovementDirection.East | MovementDirection.West;
-                    if ((state.Roles & roles) == roles)
-                    {
+                    return true;
+                }
+                else if ((state.Roles & OperatorRoles.Driver) != 0)
+                {
+                    if ((e.Dir & ew) == 0)
                         return true;
-                    }
-                    else if ((state.Roles & OperatorRoles.Driver) != 0)
-                    {
-                        if ((e.Dir & ew) == 0)
-                            return true;
-                    }
-                    else if ((state.Roles & OperatorRoles.Navigator) != 0)
-                    {
-                        if ((e.Dir & ns) == 0)
-                            return true;
-                    }
-                    return false;
-                });
-                _proxySet.Add(proxy);
-            }
-            {
-                var proxy = new TankAimingDelegate(ArdServer);
-                proxy.AimChanged += (x, y) => AimChanged(x, y);
-                proxy.Validator.AddFilter(e =>
+                }
+                else if ((state.Roles & OperatorRoles.Navigator) != 0)
                 {
-                    var state = (TankControllerState)e.Endpt.UserState;
-                    var roles = OperatorRoles.RangeFinder | OperatorRoles.GunRotation;
-                    var ns = MovementDirection.North | MovementDirection.South;
-                    var ew = MovementDirection.East | MovementDirection.West;
-                    if ((state.Roles & roles) == roles)
-                    {
+                    if ((e.Dir & ns) == 0)
                         return true;
-                    }
-                    else if ((state.Roles & OperatorRoles.RangeFinder) != 0)
-                    {
-                        if ((e.Dir & ew) == 0)
-                            return true;
-                    }
-                    else if ((state.Roles & OperatorRoles.GunRotation) != 0)
-                    {
-                        if ((e.Dir & ns) == 0)
-                            return true;
-                    }
-                    return false;
-                });
-                _proxySet.Add(proxy);
-            }
-            {
-                var proxy = new DriverDelegate(ArdServer);
-                proxy.CmdReceived += (x, y) => DriverCmdReceived(x, y);
-                proxy.Validator.AddFilter(x =>
-                {
-                    var state = (TankControllerState)x.SourceEndpoint.UserState;
-                    return (state.Roles & OperatorRoles.Driver) != 0;
-                });
-                _proxySet.Add(proxy);
-            }
-            {
-                var proxy = new FireControlDelegate(ArdServer);
-                proxy.CmdReceived += (x, y) =>
-                {
-                    if (y.WeaponType == FireControlType.Primary)
-                    {
-                        lock (_loadLockObj)
-                        {
-                            var now = HighResolutionDateTime.UtcNow;
-                            var diff = now - _lastLoadTime;
-                            var isValidFire = diff >= Constants.Gameplay.ReloadDuration;
+                }
+                return false;
+            });
+            _proxySet.Add(proxy);
+        }
 
-                            int fireType = 0;
-                            var isLoaded = Convert.ToInt32(_isLoaded);
-                            var isMisfire = Convert.ToInt32(_isLoaded & !isValidFire);
-                            fireType += isLoaded + isMisfire;
+        private void RegisterTankAiming(IArdNetServer ArdServer)
+        {
+            var proxy = new TankAimingDelegate(ArdServer);
+            proxy.AimChanged += (x, y) => AimChanged(x, y);
+            proxy.Validator.AddFilter(e =>
+            {
+                var state = (TankControllerState)e.Endpt.UserState;
+                var roles = OperatorRoles.RangeFinder | OperatorRoles.GunRotation;
+                var ns = MovementDirection.North | MovementDirection.South;
+                var ew = MovementDirection.East | MovementDirection.West;
+                if ((state.Roles & roles) == roles)
+                {
+                    return true;
+                }
+                else if ((state.Roles & OperatorRoles.RangeFinder) != 0)
+                {
+                    if ((e.Dir & ew) == 0)
+                        return true;
+                }
+                else if ((state.Roles & OperatorRoles.GunRotation) != 0)
+                {
+                    if ((e.Dir & ns) == 0)
+                        return true;
+                }
+                return false;
+            });
+            _proxySet.Add(proxy);
+        }
 
-                            PrimaryWeaponFired?.Invoke(x, (PrimaryWeaponFireType)fireType);
+        private void RegisterTankWeapons(IArdNetServer ArdServer)
+        {
+            var fireProxy = new FireControlDelegate(ArdServer);
+            fireProxy.Validator.AddFilter(x =>
+            {
+                var state = (TankControllerState)x.SourceEndpoint.UserState;
+                return (state.Roles & OperatorRoles.FireControl) != 0;
+            });
+            _proxySet.Add(fireProxy);
 
-                            _isLoaded = false;
-                        }
-                    }
-                    else if (y.WeaponType == FireControlType.Secondary)
-                    {
-                        SecondaryWeaponFired?.Invoke(x);
-                    }
-                };
-                proxy.Validator.AddFilter(x =>
-                {
-                    var state = (TankControllerState)x.SourceEndpoint.UserState;
-                    return (state.Roles & OperatorRoles.FireControl) != 0;
-                });
-                _proxySet.Add(proxy);
-            }
+            var loadProxy = new GunLoaderDelegate(ArdServer);
+            loadProxy.Validator.AddFilter(x =>
             {
-                var proxy = new GunLoaderDelegate(ArdServer);
-                proxy.CmdReceived += (x, y) =>
-                {
-                    if (y.LoaderType == GunLoaderType.Load)
-                    {
-                        lock (_loadLockObj)
-                        {
-                            _isLoaded = true;
-                            _lastLoadTime = HighResolutionDateTime.UtcNow;
-                            PrimaryGunLoaded?.Invoke(x);
-                        }
-                    }
-                    else if (y.LoaderType == GunLoaderType.CycleAmmoType)
-                    {
-                        PrimaryAmmoCycled?.Invoke(x);
-                    }
-                };
-                proxy.Validator.AddFilter(x =>
-                {
-                    var state = (TankControllerState)x.SourceEndpoint.UserState;
-                    return (state.Roles & OperatorRoles.GunLoader) != 0;
-                });
-                _proxySet.Add(proxy);
-            }
-            {
-                var proxy = new GunRotationDelegate(ArdServer);
-                proxy.CmdReceived += (x, y) => GunRotationCmdReceived(x, y);
-                proxy.Validator.AddFilter(x =>
-                {
-                    var state = (TankControllerState)x.SourceEndpoint.UserState;
-                    return (state.Roles & OperatorRoles.GunRotation) != 0;
-                });
-                _proxySet.Add(proxy);
-            }
-            {
-                var proxy = new NavigatorDelegate(ArdServer);
-                proxy.CmdReceived += (x, y) => NavigatorCmdReceived(x, y);
-                proxy.Validator.AddFilter(x =>
-                {
-                    var state = (TankControllerState)x.SourceEndpoint.UserState;
-                    return (state.Roles & OperatorRoles.Navigator) != 0;
-                });
-                _proxySet.Add(proxy);
-            }
-            {
-                var proxy = new RangeFinderDelegate(ArdServer);
-                proxy.CmdReceived += (x, y) => RangeFinderCmdReceived(x, y);
-                proxy.Validator.AddFilter(x =>
-                {
-                    var state = (TankControllerState)x.SourceEndpoint.UserState;
-                    return (state.Roles & OperatorRoles.RangeFinder) != 0;
-                });
-                _proxySet.Add(proxy);
-            }
+                var state = (TankControllerState)x.SourceEndpoint.UserState;
+                return (state.Roles & OperatorRoles.GunLoader) != 0;
+            });
+            _proxySet.Add(loadProxy);
+
+            var weaponProxy = new TankWeaponDelegate(fireProxy, loadProxy);
+            weaponProxy.PrimaryWeaponFired += (s, e) => PrimaryWeaponFired?.Invoke(s, e);
+            weaponProxy.SecondaryWeaponFired += (s) => SecondaryWeaponFired?.Invoke(s);
+            weaponProxy.PrimaryGunLoaded += (s) => PrimaryGunLoaded?.Invoke(s);
+            weaponProxy.PrimaryAmmoCycled += (s) => PrimaryAmmoCycled?.Invoke(s);
+            _proxySet.Add(weaponProxy);
         }
 
 
