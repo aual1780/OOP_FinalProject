@@ -1,0 +1,1070 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TankSim</name>
+    </assembly>
+    <members>
+        <member name="T:TankSim.OperatorRoleAttribute">
+            <summary>
+            Attribute to define operator role mappings for operator modules.
+            Used for dynamic factory loading
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorRoleAttribute.OpRoles">
+            <summary>
+            Associated perator roles
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorRoleAttribute.#ctor(TankSim.OperatorRoles)">
+            <summary>
+            Create isntance
+            </summary>
+            <param name="OpRoles"></param>
+        </member>
+        <member name="T:TankSim.Config.KeyBindingConfig">
+            <summary>
+            Key binding configuration
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.EnableGlobalHooks">
+            <summary>
+            Enable global keyhooks
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.Driver">
+            <summary>
+            Driver key bindings
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.FireControl">
+            <summary>
+            Fire control key bindings
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.GunLoader">
+            <summary>
+            Gun loader key bindings
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.GunRotation">
+            <summary>
+            Gun rotation key bindings
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.Navigator">
+            <summary>
+            Navigator key bindings
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.RangeFinder">
+            <summary>
+            Range finder key bindings
+            </summary>
+        </member>
+        <member name="T:TankSim.Config.KeyBindingConfig.DriverConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.DriverConfig.Forward">
+            <summary>
+            Drive forward
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.DriverConfig.Backward">
+            <summary>
+            Drive backward
+            </summary>
+        </member>
+        <member name="T:TankSim.Config.KeyBindingConfig.FireControlConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.FireControlConfig.Primary">
+            <summary>
+            Fire primary
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.FireControlConfig.Secondary">
+            <summary>
+            Fire secondary
+            </summary>
+        </member>
+        <member name="T:TankSim.Config.KeyBindingConfig.GunLoaderConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.GunLoaderConfig.Load">
+            <summary>
+            Load primary gun
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.GunLoaderConfig.CycleAmmo">
+            <summary>
+            Cycle ammo type
+            </summary>
+        </member>
+        <member name="T:TankSim.Config.KeyBindingConfig.GunRotationConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.GunRotationConfig.Left">
+            <summary>
+            Turn left
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.GunRotationConfig.Right">
+            <summary>
+            Turn right
+            </summary>
+        </member>
+        <member name="T:TankSim.Config.KeyBindingConfig.NavigatorConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.NavigatorConfig.Left">
+            <summary>
+            Turn left
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.NavigatorConfig.Right">
+            <summary>
+            Turn right
+            </summary>
+        </member>
+        <member name="T:TankSim.Config.KeyBindingConfig.RangeFinderConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.RangeFinderConfig.Farther">
+            <summary>
+            Aim farther
+            </summary>
+        </member>
+        <member name="P:TankSim.Config.KeyBindingConfig.RangeFinderConfig.Closer">
+            <summary>
+            Aim closer
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants">
+            <summary>
+            Game constances
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.GameName">
+            <summary>
+            Public game name
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.ChannelNames">
+            <summary>
+            ArdNet channel names
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.ChannelNames.TankOperations">
+            <summary>
+            Tank operator channels
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.Driver">
+            <summary>
+            Tank driver.  Forward/Backward
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.Navigator">
+            <summary>
+            Tank navigator.  Left/Right steering
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.GunRotation">
+            <summary>
+            Gun rotation operator.  Turn the main turret left/right
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.RangeFinder">
+            <summary>
+            Weapon range finder.  Control gun distance
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.FireControl">
+            <summary>
+            Weapon fire control.  Shoot the guns
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.ChannelNames.TankOperations.GunLoader">
+            <summary>
+            Gun loader.  Load the gun and change ammo type
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.Queries">
+            <summary>
+            System query strings
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.Queries.ControllerInit">
+            <summary>
+            Get queries relevant to controller startup
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.Queries.ControllerInit.GetOperatorRoles">
+            <summary>
+            Get operator roles for a controller
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.Commands">
+            <summary>
+            System commmand strings
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.Commands.ControllerInit">
+            <summary>
+            Get commands relevant to controller startup
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.Commands.ControllerInit.SetClientName">
+            <summary>
+            Set client name
+            </summary>
+        </member>
+        <member name="T:TankSim.Constants.Gameplay">
+            <summary>
+            Gameplay configs
+            </summary>
+        </member>
+        <member name="P:TankSim.Constants.Gameplay.ReloadDuration">
+            <summary>
+            Main gun reload time
+            </summary>
+        </member>
+        <member name="T:TankSim.DriveDirection">
+            <summary>
+            Front/Back direction.  Used for driving and range finding
+            </summary>
+        </member>
+        <member name="F:TankSim.DriveDirection.Stop">
+            <summary>
+            Stop movement
+            </summary>
+        </member>
+        <member name="F:TankSim.DriveDirection.Forward">
+            <summary>
+            Forward command
+            </summary>
+        </member>
+        <member name="F:TankSim.DriveDirection.Backward">
+            <summary>
+            Backward command
+            </summary>
+        </member>
+        <member name="T:TankSim.FireControlType">
+            <summary>
+            Fire control weapon type
+            </summary>
+        </member>
+        <member name="F:TankSim.FireControlType.Primary">
+            <summary>
+            Fire primary weapon
+            </summary>
+        </member>
+        <member name="F:TankSim.FireControlType.Secondary">
+            <summary>
+            Fire secondary weapon
+            </summary>
+        </member>
+        <member name="T:TankSim.GunLoaderType">
+            <summary>
+            Gun loader operation type
+            </summary>
+        </member>
+        <member name="F:TankSim.GunLoaderType.Load">
+            <summary>
+            Load primary weapon
+            </summary>
+        </member>
+        <member name="F:TankSim.GunLoaderType.CycleAmmoType">
+            <summary>
+            Change the primary weapon ammo type
+            </summary>
+        </member>
+        <member name="T:TankSim.KeyInputType">
+            <summary>
+            UI key input types
+            </summary>
+        </member>
+        <member name="F:TankSim.KeyInputType.KeyPress">
+            <summary>
+            Key press event
+            </summary>
+        </member>
+        <member name="F:TankSim.KeyInputType.KeyUp">
+            <summary>
+            Key up event
+            </summary>
+        </member>
+        <member name="F:TankSim.KeyInputType.KeyDown">
+            <summary>
+            Key down event
+            </summary>
+        </member>
+        <member name="T:TankSim.MovementDirection">
+            <summary>
+            Actual tank movement direction accounting for both driver and navigator vectors
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.Stop">
+            <summary>
+            No movement
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.West">
+            <summary>
+            West vector applied
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.North">
+            <summary>
+            North vector applied
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.East">
+            <summary>
+            East vector applied
+            </summary>
+        </member>
+        <member name="F:TankSim.MovementDirection.South">
+            <summary>
+            South vector applied
+            </summary>
+        </member>
+        <member name="T:TankSim.RangeDirection">
+            <summary>
+            Range finder targeting direction
+            </summary>
+        </member>
+        <member name="F:TankSim.RangeDirection.Stop">
+            <summary>
+            Stop movement
+            </summary>
+        </member>
+        <member name="F:TankSim.RangeDirection.Farther">
+            <summary>
+            Aim farther away
+            </summary>
+        </member>
+        <member name="F:TankSim.RangeDirection.Closer">
+            <summary>
+            Aim closer
+            </summary>
+        </member>
+        <member name="T:TankSim.RotationDirection">
+            <summary>
+            Left/Right directions.  Used for turning and gun angle
+            </summary>
+        </member>
+        <member name="F:TankSim.RotationDirection.Stop">
+            <summary>
+            Stop movement
+            </summary>
+        </member>
+        <member name="F:TankSim.RotationDirection.Left">
+            <summary>
+            Turn left
+            </summary>
+        </member>
+        <member name="F:TankSim.RotationDirection.Right">
+            <summary>
+            Turn right
+            </summary>
+        </member>
+        <member name="T:TankSim.GameIdGenerator">
+            <summary>
+            GameID generator/validator
+            </summary>
+        </member>
+        <member name="M:TankSim.GameIdGenerator.GetID">
+            <summary>
+            Generate a new GameID string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.GameIdGenerator.Validate(System.String)">
+            <summary>
+            Validate GameID string
+            </summary>
+            <param name="GameID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.IGamepadService">
+            <summary>
+            Gamepad service interface
+            </summary>
+        </member>
+        <member name="P:TankSim.IGamepadService.GamepadIndex">
+            <summary>
+            Gamepad ID.  Lets user select gamepad to use
+            </summary>
+        </member>
+        <member name="P:TankSim.IGamepadService.Gamepad">
+            <summary>
+            Currently selected controller instance
+            </summary>
+        </member>
+        <member name="M:TankSim.IGamepadService.TrySetControllerIndex(System.Int32)">
+            <summary>
+            Attempt to change the target controller.
+            Must be in range 0-7
+            </summary>
+            <param name="Idx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.IGamepadService.SetRoles(TankSim.OperatorRoles)">
+            <summary>
+            Set operator roles.
+            Configures bindings to hook proper controls for the assigned operator roles
+            </summary>
+            <param name="Roles"></param>
+        </member>
+        <member name="T:TankSim.GamepadService">
+            <summary>
+            Gamepad binding service
+            </summary>
+        </member>
+        <member name="P:TankSim.GamepadService.GamepadIndex">
+            <summary>
+            Current gamepad ID
+            </summary>
+        </member>
+        <member name="P:TankSim.GamepadService.Gamepad">
+            <summary>
+            Get current gamepad
+            </summary>
+        </member>
+        <member name="M:TankSim.GamepadService.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance
+            </summary>
+            <param name="ArdClient"></param>
+        </member>
+        <member name="M:TankSim.GamepadService.TrySetControllerIndex(System.Int32)">
+            <summary>
+            Attempt to change the target controller.
+            Must be in range 0-7
+            </summary>
+            <param name="Idx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.GamepadService.SetRoles(TankSim.OperatorRoles)">
+            <summary>
+            Set operator roles.
+            Configures bindings to hook proper controls for the assigned operator roles
+            </summary>
+            <param name="Roles"></param>
+        </member>
+        <member name="M:TankSim.GamepadService.Dispose">
+            <summary>
+            Unhook bindings and stop controller polling
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorCmds.DriverCmd">
+            <summary>
+            Channel command - driver operation
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.Stop">
+            <summary>
+            Static immutable stop command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.Forward">
+            <summary>
+            Static immutable forward command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.Backward">
+            <summary>
+            Static immutable backward command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.Direction">
+            <summary>
+            Drive direction
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.DriverCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorCmds.DriverCmd.#ctor(TankSim.DriveDirection)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="Direction">Drive direction</param>
+        </member>
+        <member name="T:TankSim.OperatorCmds.FireControlCmd">
+            <summary>
+            Channel command - fire control operation
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.FireControlCmd.Primary">
+            <summary>
+            Static immutable primary weapon command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.FireControlCmd.Secondary">
+            <summary>
+            Static immutable secondary weapon command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.FireControlCmd.WeaponType">
+            <summary>
+            Weapon type
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.FireControlCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorCmds.FireControlCmd.#ctor(TankSim.FireControlType)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="WeaponType">Weapon type</param>
+        </member>
+        <member name="T:TankSim.OperatorCmds.GunLoaderCmd">
+            <summary>
+            Channel command - fire control operation
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunLoaderCmd.Load">
+            <summary>
+            Static immutable load primary weapon command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunLoaderCmd.CycleAmmoType">
+            <summary>
+            Static immutable cycle ammo type command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunLoaderCmd.LoaderType">
+            <summary>
+            Loader type
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunLoaderCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorCmds.GunLoaderCmd.#ctor(TankSim.GunLoaderType)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="LoaderType">Gun loader operation type</param>
+        </member>
+        <member name="T:TankSim.OperatorCmds.GunRotationCmd">
+            <summary>
+            Channel command - gun rotation operation
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunRotationCmd.Stop">
+            <summary>
+            Static immutable stop command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunRotationCmd.Left">
+            <summary>
+            Static immutable left command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunRotationCmd.Right">
+            <summary>
+            Static immutable right command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunRotationCmd.Direction">
+            <summary>
+            Rotation direction
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.GunRotationCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorCmds.GunRotationCmd.#ctor(TankSim.RotationDirection)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="Direction">Rotation direction</param>
+        </member>
+        <member name="T:TankSim.OperatorCmds.NavigatorCmd">
+            <summary>
+            Channel command - navigator operation
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.Stop">
+            <summary>
+            Static immutable stop command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.Left">
+            <summary>
+            Static immutable left command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.Right">
+            <summary>
+            Static immutable right command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.Direction">
+            <summary>
+            Rotation direction
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.NavigatorCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorCmds.NavigatorCmd.#ctor(TankSim.RotationDirection)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="Direction">Rotation direction</param>
+        </member>
+        <member name="T:TankSim.OperatorCmds.RangeFinderCmd">
+            <summary>
+            Channel command - range finder operation
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.RangeFinderCmd.Stop">
+            <summary>
+            Static immutable stop command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.RangeFinderCmd.Farther">
+            <summary>
+            Static immutable aim farther command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.RangeFinderCmd.Closer">
+            <summary>
+            Static immutable aim closer command
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.RangeFinderCmd.Direction">
+            <summary>
+            Range direction
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorCmds.RangeFinderCmd.InitTime">
+            <summary>
+            Command creation time
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorCmds.RangeFinderCmd.#ctor(TankSim.RangeDirection)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="Direction">Range direction</param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.DelegateEventValidator`1">
+            <summary>
+            Operator delegate event validator.
+            Allows consumers to intercept events and prevent invalid messages from bubbling
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DelegateEventValidator`1.Validate(`0)">
+            <summary>
+            Validate event using filter rules
+            </summary>
+            <param name="msg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DelegateEventValidator`1.AddFilter(System.Predicate{`0})">
+            <summary>
+            Add new filter to validation chain.
+            Filters are ANDed together with previous entries
+            </summary>
+            <param name="Filter"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.DriverDelegate">
+            <summary>
+            Operator module - driver
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.DriveForward">
+            <summary>
+            Send forward command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.DriverDelegate.DriveBackward">
+            <summary>
+            Send backward command to host
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.FireControlDelegate">
+            <summary>
+            Operator module - fire control
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.FireControlDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.FireControlDelegate.FirePrimary">
+            <summary>
+            Send primary fire command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.FireControlDelegate.FireSecondary">
+            <summary>
+            Send secondary fire command to host
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.GunLoaderDelegate">
+            <summary>
+            Operator module - gun loader
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunLoaderDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunLoaderDelegate.Load">
+            <summary>
+            Send load command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunLoaderDelegate.CycleAmmoType">
+            <summary>
+            Send cycle ammo command to host
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.GunRotationDelegate">
+            <summary>
+            Operator module - gun rotation
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.TurnLeft">
+            <summary>
+            Send left command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.GunRotationDelegate.TurnRight">
+            <summary>
+            Send right command to host
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.NavigatorDelegate">
+            <summary>
+            Operator module - driver
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.TurnLeft">
+            <summary>
+            Send left command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.NavigatorDelegate.TurnRight">
+            <summary>
+            Send right command to host
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.OperatorCmdEventHandler`1">
+            <summary>
+            Callback delegate to handle genreric operator command
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Cmd"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.OperatorDelegateBase`1">
+            <summary>
+            Base class for operator delegates
+            </summary>
+            <remarks>
+            Pattern: Proxy
+            Pattern: Facade
+            </remarks>
+            <typeparam name="T_Data"></typeparam>
+        </member>
+        <member name="P:TankSim.OperatorDelegates.OperatorDelegateBase`1.CmdProxy">
+            <summary>
+            ArdNet cmd proxy
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorDelegates.OperatorDelegateBase`1.Validator">
+            <summary>
+            Event preprocess validator.
+            Use to intercept events and prevent bubbling
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.OperatorDelegateBase`1.CmdReceived">
+            <summary>
+            Event triggered when a command is received on this channel
+            </summary>
+            <remarks>
+            Hook/unhook underlying CmdProxy.MessageReceived event
+            This allows us to utilise the built-in ArdNet sub/unsub feature
+            We will only get cmd messages from the server if a client is processing them
+            </remarks>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.OperatorDelegateBase`1.#ctor(ArdNet.IArdNetSystem,System.String)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="ArdSys"></param>
+            <param name="ChannelName"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.OperatorDelegateBase`1.Dispose">
+            <summary>
+            Unhook topics
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.RangeFinderDelegate">
+            <summary>
+            Operator module - range finder
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.Stop">
+            <summary>
+            Send stop command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.AimFarther">
+            <summary>
+            Send farther command to host
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.RangeFinderDelegate.AimCloser">
+            <summary>
+            Send closer command to host
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.TankAimingDelegate">
+            <summary>
+            Delegate for tracking tank true movement direction
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorDelegates.TankAimingDelegate.Validator">
+            <summary>
+            Event preprocess validator.
+            Use to intercept events and prevent bubbling
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.TankAimingDelegate.AimChanged">
+            <summary>
+            Event triggered when movement direction is changed
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankAimingDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankAimingDelegate.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.TankMovementCmdEventHandler">
+            <summary>
+            Callback delegate to handle movement commands
+            </summary>
+            <param name="Endpoint"></param>
+            <param name="Dir"></param>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.TankMovementDelegate">
+            <summary>
+            Delegate for tracking tank true movement direction
+            </summary>
+        </member>
+        <member name="P:TankSim.OperatorDelegates.TankMovementDelegate.Validator">
+            <summary>
+            Event preprocess validator.
+            Use to intercept events and prevent bubbling
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.TankMovementDelegate.MovementChanged">
+            <summary>
+            Event triggered when movement direction is changed
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankMovementDelegate.#ctor(ArdNet.IArdNetSystem)">
+            <summary>
+            Create instance.
+            </summary>
+            <param name="ArdSys"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankMovementDelegate.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.TankWeaponDelegate.PrimaryWeaponFired">
+            <summary>
+            Event triggered when main gun is fired.
+            Arg indicates the state that the weapon was in at the moment of firing
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.TankWeaponDelegate.SecondaryWeaponFired">
+            <summary>
+            Event triggered when secondary gun is fired
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.TankWeaponDelegate.PrimaryGunLoaded">
+            <summary>
+            Event triggered when main gun is loaded
+            </summary>
+        </member>
+        <member name="E:TankSim.OperatorDelegates.TankWeaponDelegate.PrimaryAmmoCycled">
+            <summary>
+            Event triggered when primary ammo type is cycled
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankWeaponDelegate.#ctor(TankSim.OperatorDelegates.FireControlDelegate,TankSim.OperatorDelegates.GunLoaderDelegate)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="FireDelegate"></param>
+            <param name="LoaderDelegate"></param>
+        </member>
+        <member name="M:TankSim.OperatorDelegates.TankWeaponDelegate.Dispose">
+            <summary>
+            Unhook event handlers
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorRoles">
+            <summary>
+            Tank operator roles.
+            Represents the different control sets that users can have
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.None">
+            <summary>
+            No controls
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.Driver">
+            <summary>
+            Tank driver.  Forward/Backward
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.Navigator">
+            <summary>
+            Tank navigator.  Left/Right steering
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.GunRotation">
+            <summary>
+            Gun angle operator.  Turn the main turret left/right
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.RangeFinder">
+            <summary>
+            Weapon range finder.  Control gun distance
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.FireControl">
+            <summary>
+            Weapon fire control.  Shoot the guns
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.GunLoader">
+            <summary>
+            Gun loader.  Load the gun and change ammo type
+            </summary>
+        </member>
+        <member name="F:TankSim.OperatorRoles.All">
+            <summary>
+            Trigger all possible operator flags
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorRoleSets">
+            <summary>
+            These are the distribution sets that roles will be divided into given n game players
+            </summary>
+        </member>
+        <member name="M:TankSim.OperatorRoleSets.GetDistributionSets(System.Int32)">
+            <summary>
+            Return the list of operator role distributions for the given number of players.
+            Each array index can be randomly assigned to a game client
+            </summary>
+            <param name="PlayerCount"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.TankSystems.PrimaryWeaponFireState">
+            <summary>
+            Calculated primary weapon fire method
+            </summary>
+        </member>
+        <member name="F:TankSim.TankSystems.PrimaryWeaponFireState.Empty">
+            <summary>
+            Weapon unloaded
+            </summary>
+        </member>
+        <member name="F:TankSim.TankSystems.PrimaryWeaponFireState.Valid">
+            <summary>
+            Valid shoot
+            </summary>
+        </member>
+        <member name="F:TankSim.TankSystems.PrimaryWeaponFireState.Misfire">
+            <summary>
+            Weapon mid-load, explosive misfire
+            </summary>
+        </member>
+    </members>
+</doc>
