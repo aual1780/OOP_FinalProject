@@ -45,7 +45,10 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
+        if (sh.allPlayersReady)
+        {
+            SceneManager.LoadScene("GameScene");
+        }
     }
 
     public void GoBackToMainMenu()
@@ -85,6 +88,20 @@ public class GameController : MonoBehaviour
         else
         {
             return -1;
+        }
+    }
+
+    public bool AllPlayersReady()
+    {
+        return sh.allPlayersReady;
+    }
+
+
+    private void OnApplicationQuit()
+    {
+        if (sh.serverRunning)
+        {
+            sh.CloseServer();
         }
     }
 }

@@ -23,6 +23,7 @@ public class ServerHandler
     private IArdNetServer ardServ;
     private TankSimCommService commState;
     private OperatorCmdFacade cmdFacade;
+    public bool allPlayersReady { get; private set; } = false;
 
     public bool serverRunning { get; private set; } = false;
 
@@ -41,31 +42,26 @@ public class ServerHandler
 
         //create ardnet server
         ardServ = ArdNetFactory.GetArdServer(msgHub);
+        
 
         //create game communincation manager
         //watches for clients
         //tracks command inputs
         commState = await TankSimCommService.Create(ardServ, playerCount);
         cmdFacade = commState.CmdFacade;
+
+        //cmdFacade.AimChanged += CmdFacade_AimChanged;
+
         serverRunning = true;
+
+        await commState.GetConnectionTask();
+        allPlayersReady = true;
     }
 
     public void CloseServer()
     {
-        if (ardServ != null)
-        {
-            ((IDisposable)ardServ).Dispose();
-        }
-
-        if (commState != null)
-        {
-            ((IDisposable)commState).Dispose();
-        }
-    }
-
-    public bool HaveAllPlayersConnected()
-    {
-        return commState.PlayerCountCurrent == commState.PlayerCountTarget;
+        commState?.Dispose();
+        ardServ?.Dispose();
     }
 
     public int GetCurrentConnectedPlayers()

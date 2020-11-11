@@ -77,30 +77,27 @@ public class LobbyHandler : MonoBehaviour
             Debug.LogError("This should not happen. more players Ready then expected");
             return;
         }
-
-        for (int i = 0; i < playersReady; ++i)
-        {
-            playersTexts[i].text = "Player " + (i + 1) + ": Ready";
-        }
-
-        if (playersReady == playersTexts.Length)
+        string state = "";
+        if (gc.AllPlayersReady())
         {
             startGameButton.GetComponentInChildren<Text>().text = "Start Game";
+            state = "Ready";
         }
         else
         {
             startGameButton.GetComponentInChildren<Text>().text = "Waiting...";
+            state = "Joined";
+        }
+        for (int i = 0; i < playersReady; ++i)
+        {
+            playersTexts[i].text = "Player " + (i + 1) + ": " + state;
         }
     }
 
 
     public void StartGameClicked()
     {
-        int playersReady = gc.GetCurrentConnectedPlayers();
-        if (playersReady == playersTexts.Length)
-        {
-            gc.StartGame();
-        }
+        gc.StartGame();
     }
 
     public void ExitLobbyClicked()
