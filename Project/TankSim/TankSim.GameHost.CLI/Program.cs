@@ -84,7 +84,6 @@ namespace TankSim.GameHost.CLI
                     cmdFacade.SecondaryWeaponFired += (s) => WriteLine($"{s.Endpoint}: Fire.Secondary");
                     cmdFacade.PrimaryGunLoaded += (s) => WriteLine($"{s.Endpoint}: Loader.Load");
                     cmdFacade.PrimaryAmmoCycled += (s) => WriteLine($"{s.Endpoint}: Loader.Cycle");
-
                     while (true)
                     {
                         Thread.Sleep(10);

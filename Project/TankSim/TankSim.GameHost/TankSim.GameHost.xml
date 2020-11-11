@@ -138,6 +138,16 @@
             Count of players in lobby
             </summary>
         </member>
+        <member name="P:TankSim.GameHost.TankSimCommService.ConnectedControllers">
+            <summary>
+            State objects for all connected controllers
+            </summary>
+        </member>
+        <member name="E:TankSim.GameHost.TankSimCommService.TankControllerReady">
+            <summary>
+            Event triggered when a controller connects and is set to the ready state (ie triggered when roles and name are set)
+            </summary>
+        </member>
         <member name="M:TankSim.GameHost.TankSimCommService.Create(ArdNet.Server.IArdNetServer,System.Int32)">
             <summary>
             Create service
