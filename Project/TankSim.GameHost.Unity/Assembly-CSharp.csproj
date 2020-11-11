@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Handlers\HighScoreHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\LobbyHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\MainMenuHandler.cs" />
+    <Compile Include="Assets\Scripts\Handlers\ServerHandler.cs" />
     <None Include="Assets\ExternalDll\TankSim.xml" />
     <None Include="Assets\ExternalDll\J2i.Net.XInputWrapper.xml" />
     <None Include="Assets\ExternalDll\TankSim.GameHost.xml" />
@@ -296,8 +297,20 @@
     <Reference Include="System.ComponentModel.Annotations">
       <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Linq.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.ILGeneration">
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Reflection.Emit.ILGeneration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.TypeExtensions">
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="TankSim">
       <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TankSim.dll</HintPath>
@@ -325,18 +338,6 @@
     </Reference>
     <Reference Include="Utf8Json">
       <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Utf8Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions">
-      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Linq.Expressions">
-      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Linq.Expressions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reflection.Emit.ILGeneration">
-      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Reflection.Emit.ILGeneration.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reflection.TypeExtensions">
-      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Reflection.TypeExtensions.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
