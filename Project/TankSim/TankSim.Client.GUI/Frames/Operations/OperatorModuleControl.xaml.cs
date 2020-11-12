@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +17,9 @@ namespace TankSim.Client.GUI.Frames.Operations
         private readonly OperatorModuleControlVM _vm;
         private readonly GlobalKeyHook _globalHook;
         private Window _myWindow;
+        private readonly object _vmInitLock = new object();
+        private Task _vmInitTask = null;
+
 
         public OperatorModuleControl(OperatorModuleControlVM vm, IOptions<KeyBindingConfig> keyConfig)
         {
@@ -31,9 +35,26 @@ namespace TankSim.Client.GUI.Frames.Operations
             InitializeComponent();
         }
 
+        public void BeginVmInit()
+        {
+            if (_vmInitTask is not null)
+            {
+                return;
+            }
+            lock (_vmInitLock)
+            {
+                if (_vmInitTask is not null)
+                {
+                    return;
+                }
+                _vmInitTask = _vm.InitializeAsync();
+            }
+        }
+
         async void OperatorModuleControl_Initialized(object sender, EventArgs e)
         {
-            await _vm.InitializeAsync();
+            BeginVmInit();
+            await _vmInitTask;
         }
 
         void OperatorModuleControl_Loaded(object sender, RoutedEventArgs e)
