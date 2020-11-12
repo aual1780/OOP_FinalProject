@@ -41,6 +41,11 @@ namespace TankSim.Client.CLI.Services
             return roleSet;
         }
 
+        public async Task SendUsername(string Username)
+        {
+            _ = await _ardClient.SendTcpCommandAsync(Constants.Commands.ControllerInit.SetClientName, Username);
+        }
+
         public void HandleUserInput()
         {
             var (CursorLeft, CursorTop) = (Console.CursorLeft, Console.CursorTop);
