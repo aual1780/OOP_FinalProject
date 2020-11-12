@@ -6,6 +6,8 @@ using TankSim.TankSystems;
 using TankSim.GameHost;
 using TIPC.Core.Channels;
 using System.Dynamic;
+using TankSim.OperatorDelegates;
+using ArdNet;
 
 public class GameController : MonoBehaviour
 {
@@ -103,5 +105,18 @@ public class GameController : MonoBehaviour
         {
             sh.CloseServer();
         }
+    }
+
+
+    public void AddTankFunctions(TankMovementCmdEventHandler movementFunc, TankMovementCmdEventHandler aimFunc,
+        System.Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> fireFunc, System.Action<IConnectedSystemEndpoint> secondaryFireFunc,
+        System.Action<IConnectedSystemEndpoint> loadFunc, System.Action<IConnectedSystemEndpoint> ammoFunc)
+    {
+        sh.AddMovementFunction(movementFunc);
+        sh.AddAimFunction(aimFunc);
+        sh.AddPrimaryFireFunction(fireFunc);
+        sh.AddSecondaryFireFunction(secondaryFireFunc);
+        sh.AddGunLoadFunction(loadFunc);
+        sh.AddAmmoFunction(ammoFunc);
     }
 }
