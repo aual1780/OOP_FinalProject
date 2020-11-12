@@ -17,7 +17,7 @@ namespace TankSim.Client.GUI.Frames.Operations
         private readonly OperatorModuleControlVM _vm;
         private readonly GlobalKeyHook _globalHook;
         private Window _myWindow;
-        private readonly object _vmInitLock = new object();
+        private readonly object _vmInitLock = new();
         private Task _vmInitTask = null;
 
 
@@ -121,6 +121,7 @@ namespace TankSim.Client.GUI.Frames.Operations
                 //noop
             }
             _vm.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

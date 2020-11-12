@@ -23,7 +23,7 @@ namespace TankSim.OperatorDelegates
     public class OperatorDelegateBase<T_Data> : IDisposable
         where T_Data : class
     {
-        private readonly object _cmdHandlerLock = new object();
+        private readonly object _cmdHandlerLock = new();
         private OperatorCmdEventHandler<T_Data> _cmdHandler;
         /// <summary>
         /// ArdNet cmd proxy
@@ -103,6 +103,7 @@ namespace TankSim.OperatorDelegates
         {
             _cmdHandler = null;
             CmdProxy.Dispose();
+            GC.SuppressFinalize(this);
         }
 
     }

@@ -12,7 +12,7 @@ using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.Client.CLI.Services
 {
-    public class ControllerExecService : IDisposable
+    public class ControllerExecService
     {
         readonly IArdNetClient _ardClient;
         readonly IRoleResolverService _roleService;
@@ -59,11 +59,6 @@ namespace TankSim.Client.CLI.Services
 
                 Console.SetCursorPosition(CursorLeft, CursorTop);
             }
-        }
-
-        public void Dispose()
-        {
-
         }
     }
 }

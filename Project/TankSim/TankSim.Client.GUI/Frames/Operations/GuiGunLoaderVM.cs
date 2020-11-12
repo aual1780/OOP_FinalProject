@@ -83,6 +83,7 @@ namespace TankSim.Client.GUI.Frames.Operations
             _loadTimer.Dispose();
             _loaderDelegate.Dispose();
             _fireDelegate.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

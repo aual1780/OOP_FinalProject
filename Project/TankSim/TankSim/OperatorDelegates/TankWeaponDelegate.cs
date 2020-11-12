@@ -8,6 +8,9 @@ using TIPC.Core.Tools;
 
 namespace TankSim.OperatorDelegates
 {
+    /// <summary>
+    /// Delegate for tracking tank fire operations and weapon state
+    /// </summary>
     public sealed class TankWeaponDelegate : IDisposable
     {
         private readonly object _loadLockObj = new object();

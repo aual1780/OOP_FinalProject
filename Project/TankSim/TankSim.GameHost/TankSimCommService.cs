@@ -21,9 +21,9 @@ namespace TankSim.GameHost
     /// </remarks>
     public class TankSimCommService : IDisposable
     {
-        readonly ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint> _connectedSystems = new ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint>();
-        readonly Dictionary<string, OperatorRoles> _opRoleCache = new Dictionary<string, OperatorRoles>();
-        private readonly object _roleLock = new object();
+        readonly ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint> _connectedSystems = new();
+        readonly Dictionary<string, OperatorRoles> _opRoleCache = new();
+        private readonly object _roleLock = new();
         private readonly List<OperatorRoles> _roleSets;
         private readonly CountdownEvent _playerWaiter;
         private int _playerCountCurrent;
@@ -228,7 +228,7 @@ namespace TankSim.GameHost
             return Task.Run(() =>
             {
                 _playerWaiter.Wait(Token);
-            });
+            }, Token);
         }
 
         /// <summary>
@@ -260,6 +260,7 @@ namespace TankSim.GameHost
             _ = ArdServer.TcpCommandRequestProcessor.UnregisterProcessor(
                 Constants.Commands.ControllerInit.SetClientName,
                 ArdCmd_SetName);
+            GC.SuppressFinalize(this);
         }
     }
 }

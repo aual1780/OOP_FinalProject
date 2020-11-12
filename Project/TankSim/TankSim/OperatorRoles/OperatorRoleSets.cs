@@ -16,56 +16,49 @@ namespace TankSim
         /// <returns></returns>
         public static IEnumerable<OperatorRoles> GetDistributionSets(int PlayerCount)
         {
-            switch (PlayerCount)
+            return PlayerCount switch
             {
-                case 1:
-                    return new OperatorRoles[]
-                    {
-                        OperatorRoles.All
-                    };
-                case 2:
-                    return new OperatorRoles[]
-                    {
-                        OperatorRoles.Driver | OperatorRoles.Navigator | OperatorRoles.GunLoader,
-                        OperatorRoles.GunRotation | OperatorRoles.RangeFinder| OperatorRoles.FireControl
-                    };
-                case 3:
-                    return new OperatorRoles[]
-                    {
-                        OperatorRoles.Driver | OperatorRoles.Navigator,
-                        OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
-                        OperatorRoles.FireControl | OperatorRoles.GunLoader
-                    };
-                case 4:
-                    return new OperatorRoles[]
-                    {
-                        OperatorRoles.Driver | OperatorRoles.Navigator,
-                        OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
-                        OperatorRoles.FireControl,
-                        OperatorRoles.GunLoader
-                    };
-                case 5:
-                    return new OperatorRoles[]
-                    {
-                        OperatorRoles.Driver,
-                        OperatorRoles.Navigator,
-                        OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
-                        OperatorRoles.FireControl,
-                        OperatorRoles.GunLoader
-                    };
-                case 6:
-                    return new OperatorRoles[]
-                    {
-                        OperatorRoles.Driver,
-                        OperatorRoles.Navigator,
-                        OperatorRoles.GunRotation,
-                        OperatorRoles.RangeFinder,
-                        OperatorRoles.FireControl,
-                        OperatorRoles.GunLoader
-                    };
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(PlayerCount), $"{nameof(PlayerCount)} must be between 1 and 6, inclusive");
-            }
+                1 => new OperatorRoles[]
+                {
+                    OperatorRoles.All
+                },
+                2 => new OperatorRoles[]
+                {
+                    OperatorRoles.Driver | OperatorRoles.Navigator | OperatorRoles.GunLoader,
+                    OperatorRoles.GunRotation | OperatorRoles.RangeFinder| OperatorRoles.FireControl
+                },
+                3 => new OperatorRoles[]
+                {
+                    OperatorRoles.Driver | OperatorRoles.Navigator,
+                    OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
+                    OperatorRoles.FireControl | OperatorRoles.GunLoader
+                },
+                4 => new OperatorRoles[]
+                {
+                    OperatorRoles.Driver | OperatorRoles.Navigator,
+                    OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
+                    OperatorRoles.FireControl,
+                    OperatorRoles.GunLoader
+                },
+                5 => new OperatorRoles[]
+                {
+                    OperatorRoles.Driver,
+                    OperatorRoles.Navigator,
+                    OperatorRoles.GunRotation | OperatorRoles.RangeFinder,
+                    OperatorRoles.FireControl,
+                    OperatorRoles.GunLoader
+                },
+                6 => new OperatorRoles[]
+                {
+                    OperatorRoles.Driver,
+                    OperatorRoles.Navigator,
+                    OperatorRoles.GunRotation,
+                    OperatorRoles.RangeFinder,
+                    OperatorRoles.FireControl,
+                    OperatorRoles.GunLoader
+                },
+                _ => throw new ArgumentOutOfRangeException(nameof(PlayerCount), $"{nameof(PlayerCount)} must be between 1 and 6, inclusive"),
+            };
         }
     }
 }

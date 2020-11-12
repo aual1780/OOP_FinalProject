@@ -66,6 +66,7 @@ namespace TankSim.Client.GUI.Frames.Operations
         public void Dispose()
         {
             _movDelegate?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

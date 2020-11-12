@@ -22,6 +22,7 @@ namespace TankSim.Client.GUI.Frames.Operations
         public void Dispose()
         {
             _vm.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

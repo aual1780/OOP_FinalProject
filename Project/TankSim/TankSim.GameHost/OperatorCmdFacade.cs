@@ -16,7 +16,7 @@ namespace TankSim.GameHost
     /// </summary>
     public class OperatorCmdFacade : IDisposable
     {
-        private readonly List<IDisposable> _proxySet = new List<IDisposable>();
+        private readonly List<IDisposable> _proxySet = new();
 
         /// <summary>
         /// Event triggered when tank movement vector is changed
@@ -152,6 +152,7 @@ namespace TankSim.GameHost
         public void Dispose()
         {
             _proxySet.DisposeAll();
+            GC.SuppressFinalize(this);
         }
     }
 }
