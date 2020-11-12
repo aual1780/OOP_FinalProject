@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet.Client.DependencyInjection" Version="3.2.0" />
-    <PackageReference Include="TIPC.Core.Channels.DependencyInjection" Version="5.3.0" />
+    <PackageReference Include="ArdNet.Client.DependencyInjection" Version="4.0.1" />
+    <PackageReference Include="TIPC.Core.Channels.DependencyInjection" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
