@@ -7,10 +7,6 @@
     <Author>aalbert</Author>
     <Version>1.0.0</Version>
     <IsPackable>false</IsPackable>
-    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
-    <PublishReadyToRun>true</PublishReadyToRun>
-    <PublishSingleFile>true</PublishSingleFile>
-    <PublishTrimmed>true</PublishTrimmed>
     <PackageProjectUrl>https://github.com/aual1780/OOP_BigProject</PackageProjectUrl>
     <PackageLicenseExpression>GLWTPL</PackageLicenseExpression>
   </PropertyGroup>
