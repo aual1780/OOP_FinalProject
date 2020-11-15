@@ -48,6 +48,15 @@ namespace TankSim.GameHost
         /// Count of players in lobby
         /// </summary>
         public int PlayerCountCurrent => _playerCountCurrent;
+        /// <summary>
+        /// State objects for all connected controllers
+        /// </summary>
+        public IEnumerable<TankControllerState> ConnectedControllers => _connectedSystems.Values.Select(x => x.UserState).OfType<TankControllerState>();
+
+        /// <summary>
+        /// Event triggered when a controller connects and is set to the ready state (ie triggered when roles and name are set)
+        /// </summary>
+        public event EventHandler<TankControllerState> TankControllerReady;
 
         /// <summary>
         /// Create service
@@ -145,11 +154,6 @@ namespace TankSim.GameHost
                 e.Respond(roles.ToString());
                 state.Roles = roles;
             }
-            lock (system.SyncRoot)
-            {
-                _ = _playerWaiter.Signal();
-                state.IsReady = true;
-            }
         }
 
         private void ArdCmd_SetName(object Sender, RequestResponderStateObject e)
@@ -165,7 +169,13 @@ namespace TankSim.GameHost
                 }
                 e.Respond(CtrlSymbols.ACK);
             }
+            TankControllerReady?.Invoke(this, state);
             Debug.WriteLine($"Hi {state.Name} ({rqst.Endpoint})");
+            lock (system.SyncRoot)
+            {
+                _ = _playerWaiter.Signal();
+                state.IsReady = true;
+            }
         }
 
         /// <summary>
