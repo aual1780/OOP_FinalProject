@@ -31,18 +31,18 @@ public class GunTarget : MonoBehaviour
     {
         if (moveDir == MovementDirection.North)
         {
-            transform.position += transform.up * movementSpeed * Time.deltaTime;
-            if (transform.position.magnitude > maxDistance)
+            transform.localPosition += transform.parent.transform.up * movementSpeed * Time.deltaTime;
+            if (transform.localPosition.magnitude > maxDistance)
             {
-                transform.position = transform.up * maxDistance;
+                transform.localPosition = transform.parent.transform.up * maxDistance;
             }
         }
         else if (moveDir == MovementDirection.South)
         {
-            transform.position -= transform.up * movementSpeed * Time.deltaTime;
-            if (transform.position.magnitude < minDistance)
+            transform.localPosition -= transform.parent.transform.up * movementSpeed * Time.deltaTime;
+            if (transform.localPosition.magnitude < minDistance)
             {
-                transform.position = transform.up * minDistance;
+                transform.localPosition = transform.parent.transform.up * minDistance;
             }
         }
     }
