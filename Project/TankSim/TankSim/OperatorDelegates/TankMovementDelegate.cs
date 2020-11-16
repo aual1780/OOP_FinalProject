@@ -21,11 +21,11 @@ namespace TankSim.OperatorDelegates
         const MovementDirection _ns = (MovementDirection.North | MovementDirection.South);
         const MovementDirection _ew = (MovementDirection.East | MovementDirection.West);
         private MovementDirection _dir;
-        readonly object _nsLock = new object();
-        readonly object _ewLock = new object();
+        readonly object _nsLock = new();
+        readonly object _ewLock = new();
         private readonly ITopicMessageProxy<DriverCmd> _driveProxy;
         private readonly ITopicMessageProxy<NavigatorCmd> _navProxy;
-        private readonly object _cmdHandlerLock = new object();
+        private readonly object _cmdHandlerLock = new();
         private TankMovementCmdEventHandler _cmdHandler;
 
         /// <summary>

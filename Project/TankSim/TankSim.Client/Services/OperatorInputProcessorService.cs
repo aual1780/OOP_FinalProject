@@ -82,6 +82,7 @@ namespace TankSim.Client.Services
         {
             base.Dispose();
             _inputModuleCollection?.DisposeAll();
+            GC.SuppressFinalize(this);
         }
     }
 }

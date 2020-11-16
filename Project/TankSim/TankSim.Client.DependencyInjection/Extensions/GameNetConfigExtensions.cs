@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static ArdNetInjectionClientBuilder AddTankSimConfig(this ArdNetInjectionClientBuilder Config)
         {
-            ArdNetClientConfig configFactory(IServiceProvider sp)
+            static ArdNetClientConfig configFactory(IServiceProvider sp)
             {
                 var ardConfig = sp.GetRequiredService<IOptions<ArdNetBasicConfig>>().Value;
                 var IpResolver = sp.GetRequiredService<IIpResolverService>();

@@ -17,7 +17,7 @@ namespace TankSim.Client.OperatorModules
     public class OperatorModuleFactory<T> : IOperatorModuleFactory<T>, IOperatorModuleFactory
         where T : IOperatorModule
     {
-        private static readonly object _startupLock = new object();
+        private static readonly object _startupLock = new();
         private static readonly ListDictionary<OperatorRoles, HashSet<Type>, Type> _roleMap;
 
         /// <summary>

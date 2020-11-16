@@ -30,7 +30,7 @@ namespace J2i.Net.XInputWrapper
         static int _waitTime;
         static bool _isRunning;
         static readonly XboxController[] _controllers;
-        static readonly object _syncLock = new object();
+        static readonly object _syncLock = new();
         static Thread _pollingThread;
 
         /// <summary>
@@ -129,8 +129,8 @@ namespace J2i.Net.XInputWrapper
         DateTime _stopMotorTime;
         XInputBatteryInformation _batteryInformationGamepad;
         XInputBatteryInformation _batterInformationHeadset;
-        private XInputState _gamepadStatePrev = new XInputState();
-        private XInputState _gamepadStateCurrent = new XInputState();
+        private XInputState _gamepadStatePrev = new();
+        private XInputState _gamepadStateCurrent = new();
 
         //XInputCapabilities _capabilities;
 

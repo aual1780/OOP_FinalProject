@@ -89,6 +89,7 @@ namespace TankSim.Client.GUI.Tools
             KeyDown = delegate { };
             KeyUp = delegate { };
             _ = Unhook();
+            GC.SuppressFinalize(this);
         }
         #endregion
 
@@ -162,7 +163,7 @@ namespace TankSim.Client.GUI.Tools
         /// <param name="hInstance">The handle you want to attach the event to, can be null</param>
         /// <param name="threadId">The thread you want to attach the event to, can be null</param>
         /// <returns>a handle to the desired hook</returns>
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookProc callback, IntPtr hInstance, uint threadId);
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace TankSim.Client.GUI.Tools
         /// </summary>
         /// <param name="hInstance">The hook handle that was returned from SetWindowsHookEx</param>
         /// <returns>True if successful, false otherwise</returns>
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool UnhookWindowsHookEx(IntPtr hInstance);
 
@@ -182,7 +183,7 @@ namespace TankSim.Client.GUI.Tools
         /// <param name="wParam">The wparam.</param>
         /// <param name="lParam">The lparam.</param>
         /// <returns></returns>
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         static extern int CallNextHookEx(IntPtr idHook, int nCode, int wParam, ref KeyboardHookStruct lParam);
 
         /// <summary>
@@ -190,7 +191,7 @@ namespace TankSim.Client.GUI.Tools
         /// </summary>
         /// <param name="lpFileName">Name of the library</param>
         /// <returns>A handle to the library</returns>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         static extern IntPtr LoadLibrary(string lpFileName);
 
         /// <summary>
@@ -198,7 +199,7 @@ namespace TankSim.Client.GUI.Tools
         /// </summary>
         /// <param name="lpModuleName"></param>
         /// <returns></returns>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
         #endregion
     }

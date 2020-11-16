@@ -12,7 +12,7 @@ using TIPC.Core.Tools.Extensions;
 
 namespace TankSim.Client.CLI.Services
 {
-    public class ControllerExecService : IDisposable
+    public class ControllerExecService
     {
         readonly IArdNetClient _ardClient;
         readonly IRoleResolverService _roleService;
@@ -41,6 +41,11 @@ namespace TankSim.Client.CLI.Services
             return roleSet;
         }
 
+        public async Task SendUsername(string Username)
+        {
+            _ = await _ardClient.SendTcpCommandAsync(Constants.Commands.ControllerInit.SetClientName, Username);
+        }
+
         public void HandleUserInput()
         {
             var (CursorLeft, CursorTop) = (Console.CursorLeft, Console.CursorTop);
@@ -54,11 +59,6 @@ namespace TankSim.Client.CLI.Services
 
                 Console.SetCursorPosition(CursorLeft, CursorTop);
             }
-        }
-
-        public void Dispose()
-        {
-
         }
     }
 }
