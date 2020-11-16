@@ -17,83 +17,79 @@ public class ServerHandler
 {
 
     private readonly MessageHub _msgHub = MessageHub.StartNew();
-    private int _playerCount = -1;
-    private readonly TaskCompletionSource<object> _serverstartupTask = new TaskCompletionSource<object>();
+    private readonly TaskCompletionSource<OperatorCmdFacade> _serverstartupTask = new TaskCompletionSource<OperatorCmdFacade>();
+    private IArdNetServer _ardServ;
+    private TankSimCommService _commState;
 
-    private IArdNetServer ardServ;
-    private TankSimCommService commState;
-    private OperatorCmdFacade cmdFacade;
     public bool AreAllPlayersReady { get; private set; } = false;
 
-    public bool serverRunning { get; private set; } = false;
+    public bool IsServerRunning { get; private set; } = false;
 
-    public bool serverBeingCreated { get; private set; } = false;
+    public bool IsServerBeingCreated { get; private set; } = false;
 
     public ServerHandler()
     {
-        
+
     }
 
     public async void CreateServer(int playerCount)
     {
-        serverBeingCreated = true;
-        this._playerCount = playerCount;
-
+        IsServerBeingCreated = true;
 
         //create ardnet server
-        ardServ = ArdNetFactory.GetArdServer(_msgHub);
-        
+        _ardServ = ArdNetFactory.GetArdServer(_msgHub);
+
 
         //create game communincation manager
         //watches for clients
         //tracks command inputs
-        commState = await TankSimCommService.Create(ardServ, playerCount);
-        cmdFacade = commState.CmdFacade;
+        _commState = await TankSimCommService.Create(_ardServ, playerCount);
 
         //cmdFacade.AimChanged += CmdFacade_AimChanged;
 
         //release task in new thread to guard against deadlocks
-        await Task.Run(() => _serverstartupTask.SetResult(null));
+        IsServerRunning = true;
+        await Task.Run(() => _serverstartupTask.SetResult(_commState.CmdFacade));
 
-        await commState.GetConnectionTask();
+        await _commState.GetConnectionTask();
         AreAllPlayersReady = true;
     }
 
     public void CloseServer()
     {
-        commState?.Dispose();
-        ardServ?.Dispose();
+        _commState?.Dispose();
+        _ardServ?.Dispose();
     }
 
-    public int GetCurrentConnectedPlayers() => commState.PlayerCountCurrent;
+    public int GetCurrentConnectedPlayers() => _commState.PlayerCountCurrent;
 
-    public string GetLobbyCode() => commState.GameID;
+    public string GetLobbyCode() => _commState.GameID;
 
 
 
     //Func<IConnectedSystemEndpoint, MovementDirection> movementFunc
     public async Task AddMovementFunction(TankMovementCmdEventHandler movementFunc)
     {
-        _ = await _serverstartupTask.Task;
-        cmdFacade.MovementChanged += movementFunc;
+        var _cmdFacade = await _serverstartupTask.Task;
+        _cmdFacade.MovementChanged += movementFunc;
     }
 
     public async Task AddAimFunction(TankMovementCmdEventHandler aimFunc)
     {
-        _ = await _serverstartupTask.Task;
-        cmdFacade.AimChanged += aimFunc;
+        var _cmdFacade = await _serverstartupTask.Task;
+        _cmdFacade.AimChanged += aimFunc;
     }
 
     public async Task AddPrimaryFireFunction(Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> fireFunc)
     {
-        _ = await _serverstartupTask.Task;
-        cmdFacade.PrimaryWeaponFired += fireFunc;
+        var _cmdFacade = await _serverstartupTask.Task;
+        _cmdFacade.PrimaryWeaponFired += fireFunc;
     }
 
     public async Task AddSecondaryFireFunction(Action<IConnectedSystemEndpoint> fireFunc)
     {
-        _ = await _serverstartupTask.Task;
-        cmdFacade.SecondaryWeaponFired += fireFunc;
+        var _cmdFacade = await _serverstartupTask.Task;
+        _cmdFacade.SecondaryWeaponFired += fireFunc;
     }
 
     /*
@@ -101,8 +97,8 @@ public class ServerHandler
      */
     public async Task AddGunLoadFunction(Action<IConnectedSystemEndpoint> loadFunc)
     {
-        _ = await _serverstartupTask.Task;
-        cmdFacade.PrimaryGunLoaded += loadFunc;
+        var _cmdFacade = await _serverstartupTask.Task;
+        _cmdFacade.PrimaryGunLoaded += loadFunc;
     }
 
     /*
@@ -110,7 +106,7 @@ public class ServerHandler
      */
     public async Task AddAmmoFunction(Action<IConnectedSystemEndpoint> ammoFunc)
     {
-        _ = await _serverstartupTask.Task;
-        cmdFacade.PrimaryAmmoCycled += ammoFunc;
+        var _cmdFacade = await _serverstartupTask.Task;
+        _cmdFacade.PrimaryAmmoCycled += ammoFunc;
     }
 }

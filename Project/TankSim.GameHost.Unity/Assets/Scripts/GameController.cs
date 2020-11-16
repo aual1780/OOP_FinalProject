@@ -71,7 +71,7 @@ public class GameController : MonoBehaviour
     /// <returns>True if the server is running, false otherwise</returns>
     public bool TryGetLobbyCode(out string LobbyCode)
     {
-        if (_serverHandler.serverRunning)
+        if (_serverHandler.IsServerRunning)
         {
             LobbyCode = _serverHandler.GetLobbyCode();
             return true;
@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
 
     public int GetCurrentConnectedPlayers()
     {
-        if (_serverHandler.serverRunning)
+        if (_serverHandler.IsServerRunning)
         {
             return _serverHandler.GetCurrentConnectedPlayers();
         }
@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        if (_serverHandler.serverRunning)
+        if (_serverHandler.IsServerRunning)
         {
             _serverHandler.CloseServer();
         }

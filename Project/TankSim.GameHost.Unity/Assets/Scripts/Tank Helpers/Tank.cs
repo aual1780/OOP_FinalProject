@@ -6,40 +6,40 @@ using UnityEngine;
 
 public class Tank : MonoBehaviour
 {
-    private GameController gc;
-
-    private bool debugMode = false;
-
-
+    private const float _moveSpeed = 5;
+    private const float _rotationSpeed = 80;
+    private Rigidbody2D _rigidBody;
+    private GameController _gameContoller;
+    private bool _debugMode = false;
     //tank helpers
-    private Gun gun;
-    private Turret turret;
-
-
-    Rigidbody2D rb;
-
-    private float moveSpeed = 5;
-    private float rotationSpeed = 80;
+    private Gun _gun;
+    private Turret _turret;
 
 
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
 
-        turret = GetComponentInChildren<Turret>();
-        gun = turret.GetComponentInChildren<Gun>();
-        
+        _turret = GetComponentInChildren<Turret>();
+        _gun = _turret.GetComponentInChildren<Gun>();
 
-        gc = FindObjectOfType<GameController>();
-        if (gc == null)
+
+        _gameContoller = FindObjectOfType<GameController>();
+        if (_gameContoller == null)
         {
             Debug.LogError("GameController does not exist in scene. Switching to debug mode");
-            debugMode = true;
+            _debugMode = true;
         }
         else
         {
-            gc.AddTankFunctions(TankMovement, turret.TurretRotation, gun.PrimaryFire, gun.SecondaryFire, gun.LoadGun, gun.ChangeAmmo);
+            await _gameContoller.AddTankFunctions(
+                TankMovement,
+                _turret.TurretRotation,
+                _gun.PrimaryFire,
+                _gun.SecondaryFire,
+                _gun.LoadGun,
+                _gun.ChangeAmmo);
         }
     }
 
@@ -47,8 +47,8 @@ public class Tank : MonoBehaviour
     //TODO: should this be on FixedUpdate?
     void Update()
     {
-        rb.velocity = Vector2.zero;
-        if (debugMode)
+        _rigidBody.velocity = Vector2.zero;
+        if (_debugMode)
         {
             DebugMode();
             return;
@@ -78,38 +78,38 @@ public class Tank : MonoBehaviour
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            turret.TurretRotation(null, MovementDirection.North);
+            _turret.TurretRotation(null, MovementDirection.North);
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            turret.TurretRotation(null, MovementDirection.South);
+            _turret.TurretRotation(null, MovementDirection.South);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            turret.TurretRotation(null, MovementDirection.West);
+            _turret.TurretRotation(null, MovementDirection.West);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            turret.TurretRotation(null, MovementDirection.East);
+            _turret.TurretRotation(null, MovementDirection.East);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            gun.PrimaryFire(null, TankSim.TankSystems.PrimaryWeaponFireState.Valid);
+            _gun.PrimaryFire(null, TankSim.TankSystems.PrimaryWeaponFireState.Valid);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            gun.SecondaryFire(null);
+            _gun.SecondaryFire(null);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            gun.LoadGun(null);
+            _gun.LoadGun(null);
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            gun.ChangeAmmo(null);
+            _gun.ChangeAmmo(null);
         }
     }
 
@@ -120,21 +120,21 @@ public class Tank : MonoBehaviour
 
         if (moveDir == MovementDirection.North)
         {
-            rb.velocity = transform.up * moveSpeed;
+            _rigidBody.velocity = transform.up * _moveSpeed;
         }
         else if (moveDir == MovementDirection.South)
         {
-            rb.velocity = -transform.up * moveSpeed;
+            _rigidBody.velocity = -transform.up * _moveSpeed;
         }
 
         if (moveDir == MovementDirection.East)
         {
             //transform.rotation.eulerAngles.z += rotationSpeed * Time.deltaTime;
-            transform.Rotate(new Vector3(0, 0, -rotationSpeed * Time.deltaTime));
+            transform.Rotate(new Vector3(0, 0, -_rotationSpeed * Time.deltaTime));
         }
         else if (moveDir == MovementDirection.West)
         {
-            transform.Rotate(new Vector3(0, 0, rotationSpeed * Time.deltaTime));
+            transform.Rotate(new Vector3(0, 0, _rotationSpeed * Time.deltaTime));
         }
     }
 }

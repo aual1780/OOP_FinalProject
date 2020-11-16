@@ -386,12 +386,6 @@
             GameID generator/validator
             </summary>
         </member>
-        <member name="M:TankSim.GameIdGenerator.GetID">
-            <summary>
-            Generate a new GameID string
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:TankSim.GameIdGenerator.Validate(System.String)">
             <summary>
             Validate GameID string
@@ -952,6 +946,11 @@
         <member name="M:TankSim.OperatorDelegates.TankMovementDelegate.Dispose">
             <summary>
             Dispose
+            </summary>
+        </member>
+        <member name="T:TankSim.OperatorDelegates.TankWeaponDelegate">
+            <summary>
+            Delegate for tracking tank fire operations and weapon state
             </summary>
         </member>
         <member name="E:TankSim.OperatorDelegates.TankWeaponDelegate.PrimaryWeaponFired">

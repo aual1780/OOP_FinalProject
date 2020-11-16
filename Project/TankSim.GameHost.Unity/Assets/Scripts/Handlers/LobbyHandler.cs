@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class LobbyHandler : MonoBehaviour
 {
 
-    public Text LobbyCodeText { get; private set; }
-    public Button StartGameButton { get; private set; }
-    public GameObject PlayersPanel { get; private set; }
-    public GameObject PlayerPanelPrefab { get; private set; }
+    public Text lobbyCodeText;
+    public Button startGameButton;
+    public GameObject playersPanel;
+    public GameObject playerPanelPrefab;
 
     private Text[] _playersTexts;
     private bool _hasSetLobbyCode = false;
@@ -35,12 +35,12 @@ public class LobbyHandler : MonoBehaviour
             bool isValid = _gameController.TryGetLobbyCode(out var code);
             if (isValid)
             {
-                LobbyCodeText.text = "Lobby Code: " + code;
+                lobbyCodeText.text = "Lobby Code: " + code;
                 _hasSetLobbyCode = true;
             }
             else
             {
-                LobbyCodeText.text = "Lobby Code: loading...";
+                lobbyCodeText.text = "Lobby Code: loading...";
             }
             return;
         }
@@ -54,7 +54,7 @@ public class LobbyHandler : MonoBehaviour
         _playersTexts = new Text[players];
         for (int i = 0; i < players; ++i)
         {
-            _playersTexts[i] = Instantiate(PlayerPanelPrefab, PlayersPanel.transform).GetComponentInChildren<Text>();
+            _playersTexts[i] = Instantiate(playerPanelPrefab, playersPanel.transform).GetComponentInChildren<Text>();
             if (_playersTexts[i] != null)
             {
                 _playersTexts[i].text = "Player " + (i + 1) + ": Not Ready";
@@ -63,7 +63,7 @@ public class LobbyHandler : MonoBehaviour
             {
                 print("wat");
             }
-            
+
         }
     }
 
@@ -78,12 +78,12 @@ public class LobbyHandler : MonoBehaviour
         string state;
         if (_gameController.AllPlayersReady())
         {
-            StartGameButton.GetComponentInChildren<Text>().text = "Start Game";
+            startGameButton.GetComponentInChildren<Text>().text = "Start Game";
             state = "Ready";
         }
         else
         {
-            StartGameButton.GetComponentInChildren<Text>().text = "Waiting...";
+            startGameButton.GetComponentInChildren<Text>().text = "Waiting...";
             state = "Joined";
         }
         for (int i = 0; i < playersReady; ++i)

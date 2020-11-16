@@ -9,7 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "TankSim.GameHost/1.0.0": {
         "dependencies": {
-          "ArdNet.Server": "3.0.0",
+          "ArdNet.Server": "4.4.0",
           "NETStandard.Library": "2.0.3",
           "TankSim": "1.0.0"
         },
@@ -17,27 +17,27 @@
           "TankSim.GameHost.dll": {}
         }
       },
-      "ArdNet/3.0.0": {
+      "ArdNet/4.4.0": {
         "dependencies": {
-          "TIPC.Core.Channels": "5.2.0",
+          "TIPC.Core.Channels": "6.1.0",
           "Utf8Json": "1.3.7"
         },
         "runtime": {
           "lib/netstandard2.0/ArdNet.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.0.0.0"
+            "assemblyVersion": "4.4.0.0",
+            "fileVersion": "4.4.0.0"
           }
         }
       },
-      "ArdNet.Server/3.0.0": {
+      "ArdNet.Server/4.4.0": {
         "dependencies": {
-          "ArdNet": "3.0.0",
-          "TIPC.Core.Channels": "5.2.0"
+          "ArdNet": "4.4.0",
+          "TIPC.Core.Channels": "6.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/ArdNet.Server.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.0.0.0"
+            "assemblyVersion": "4.4.0.0",
+            "fileVersion": "4.4.0.0"
           }
         }
       },
@@ -64,100 +64,99 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "Nito.AsyncEx/5.0.0": {
+      "Nito.AsyncEx/5.1.0": {
         "dependencies": {
-          "Nito.AsyncEx.Context": "5.0.0",
-          "Nito.AsyncEx.Coordination": "5.0.0",
-          "Nito.AsyncEx.Interop.WaitHandles": "5.0.0",
-          "Nito.AsyncEx.Oop": "5.0.0",
-          "Nito.AsyncEx.Tasks": "5.0.0",
-          "Nito.Cancellation": "1.0.5"
+          "Nito.AsyncEx.Context": "5.1.0",
+          "Nito.AsyncEx.Coordination": "5.1.0",
+          "Nito.AsyncEx.Interop.WaitHandles": "5.1.0",
+          "Nito.AsyncEx.Oop": "5.1.0",
+          "Nito.AsyncEx.Tasks": "5.1.0",
+          "Nito.Cancellation": "1.1.0"
         }
       },
-      "Nito.AsyncEx.Context/5.0.0": {
+      "Nito.AsyncEx.Context/5.1.0": {
         "dependencies": {
-          "Nito.AsyncEx.Tasks": "5.0.0"
+          "Nito.AsyncEx.Tasks": "5.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/Nito.AsyncEx.Context.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.0.0"
+            "assemblyVersion": "5.1.0.0",
+            "fileVersion": "5.1.0.0"
           }
         }
       },
-      "Nito.AsyncEx.Coordination/5.0.0": {
+      "Nito.AsyncEx.Coordination/5.1.0": {
         "dependencies": {
-          "Nito.AsyncEx.Tasks": "5.0.0",
-          "Nito.Collections.Deque": "1.0.4",
-          "Nito.Disposables": "2.0.0"
+          "Nito.AsyncEx.Tasks": "5.1.0",
+          "Nito.Collections.Deque": "1.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/Nito.AsyncEx.Coordination.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.0.0"
+            "assemblyVersion": "5.1.0.0",
+            "fileVersion": "5.1.0.0"
           }
         }
       },
-      "Nito.AsyncEx.Interop.WaitHandles/5.0.0": {
+      "Nito.AsyncEx.Interop.WaitHandles/5.1.0": {
         "dependencies": {
-          "Nito.AsyncEx.Tasks": "5.0.0"
+          "Nito.AsyncEx.Tasks": "5.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/Nito.AsyncEx.Interop.WaitHandles.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.0.0"
+            "assemblyVersion": "5.1.0.0",
+            "fileVersion": "5.1.0.0"
           }
         }
       },
-      "Nito.AsyncEx.Oop/5.0.0": {
+      "Nito.AsyncEx.Oop/5.1.0": {
         "dependencies": {
-          "Nito.AsyncEx.Coordination": "5.0.0"
+          "Nito.AsyncEx.Coordination": "5.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/Nito.AsyncEx.Oop.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.0.0"
+            "assemblyVersion": "5.1.0.0",
+            "fileVersion": "5.1.0.0"
           }
         }
       },
-      "Nito.AsyncEx.Tasks/5.0.0": {
+      "Nito.AsyncEx.Tasks/5.1.0": {
         "dependencies": {
-          "Nito.Disposables": "2.0.0"
+          "Nito.Disposables": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Nito.AsyncEx.Tasks.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.0.0"
+            "assemblyVersion": "5.1.0.0",
+            "fileVersion": "5.1.0.0"
           }
         }
       },
-      "Nito.Cancellation/1.0.5": {
+      "Nito.Cancellation/1.1.0": {
         "dependencies": {
-          "Nito.Disposables": "2.0.0"
+          "Nito.Disposables": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Nito.Cancellation.dll": {
-            "assemblyVersion": "1.0.5.0",
-            "fileVersion": "1.0.5.0"
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
           }
         }
       },
-      "Nito.Collections.Deque/1.0.4": {
+      "Nito.Collections.Deque/1.1.0": {
         "runtime": {
           "lib/netstandard2.0/Nito.Collections.Deque.dll": {
-            "assemblyVersion": "1.0.4.0",
-            "fileVersion": "1.0.4.0"
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
           }
         }
       },
-      "Nito.Disposables/2.0.0": {
+      "Nito.Disposables/2.2.0": {
         "dependencies": {
           "System.Collections.Immutable": "1.4.0"
         },
         "runtime": {
           "lib/netstandard2.0/Nito.Disposables.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
           }
         }
       },
@@ -176,7 +175,7 @@
           }
         }
       },
-      "System.ComponentModel.Annotations/4.7.0": {
+      "System.ComponentModel.Annotations/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/System.ComponentModel.Annotations.dll": {
             "assemblyVersion": "4.2.1.0",
@@ -372,11 +371,11 @@
           "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
-            "assemblyVersion": "4.0.6.0",
-            "fileVersion": "4.700.20.12001"
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
           }
         }
       },
@@ -422,81 +421,81 @@
         }
       },
       "System.ValueTuple/4.4.0": {},
-      "TIPC.Core.Channels/5.2.0": {
+      "TIPC.Core.Channels/6.1.0": {
         "dependencies": {
           "Microsoft.Bcl.HashCode": "1.1.0",
-          "Nito.AsyncEx": "5.0.0",
-          "TIPC.Core.Collections.Generic": "5.2.0",
-          "TIPC.Core.Tools": "5.2.0",
-          "TIPC.Core.Tools.Extensions": "5.2.0",
-          "TIPC.Core.Tools.Threading": "5.2.0"
+          "Nito.AsyncEx": "5.1.0",
+          "TIPC.Core.Collections.Generic": "6.1.0",
+          "TIPC.Core.Tools": "6.1.0",
+          "TIPC.Core.Tools.Extensions": "6.1.0",
+          "TIPC.Core.Tools.Threading": "6.0.2"
         },
         "runtime": {
           "lib/netstandard2.0/TIPC.Core.Channels.dll": {
-            "assemblyVersion": "5.2.0.0",
-            "fileVersion": "5.2.0.0"
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "6.1.0.0"
           }
         }
       },
-      "TIPC.Core.Collections.Generic/5.2.0": {
+      "TIPC.Core.Collections.Generic/6.1.0": {
         "dependencies": {
           "System.Reflection.Emit": "4.7.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.7.1",
-          "TIPC.Core.ComponentModel": "5.2.0"
+          "System.Runtime.CompilerServices.Unsafe": "5.0.0",
+          "TIPC.Core.ComponentModel": "6.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/TIPC.Core.Collections.Generic.dll": {
-            "assemblyVersion": "5.2.0.0",
-            "fileVersion": "5.2.0.0"
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "6.1.0.0"
           }
         }
       },
-      "TIPC.Core.ComponentModel/5.2.0": {
+      "TIPC.Core.ComponentModel/6.1.0": {
         "dependencies": {
-          "System.ComponentModel.Annotations": "4.7.0",
-          "TIPC.Core.Tools.Extensions": "5.2.0"
+          "System.ComponentModel.Annotations": "5.0.0",
+          "TIPC.Core.Tools.Extensions": "6.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/TIPC.Core.ComponentModel.dll": {
-            "assemblyVersion": "5.2.0.0",
-            "fileVersion": "5.2.0.0"
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "6.1.0.0"
           }
         }
       },
-      "TIPC.Core.Tools/5.2.0": {
+      "TIPC.Core.Tools/6.1.0": {
         "dependencies": {
           "Microsoft.Bcl.HashCode": "1.1.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+          "System.Runtime.CompilerServices.Unsafe": "5.0.0"
         },
         "runtime": {
           "lib/netstandard2.0/TIPC.Core.Tools.dll": {
-            "assemblyVersion": "5.2.0.0",
-            "fileVersion": "5.2.0.0"
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "6.1.0.0"
           }
         }
       },
-      "TIPC.Core.Tools.Extensions/5.2.0": {
+      "TIPC.Core.Tools.Extensions/6.1.0": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "System.Dynamic.Runtime": "4.3.0",
-          "TIPC.Core.Tools": "5.2.0"
+          "TIPC.Core.Tools": "6.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/TIPC.Core.Tools.Extensions.dll": {
-            "assemblyVersion": "5.2.0.0",
-            "fileVersion": "5.2.0.0"
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "6.1.0.0"
           }
         }
       },
-      "TIPC.Core.Tools.Threading/5.2.0": {
+      "TIPC.Core.Tools.Threading/6.0.2": {
         "dependencies": {
-          "TIPC.Core.Collections.Generic": "5.2.0",
-          "TIPC.Core.Tools.Extensions": "5.2.0"
+          "TIPC.Core.Collections.Generic": "6.1.0",
+          "TIPC.Core.Tools.Extensions": "6.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/TIPC.Core.Tools.Threading.dll": {
-            "assemblyVersion": "5.2.0.0",
-            "fileVersion": "5.2.0.0"
+            "assemblyVersion": "6.0.2.0",
+            "fileVersion": "6.0.2.0"
           }
         }
       },
@@ -524,9 +523,9 @@
       },
       "TankSim/1.0.0": {
         "dependencies": {
-          "ArdNet": "3.0.0",
+          "ArdNet": "4.4.0",
           "J2i.Net.XInputWrapper": "1.0.0",
-          "TIPC.Core.Channels": "5.2.0"
+          "TIPC.Core.Channels": "6.1.0"
         },
         "runtime": {
           "TankSim.dll": {}
@@ -540,19 +539,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "ArdNet/3.0.0": {
+    "ArdNet/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bhStD3g/GLMqRvfHUgoTQox2fPxM/d2tE2tB99Uwxni9ynJC8zxD4Fi5SkdtJwE27bbzpT4Oe9dgzfDK1lPq6w==",
-      "path": "ardnet/3.0.0",
-      "hashPath": "ardnet.3.0.0.nupkg.sha512"
+      "sha512": "sha512-SzOMIvshz1mOlwCBI77bFoDI7guz+Km0aBTsLdZUApz2Bm0kpQL2LtF9yec4y9enC7tGWWRBn2dr9PrX58QdxQ==",
+      "path": "ardnet/4.4.0",
+      "hashPath": "ardnet.4.4.0.nupkg.sha512"
     },
-    "ArdNet.Server/3.0.0": {
+    "ArdNet.Server/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-N7lRjYhHReo2yAAiqw+l7fP2nMDakAPSG0s8qJB0YtuDN2bhYXM6xTGDj/I0lDos0gEiwCCdKCWUVduU1RSG7w==",
-      "path": "ardnet.server/3.0.0",
-      "hashPath": "ardnet.server.3.0.0.nupkg.sha512"
+      "sha512": "sha512-wKLOm3WnxU6QAgSquGYq0djsLO2DKdCqZyTO+wbzm5WaMJZaBK1ekSg0WvI/o1UfL2Sr3IXZWe01GeGZWuMsVw==",
+      "path": "ardnet.server/4.4.0",
+      "hashPath": "ardnet.server.4.4.0.nupkg.sha512"
     },
     "Microsoft.Bcl.HashCode/1.1.0": {
       "type": "package",
@@ -589,68 +588,68 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
-    "Nito.AsyncEx/5.0.0": {
+    "Nito.AsyncEx/5.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EgeMl8BoaLg6mOXs7MVjl3uqUqZlL0uYti2/G128EA60U9UqoYlF0AMtGOA1/EP+bvrjcvixK8D3MLpwr2dnSw==",
-      "path": "nito.asyncex/5.0.0",
-      "hashPath": "nito.asyncex.5.0.0.nupkg.sha512"
+      "sha512": "sha512-KOahZdW0fRLnoym5lGtyWpFUZ94I5s0wLgYF5RHhK8RUhXpCiEX+185qjNvkse3H9WJV2/pFfPlKZHv8Eej7Hw==",
+      "path": "nito.asyncex/5.1.0",
+      "hashPath": "nito.asyncex.5.1.0.nupkg.sha512"
     },
-    "Nito.AsyncEx.Context/5.0.0": {
+    "Nito.AsyncEx.Context/5.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Qnth1Ye+QSLg8P3fSFYzk7ue6oUUHQcKpLitgAig8xRFqTK5W1KTlfxF/Z8Eo0BuqZ17a5fAGtXrdKJsLqivZw==",
-      "path": "nito.asyncex.context/5.0.0",
-      "hashPath": "nito.asyncex.context.5.0.0.nupkg.sha512"
+      "sha512": "sha512-EE7M37c5E/kvulzEkpUR6v1AnK34b2wysOLJHSjl78p/3hL7grte0XCPRqCfLZDwq98AD9GHMTCRfZy7TEeHhw==",
+      "path": "nito.asyncex.context/5.1.0",
+      "hashPath": "nito.asyncex.context.5.1.0.nupkg.sha512"
     },
-    "Nito.AsyncEx.Coordination/5.0.0": {
+    "Nito.AsyncEx.Coordination/5.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kjauyO8UMo/FGZO/M8TdjXB8ZlBPFOiRN8yakThaGQbYOywazQ0kGZ39SNr2gNNzsTxbZOUudBMYNo+IrtscbA==",
-      "path": "nito.asyncex.coordination/5.0.0",
-      "hashPath": "nito.asyncex.coordination.5.0.0.nupkg.sha512"
+      "sha512": "sha512-Nv+oA+cSxidjOImiKcz2FJgMIDxiK0A6xormKmsUklUBjTNqQpjtdJsACMgTQG56PkTHdbMi5QijPTTUsmcCeg==",
+      "path": "nito.asyncex.coordination/5.1.0",
+      "hashPath": "nito.asyncex.coordination.5.1.0.nupkg.sha512"
     },
-    "Nito.AsyncEx.Interop.WaitHandles/5.0.0": {
+    "Nito.AsyncEx.Interop.WaitHandles/5.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-roX7jQ7AAEw3CUq/oRj/ACcN1XtfO6fSbYSAjMtjvacN9pqY7Uq2reBFaosbMaMt16EcW+Xw3PwczKzHdZFPRA==",
-      "path": "nito.asyncex.interop.waithandles/5.0.0",
-      "hashPath": "nito.asyncex.interop.waithandles.5.0.0.nupkg.sha512"
+      "sha512": "sha512-wFm3lrXXNPBtZHjLI21xhcADoh5CzO5KKNO38ybLO/CcL9zMUWWfsNiAFbw8JGp/wHoxhfdEUlThBnY3XaLR/w==",
+      "path": "nito.asyncex.interop.waithandles/5.1.0",
+      "hashPath": "nito.asyncex.interop.waithandles.5.1.0.nupkg.sha512"
     },
-    "Nito.AsyncEx.Oop/5.0.0": {
+    "Nito.AsyncEx.Oop/5.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SKyHsxzXD8b69tPPgMDh7mgMx7GdaSfJ1h2eNS+z2Z/vHsutXTl1sYLOO30fiIkv1umvI1g8GySvYLpVlpt6yA==",
-      "path": "nito.asyncex.oop/5.0.0",
-      "hashPath": "nito.asyncex.oop.5.0.0.nupkg.sha512"
+      "sha512": "sha512-J5DVgQrmE9qMNhK2eEMsuEw7V7cw7MIPrv3jqqQWolzDXkOxJFFYKUK+4dnC6UAEmum3xRVD2oBAoXg0vdYDDQ==",
+      "path": "nito.asyncex.oop/5.1.0",
+      "hashPath": "nito.asyncex.oop.5.1.0.nupkg.sha512"
     },
-    "Nito.AsyncEx.Tasks/5.0.0": {
+    "Nito.AsyncEx.Tasks/5.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ZtvotignafOLteP4oEjVcF3k2L8h73QUCaFpVKWbU+EOlW/I+JGkpMoXIl0rlwPcDmR84RxzggLRUNMaWlOosA==",
-      "path": "nito.asyncex.tasks/5.0.0",
-      "hashPath": "nito.asyncex.tasks.5.0.0.nupkg.sha512"
+      "sha512": "sha512-tU3Ib4zs8ivM+uS8n7F7ReWZlA3mODyLqwPE+v+WJI94hZ8xLXl+a9npfj/IcmeXo9a6fGKLWkswKQHOeTWqwA==",
+      "path": "nito.asyncex.tasks/5.1.0",
+      "hashPath": "nito.asyncex.tasks.5.1.0.nupkg.sha512"
     },
-    "Nito.Cancellation/1.0.5": {
+    "Nito.Cancellation/1.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/MehN8HvuOgPZsNmqyu0UdPWXCAJVqcy0LEqw1Ch1++ag1h0qPt5YLH+BCIMFDC5UMW/4RzJW2GdRDYg7Vi2yA==",
-      "path": "nito.cancellation/1.0.5",
-      "hashPath": "nito.cancellation.1.0.5.nupkg.sha512"
+      "sha512": "sha512-BSezc6jsEEAoa8UtVjQ6Qr/D5xX+FozlDKFHAvDeTv24I7ZZmmfbFxEmdjaSLnrboz1WMRjUKCQwZw7Gf4+WcA==",
+      "path": "nito.cancellation/1.1.0",
+      "hashPath": "nito.cancellation.1.1.0.nupkg.sha512"
     },
-    "Nito.Collections.Deque/1.0.4": {
+    "Nito.Collections.Deque/1.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yGDKqCQ61i97MyfEUYG6+ln5vxpx11uA5M9+VV9B7stticbFm19YMI/G9w4AFYVBj5PbPi138P8IovkMFAL0Aw==",
-      "path": "nito.collections.deque/1.0.4",
-      "hashPath": "nito.collections.deque.1.0.4.nupkg.sha512"
+      "sha512": "sha512-RXHe531Oaw2IathDr0Q2kbid0iuudBxtgZsfBZ2eUPuFI8I1P7HMiuUeaIefqYykcDYFTDQsFAPAljduIjihLA==",
+      "path": "nito.collections.deque/1.1.0",
+      "hashPath": "nito.collections.deque.1.1.0.nupkg.sha512"
     },
-    "Nito.Disposables/2.0.0": {
+    "Nito.Disposables/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ExJl/jTjegSLHGcwnmaYaI5xIlrefAsVdeLft7VLtXI2+W5irihiu36LizWvlaUpzY1/llo+YSh09uSHMu2VFw==",
-      "path": "nito.disposables/2.0.0",
-      "hashPath": "nito.disposables.2.0.0.nupkg.sha512"
+      "sha512": "sha512-QcL+uBwUCEoK8GKp/WzjdCiG8/3G1WLlVNJgLJUNG7bIIVAcEV+Mro4s53VT4Nd8xMSplv0gy+Priw44vRvLaA==",
+      "path": "nito.disposables/2.2.0",
+      "hashPath": "nito.disposables.2.2.0.nupkg.sha512"
     },
     "System.Collections/4.3.0": {
       "type": "package",
@@ -666,12 +665,12 @@
       "path": "system.collections.immutable/1.4.0",
       "hashPath": "system.collections.immutable.1.4.0.nupkg.sha512"
     },
-    "System.ComponentModel.Annotations/4.7.0": {
+    "System.ComponentModel.Annotations/5.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-0YFqjhp/mYkDGpU0Ye1GjE53HMp9UVfGN7seGpAMttAC0C40v5gw598jCgpbBLMmCo0E5YRLBv5Z2doypO49ZQ==",
-      "path": "system.componentmodel.annotations/4.7.0",
-      "hashPath": "system.componentmodel.annotations.4.7.0.nupkg.sha512"
+      "sha512": "sha512-dMkqfy2el8A8/I76n2Hi1oBFEbG1SfxD2l5nhwXV3XjlnOmwxJlQbYpJH4W51odnU9sARCSAgv7S3CyAFMkpYg==",
+      "path": "system.componentmodel.annotations/5.0.0",
+      "hashPath": "system.componentmodel.annotations.5.0.0.nupkg.sha512"
     },
     "System.Diagnostics.Debug/4.3.0": {
       "type": "package",
@@ -785,12 +784,12 @@
       "path": "system.runtime/4.3.0",
       "hashPath": "system.runtime.4.3.0.nupkg.sha512"
     },
-    "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zOHkQmzPCn5zm/BH+cxC1XbUS3P4Yoi3xzW7eRgVpDR2tPGSzyMZ17Ig1iRkfJuY0nhxkQQde8pgePNiA7z7TQ==",
-      "path": "system.runtime.compilerservices.unsafe/4.7.1",
-      "hashPath": "system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512"
+      "sha512": "sha512-ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
+      "path": "system.runtime.compilerservices.unsafe/5.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
     },
     "System.Runtime.Extensions/4.3.0": {
       "type": "package",
@@ -834,47 +833,47 @@
       "path": "system.valuetuple/4.4.0",
       "hashPath": "system.valuetuple.4.4.0.nupkg.sha512"
     },
-    "TIPC.Core.Channels/5.2.0": {
+    "TIPC.Core.Channels/6.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EPzXxc3PPLbjQVn3+Ov0rr0ZFdJjND5dwL8W4Q4PKaQ9RWAXneifCtyCZWvBv5bZsK8cLTqjVRB+SSrjcjhqJw==",
-      "path": "tipc.core.channels/5.2.0",
-      "hashPath": "tipc.core.channels.5.2.0.nupkg.sha512"
+      "sha512": "sha512-CoaoBtDQ+vg5oknrn/CT4FPzq0UKMitEYjRHRa1Mug60kBoeGGcWvIPdlZFGZGuB3zwiFl5bn8jAmDVGqtnusQ==",
+      "path": "tipc.core.channels/6.1.0",
+      "hashPath": "tipc.core.channels.6.1.0.nupkg.sha512"
     },
-    "TIPC.Core.Collections.Generic/5.2.0": {
+    "TIPC.Core.Collections.Generic/6.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cuHhSkyAxYZ8kC/HcvXdAedfcuAG1RyiEmL9ddZ3dSGgA01fsKRVLHf/zdWWlKLvYYu4IaDjQNI3kAfRmje9nQ==",
-      "path": "tipc.core.collections.generic/5.2.0",
-      "hashPath": "tipc.core.collections.generic.5.2.0.nupkg.sha512"
+      "sha512": "sha512-TmMHWS+gHy6EnXfjUTnYcM7vEddjS9aMRCZjUcsXvh8q5gGDnHKLOm5+igFKPfWO4t/DzWdt5jAGtpc6z4kvPA==",
+      "path": "tipc.core.collections.generic/6.1.0",
+      "hashPath": "tipc.core.collections.generic.6.1.0.nupkg.sha512"
     },
-    "TIPC.Core.ComponentModel/5.2.0": {
+    "TIPC.Core.ComponentModel/6.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/k3SLpTG0i4W9CAbmnyzXkKXXwRC1C74w/wqmNKDXWpRkDsmGkLggyGW4OttvLHguJMBKOQlSV2T53Gp+ru45w==",
-      "path": "tipc.core.componentmodel/5.2.0",
-      "hashPath": "tipc.core.componentmodel.5.2.0.nupkg.sha512"
+      "sha512": "sha512-iIodj6PQ80Kk0DdunD/JvR2+x1B7GTbfqiQvDWw6CcUqaH446dwXUowK6r+PEfyZ73Lb/8ZmrqszN6y7b2kp+A==",
+      "path": "tipc.core.componentmodel/6.1.0",
+      "hashPath": "tipc.core.componentmodel.6.1.0.nupkg.sha512"
     },
-    "TIPC.Core.Tools/5.2.0": {
+    "TIPC.Core.Tools/6.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-dNAiYnJ0a4T7918dvLbdJkMLI1+EX0N0IZfhW6VCNlFWOnCkmmUaEQLm66JuiCBQtYThLJtQMO7Dx/1jFq5d8A==",
-      "path": "tipc.core.tools/5.2.0",
-      "hashPath": "tipc.core.tools.5.2.0.nupkg.sha512"
+      "sha512": "sha512-E354vJnutNJGIwJXR6rQyx0ggLJZVhTXoSHEPzJuE8j9Lh9XfZTJWsIQeTeLJRnMPwoQdK06hQgDe4LawawAKQ==",
+      "path": "tipc.core.tools/6.1.0",
+      "hashPath": "tipc.core.tools.6.1.0.nupkg.sha512"
     },
-    "TIPC.Core.Tools.Extensions/5.2.0": {
+    "TIPC.Core.Tools.Extensions/6.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+A/kqFTUmR3deHDn5on12MzEJt1ekx25xEAa4Ln66BjUpNsJfmzK0+fTVaPoZQ0bSUcXcwfZGsgo7xG00ezyVQ==",
-      "path": "tipc.core.tools.extensions/5.2.0",
-      "hashPath": "tipc.core.tools.extensions.5.2.0.nupkg.sha512"
+      "sha512": "sha512-JRsqanY1HZGBHV1AfOLRzsj91RtMZI2NiYyZtxkdhyrgdOED4PwCXytvuuTItjc+EmFSIXPJ79L80N0edhi7mg==",
+      "path": "tipc.core.tools.extensions/6.1.0",
+      "hashPath": "tipc.core.tools.extensions.6.1.0.nupkg.sha512"
     },
-    "TIPC.Core.Tools.Threading/5.2.0": {
+    "TIPC.Core.Tools.Threading/6.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-V2ln0/PyAqQ0kHzBcPgKiyKkn3+LJawYjeiyQShUfayCX3EyyayIvVeomEbO7vT3A1YYaEdgJR81OJEDSDpJJw==",
-      "path": "tipc.core.tools.threading/5.2.0",
-      "hashPath": "tipc.core.tools.threading.5.2.0.nupkg.sha512"
+      "sha512": "sha512-6j+dPYdfRJDnwkZvfnW6w/aY18CjkKp6XMOFrr8UiTp/uGB+m1cHV5jl6rDQyMnACYy+0dW8+Zs6mPbHMa3n0Q==",
+      "path": "tipc.core.tools.threading/6.0.2",
+      "hashPath": "tipc.core.tools.threading.6.0.2.nupkg.sha512"
     },
     "Utf8Json/1.3.7": {
       "type": "package",
