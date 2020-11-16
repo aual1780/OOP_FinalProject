@@ -16,14 +16,14 @@ using UnityEngine;
 public class ServerHandler
 {
 
-    private MessageHub msgHub = new MessageHub();
-
-    private int playerCount = -1;
+    private readonly MessageHub _msgHub = MessageHub.StartNew();
+    private int _playerCount = -1;
+    private readonly TaskCompletionSource<object> _serverstartupTask = new TaskCompletionSource<object>();
 
     private IArdNetServer ardServ;
     private TankSimCommService commState;
     private OperatorCmdFacade cmdFacade;
-    public bool allPlayersReady { get; private set; } = false;
+    public bool AreAllPlayersReady { get; private set; } = false;
 
     public bool serverRunning { get; private set; } = false;
 
@@ -31,17 +31,17 @@ public class ServerHandler
 
     public ServerHandler()
     {
-        msgHub.Start();
+        
     }
 
     public async void CreateServer(int playerCount)
     {
         serverBeingCreated = true;
-        this.playerCount = playerCount;
+        this._playerCount = playerCount;
 
 
         //create ardnet server
-        ardServ = ArdNetFactory.GetArdServer(msgHub);
+        ardServ = ArdNetFactory.GetArdServer(_msgHub);
         
 
         //create game communincation manager
@@ -52,10 +52,11 @@ public class ServerHandler
 
         //cmdFacade.AimChanged += CmdFacade_AimChanged;
 
-        serverRunning = true;
+        //release task in new thread to guard against deadlocks
+        await Task.Run(() => _serverstartupTask.SetResult(null));
 
         await commState.GetConnectionTask();
-        allPlayersReady = true;
+        AreAllPlayersReady = true;
     }
 
     public void CloseServer()
@@ -64,95 +65,52 @@ public class ServerHandler
         ardServ?.Dispose();
     }
 
-    public int GetCurrentConnectedPlayers()
-    {
-        return commState.PlayerCountCurrent;
-    }
+    public int GetCurrentConnectedPlayers() => commState.PlayerCountCurrent;
 
-    public string GetLobbyCode()
-    {
-        return commState.GameID;
-    }
+    public string GetLobbyCode() => commState.GameID;
 
 
 
     //Func<IConnectedSystemEndpoint, MovementDirection> movementFunc
-    public void AddMovementFunction(TankMovementCmdEventHandler movementFunc)
+    public async Task AddMovementFunction(TankMovementCmdEventHandler movementFunc)
     {
-        if (serverRunning)
-        {
-            cmdFacade.MovementChanged += movementFunc;
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("Server is not running");
-        }
+        _ = await _serverstartupTask.Task;
+        cmdFacade.MovementChanged += movementFunc;
     }
 
-    public void AddAimFunction(TankMovementCmdEventHandler aimFunc)
+    public async Task AddAimFunction(TankMovementCmdEventHandler aimFunc)
     {
-        if (serverRunning)
-        {
-            cmdFacade.AimChanged += aimFunc;
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("Server is not running");
-        }
+        _ = await _serverstartupTask.Task;
+        cmdFacade.AimChanged += aimFunc;
     }
 
-    public void AddPrimaryFireFunction(System.Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> fireFunc)
+    public async Task AddPrimaryFireFunction(Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> fireFunc)
     {
-        if (serverRunning)
-        {
-            cmdFacade.PrimaryWeaponFired += fireFunc;
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("Server is not running");
-        }
+        _ = await _serverstartupTask.Task;
+        cmdFacade.PrimaryWeaponFired += fireFunc;
     }
 
-    public void AddSecondaryFireFunction(System.Action<IConnectedSystemEndpoint> fireFunc)
+    public async Task AddSecondaryFireFunction(Action<IConnectedSystemEndpoint> fireFunc)
     {
-        if (serverRunning)
-        {
-            cmdFacade.SecondaryWeaponFired += fireFunc;
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("Server is not running");
-        }
+        _ = await _serverstartupTask.Task;
+        cmdFacade.SecondaryWeaponFired += fireFunc;
     }
 
     /*
      * for primary weapon
      */
-    public void AddGunLoadFunction(System.Action<IConnectedSystemEndpoint> loadFunc)
+    public async Task AddGunLoadFunction(Action<IConnectedSystemEndpoint> loadFunc)
     {
-        if (serverRunning)
-        {
-            cmdFacade.PrimaryGunLoaded += loadFunc;
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("Server is not running");
-        }
+        _ = await _serverstartupTask.Task;
+        cmdFacade.PrimaryGunLoaded += loadFunc;
     }
-
 
     /*
      * for primary weapon
      */
-    public void AddAmmoFunction(System.Action<IConnectedSystemEndpoint> ammoFunc)
+    public async Task AddAmmoFunction(Action<IConnectedSystemEndpoint> ammoFunc)
     {
-        if (serverRunning)
-        {
-            cmdFacade.PrimaryAmmoCycled += ammoFunc;
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("Server is not running");
-        }
+        _ = await _serverstartupTask.Task;
+        cmdFacade.PrimaryAmmoCycled += ammoFunc;
     }
 }

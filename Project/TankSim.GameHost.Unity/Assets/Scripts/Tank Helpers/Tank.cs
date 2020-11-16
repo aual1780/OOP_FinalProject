@@ -44,6 +44,7 @@ public class Tank : MonoBehaviour
     }
 
     // Update is called once per frame
+    //TODO: should this be on FixedUpdate?
     void Update()
     {
         rb.velocity = Vector2.zero;

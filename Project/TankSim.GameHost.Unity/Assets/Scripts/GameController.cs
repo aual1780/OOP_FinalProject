@@ -8,15 +8,16 @@ using TIPC.Core.Channels;
 using System.Dynamic;
 using TankSim.OperatorDelegates;
 using ArdNet;
+using System.Threading.Tasks;
+using System;
 
 public class GameController : MonoBehaviour
 {
+    private ServerHandler _serverHandler;
 
-    public string gameName { get; private set; }
+    public string GameName { get; private set; }
+    public int ExpectedPlayerCount { get; private set; }
 
-    public int expectedPlayerCount { get; private set; }
-
-    private ServerHandler sh;
      
 
     // Start is called before the first frame update
@@ -24,8 +25,7 @@ public class GameController : MonoBehaviour
     {
         //don't destroy this object
         DontDestroyOnLoad(gameObject);
-        sh = new ServerHandler();
-        
+        _serverHandler = new ServerHandler();
     }
 
     // Update is called once per frame
@@ -36,18 +36,18 @@ public class GameController : MonoBehaviour
     public void CreateLobby(int players, string gameName)
     {
         SceneManager.LoadScene("LobbyScene");
-        this.gameName = gameName;
-        expectedPlayerCount = players;
+        this.GameName = gameName;
+        ExpectedPlayerCount = players;
 
         //using var ardServ = ArdNetFactory.GetArdServer(msgHub_);
-        sh.CreateServer(players);
+        _serverHandler.CreateServer(players);
         //ServerHandler.Server(players);
 
     }
 
     public void StartGame()
     {
-        if (sh.allPlayersReady)
+        if (_serverHandler.AreAllPlayersReady)
         {
             SceneManager.LoadScene("GameScene");
         }
@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
 
         //close server because no server should be active in the main menu
-        sh.CloseServer();
+        _serverHandler.CloseServer();
 
         //destroy this game object because it already exists in the main menu scene
         Destroy(gameObject);
@@ -66,26 +66,28 @@ public class GameController : MonoBehaviour
 
 
     /// <summary>
-    /// returns null if server is not running
+    /// Attempt to get server lobby code
     /// </summary>
-    public string GetLobbyCode()
+    /// <returns>True if the server is running, false otherwise</returns>
+    public bool TryGetLobbyCode(out string LobbyCode)
     {
-        if (sh.serverRunning)
+        if (_serverHandler.serverRunning)
         {
-            return sh.GetLobbyCode();
+            LobbyCode = _serverHandler.GetLobbyCode();
+            return true;
         }
         else
         {
-            return null;
+            LobbyCode = null;
+            return false;
         }
-        
     }
 
     public int GetCurrentConnectedPlayers()
     {
-        if (sh.serverRunning)
+        if (_serverHandler.serverRunning)
         {
-            return sh.GetCurrentConnectedPlayers();
+            return _serverHandler.GetCurrentConnectedPlayers();
         }
         else
         {
@@ -95,28 +97,31 @@ public class GameController : MonoBehaviour
 
     public bool AllPlayersReady()
     {
-        return sh.allPlayersReady;
+        return _serverHandler.AreAllPlayersReady;
     }
 
 
     private void OnApplicationQuit()
     {
-        if (sh.serverRunning)
+        if (_serverHandler.serverRunning)
         {
-            sh.CloseServer();
+            _serverHandler.CloseServer();
         }
     }
 
 
-    public void AddTankFunctions(TankMovementCmdEventHandler movementFunc, TankMovementCmdEventHandler aimFunc,
-        System.Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> fireFunc, System.Action<IConnectedSystemEndpoint> secondaryFireFunc,
-        System.Action<IConnectedSystemEndpoint> loadFunc, System.Action<IConnectedSystemEndpoint> ammoFunc)
+    public async Task AddTankFunctions(TankMovementCmdEventHandler movementFunc, TankMovementCmdEventHandler aimFunc,
+        Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> fireFunc, 
+        Action<IConnectedSystemEndpoint> secondaryFireFunc,
+        Action<IConnectedSystemEndpoint> loadFunc, 
+        Action<IConnectedSystemEndpoint> ammoFunc)
     {
-        sh.AddMovementFunction(movementFunc);
-        sh.AddAimFunction(aimFunc);
-        sh.AddPrimaryFireFunction(fireFunc);
-        sh.AddSecondaryFireFunction(secondaryFireFunc);
-        sh.AddGunLoadFunction(loadFunc);
-        sh.AddAmmoFunction(ammoFunc);
+        var t1 = _serverHandler.AddMovementFunction(movementFunc);
+        var t2 = _serverHandler.AddAimFunction(aimFunc);
+        var t3 = _serverHandler.AddPrimaryFireFunction(fireFunc);
+        var t4 = _serverHandler.AddSecondaryFireFunction(secondaryFireFunc);
+        var t5 = _serverHandler.AddGunLoadFunction(loadFunc);
+        var t6 = _serverHandler.AddAmmoFunction(ammoFunc);
+        await Task.WhenAll(t1, t2, t3, t4, t5, t6);
     }
 }
