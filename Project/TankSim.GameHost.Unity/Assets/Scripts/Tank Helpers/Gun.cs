@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+
+
+    public SecondaryBullet secondaryBulletPrefab;
+
     // Start is called before the first frame update
     void Start()
     {

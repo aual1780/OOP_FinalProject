@@ -19,9 +19,16 @@ public class Tank : MonoBehaviour
     private MovementDirection _currentMovement = MovementDirection.Stop;
 
 
+    public static int maxHealth { get; private set; } = 10;
+    public int health { get; private set; } = 10;
+
+    private bool _canMove = true;
+
+
     // Start is called before the first frame update
     async void Start()
     {
+        health = maxHealth;
         _rigidBody = GetComponent<Rigidbody2D>();
 
         _turret = GetComponentInChildren<Turret>();
@@ -55,10 +62,35 @@ public class Tank : MonoBehaviour
         {
             DebugMode();
         }
+        if (_canMove)
+        {
+            Movement();
+        }
+        
 
-        Movement();
+        HealthCheck();
     }
 
+
+    private void HealthCheck()
+    {
+        //tank dead
+        if (health <= 0)
+        {
+            if (_canMove)
+            {
+                Explode();
+            }
+            
+            _canMove = false;
+            
+        }
+    }
+
+    private void Explode()
+    {
+        //TODO: add explosion
+    }
 
     void DebugMode()
     {
@@ -130,6 +162,16 @@ public class Tank : MonoBehaviour
     }
 
 
+    public void DamageTank(int damage)
+    {
+        if (damage <= 0)
+        {
+            Debug.LogWarning("Trying to heal the tank instead of damaging it.");
+            return;
+        }
+
+        health -= damage;
+    }
 
     public void TankMovement(IConnectedSystemEndpoint c, MovementDirection moveDir)
     {

@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     public string GameName { get; private set; }
     public int ExpectedPlayerCount { get; private set; }
 
-     
+    private int _score = -1;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +66,11 @@ public class GameController : MonoBehaviour
 
     public void GoToHighScoreScene()
     {
+        SceneManager.LoadScene("HighScoresScene");
+    }
+    public void GoToHighScoreScene(int score)
+    {
+        _score = score;
         SceneManager.LoadScene("HighScoresScene");
     }
 

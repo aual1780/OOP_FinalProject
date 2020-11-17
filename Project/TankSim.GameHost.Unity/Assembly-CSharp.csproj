@@ -64,16 +64,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Background.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Handlers\GameHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\HighScoreHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\LobbyHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\MainMenuHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\ServerHandler.cs" />
+    <Compile Include="Assets\Scripts\SecondaryBullet.cs" />
     <Compile Include="Assets\Scripts\Tank Helpers\Gun.cs" />
     <Compile Include="Assets\Scripts\Tank Helpers\GunTarget.cs" />
     <Compile Include="Assets\Scripts\Tank Helpers\Tank.cs" />
     <Compile Include="Assets\Scripts\Tank Helpers\Turret.cs" />
+    <Compile Include="Assets\Scripts\TankFollower.cs" />
+    <Compile Include="Assets\Scripts\UI\HealthText.cs" />
+    <Compile Include="Assets\Scripts\UI\ScoreText.cs" />
+    <Compile Include="Assets\Scripts\UI\SubmitScoreButton.cs" />
     <None Include="Assets\ExternalDll\TankSim.xml" />
     <None Include="Assets\ExternalDll\J2i.Net.XInputWrapper.xml" />
     <None Include="Assets\ExternalDll\TankSim.GameHost.xml" />
