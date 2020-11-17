@@ -25,11 +25,11 @@ namespace TankSim.Client.Services
     public class RoleResolverService : IRoleResolverService
     {
         private readonly IArdNetClient _ardClient;
-        private readonly object _requestLock = new object();
+        private readonly object _requestLock = new();
         private volatile bool _isDisposed = false;
         private volatile bool _isRequestSent = false;
-        private readonly CancellationTokenSource _initSyncTokenSrc = new CancellationTokenSource();
-        readonly TaskCompletionSource<OperatorRoles> _roleTask = new TaskCompletionSource<OperatorRoles>();
+        private readonly CancellationTokenSource _initSyncTokenSrc = new();
+        readonly TaskCompletionSource<OperatorRoles> _roleTask = new();
         private volatile int _connectCount = 0;
         private readonly string _clientUid = Guid.NewGuid().ToString();
         private OperatorRoles _roles = 0;
@@ -152,6 +152,7 @@ namespace TankSim.Client.Services
             {
                 //noop
             }
+            GC.SuppressFinalize(this);
         }
     }
 }

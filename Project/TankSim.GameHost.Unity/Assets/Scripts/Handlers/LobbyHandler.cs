@@ -7,42 +7,40 @@ public class LobbyHandler : MonoBehaviour
 {
 
     public Text lobbyCodeText;
-    private GameController gc;
-
-    private bool hasSetLobbyCode = false;
-
     public Button startGameButton;
     public GameObject playersPanel;
     public GameObject playerPanelPrefab;
 
-    private Text[] playersTexts;
+    private Text[] _playersTexts;
+    private bool _hasSetLobbyCode = false;
+    private GameController _gameController;
 
     // Start is called before the first frame update
     void Start()
     {
-        gc = FindObjectOfType<GameController>();
-        if (gc == null)
+        _gameController = FindObjectOfType<GameController>();
+        if (_gameController == null)
         {
             Debug.LogError("GameController is not here but should be");
             return;
         }
-        LoadLobbyUI(gc.expectedPlayerCount);
+        LoadLobbyUI(_gameController.ExpectedPlayerCount);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!hasSetLobbyCode)
+        if (!_hasSetLobbyCode)
         {
-            string code = gc.GetLobbyCode();
-            if (code == null)
+            bool isValid = _gameController.TryGetLobbyCode(out var code);
+            if (isValid)
             {
-                lobbyCodeText.text = "Lobby Code: loading...";
+                lobbyCodeText.text = "Lobby Code: " + code;
+                _hasSetLobbyCode = true;
             }
             else
             {
-                lobbyCodeText.text = "Lobby Code: " + code;
-                hasSetLobbyCode = true;
+                lobbyCodeText.text = "Lobby Code: loading...";
             }
             return;
         }
@@ -53,32 +51,32 @@ public class LobbyHandler : MonoBehaviour
 
     private void LoadLobbyUI(int players)
     {
-        playersTexts = new Text[players];
+        _playersTexts = new Text[players];
         for (int i = 0; i < players; ++i)
         {
-            playersTexts[i] = Instantiate(playerPanelPrefab, playersPanel.transform).GetComponentInChildren<Text>();
-            if (playersTexts[i] != null)
+            _playersTexts[i] = Instantiate(playerPanelPrefab, playersPanel.transform).GetComponentInChildren<Text>();
+            if (_playersTexts[i] != null)
             {
-                playersTexts[i].text = "Player " + (i + 1) + ": Not Ready";
+                _playersTexts[i].text = "Player " + (i + 1) + ": Not Ready";
             }
             else
             {
                 print("wat");
             }
-            
+
         }
     }
 
     private void UpdateLobbyUI()
     {
-        int playersReady = gc.GetCurrentConnectedPlayers();
-        if (playersReady > playersTexts.Length)
+        int playersReady = _gameController.GetCurrentConnectedPlayers();
+        if (playersReady > _playersTexts.Length)
         {
             Debug.LogError("This should not happen. more players Ready then expected");
             return;
         }
-        string state = "";
-        if (gc.AllPlayersReady())
+        string state;
+        if (_gameController.AllPlayersReady())
         {
             startGameButton.GetComponentInChildren<Text>().text = "Start Game";
             state = "Ready";
@@ -90,18 +88,18 @@ public class LobbyHandler : MonoBehaviour
         }
         for (int i = 0; i < playersReady; ++i)
         {
-            playersTexts[i].text = "Player " + (i + 1) + ": " + state;
+            _playersTexts[i].text = "Player " + (i + 1) + ": " + state;
         }
     }
 
 
     public void StartGameClicked()
     {
-        gc.StartGame();
+        _gameController.StartGame();
     }
 
     public void ExitLobbyClicked()
     {
-        gc.GoBackToMainMenu();
+        _gameController.GoBackToMainMenu();
     }
 }

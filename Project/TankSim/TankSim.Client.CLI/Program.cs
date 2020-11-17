@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using TankSim.Client.CLI.Services;
 using TankSim.Client.DependencyInjection;
@@ -26,9 +28,19 @@ namespace TankSim.Client.CLI
                 using (var gameScope = await scopeService.GetValidGameScope())
                 {
                     //run main controller code
+                    //get roles from server
                     var controllerService = gameScope.ServiceProvider.GetRequiredService<ControllerExecService>();
-                    var roles = await controllerService.LoadOperatorRoles();
+                    var roleTask = controllerService.LoadOperatorRoles();
+
+                    //send username to gamehost
+                    Console.Write("Enter username: ");
+                    var username = Console.ReadLine();
+                    await controllerService.SendUsername(username);
+
+                    //display roles to user
+                    var roles = await roleTask;
                     Console.WriteLine($"Your roles: {roles}");
+
                     //blocking call to handle user controls
                     controllerService.HandleUserInput();
                 }
@@ -38,9 +50,11 @@ namespace TankSim.Client.CLI
 
         private static ServiceProvider BuildServiceProvider()
         {
+            var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
             var configBuilder =
                 new ConfigurationBuilder()
-                .SetBasePath(Environment.CurrentDirectory)
+                .SetBasePath(path)
                 .AddJsonFile("config.json", optional: false, reloadOnChange: true);
             var config = configBuilder.Build();
 

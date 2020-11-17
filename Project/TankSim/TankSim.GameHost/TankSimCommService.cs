@@ -21,9 +21,9 @@ namespace TankSim.GameHost
     /// </remarks>
     public class TankSimCommService : IDisposable
     {
-        readonly ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint> _connectedSystems = new ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint>();
-        readonly Dictionary<string, OperatorRoles> _opRoleCache = new Dictionary<string, OperatorRoles>();
-        private readonly object _roleLock = new object();
+        readonly ConcurrentDictionary<IPEndPoint, IConnectedSystemEndpoint> _connectedSystems = new();
+        readonly Dictionary<string, OperatorRoles> _opRoleCache = new();
+        private readonly object _roleLock = new();
         private readonly List<OperatorRoles> _roleSets;
         private readonly CountdownEvent _playerWaiter;
         private int _playerCountCurrent;
@@ -93,10 +93,10 @@ namespace TankSim.GameHost
 
             ArdServer.TcpEndpointConnected += ArdServer_TcpEndpointConnected;
             ArdServer.TcpEndpointDisconnected += ArdServer_TcpEndpointDisconnected;
-            ArdServer.TcpQueryRequestProcessor.RegisterProcessor(
+            ArdServer.TcpQueryTable.Register(
                 Constants.Queries.ControllerInit.GetOperatorRoles,
                 ArdQry_RoleRequest);
-            ArdServer.TcpCommandRequestProcessor.RegisterProcessor(
+            ArdServer.TcpCommandTable.Register(
                 Constants.Commands.ControllerInit.SetClientName,
                 ArdCmd_SetName);
         }
@@ -138,9 +138,9 @@ namespace TankSim.GameHost
 
         private void ArdQry_RoleRequest(object Sender, RequestResponderStateObject e)
         {
-            var system = e.RequestArg.ConnectedSystem;
+            var system = e.ConnectedSystem;
             var state = (TankControllerState)system.UserState;
-            var uid = e.RequestArg.RequestArgs.Length > 0 ? e.RequestArg.RequestArgs[0] : "";
+            var uid = e.RequestArgs.Length > 0 ? e.RequestArgs[0] : "";
             lock (_roleLock)
             {
                 if (!_opRoleCache.TryGetValue(uid, out var roles))
@@ -158,19 +158,18 @@ namespace TankSim.GameHost
 
         private void ArdCmd_SetName(object Sender, RequestResponderStateObject e)
         {
-            var rqst = e.RequestArg;
-            var system = rqst.ConnectedSystem;
+            var system = e.ConnectedSystem;
             var state = (TankControllerState)system.UserState;
             lock (system.SyncRoot)
             {
-                if ((rqst.RequestArgs?.Length ?? 0) > 0)
+                if ((e.RequestArgs?.Length ?? 0) > 0)
                 {
-                    state.Name = rqst.RequestArgs[0];
+                    state.Name = e.RequestArgs[0];
                 }
-                e.Respond(CtrlSymbols.ACK);
+                e.Respond(AsciiSymbols.ACK);
             }
             TankControllerReady?.Invoke(this, state);
-            Debug.WriteLine($"Hi {state.Name} ({rqst.Endpoint})");
+            Debug.WriteLine($"Hi {state.Name} ({e.Endpoint})");
             lock (system.SyncRoot)
             {
                 _ = _playerWaiter.Signal();
@@ -228,7 +227,7 @@ namespace TankSim.GameHost
             return Task.Run(() =>
             {
                 _playerWaiter.Wait(Token);
-            });
+            }, Token);
         }
 
         /// <summary>
@@ -254,12 +253,13 @@ namespace TankSim.GameHost
             CmdFacade.Dispose();
             ArdServer.TcpEndpointConnected -= ArdServer_TcpEndpointConnected;
             ArdServer.TcpEndpointDisconnected -= ArdServer_TcpEndpointDisconnected;
-            _ = ArdServer.TcpQueryRequestProcessor.UnregisterProcessor(
+            _ = ArdServer.TcpQueryTable.Unregister(
                 Constants.Queries.ControllerInit.GetOperatorRoles,
                 ArdQry_RoleRequest);
-            _ = ArdServer.TcpCommandRequestProcessor.UnregisterProcessor(
+            _ = ArdServer.TcpCommandTable.Unregister(
                 Constants.Commands.ControllerInit.SetClientName,
                 ArdCmd_SetName);
+            GC.SuppressFinalize(this);
         }
     }
 }

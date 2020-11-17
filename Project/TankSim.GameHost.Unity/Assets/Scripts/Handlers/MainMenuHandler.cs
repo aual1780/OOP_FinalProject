@@ -10,19 +10,19 @@ public class MainMenuHandler : MonoBehaviour
     public InputField gameNameIF;
     public InputField playerAmountIF;
 
-    private GameController gc;
+    private GameController _gameController;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        gc = FindObjectOfType<GameController>();
+        _gameController = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -32,12 +32,8 @@ public class MainMenuHandler : MonoBehaviour
         string gameName = gameNameIF.text;
         string playerStr = playerAmountIF.text;
 
-        int playerCount = 0;
-        try
-        {
-            playerCount = Int32.Parse(playerStr);
-        }
-        catch (FormatException)
+
+        if (!int.TryParse(playerStr, out var playerCount))
         {
             Debug.LogError("player count: [" + playerStr + "] is not a number");
             playerAmountIF.text = "";
@@ -57,7 +53,7 @@ public class MainMenuHandler : MonoBehaviour
             return;
         }
 
-        gc.CreateLobby(playerCount, gameName);
+        _gameController.CreateLobby(playerCount, gameName);
     }
 
     public void QuitClicked()

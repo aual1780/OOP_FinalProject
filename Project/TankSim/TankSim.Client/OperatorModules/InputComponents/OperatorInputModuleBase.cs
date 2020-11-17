@@ -19,7 +19,7 @@ namespace TankSim.Client.OperatorModules
         /// <param name="Input"></param>
         /// <param name="TargetInput"></param>
         /// <returns></returns>
-        public bool ValidateKeyPress(IOperatorInputMsg Input, string TargetInput)
+        public static bool ValidateKeyPress(IOperatorInputMsg Input, string TargetInput)
         {
             var eq1 = string.Equals(TargetInput, Input.KeyInfo.KeyChar.ToString(), StringComparison.OrdinalIgnoreCase);
             var eq2 = eq1 || string.Equals(TargetInput, Input.KeyInfo.Key.ToString(), StringComparison.OrdinalIgnoreCase);

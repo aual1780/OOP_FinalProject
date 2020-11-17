@@ -43,9 +43,9 @@ namespace TankSim
     {
         private readonly IArdNetSystem _ardSys;
         private int _gamepadIndex = -1;
-        private readonly object _controllerLock = new object();
+        private readonly object _controllerLock = new();
         private XboxController _controller;
-        private readonly List<IDisposable> _operatorDelegates = new List<IDisposable>();
+        private readonly List<IDisposable> _operatorDelegates = new();
         private event EventHandler<XboxControllerStateChangedEventArgs> ControllerStateChanged;
         const int _thumbThreshhold = (int)(XboxController.ThumbStick.MAX_THUMBSTICK_VAL / 2.0);
         const int _triggerThreshhold = (int)(XboxController.Trigger.MAX_TRIGGER_VAL / 2.0);
@@ -341,6 +341,7 @@ namespace TankSim
             _operatorDelegates.DisposeAll();
             _operatorDelegates.Clear();
             XboxController.StopPolling();
+            GC.SuppressFinalize(this);
         }
     }
 }

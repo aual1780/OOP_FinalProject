@@ -136,6 +136,7 @@ namespace TankSim.Client.GUI.Frames.Operations
         {
             _ardClient.TcpEndpointConnected -= ArdClient_TcpEndpointConnected;
             _ardClient.TcpEndpointDisconnected -= ArdClient_TcpEndpointDisconnected;
+            GC.SuppressFinalize(this);
         }
     }
 }
