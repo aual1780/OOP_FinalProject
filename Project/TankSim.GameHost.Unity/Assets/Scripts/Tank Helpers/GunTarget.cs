@@ -32,7 +32,7 @@ public class GunTarget : MonoBehaviour
         if (moveDir == MovementDirection.North)
         {
             transform.position += transform.up * movementSpeed * Time.deltaTime;
-            if (transform.position.magnitude > maxDistance)
+            if (Vector3.Distance(transform.position, transform.parent.position) > maxDistance)
             {
                 transform.position = transform.up * maxDistance;
             }
@@ -40,7 +40,7 @@ public class GunTarget : MonoBehaviour
         else if (moveDir == MovementDirection.South)
         {
             transform.position -= transform.up * movementSpeed * Time.deltaTime;
-            if (transform.position.magnitude < minDistance)
+            if (Vector3.Distance(transform.position, transform.parent.position) < minDistance)
             {
                 transform.position = transform.up * minDistance;
             }

@@ -21,6 +21,8 @@ public class Tank : MonoBehaviour
     private float moveSpeed = 5;
     private float rotationSpeed = 80;
 
+    MovementDirection currentMovement;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,8 @@ public class Tank : MonoBehaviour
         gc = FindObjectOfType<GameController>();
         if (gc == null)
         {
-            Debug.LogError("GameController does not exist in scene. Switching to debug mode");
+            //Debug.LogError();
+            Debug.LogWarning("Warning: GameController does not exist in scene. Switching to debug mode");
             debugMode = true;
         }
         else
