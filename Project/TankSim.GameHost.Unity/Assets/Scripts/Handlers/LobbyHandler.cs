@@ -86,9 +86,10 @@ public class LobbyHandler : MonoBehaviour
             startGameButton.GetComponentInChildren<Text>().text = "Waiting...";
             state = "Joined";
         }
+        string[] names = _gameController.GetPlayerNames();
         for (int i = 0; i < playersReady; ++i)
         {
-            _playersTexts[i].text = "Player " + (i + 1) + ": " + state;
+            _playersTexts[i].text = names[i] + ": " + state;
         }
     }
 

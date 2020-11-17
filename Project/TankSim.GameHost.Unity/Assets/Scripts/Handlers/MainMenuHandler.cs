@@ -56,6 +56,11 @@ public class MainMenuHandler : MonoBehaviour
         _gameController.CreateLobby(playerCount, gameName);
     }
 
+    public void HighScoreClicked()
+    {
+        _gameController.GoToHighScoreScene();
+    }
+
     public void QuitClicked()
     {
         Application.Quit();

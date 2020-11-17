@@ -9,6 +9,8 @@ public class GunTarget : MonoBehaviour
     private const float _maxDistance = 10;
     private const float _minDistance = 1;
 
+    private MovementDirection _currentDirection;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,27 +20,28 @@ public class GunTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if ((_currentDirection & MovementDirection.North) == MovementDirection.North)
+        {
+            transform.localPosition += Vector3.up * _movementSpeed * Time.deltaTime;
+            if (transform.localPosition.magnitude > _maxDistance)
+            {
+                transform.localPosition = Vector3.up * _maxDistance;
+            }
+        }
+        else if ((_currentDirection & MovementDirection.South) == MovementDirection.South)
+        {
+            transform.localPosition -= Vector3.up * _movementSpeed * Time.deltaTime;
+            if (transform.localPosition.magnitude < _minDistance)
+            {
+                transform.localPosition = Vector3.up * _minDistance;
+            }
+        }
     }
 
 
     public void ChangeAimDistance(MovementDirection moveDir)
     {
-        if (moveDir == MovementDirection.North)
-        {
-            transform.position += transform.up * _movementSpeed * Time.deltaTime;
-            if (transform.position.magnitude > _maxDistance)
-            {
-                transform.position = transform.up * _maxDistance;
-            }
-        }
-        else if (moveDir == MovementDirection.South)
-        {
-            transform.position -= transform.up * _movementSpeed * Time.deltaTime;
-            if (transform.position.magnitude < _minDistance)
-            {
-                transform.position = transform.up * _minDistance;
-            }
-        }
+        _currentDirection = moveDir;
+        
     }
 }

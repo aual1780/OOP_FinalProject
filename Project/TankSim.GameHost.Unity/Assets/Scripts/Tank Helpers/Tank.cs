@@ -16,6 +16,9 @@ public class Tank : MonoBehaviour
     private Turret _turret;
 
 
+    private MovementDirection _currentMovement = MovementDirection.Stop;
+
+
     // Start is called before the first frame update
     async void Start()
     {
@@ -28,7 +31,7 @@ public class Tank : MonoBehaviour
         _gameContoller = FindObjectOfType<GameController>();
         if (_gameContoller == null)
         {
-            Debug.LogError("GameController does not exist in scene. Switching to debug mode");
+            Debug.LogWarning("GameController does not exist in scene. Switching to debug mode");
             _debugMode = true;
         }
         else
@@ -51,48 +54,61 @@ public class Tank : MonoBehaviour
         if (_debugMode)
         {
             DebugMode();
-            return;
         }
+
+        Movement();
     }
 
 
     void DebugMode()
     {
+
+        //tank movement
+        MovementDirection moveDir = MovementDirection.Stop;
+
         if (Input.GetKey(KeyCode.W))
         {
-            TankMovement(null, MovementDirection.North);
+            moveDir |= MovementDirection.North;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            TankMovement(null, MovementDirection.South);
+            moveDir |= MovementDirection.South;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            TankMovement(null, MovementDirection.West);
+            moveDir |= MovementDirection.West;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            TankMovement(null, MovementDirection.East);
+            moveDir |= MovementDirection.East;
+            
         }
+        TankMovement(null, moveDir);
 
+        //aim movement
+        MovementDirection aimDir = MovementDirection.Stop;
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            _turret.TurretRotation(null, MovementDirection.North);
+            aimDir |= MovementDirection.North;
+            
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            _turret.TurretRotation(null, MovementDirection.South);
+            aimDir |= MovementDirection.South;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            _turret.TurretRotation(null, MovementDirection.West);
+            aimDir |= MovementDirection.West;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            _turret.TurretRotation(null, MovementDirection.East);
+            aimDir |= MovementDirection.East;
         }
+        _turret.TurretRotation(null, aimDir);
+
+
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -117,22 +133,34 @@ public class Tank : MonoBehaviour
 
     public void TankMovement(IConnectedSystemEndpoint c, MovementDirection moveDir)
     {
+        print($"dir: {moveDir}");
+        _currentMovement = moveDir;
+        
+    }
 
-        if (moveDir == MovementDirection.North)
+
+
+    private void Movement()
+    {
+        if ((_currentMovement & MovementDirection.North) == MovementDirection.North)
         {
             _rigidBody.velocity = transform.up * _moveSpeed;
         }
-        else if (moveDir == MovementDirection.South)
+        else if ((_currentMovement & MovementDirection.South) == MovementDirection.South)
         {
             _rigidBody.velocity = -transform.up * _moveSpeed;
         }
+        else if ((_currentMovement & MovementDirection.Stop) == MovementDirection.Stop)
+        {
+            _rigidBody.velocity = Vector2.zero;
+        }
 
-        if (moveDir == MovementDirection.East)
+        if ((_currentMovement & MovementDirection.East) == MovementDirection.East)
         {
             //transform.rotation.eulerAngles.z += rotationSpeed * Time.deltaTime;
             transform.Rotate(new Vector3(0, 0, -_rotationSpeed * Time.deltaTime));
         }
-        else if (moveDir == MovementDirection.West)
+        else if ((_currentMovement & MovementDirection.West) == MovementDirection.West)
         {
             transform.Rotate(new Vector3(0, 0, _rotationSpeed * Time.deltaTime));
         }

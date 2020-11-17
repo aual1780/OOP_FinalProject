@@ -64,6 +64,11 @@ public class GameController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void GoToHighScoreScene()
+    {
+        SceneManager.LoadScene("HighScoresScene");
+    }
+
 
     /// <summary>
     /// Attempt to get server lobby code
@@ -123,5 +128,29 @@ public class GameController : MonoBehaviour
         var t5 = _serverHandler.AddGunLoadFunction(loadFunc);
         var t6 = _serverHandler.AddAmmoFunction(ammoFunc);
         await Task.WhenAll(t1, t2, t3, t4, t5, t6);
+    }
+
+
+    public string[] GetPlayerNames()
+    {
+        string[] names = new string[ExpectedPlayerCount];
+
+        IEnumerable<TankControllerState> players = _serverHandler.GetPlayers();
+
+        int i = 0;
+        foreach (var player in players)
+        {
+            names[i] = player.Name;
+            i++;
+        }
+
+        //get the ones not there
+        for (; i < ExpectedPlayerCount; ++i)
+        {
+            names[i] = "Player " + (i + 1);
+        }
+
+
+        return names;
     }
 }

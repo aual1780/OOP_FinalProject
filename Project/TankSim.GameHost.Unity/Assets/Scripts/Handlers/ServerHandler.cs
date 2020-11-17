@@ -65,6 +65,7 @@ public class ServerHandler
 
     public string GetLobbyCode() => _commState.GameID;
 
+    public IEnumerable<TankControllerState> GetPlayers() => _commState.ConnectedControllers;
 
 
     //Func<IConnectedSystemEndpoint, MovementDirection> movementFunc
