@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2863647836240762479}
-  - component: {fileID: 7950010043370691638}
+  - component: {fileID: 2556600274051003764}
   - component: {fileID: 6318843343257574582}
   - component: {fileID: 578155653541755841}
   - component: {fileID: 3244802120581981036}
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7950010043370691638
+--- !u!114 &2556600274051003764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 10
-  Speed: 0.003
+  Speed: 1
   Damage: 3
 --- !u!212 &6318843343257574582
 SpriteRenderer:

@@ -8,7 +8,7 @@ public class SpeedDecorator : EnemyDecorator
     void Start()
     {
         Enemy enemy = gameObject.GetComponent<Enemy>();
-        enemy.Speed += 1;
+        enemy.Speed += 0.2F;
     }
 
     // Update is called once per frame

@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
 
     public int Health = 10;
-    public float Speed = 0.003F;
+    public float Speed = 1F;
     public int Damage = 3;
 
     private Rigidbody2D rb;
@@ -31,18 +31,18 @@ public class Enemy : MonoBehaviour
         Vector2 target = tank.transform.position;
 
         LookAt2D(transform, target);
-        setVelocity(transform, target, rb);
+        setVelocity(transform, target, rb, Speed);
         //transform.position = Vector3.MoveTowards(transform.position,tank.transform.position,Speed); //rigidbody.velocity
         
     }
 
-    public static void setVelocity(Transform transform, Vector2 target, Rigidbody2D rb)
+    public static void setVelocity(Transform transform, Vector2 target, Rigidbody2D rb, float Speed)
     {
         Vector2 current = transform.position;
         var direction = target - current;
 
         float mag = Mathf.Sqrt((direction.x * direction.x) + (direction.y * direction.y));
-        rb.velocity = direction / mag;
+        rb.velocity = direction / mag * Speed;
     }
 
     //borrowed from https://forum.unity.com/threads/2d-look-at-object-disappears.390105/
