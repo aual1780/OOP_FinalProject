@@ -63,8 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enemies\DamageDecorator.cs" />
-    <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
-    <Compile Include="Assets\Scripts\Enemies\EnemyDecorator.cs" />
     <Compile Include="Assets\Scripts\Enemies\HealthDecorator.cs" />
     <Compile Include="Assets\Scripts\Enemies\SpeedDecorator.cs" />
     <Compile Include="Assets\Scripts\Enemies\Zombie.cs" />

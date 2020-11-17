@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedDecorator : EnemyDecorator
+public class SpeedDecorator : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        Enemy enemy = gameObject.GetComponent<Enemy>();
+        Zombie enemy = gameObject.GetComponent<Zombie>();
         enemy.Speed += 0.2F;
     }
 

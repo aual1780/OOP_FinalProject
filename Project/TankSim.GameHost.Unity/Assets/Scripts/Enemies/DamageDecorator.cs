@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageDecorator : EnemyDecorator
+public class DamageDecorator : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        Enemy enemy = gameObject.GetComponent<Enemy>();
+        Zombie enemy = gameObject.GetComponent<Zombie>();
         enemy.Damage += 1;
     }
 
