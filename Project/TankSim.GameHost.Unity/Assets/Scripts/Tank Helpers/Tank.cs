@@ -20,6 +20,7 @@ public class Tank : MonoBehaviour
 
     private float moveSpeed = 5;
     private float rotationSpeed = 80;
+    public int Health = 100;
 
 
     // Start is called before the first frame update

@@ -10,6 +10,8 @@ public class Zombie : MonoBehaviour
 
     private Rigidbody2D rb;
     private Tank tank;
+    private float _timepassed = 0;
+    private float _hitcooldown = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +32,11 @@ public class Zombie : MonoBehaviour
 
         LookAt2D(transform, target);
         setVelocity(transform, target, rb, Speed);
-        //transform.position = Vector3.MoveTowards(transform.position,tank.transform.position,Speed); //rigidbody.velocity
+        if(Health <= 0)
+        {
+            //add points, send info to gamecontroller
+            Destroy(gameObject);
+        }
     }
 
     public static void setVelocity(Transform transform, Vector2 target, Rigidbody2D rb, float Speed)
@@ -52,6 +58,12 @@ public class Zombie : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        _timepassed += Time.deltaTime;
+        if (_timepassed >= _hitcooldown)
+        {
+            _timepassed = 0;
+            tank.Health -= Damage;
 
+        }
     }
 }
