@@ -855,7 +855,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &966227633
 MonoBehaviour:
@@ -866,10 +866,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 966227631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24d66204c31b23449a43fb9e3950f330, type: 3}
+  m_Script: {fileID: 11500000, guid: 20477b0288f39e04e833ba17e0b30522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPreFab: {fileID: 1250037600584529947, guid: b38025879982ac3488d0a833451ff61c,
+  enemyPreFab: {fileID: 1250037600584529947, guid: bd98e554b4a7d50489bf42c636b1f830,
     type: 3}
 --- !u!1 &1098084900
 GameObject:

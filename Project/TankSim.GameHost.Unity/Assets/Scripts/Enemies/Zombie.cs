@@ -56,14 +56,18 @@ public class Zombie : MonoBehaviour
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        _timepassed += Time.deltaTime;
-        if (_timepassed >= _hitcooldown)
+        if (collision.gameObject.GetComponent<Tank>() != null)
         {
-            _timepassed = 0;
-            tank.Health -= Damage;
+            _timepassed += Time.deltaTime;
+            if (_timepassed >= _hitcooldown)
+            {
+                _timepassed = 0;
+                tank.DamageTank(Damage);
 
+            }
         }
+        
     }
 }

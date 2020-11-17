@@ -19,7 +19,7 @@ public class Tank : MonoBehaviour
     private MovementDirection _currentMovement = MovementDirection.Stop;
 
 
-    public static int maxHealth { get; private set; } = 10;
+    public static int maxHealth { get; private set; } = 100;
     public int health { get; private set; } = 10;
 
     private bool _canMove = true;
