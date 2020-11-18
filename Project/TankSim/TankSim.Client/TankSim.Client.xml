@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TankSim.Client</name>
+    </assembly>
+    <members>
+        <member name="T:TankSim.Client.Extensions.EnumerableExtensions">
+            <summary>
+            IEnumerable extensions
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.Extensions.EnumerableExtensions.SendInput(System.Collections.Generic.IEnumerable{TankSim.Client.OperatorModules.IOperatorInputModule},TankSim.Client.OperatorModules.IOperatorInputMsg)">
+            <summary>
+            Input extension for <see cref="T:TankSim.Client.OperatorModules.IOperatorInputModule"/>.  Uses early return semantics based on IsHandled flag
+            </summary>
+            <param name="list"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorInputModule">
+            <summary>
+            Operator role module for user input modules
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.IOperatorInputModule.HandleInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
+            <summary>
+            Handle user input
+            </summary>
+            <param name="Input"></param>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorInputMsg">
+            <summary>
+            Operator input message
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.IOperatorInputMsg.IsHandled">
+            <summary>
+            Flag switch to determine if a handler has reacted to this message
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.IOperatorInputMsg.KeyInfo">
+            <summary>
+            Key data
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.IOperatorInputMsg.InputType">
+            <summary>
+            UI key input action
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorModule">
+            <summary>
+            Operator role module base
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorModuleFactory">
+            <summary>
+            Factory to get operator role modules once the client knows its responsibilities
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.IOperatorModuleFactory.GetModuleCollection(TankSim.OperatorRoles)">
+            <summary>
+            Get collection of UI operator modules for the required role sets
+            </summary>
+            <param name="Roles"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorModuleFactory`1">
+            <summary>
+            Factory to get operator role modules once the client knows its responsibilities
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.IOperatorModuleFactory`1.GetModuleCollection(TankSim.OperatorRoles)">
+            <summary>
+            Get collection of UI operator modules for the required role sets
+            </summary>
+            <param name="Roles"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.IOperatorUIModule">
+            <summary>
+            Operator role module for ui display
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.OperatorInputModuleBase">
+            <summary>
+            Shared base for operator modules
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputModuleBase.HandleInput(TankSim.Client.OperatorModules.IOperatorInputMsg)">
+            <summary>
+            Handle input key sequence
+            </summary>
+            <param name="Input"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputModuleBase.ValidateKeyPress(TankSim.Client.OperatorModules.IOperatorInputMsg,System.String)">
+            <summary>
+            Validate input keycode against target key sequence
+            </summary>
+            <param name="Input"></param>
+            <param name="TargetInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputModuleBase.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.OperatorInputEventArg">
+            <summary>
+            Operator input message
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputEventArg.IsHandled">
+            <summary>
+            Flag switch to determine if a handler has reacted to this message
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputEventArg.KeyInfo">
+            <summary>
+            Key data
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputEventArg.InputType">
+            <summary>
+            UI key input action
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputEventArg.#ctor(System.ConsoleKeyInfo,TankSim.KeyInputType)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="KeyInfo">Key info from input</param>
+            <param name="InputType">Input action</param>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.OperatorInputMsg">
+            <summary>
+            Message for sending operator inputs through TIPC channel hub
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputMsg.MessageCategory">
+            <summary>
+            Msg category
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputMsg.Sender">
+            <summary>
+            Message src
+            </summary>
+        </member>
+        <member name="P:TankSim.Client.OperatorModules.OperatorInputMsg.Arg">
+            <summary>
+            Event arg
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorInputMsg.#ctor(System.Object,TankSim.Client.OperatorModules.OperatorInputEventArg)">
+            <summary>
+            Create operator input message for channel hub
+            </summary>
+            <param name="Sender"></param>
+            <param name="Arg"></param>
+        </member>
+        <member name="T:TankSim.Client.OperatorModules.OperatorModuleFactory`1">
+            <summary>
+            Magic factory for loading operator modules from execution context at runtime.
+            Searches execution process for <see cref="T:TankSim.Client.OperatorModules.IOperatorModule"/> implementations with <see cref="T:TankSim.OperatorRoleAttribute"/> defined.
+            Maps operator role to tagged modules.
+            Instantiates modules on-demand when a role is requested.
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory`1.#cctor">
+            <summary>
+            Load role->module map at startup
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory`1.#ctor(System.IServiceProvider)">
+            <summary>
+            Create instance
+            </summary>
+            <param name="ServiceProvider"></param>
+        </member>
+        <member name="M:TankSim.Client.OperatorModules.OperatorModuleFactory`1.GetModuleCollection(TankSim.OperatorRoles)">
+            <summary>
+            Get module collection based on requested operator roles.
+            </summary>
+            <param name="Roles">Set of required operator roles to load</param>
+            <returns>Return a module collection loaded with modules for all requested operator roles</returns>
+        </member>
+        <member name="T:TankSim.Client.Services.IOperatorInputProcessorService">
+            <summary>
+            Operator input processor
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.Services.IOperatorInputProcessorService.Initialize">
+            <summary>
+            Initialize service
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.Client.Services.OperatorInputProcessorService">
+            <summary>
+            Operator input processor
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.Services.OperatorInputProcessorService.#ctor(TIPC.Core.Channels.IMessageHub,TankSim.Client.Services.IRoleResolverService,TankSim.Client.OperatorModules.IOperatorModuleFactory{TankSim.Client.OperatorModules.IOperatorInputModule})">
+            <summary>
+            Create instance
+            </summary>
+            <param name="MsgHub"></param>
+            <param name="RoleService"></param>
+            <param name="InputModuleFactory"></param>
+        </member>
+        <member name="M:TankSim.Client.Services.OperatorInputProcessorService.GetMessageSubscriptionList">
+            <summary>
+            Msg sub list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.Client.Services.OperatorInputProcessorService.Initialize">
+            <summary>
+            Get roles 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.Client.Services.OperatorInputProcessorService.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
+        <member name="T:TankSim.Client.Services.IRoleResolverService">
+            <summary>
+            Service to get operator roles from server
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.Services.IRoleResolverService.GetRolesAsync">
+            <summary>
+            Get roles from server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TankSim.Client.Services.RoleResolverService">
+            <summary>
+            Service to get operator roles from server
+            </summary>
+        </member>
+        <member name="M:TankSim.Client.Services.RoleResolverService.#ctor(ArdNet.Client.IArdNetClient)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="ArdClient"></param>
+        </member>
+        <member name="M:TankSim.Client.Services.RoleResolverService.GetRolesAsync">
+            <summary>
+            Request roles from server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TankSim.Client.Services.RoleResolverService.Dispose">
+            <summary>
+            Cancel pending requests
+            </summary>
+        </member>
+    </members>
+</doc>
