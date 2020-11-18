@@ -8,10 +8,16 @@ public class Zombie : MonoBehaviour
     public float Speed = 1F;
     public int Damage = 3;
 
+    public int points = 100;
+
+    public GameObject splatterprefab;
+
     private Rigidbody2D rb;
     private Tank tank;
-    private float _timepassed = 0;
+    private float _lastcheck = 0;
     private float _hitcooldown = 1;
+
+    private GameHandler handler;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +29,7 @@ public class Zombie : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
+        //Health--; //kill switch for testing
         if (tank == null)
         {
             rb.velocity = Vector2.zero;
@@ -35,6 +42,9 @@ public class Zombie : MonoBehaviour
         if(Health <= 0)
         {
             //add points, send info to gamecontroller
+            handler.AddPoints(points);
+            var s = Instantiate(splatterprefab,transform.position, transform.rotation);
+            s.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
             Destroy(gameObject);
         }
     }
@@ -60,14 +70,18 @@ public class Zombie : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Tank>() != null)
         {
-            _timepassed += Time.deltaTime;
-            if (_timepassed >= _hitcooldown)
+            
+            if (Time.time - _lastcheck >= _hitcooldown)
             {
-                _timepassed = 0;
+                _lastcheck = Time.time;
                 tank.DamageTank(Damage);
 
             }
         }
         
+    }
+    public void passHandler(GameHandler h)
+    {
+        handler = h;
     }
 }

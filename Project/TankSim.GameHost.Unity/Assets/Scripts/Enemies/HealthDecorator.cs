@@ -9,6 +9,7 @@ public class HealthDecorator : MonoBehaviour
     {
         Zombie enemy = gameObject.GetComponent<Zombie>();
         enemy.Health += 1;
+        enemy.points += 100;
     }
 
     // Update is called once per frame

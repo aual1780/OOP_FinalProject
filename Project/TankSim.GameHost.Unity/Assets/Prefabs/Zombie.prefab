@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1250037600584530021}
+  - component: {fileID: 1525400810577378915}
   - component: {fileID: 1250037600584529946}
-  - component: {fileID: 1250037600584529947}
   - component: {fileID: 1250037600584530023}
   - component: {fileID: 1250037600584530020}
   m_Layer: 0
@@ -34,6 +34,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1525400810577378915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250037600584529944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bcdc4bc3756d08469c5b1c974430e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 10
+  Speed: 1
+  Damage: 3
+  points: 100
+  splatterprefab: {fileID: 6289404811501161527, guid: 2e68ba3563dd25c4b82e237a77ab82bd,
+    type: 3}
 --- !u!212 &1250037600584529946
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -84,21 +102,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1250037600584529947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1250037600584529944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5300ae732c90f8040983c20e0897c8ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 10
-  Speed: 1
-  Damage: 3
 --- !u!61 &1250037600584530023
 BoxCollider2D:
   m_ObjectHideFlags: 0

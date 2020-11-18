@@ -7,20 +7,27 @@ public class WaveHandler : MonoBehaviour
     public Zombie enemyPreFab;
     float _timepassed;
     float _respawnTime = 2;
-    int _points = 100;
+    int _points = 20;
 
-    readonly int _zombiecost = 2;
+    readonly int _zombiecost = 3;
     readonly int _healthcost = 1;
     readonly int _speedcost = 2;
     readonly int _damagecost = 3;
     int _lowestdeccost;
 
+    int _spawndistance = 20;
+
+    private Tank tank;
+    private GameHandler handler;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        Zombie e = Instantiate(enemyPreFab, new Vector3(5,5,0), Quaternion.identity);
-       if(_healthcost <= _speedcost && _healthcost <= _damagecost)
+        handler = FindObjectOfType<GameHandler>();
+        tank = FindObjectOfType<Tank>();
+        //Zombie e = Instantiate(enemyPreFab, new Vector3(5,5,0), Quaternion.identity);
+        if (_healthcost <= _speedcost && _healthcost <= _damagecost)
         {
             _lowestdeccost = _healthcost;
         }
@@ -42,10 +49,20 @@ public class WaveHandler : MonoBehaviour
         {
             _timepassed -= _respawnTime;
             int temppoints = _points;
-            int spend = Random.Range(10, temppoints+1);
+            int spend = temppoints;//Random.Range(10, temppoints+1);
             temppoints -= spend;
 
-            Vector3 spawnloc = new Vector3(5,5,0);
+            Vector2 spawnloc;
+            do
+            {
+                spawnloc = new Vector2(_spawndistance, 0);
+                int rot = Random.Range(0, 360);
+                //print("rot: " + rot);
+                spawnloc = spawnloc.Rotate(rot); // pick a random spot at a spawndistance away from the tank and spawn enemies there
+                spawnloc = spawnloc + new Vector2(tank.transform.position.x, tank.transform.position.y);
+                //print("x: " + spawnloc.x);
+                //print("y: " + spawnloc.y);
+            } while(spawnloc.x >=25 || spawnloc.x <= -25 || spawnloc.y >= 25 || spawnloc.y <= -25);
 
             int meth = Random.Range(1, 4); //get num 1-3
             if(meth == 1) //make one unit as tough as possible
@@ -53,6 +70,7 @@ public class WaveHandler : MonoBehaviour
                 print("method 1");
                 spend -= _zombiecost; //add enemy selection here later
                 var e = Instantiate(enemyPreFab, spawnloc, Quaternion.identity);
+                e.passHandler(handler);
                 GameObject obj = e.gameObject;
                 obj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1);
                 while (spend > 0)
@@ -82,11 +100,12 @@ public class WaveHandler : MonoBehaviour
             else if(meth == 2) // small group with decorators
             {
                 print("method 2");
-                int count = Random.Range(3, spend / 2 + 1);
+                int count = Random.Range(3, spend / 3 + 1);
                 GameObject[] obj = new GameObject[count];
                 for(int i = 0; i < count; ++i)
                 {
                     var e = Instantiate(enemyPreFab, spawnloc, Quaternion.identity);
+                    e.passHandler(handler);
                     spend -= _zombiecost;
                     obj[i] = e.gameObject;
                     obj[i].GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
@@ -134,16 +153,33 @@ public class WaveHandler : MonoBehaviour
                     }
                 }
             }
-            else if(meth == 3) // as many as possible, all weak
+            else if(meth == 3) // as many as possible, all weak, without decorators
             {
                 print("method 3");
                 while (spend >= _zombiecost)
                 {
                     var e = Instantiate(enemyPreFab, spawnloc, Quaternion.identity);
+                    e.passHandler(handler);
                     spend -= _zombiecost;
-                    e.gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
+                    e.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
                 }
             }
         }
+    }
+}
+
+//borrowed from https://answers.unity.com/questions/661383/whats-the-most-efficient-way-to-rotate-a-vector2-o.html
+public static class Vector2Extension
+{
+    public static Vector2 Rotate(this Vector2 v, float degrees)
+    {
+        float radians = degrees * Mathf.Deg2Rad;
+        float sin = Mathf.Sin(radians);
+        float cos = Mathf.Cos(radians);
+
+        float tx = v.x;
+        float ty = v.y;
+
+        return new Vector2(cos * tx - sin * ty, sin * tx + cos * ty);
     }
 }
