@@ -10,6 +10,9 @@ public class Gun : MonoBehaviour
 
     public SecondaryBullet secondaryBulletPrefab;
 
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,20 +25,16 @@ public class Gun : MonoBehaviour
         
     }
 
-    public void PrimaryFire(IConnectedSystemEndpoint c, PrimaryWeaponFireState state)
-    {
-
-    }
+    
 
     public void SecondaryFire(IConnectedSystemEndpoint c)
     {
+        SecondaryBullet newBullet = Instantiate(secondaryBulletPrefab, transform.position, Quaternion.identity);
 
+        newBullet.GetComponent<Rigidbody2D>().velocity = transform.up * SecondaryBullet.speed;
     }
 
-    public void ChangeAmmo(IConnectedSystemEndpoint c)
-    {
-
-    }
+    
 
     public void LoadGun(IConnectedSystemEndpoint c)
     {

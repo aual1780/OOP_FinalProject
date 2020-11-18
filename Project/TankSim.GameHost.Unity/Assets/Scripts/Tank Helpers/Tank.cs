@@ -14,9 +14,11 @@ public class Tank : MonoBehaviour
     //tank helpers
     private Gun _gun;
     private Turret _turret;
+    private GunTarget _gunTarget;
 
 
     private MovementDirection _currentMovement = MovementDirection.Stop;
+
 
 
     public static int maxHealth { get; private set; } = 100;
@@ -33,7 +35,7 @@ public class Tank : MonoBehaviour
 
         _turret = GetComponentInChildren<Turret>();
         _gun = _turret.GetComponentInChildren<Gun>();
-
+        _gunTarget = _turret.GetComponentInChildren<GunTarget>();
 
         _gameContoller = FindObjectOfType<GameController>();
         if (_gameContoller == null)
@@ -46,10 +48,10 @@ public class Tank : MonoBehaviour
             await _gameContoller.AddTankFunctions(
                 TankMovement,
                 _turret.TurretRotation,
-                _gun.PrimaryFire,
+                _gunTarget.PrimaryFire,
                 _gun.SecondaryFire,
                 _gun.LoadGun,
-                _gun.ChangeAmmo);
+                _gunTarget.ChangeAmmo);
         }
     }
 
@@ -144,7 +146,7 @@ public class Tank : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _gun.PrimaryFire(null, TankSim.TankSystems.PrimaryWeaponFireState.Valid);
+            _gunTarget.PrimaryFire(null, TankSim.TankSystems.PrimaryWeaponFireState.Valid);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -157,7 +159,7 @@ public class Tank : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            _gun.ChangeAmmo(null);
+            _gunTarget.ChangeAmmo(null);
         }
     }
 

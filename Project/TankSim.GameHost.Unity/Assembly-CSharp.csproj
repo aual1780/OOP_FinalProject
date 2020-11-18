@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Background.cs" />
+    <Compile Include="Assets\Scripts\DamageCircle.cs" />
     <Compile Include="Assets\Scripts\Enemies\DamageDecorator.cs" />
     <Compile Include="Assets\Scripts\Enemies\HealthDecorator.cs" />
     <Compile Include="Assets\Scripts\Enemies\SpeedDecorator.cs" />

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using ArdNet;
+using System.Collections;
 using System.Collections.Generic;
 using TankSim;
+using TankSim.TankSystems;
 using UnityEngine;
 
 public class GunTarget : MonoBehaviour
@@ -11,10 +13,23 @@ public class GunTarget : MonoBehaviour
 
     private MovementDirection _currentDirection;
 
+    private Tank tank;
+
+
+    private Vector3 _smallCircle = new Vector3(2, 2, 1);
+    private Vector3 _bigCircle = new Vector3(6, 6, 1);
+
+    private int _damage = 10;
+
+    private bool _isSmallTarget = true;
+
+
+    public DamageCircle damageCirclePrefab;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        tank = FindObjectOfType<Tank>();
     }
 
     // Update is called once per frame
@@ -43,5 +58,42 @@ public class GunTarget : MonoBehaviour
     {
         _currentDirection = moveDir;
         
+    }
+
+
+    public void PrimaryFire(IConnectedSystemEndpoint c, PrimaryWeaponFireState state)
+    {
+        if (state == PrimaryWeaponFireState.Misfire)
+        {
+            tank.DamageTank(10);
+        }
+        else if (state == PrimaryWeaponFireState.Valid)
+        {
+            SpawnDamageCircle();
+        }
+    }
+
+    public void ChangeAmmo(IConnectedSystemEndpoint c)
+    {
+        if (_isSmallTarget)
+        {
+            transform.localScale = _bigCircle;
+            _damage = 3;
+        }
+        else
+        {
+            transform.localScale = _smallCircle;
+            _damage = 10;
+        }
+
+        _isSmallTarget = !_isSmallTarget;
+    }
+
+
+    private void SpawnDamageCircle()
+    {
+        DamageCircle newCircle = Instantiate(damageCirclePrefab, transform.position, Quaternion.identity);
+        newCircle.transform.localScale = transform.localScale;
+        newCircle.damage = _damage;
     }
 }
