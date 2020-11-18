@@ -64,7 +64,7 @@ namespace TankSim.GameHost
         private void RegisterTankMovement(IArdNetServer ArdServer)
         {
             var proxy = new TankMovementDelegate(ArdServer);
-            proxy.MovementChanged += (x, y) => MovementChanged(x, y);
+            proxy.MovementChanged += (x, y) => MovementChanged?.Invoke(x, y);
             proxy.Validator.AddFilter(e =>
             {
                 var state = (TankControllerState)e.Endpt.UserState;
@@ -93,7 +93,7 @@ namespace TankSim.GameHost
         private void RegisterTankAiming(IArdNetServer ArdServer)
         {
             var proxy = new TankAimingDelegate(ArdServer);
-            proxy.AimChanged += (x, y) => AimChanged(x, y);
+            proxy.AimChanged += (x, y) => AimChanged?.Invoke(x, y);
             proxy.Validator.AddFilter(e =>
             {
                 var state = (TankControllerState)e.Endpt.UserState;
