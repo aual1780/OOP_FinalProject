@@ -1,0 +1,360 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J2i.Net.XInputWrapper</name>
+    </assembly>
+    <members>
+        <member name="T:J2i.Net.XInputWrapper.Point">
+            <summary>
+            Thumbstick orientation point
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.Point.X">
+            <summary>
+            X pos
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.Point.Y">
+            <summary>
+            Y pos
+            </summary>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XboxControllerStateChangedEventArgs">
+            <summary>
+            Event arg for controller state change events
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxControllerStateChangedEventArgs.CurrentInputState">
+            <summary>
+            New input state
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxControllerStateChangedEventArgs.PreviousInputState">
+            <summary>
+            old input state
+            </summary>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XboxController">
+            <summary>
+            
+            </summary>
+            <summary>
+            
+            </summary>
+            <summary>
+            
+            </summary>
+            <summary>
+            Controller state tracking
+            </summary>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XboxController.DPadState">
+            <summary>
+            DPad inputs
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.DPadState.IsUpPressed">
+            <summary>
+            Dpad Up
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.DPadState.IsDownPressed">
+            <summary>
+            Dpad Down
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.DPadState.IsLeftPressed">
+            <summary>
+            Dpad Left
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.DPadState.IsRightPressed">
+            <summary>
+            Dpad Right
+            </summary>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XboxController.ThumbStick">
+            <summary>
+            Thumbstick values
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxController.ThumbStick.MAX_THUMBSTICK_VAL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxController.ThumbStick.MIN_THUMBSTICK_VAL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XboxController.Trigger">
+            <summary>
+            Trigger values
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxController.Trigger.MAX_TRIGGER_VAL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxController.Trigger.MIN_TRIGGER_VAL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxController.MAX_CONTROLLER_COUNT">
+            <summary>
+            Max connected controller count
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxController.FIRST_CONTROLLER_INDEX">
+            <summary>
+            Index of first available controller
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxController.LAST_CONTROLLER_INDEX">
+            <summary>
+            Index of last possible available controller.
+            Does not mean that there are this many controllers connected
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.UpdateFrequency">
+            <summary>
+            Global controller input polling frequency (hz)
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.RetrieveController(System.Int32)">
+            <summary>
+            Get controller at specified index.
+            Value will always be non-null, but that does not mean that the controller is connected.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.StartPolling">
+            <summary>
+            Start controller input polling.
+            This is a noop if the system is already polling
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.StopPolling">
+            <summary>
+            Stop controller input polling
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsConnected">
+            <summary>
+            Determine if this controller object has an associated physical controller
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.BatteryInformationGamepad">
+            <summary>
+            Gamepad battery info
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.BatteryInformationHeadset">
+            <summary>
+            Headset batter info
+            </summary>
+        </member>
+        <member name="E:J2i.Net.XInputWrapper.XboxController.StateChanged">
+            <summary>
+            Controller state changed event
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.#ctor(System.Int32)">
+            <summary>
+            Create new instance
+            </summary>
+            <param name="playerIndex"></param>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.UpdateBatteryState">
+            <summary>
+            Request battery info from controller.
+            Call this before checking battery level
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.OnStateChanged">
+            <summary>
+            Trigger controller state changed event
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.GetCapabilities">
+            <summary>
+            Get controller capabilities
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.DPad">
+            <summary>
+            Dpad input state
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsAPressed">
+            <summary>
+            A
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsBPressed">
+            <summary>
+            B
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsXPressed">
+            <summary>
+            X
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsYPressed">
+            <summary>
+            Y
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsBackPressed">
+            <summary>
+            Back
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsStartPressed">
+            <summary>
+            Start
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsLeftShoulderPressed">
+            <summary>
+            Left bumper
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsRightShoulderPressed">
+            <summary>
+            Right bumper
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsLeftStickPressed">
+            <summary>
+            Left stick
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.IsRightStickPressed">
+            <summary>
+            Right stick
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.LeftTrigger">
+            <summary>
+            Left trigger state
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.RightTrigger">
+            <summary>
+            Right trigger state
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.LeftThumbStick">
+            <summary>
+            Left thumbstick X/Y orientation
+            </summary>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxController.RightThumbStick">
+            <summary>
+            Right thumbstick X/Y orientation
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.Vibrate(System.Double,System.Double)">
+            <summary>
+            Vibrate motors for short time
+            </summary>
+            <param name="leftMotor"></param>
+            <param name="rightMotor"></param>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.Vibrate(System.Double,System.Double,System.TimeSpan)">
+            <summary>
+            Vibrate motors
+            </summary>
+            <param name="leftMotor"></param>
+            <param name="rightMotor"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.Vibrate(J2i.Net.XInputWrapper.XInputVibration)">
+            <summary>
+            Vibrate motors
+            </summary>
+            <param name="strength"></param>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.Vibrate(J2i.Net.XInputWrapper.XInputVibration,System.TimeSpan)">
+            <summary>
+            Vibrate motors
+            </summary>
+            <param name="strength"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.UpdateState">
+            <summary>
+            Manually poll controller for current state
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxController.ToString">
+            <summary>
+            Return player index
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XInput">
+            <summary>
+            XInput native hooks
+            </summary>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XInputBatteryInformation">
+            <summary>
+            Native XInput struct - controller battery settings
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XInputBatteryInformation.BatteryType">
+            <summary>
+            Controller battery type
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XInputBatteryInformation.BatteryLevel">
+            <summary>
+            Controller battery level
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XInputBatteryInformation.ToString">
+            <summary>
+            Print battery type and level
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XInputCapabilities">
+            <summary>
+            Native struct - XInput controller capabilities
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XInputCapabilities.Type">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XInputCapabilities.SubType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XInputCapabilities.Flags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XInputCapabilities.Gamepad">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XInputCapabilities.Vibration">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
