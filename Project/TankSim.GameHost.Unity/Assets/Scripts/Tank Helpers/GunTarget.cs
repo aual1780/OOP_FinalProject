@@ -26,6 +26,13 @@ public class GunTarget : MonoBehaviour
 
     public DamageCircle damageCirclePrefab;
 
+
+    //server thread to game thread
+    private bool _canFire = false;
+    private PrimaryWeaponFireState _weaponsState;
+    private bool _canChangeAmmo = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +58,19 @@ public class GunTarget : MonoBehaviour
                 transform.localPosition = Vector3.up * _minDistance;
             }
         }
+
+
+        if (_canFire)
+        {
+            FireWeapon();
+            _canFire = false;
+        }
+
+        if (_canChangeAmmo)
+        {
+            ChangeSize();
+            _canChangeAmmo = false;
+        }
     }
 
 
@@ -60,20 +80,20 @@ public class GunTarget : MonoBehaviour
         
     }
 
-
-    public void PrimaryFire(IConnectedSystemEndpoint c, PrimaryWeaponFireState state)
+    private void FireWeapon()
     {
-        if (state == PrimaryWeaponFireState.Misfire)
+        if (_weaponsState == PrimaryWeaponFireState.Misfire)
         {
             tank.DamageTank(10);
         }
-        else if (state == PrimaryWeaponFireState.Valid)
+        else if (_weaponsState == PrimaryWeaponFireState.Valid)
         {
             SpawnDamageCircle();
         }
+        
     }
 
-    public void ChangeAmmo(IConnectedSystemEndpoint c)
+    private void ChangeSize()
     {
         if (_isSmallTarget)
         {
@@ -87,6 +107,18 @@ public class GunTarget : MonoBehaviour
         }
 
         _isSmallTarget = !_isSmallTarget;
+    }
+
+
+    public void PrimaryFire(IConnectedSystemEndpoint c, PrimaryWeaponFireState state)
+    {
+        _weaponsState = state;
+        _canFire = true;
+    }
+
+    public void ChangeAmmo(IConnectedSystemEndpoint c)
+    {
+        _canChangeAmmo = true;
     }
 
 
