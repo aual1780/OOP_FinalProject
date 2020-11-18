@@ -27,7 +27,7 @@ public class SecondaryBullet : MonoBehaviour
         Zombie zombie = collision.gameObject.GetComponent<Zombie>();
         if (zombie != null)
         {
-            zombie.Health -= damage;
+            zombie.takeDamage(damage);
         }
 
 

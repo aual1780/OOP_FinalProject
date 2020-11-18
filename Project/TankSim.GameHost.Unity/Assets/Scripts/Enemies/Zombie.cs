@@ -4,46 +4,46 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
-    public int Health = 3;
-    public float Speed = 1F;
-    public int Damage = 3;
+    private int _health = 3;
+    private float _speed = 1F;
+    private int _damage = 3;
 
-    public int points = 100;
+    public int Points = 100;
 
-    public GameObject splatterprefab;
+    public GameObject _splatterprefab;
 
     private Rigidbody2D rb;
-    private Tank tank;
+    private Tank _tank;
     private float _lastcheck = 0;
     private float _hitcooldown = 1;
 
-    private GameHandler handler;
+    private GameHandler _handler;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        tank = FindObjectOfType<Tank>();
+        _tank = FindObjectOfType<Tank>();
     }
 
     // Update is called once per frame
     protected void Update()
     {
         //Health--; //kill switch for testing
-        if (tank == null)
+        if (_tank == null)
         {
             rb.velocity = Vector2.zero;
             return;
         }
-        Vector2 target = tank.transform.position;
+        Vector2 target = _tank.transform.position;
 
         LookAt2D(transform, target);
-        setVelocity(transform, target, rb, Speed);
-        if(Health <= 0)
+        setVelocity(transform, target, rb, _speed);
+        if(_health <= 0)
         {
             //add points, send info to gamecontroller
-            handler.AddPoints(points);
-            var s = Instantiate(splatterprefab,transform.position, transform.rotation);
+            _handler.AddPoints(Points);
+            var s = Instantiate(_splatterprefab,transform.position, transform.rotation);
             s.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
             Destroy(gameObject);
         }
@@ -74,7 +74,7 @@ public class Zombie : MonoBehaviour
             if (Time.time - _lastcheck >= _hitcooldown)
             {
                 _lastcheck = Time.time;
-                tank.DamageTank(Damage);
+                _tank.DamageTank(_damage);
 
             }
         }
@@ -82,6 +82,29 @@ public class Zombie : MonoBehaviour
     }
     public void passHandler(GameHandler h)
     {
-        handler = h;
+        _handler = h;
     }
+
+    public void takeDamage(int damage)
+    {
+        _health -= damage;
+    }
+
+    public void addHealth(int health)
+    {
+        _health += health;
+    }
+
+    public void addSpeed(float speed)
+    {
+        _speed += speed;
+    }
+
+    public void addDamage(int damage)
+    {
+        _damage += damage;
+    }
+
+
+
 }

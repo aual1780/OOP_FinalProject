@@ -46,11 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5300ae732c90f8040983c20e0897c8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 10
-  Speed: 1
-  Damage: 3
-  points: 100
-  splatterprefab: {fileID: 6289404811501161527, guid: 2e68ba3563dd25c4b82e237a77ab82bd,
+  Points: 100
+  _splatterprefab: {fileID: 6289404811501161527, guid: 3cbabfe69caee1b4196c804680881c9e,
     type: 3}
 --- !u!212 &1250037600584529946
 SpriteRenderer:

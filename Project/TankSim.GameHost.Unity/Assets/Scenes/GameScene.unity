@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20477b0288f39e04e833ba17e0b30522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPreFab: {fileID: 1525400810577378915, guid: bd98e554b4a7d50489bf42c636b1f830,
+  ZombiePreFab: {fileID: 1525400810577378915, guid: bd98e554b4a7d50489bf42c636b1f830,
     type: 3}
 --- !u!1 &1098084900
 GameObject:
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7832824975ad1b49ba749d51af95380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageCirclePrefab: {fileID: 7280641875533529503, guid: cd95008ca14651d478063d2c2a7fd2dc,
+  damageCirclePrefab: {fileID: 7280641875533529503, guid: a5778f6aa0268b840af435d9e2e9f18e,
     type: 3}
 --- !u!212 &1441345447
 SpriteRenderer:

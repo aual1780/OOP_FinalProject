@@ -47,7 +47,7 @@ public class DamageCircle : MonoBehaviour
         {
             if (zombie != null)
             {
-                zombie.Health -= damage;
+                zombie.takeDamage(damage);
             }
         }
         Destroy(gameObject);

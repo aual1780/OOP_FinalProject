@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaveHandler : MonoBehaviour
 {
-    public Zombie enemyPreFab;
+    public Zombie ZombiePreFab;
     float _timepassed;
     float _respawnTime = 2;
     int _points = 20;
@@ -17,15 +17,15 @@ public class WaveHandler : MonoBehaviour
 
     int _spawndistance = 20;
 
-    private Tank tank;
-    private GameHandler handler;
+    private Tank _tank;
+    private GameHandler _handler;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        handler = FindObjectOfType<GameHandler>();
-        tank = FindObjectOfType<Tank>();
+        _handler = FindObjectOfType<GameHandler>();
+        _tank = FindObjectOfType<Tank>();
         //Zombie e = Instantiate(enemyPreFab, new Vector3(5,5,0), Quaternion.identity);
         if (_healthcost <= _speedcost && _healthcost <= _damagecost)
         {
@@ -59,7 +59,7 @@ public class WaveHandler : MonoBehaviour
                 int rot = Random.Range(0, 360);
                 //print("rot: " + rot);
                 spawnloc = spawnloc.Rotate(rot); // pick a random spot at a spawndistance away from the tank and spawn enemies there
-                spawnloc = spawnloc + new Vector2(tank.transform.position.x, tank.transform.position.y);
+                spawnloc = spawnloc + new Vector2(_tank.transform.position.x, _tank.transform.position.y);
                 //print("x: " + spawnloc.x);
                 //print("y: " + spawnloc.y);
             } while(spawnloc.x >=25 || spawnloc.x <= -25 || spawnloc.y >= 25 || spawnloc.y <= -25);
@@ -69,8 +69,8 @@ public class WaveHandler : MonoBehaviour
             {
                 print("method 1");
                 spend -= _zombiecost; //add enemy selection here later
-                var e = Instantiate(enemyPreFab, spawnloc, Quaternion.identity);
-                e.passHandler(handler);
+                var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
+                e.passHandler(_handler);
                 GameObject obj = e.gameObject;
                 obj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1);
                 while (spend > 0)
@@ -104,8 +104,8 @@ public class WaveHandler : MonoBehaviour
                 GameObject[] obj = new GameObject[count];
                 for(int i = 0; i < count; ++i)
                 {
-                    var e = Instantiate(enemyPreFab, spawnloc, Quaternion.identity);
-                    e.passHandler(handler);
+                    var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
+                    e.passHandler(_handler);
                     spend -= _zombiecost;
                     obj[i] = e.gameObject;
                     obj[i].GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
@@ -158,8 +158,8 @@ public class WaveHandler : MonoBehaviour
                 print("method 3");
                 while (spend >= _zombiecost)
                 {
-                    var e = Instantiate(enemyPreFab, spawnloc, Quaternion.identity);
-                    e.passHandler(handler);
+                    var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
+                    e.passHandler(_handler);
                     spend -= _zombiecost;
                     e.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
                 }

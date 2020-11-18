@@ -8,8 +8,8 @@ public class DamageDecorator : MonoBehaviour
     void Start()
     {
         Zombie enemy = gameObject.GetComponent<Zombie>();
-        enemy.Damage += 1;
-        enemy.points += 50;
+        enemy.addDamage(1);
+        enemy.Points += 50;
     }
 
     // Update is called once per frame
