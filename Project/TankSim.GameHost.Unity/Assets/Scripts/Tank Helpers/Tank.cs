@@ -177,7 +177,7 @@ public class Tank : MonoBehaviour
 
     public void TankMovement(IConnectedSystemEndpoint c, MovementDirection moveDir)
     {
-        print($"dir: {moveDir}");
+        //print($"dir: {moveDir}");
         _currentMovement = moveDir;
         
     }
