@@ -43,12 +43,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 835010113931294023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dfa28f5f9202034ca81fcf5b5b27dde, type: 3}
+  m_Script: {fileID: 11500000, guid: 5300ae732c90f8040983c20e0897c8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 10
+  Health: 3
   Speed: 1
   Damage: 3
+  points: 100
+  splatterprefab: {fileID: 6289404811501161527, guid: 2e68ba3563dd25c4b82e237a77ab82bd,
+    type: 3}
 --- !u!212 &6318843343257574582
 SpriteRenderer:
   m_ObjectHideFlags: 0
