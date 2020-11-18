@@ -38,18 +38,18 @@ public class Zombie : MonoBehaviour
         Vector2 target = _tank.transform.position;
 
         LookAt2D(transform, target);
-        setVelocity(transform, target, rb, _speed);
-        if(_health <= 0)
+        SetVelocity(transform, target, rb, _speed);
+        if (_health <= 0)
         {
             //add points, send info to gamecontroller
             _handler.AddPoints(Points);
-            var s = Instantiate(_splatterprefab,transform.position, transform.rotation);
+            var s = Instantiate(_splatterprefab, transform.position, transform.rotation);
             s.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
             Destroy(gameObject);
         }
     }
 
-    public static void setVelocity(Transform transform, Vector2 target, Rigidbody2D rb, float Speed)
+    public static void SetVelocity(Transform transform, Vector2 target, Rigidbody2D rb, float Speed)
     {
         Vector2 current = transform.position;
         var direction = target - current;
@@ -68,17 +68,17 @@ public class Zombie : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Tank>() != null)
+        if (collision.gameObject.GetComponent<Tank>() is null)
         {
-            
-            if (Time.time - _lastcheck >= _hitcooldown)
-            {
-                _lastcheck = Time.time;
-                _tank.DamageTank(_damage);
-
-            }
+            return;
         }
-        
+
+        if (Time.time - _lastcheck >= _hitcooldown)
+        {
+            _lastcheck = Time.time;
+            _tank.DamageTank(_damage);
+        }
+
     }
     public void passHandler(GameHandler h)
     {
