@@ -264,10 +264,7 @@ project.lock.json
 
 
 
-#####
-# Unity
-#####
-
+#unity files
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -275,6 +272,18 @@ project.lock.json
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+!/[Aa]ssets/*/.meta
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+*.apk
+.aab
+.unitypackage
+sysinfo.txt
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata//.bin
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
