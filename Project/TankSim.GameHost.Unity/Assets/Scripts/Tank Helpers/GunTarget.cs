@@ -94,6 +94,6 @@ public class GunTarget : MonoBehaviour
     {
         DamageCircle newCircle = Instantiate(damageCirclePrefab, transform.position, Quaternion.identity);
         newCircle.transform.localScale = transform.localScale;
-        newCircle.damage = _damage;
+        newCircle.SetDamage(_damage);
     }
 }

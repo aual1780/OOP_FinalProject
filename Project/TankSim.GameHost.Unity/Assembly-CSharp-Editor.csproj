@@ -257,86 +257,89 @@
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.UWP.Extensions">
+      <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="ArdNet">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/ArdNet.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/ArdNet.dll</HintPath>
     </Reference>
     <Reference Include="ArdNet.Server">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/ArdNet.Server.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/ArdNet.Server.dll</HintPath>
     </Reference>
     <Reference Include="J2i.Net.XInputWrapper">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/J2i.Net.XInputWrapper.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/J2i.Net.XInputWrapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.HashCode">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Microsoft.Bcl.HashCode.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
     <Reference Include="Nito.AsyncEx.Context">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Context.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Context.dll</HintPath>
     </Reference>
     <Reference Include="Nito.AsyncEx.Coordination">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Coordination.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Coordination.dll</HintPath>
     </Reference>
     <Reference Include="Nito.AsyncEx.Interop.WaitHandles">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Interop.WaitHandles.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Interop.WaitHandles.dll</HintPath>
     </Reference>
     <Reference Include="Nito.AsyncEx.Oop">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Oop.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Oop.dll</HintPath>
     </Reference>
     <Reference Include="Nito.AsyncEx.Tasks">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Tasks.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.AsyncEx.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="Nito.Cancellation">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.Cancellation.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.Cancellation.dll</HintPath>
     </Reference>
     <Reference Include="Nito.Collections.Deque">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.Collections.Deque.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.Collections.Deque.dll</HintPath>
     </Reference>
     <Reference Include="Nito.Disposables">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.Disposables.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Nito.Disposables.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.Immutable">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Collections.Immutable.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Annotations">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.ComponentModel.Annotations.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Threading.Tasks.Extensions.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="TankSim">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TankSim.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TankSim.dll</HintPath>
     </Reference>
     <Reference Include="TankSim.GameHost">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TankSim.GameHost.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TankSim.GameHost.dll</HintPath>
     </Reference>
     <Reference Include="TIPC.Core.Channels">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Channels.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Channels.dll</HintPath>
     </Reference>
     <Reference Include="TIPC.Core.Collections.Generic">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Collections.Generic.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Collections.Generic.dll</HintPath>
     </Reference>
     <Reference Include="TIPC.Core.ComponentModel">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.ComponentModel.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.ComponentModel.dll</HintPath>
     </Reference>
     <Reference Include="TIPC.Core.Tools">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Tools.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Tools.dll</HintPath>
     </Reference>
     <Reference Include="TIPC.Core.Tools.Extensions">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Tools.Extensions.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Tools.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="TIPC.Core.Tools.Threading">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Tools.Threading.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/TIPC.Core.Tools.Threading.dll</HintPath>
     </Reference>
     <Reference Include="Utf8Json">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Utf8Json.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Utf8Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -693,37 +696,37 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/Andrew Hack/source/repos/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/ian/Desktop/OOAD/Big Project/OOP_BigProject/Project/TankSim.GameHost.Unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -5,8 +5,8 @@ using UnityEngine;
 public class SecondaryBullet : MonoBehaviour
 {
 
-    private static int damage = 1;
-    public static int speed { get; private set; } = 10;
+    private const int _damage = 1;
+    public static int Speed { get; private set; } = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,7 @@ public class SecondaryBullet : MonoBehaviour
         Zombie zombie = collision.gameObject.GetComponent<Zombie>();
         if (zombie != null)
         {
-            zombie.takeDamage(damage);
+            zombie.TakeDamage(_damage);
         }
 
 

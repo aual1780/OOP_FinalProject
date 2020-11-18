@@ -30,7 +30,11 @@ public class LobbyHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_hasSetLobbyCode)
+        if (_hasSetLobbyCode)
+        {
+            UpdateLobbyUI();
+        }
+        else
         {
             bool isValid = _gameController.TryGetLobbyCode(out var code);
             if (isValid)
@@ -42,10 +46,9 @@ public class LobbyHandler : MonoBehaviour
             {
                 lobbyCodeText.text = "Lobby Code: loading...";
             }
-            return;
         }
 
-        UpdateLobbyUI();
+        
     }
 
 

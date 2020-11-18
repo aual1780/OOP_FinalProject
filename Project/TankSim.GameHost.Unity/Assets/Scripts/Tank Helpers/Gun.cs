@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour
     {
         SecondaryBullet newBullet = Instantiate(secondaryBulletPrefab, transform.position, Quaternion.identity);
 
-        newBullet.GetComponent<Rigidbody2D>().velocity = transform.up * SecondaryBullet.speed;
+        newBullet.GetComponent<Rigidbody2D>().velocity = transform.up * SecondaryBullet.Speed;
     }
 
     

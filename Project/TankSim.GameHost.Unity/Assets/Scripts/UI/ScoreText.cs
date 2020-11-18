@@ -22,7 +22,7 @@ public class ScoreText : MonoBehaviour
     {
         if (_gameHandler != null)
         {
-            _text.text = "Score: " + _gameHandler.score;
+            _text.text = "Score: " + _gameHandler.Score;
         }
     }
 }

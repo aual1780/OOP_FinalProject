@@ -13,9 +13,9 @@ public class WaveHandler : MonoBehaviour
     readonly int _healthcost = 1;
     readonly int _speedcost = 2;
     readonly int _damagecost = 3;
-    int _lowestdeccost;
+    private int _lowestdeccost;
 
-    int _spawndistance = 20;
+    private int _spawndistance = 20;
 
     private Tank _tank;
     private GameHandler _handler;
@@ -70,7 +70,7 @@ public class WaveHandler : MonoBehaviour
                 print("method 1");
                 spend -= _zombiecost; //add enemy selection here later
                 var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
-                e.passHandler(_handler);
+                e.PassHandler(_handler);
                 GameObject obj = e.gameObject;
                 obj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1);
                 while (spend > 0)
@@ -78,17 +78,17 @@ public class WaveHandler : MonoBehaviour
                     float prob = Random.Range(0.0f, 1.0f);
                     if (prob <= 0.3f || spend == _healthcost)
                     {
-                        HealthDecorator dec = obj.AddComponent<HealthDecorator>();
+                        obj.AddComponent<HealthDecorator>();
                         spend -= _healthcost;
                     }
                     else if (prob <= 0.7f)
                     {
-                        SpeedDecorator dec = obj.AddComponent<SpeedDecorator>();
+                        obj.AddComponent<SpeedDecorator>();
                         spend -= _speedcost;
                     }
                     else if (prob <= 1.0f)
                     {
-                        DamageDecorator dec = obj.AddComponent<DamageDecorator>();
+                        obj.AddComponent<DamageDecorator>();
                         spend -= _damagecost;
                     }
                     if(spend <= _lowestdeccost)
@@ -105,7 +105,7 @@ public class WaveHandler : MonoBehaviour
                 for(int i = 0; i < count; ++i)
                 {
                     var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
-                    e.passHandler(_handler);
+                    e.PassHandler(_handler);
                     spend -= _zombiecost;
                     obj[i] = e.gameObject;
                     obj[i].GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
@@ -119,7 +119,7 @@ public class WaveHandler : MonoBehaviour
                         {
                             for(int i = 0; i < count; ++i)
                             {
-                                HealthDecorator dec = obj[i].AddComponent<HealthDecorator>();
+                                obj[i].AddComponent<HealthDecorator>();
                                 spend -= _healthcost;
                             }
                         }
@@ -131,7 +131,7 @@ public class WaveHandler : MonoBehaviour
                         {
                             for (int i = 0; i < count; ++i)
                             {
-                                SpeedDecorator dec = obj[i].AddComponent<SpeedDecorator>();
+                                obj[i].AddComponent<SpeedDecorator>();
                                 spend -= _speedcost;
                             }
                         }
@@ -142,7 +142,7 @@ public class WaveHandler : MonoBehaviour
                         {
                             for (int i = 0; i < count; ++i)
                             {
-                                DamageDecorator dec = obj[i].AddComponent<DamageDecorator>();
+                                obj[i].AddComponent<DamageDecorator>();
                                 spend -= _damagecost;
                             }
                         }
@@ -159,7 +159,7 @@ public class WaveHandler : MonoBehaviour
                 while (spend >= _zombiecost)
                 {
                     var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
-                    e.passHandler(_handler);
+                    e.PassHandler(_handler);
                     spend -= _zombiecost;
                     e.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
                 }

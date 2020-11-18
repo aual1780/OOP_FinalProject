@@ -11,14 +11,14 @@ public class GameHandler : MonoBehaviour
     public GameObject canvas;
     public GameObject gameOverUIPrefab;
 
-    public int score { get; private set; } = 0;
+    public int Score { get; private set; } = 0;
 
-    private bool hasSpawnedGameOverUI = false;
+    private bool _hasSpawnedGameOverUI = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
+        Score = 0;
         _tank = FindObjectOfType<Tank>();
         _gameController = FindObjectOfType<GameController>();
     }
@@ -26,9 +26,9 @@ public class GameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_tank.health <= 0 && !hasSpawnedGameOverUI)
+        if (_tank.health <= 0 && !_hasSpawnedGameOverUI)
         {
-            hasSpawnedGameOverUI = true;
+            _hasSpawnedGameOverUI = true;
 
             Instantiate(gameOverUIPrefab, canvas.transform);
         }
@@ -42,7 +42,7 @@ public class GameHandler : MonoBehaviour
             Debug.LogWarning("Trying to reduce score");
             return;
         }
-        score += points;
+        Score += points;
     }
 
     public void SubmitScoreClicked()
@@ -53,6 +53,6 @@ public class GameHandler : MonoBehaviour
             return;
         }
 
-        _gameController.GoToHighScoreScene(score);
+        _gameController.GoToHighScoreScene(Score);
     }
 }

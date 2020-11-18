@@ -5,7 +5,7 @@ using UnityEngine;
 public class DamageCircle : MonoBehaviour
 {
 
-    public int damage;
+    private int _damage;
 
     private List<Zombie> _zombies = new List<Zombie>();
 
@@ -19,6 +19,11 @@ public class DamageCircle : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetDamage(int damage)
+    {
+        _damage = damage;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,7 +52,7 @@ public class DamageCircle : MonoBehaviour
         {
             if (zombie != null)
             {
-                zombie.takeDamage(damage);
+                zombie.TakeDamage(_damage);
             }
         }
         Destroy(gameObject);

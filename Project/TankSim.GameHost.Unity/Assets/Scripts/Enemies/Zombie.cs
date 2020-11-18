@@ -8,11 +8,11 @@ public class Zombie : MonoBehaviour
     private float _speed = 1F;
     private int _damage = 3;
 
-    public int Points = 100;
+    public int Points { get; private set; } = 100;
 
     public GameObject _splatterprefab;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
     private Tank _tank;
     private float _lastcheck = 0;
     private float _hitcooldown = 1;
@@ -22,7 +22,7 @@ public class Zombie : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         _tank = FindObjectOfType<Tank>();
     }
 
@@ -32,13 +32,13 @@ public class Zombie : MonoBehaviour
         //Health--; //kill switch for testing
         if (_tank == null)
         {
-            rb.velocity = Vector2.zero;
+            _rb.velocity = Vector2.zero;
             return;
         }
         Vector2 target = _tank.transform.position;
 
         LookAt2D(transform, target);
-        SetVelocity(transform, target, rb, _speed);
+        SetVelocity(transform, target, _rb, _speed);
         if (_health <= 0)
         {
             //add points, send info to gamecontroller
@@ -47,6 +47,11 @@ public class Zombie : MonoBehaviour
             s.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
             Destroy(gameObject);
         }
+    }
+
+    public void AddPoints(int points)
+    {
+        Points += points;
     }
 
     public static void SetVelocity(Transform transform, Vector2 target, Rigidbody2D rb, float Speed)
@@ -80,27 +85,27 @@ public class Zombie : MonoBehaviour
         }
 
     }
-    public void passHandler(GameHandler h)
+    public void PassHandler(GameHandler h)
     {
         _handler = h;
     }
 
-    public void takeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         _health -= damage;
     }
 
-    public void addHealth(int health)
+    public void AddHealth(int health)
     {
         _health += health;
     }
 
-    public void addSpeed(float speed)
+    public void AddSpeed(float speed)
     {
         _speed += speed;
     }
 
-    public void addDamage(int damage)
+    public void AddDamage(int damage)
     {
         _damage += damage;
     }
