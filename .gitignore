@@ -333,3 +333,23 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+#unity files
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+!/[Aa]ssets/*/.meta
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+*.apk
+.aab
+.unitypackage
+sysinfo.txt
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata//.bin
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/
