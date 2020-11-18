@@ -29,7 +29,11 @@ public class DamageCircle : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Zombie zombie = collision.gameObject.GetComponent<Zombie>();
-        _zombies?.Add(zombie);
+        if (zombie is null)
+        {
+            return;
+        }
+        _zombies.Add(zombie);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
