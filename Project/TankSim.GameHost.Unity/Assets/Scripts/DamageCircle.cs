@@ -29,20 +29,17 @@ public class DamageCircle : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Zombie zombie = collision.gameObject.GetComponent<Zombie>();
-
-        if (zombie != null)
-        {
-            _zombies.Add(zombie);
-        }
+        _zombies?.Add(zombie);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         Zombie zombie = collision.gameObject.GetComponent<Zombie>();
-        if (zombie != null)
+        if (zombie is null)
         {
-            _zombies.Remove(zombie);
+            return;
         }
+        _zombies.Remove(zombie);
     }
 
 
@@ -50,10 +47,7 @@ public class DamageCircle : MonoBehaviour
     {
         foreach(Zombie zombie in _zombies)
         {
-            if (zombie != null)
-            {
-                zombie.TakeDamage(_damage);
-            }
+            zombie?.TakeDamage(_damage);
         }
         Destroy(gameObject);
     }

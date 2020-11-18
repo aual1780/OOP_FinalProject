@@ -10,7 +10,7 @@ public class Zombie : MonoBehaviour
 
     public int Points { get; private set; } = 100;
 
-    public GameObject _splatterprefab;
+    public GameObject SplatterPrefab;
 
     private Rigidbody2D _rb;
     private Tank _tank;
@@ -43,7 +43,7 @@ public class Zombie : MonoBehaviour
         {
             //add points, send info to gamecontroller
             _handler.AddPoints(Points);
-            var s = Instantiate(_splatterprefab, transform.position, transform.rotation);
+            var s = Instantiate(SplatterPrefab, transform.position, transform.rotation);
             s.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
             Destroy(gameObject);
         }

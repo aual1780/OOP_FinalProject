@@ -8,8 +8,8 @@ public class Background : MonoBehaviour
     public GameObject wallPrefab;
     public GameObject cobblePrefab;
 
-    public int totalCobble = 50;
-    public int totalWalls = 10;
+    private const int _totalCobble = 50;
+    private const int _totalWalls = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -17,14 +17,14 @@ public class Background : MonoBehaviour
         Vector2 worldSize = new Vector2(transform.localScale.x - 5, transform.localScale.y - 5);
 
         //cobble
-        for (int i = 0; i < totalCobble; ++i)
+        for (int i = 0; i < _totalCobble; ++i)
         {
             Vector3 pos = new Vector3(Random.Range(-worldSize.x / 2, worldSize.x / 2), Random.Range(-worldSize.y / 2, worldSize.y / 2), 0);
             Instantiate(cobblePrefab, pos, Quaternion.identity);
         }
 
         //wall
-        for (int i = 0; i < totalWalls; ++i)
+        for (int i = 0; i < _totalWalls; ++i)
         {
             Vector3 pos = new Vector3(Random.Range(-worldSize.x / 2, worldSize.x / 2), Random.Range(-worldSize.y / 2, worldSize.y / 2), 0);
             Instantiate(wallPrefab, pos, Quaternion.identity);
