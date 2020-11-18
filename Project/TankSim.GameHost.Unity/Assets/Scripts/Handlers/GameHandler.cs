@@ -26,7 +26,7 @@ public class GameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_tank.health <= 0 && !_hasSpawnedGameOverUI)
+        if (_tank.Health <= 0 && !_hasSpawnedGameOverUI)
         {
             _hasSpawnedGameOverUI = true;
 

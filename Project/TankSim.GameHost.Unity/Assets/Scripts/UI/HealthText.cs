@@ -21,7 +21,7 @@ public class HealthText : MonoBehaviour
         if (_tank != null)
         {
 
-            _text.text = _tank.health + "/" + Tank.maxHealth;
+            _text.text = _tank.Health + "/" + Tank.MaxHealth;
         }
     }
 }

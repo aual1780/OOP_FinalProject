@@ -10,7 +10,6 @@ public class Tank : MonoBehaviour
     private const float _rotationSpeed = 80;
     private Rigidbody2D _rigidBody;
     private GameController _gameContoller;
-    private bool _debugMode = false;
     //tank helpers
     private Gun _gun;
     private Turret _turret;
@@ -21,8 +20,8 @@ public class Tank : MonoBehaviour
 
 
 
-    public static int maxHealth { get; private set; } = 100;
-    public int health { get; private set; } = 10;
+    public static int MaxHealth { get; private set; } = 100;
+    public int Health { get; private set; } = 10;
 
     private bool _canMove = true;
 
@@ -30,7 +29,7 @@ public class Tank : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        health = maxHealth;
+        Health = MaxHealth;
         _rigidBody = GetComponent<Rigidbody2D>();
 
         _turret = GetComponentInChildren<Turret>();
@@ -41,7 +40,7 @@ public class Tank : MonoBehaviour
         if (_gameContoller == null)
         {
             Debug.LogWarning("GameController does not exist in scene. Switching to debug mode");
-            _debugMode = true;
+            GlobalDebugFlag.IsDebug = true;
         }
         else
         {
@@ -60,7 +59,7 @@ public class Tank : MonoBehaviour
     void Update()
     {
         _rigidBody.velocity = Vector2.zero;
-        if (_debugMode)
+        if (GlobalDebugFlag.IsDebug)
         {
             DebugMode();
         }
@@ -68,7 +67,7 @@ public class Tank : MonoBehaviour
         {
             Movement();
         }
-        
+
 
         HealthCheck();
     }
@@ -77,15 +76,15 @@ public class Tank : MonoBehaviour
     private void HealthCheck()
     {
         //tank dead
-        if (health <= 0)
+        if (Health <= 0)
         {
             if (_canMove)
             {
                 Explode();
             }
-            
+
             _canMove = false;
-            
+
         }
     }
 
@@ -116,7 +115,7 @@ public class Tank : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
         {
             moveDir |= MovementDirection.East;
-            
+
         }
         TankMovement(null, moveDir);
 
@@ -125,7 +124,7 @@ public class Tank : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
         {
             aimDir |= MovementDirection.North;
-            
+
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
@@ -172,14 +171,14 @@ public class Tank : MonoBehaviour
             return;
         }
 
-        health -= damage;
+        Health -= damage;
     }
 
     public void TankMovement(IConnectedSystemEndpoint c, MovementDirection moveDir)
     {
         //print($"dir: {moveDir}");
         _currentMovement = moveDir;
-        
+
     }
 
 
