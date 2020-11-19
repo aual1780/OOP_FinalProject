@@ -34,8 +34,7 @@ namespace TankSim.OperatorDelegates
         /// Event preprocess validator.
         /// Use to intercept events and prevent bubbling
         /// </summary>
-        public DelegateEventValidator<TopicProxyMessageEventArgs<T_Data>> Validator { get; }
-            = new DelegateEventValidator<TopicProxyMessageEventArgs<T_Data>>();
+        public DelegateEventValidator<TopicProxyMessageEventArgs<T_Data>> Validator { get; } = new();
 
 
         /// <summary>

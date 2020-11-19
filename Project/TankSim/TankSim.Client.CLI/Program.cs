@@ -18,9 +18,9 @@ namespace TankSim.Client.CLI
         {
             Console.WriteLine(Constants.GameName);
             Console.Title = Constants.GameName;
-            var sp = BuildServiceProvider();
 
             //application scope
+            using (var sp = BuildServiceProvider())
             using (var appScope = sp.CreateScope())
             {
                 //get valid ArdNet game connection

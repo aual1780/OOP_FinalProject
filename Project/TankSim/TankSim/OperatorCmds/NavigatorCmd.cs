@@ -6,7 +6,7 @@ namespace TankSim.OperatorCmds
     /// <summary>
     /// Channel command - navigator operation
     /// </summary>
-    public class NavigatorCmd
+    public sealed class NavigatorCmd
     {
         /// <summary>
         /// Static immutable stop command

@@ -19,11 +19,6 @@ namespace TankSim.Client.GUI
     /// </summary>
     public partial class App : Application
     {
-
-        private IServiceProvider ServiceProvider { get; set; }
-        private IConfiguration Configuration { get; set; }
-        private IConfigurationSection ArdNetConfiguration { get; set; }
-
         /// <summary>
         /// Startup
         /// </summary>
@@ -40,9 +35,9 @@ namespace TankSim.Client.GUI
 
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection, config);
-            ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            using (var scope = ServiceProvider.CreateScope())
+            using (var sp = serviceCollection.BuildServiceProvider())
+            using (var scope = sp.CreateScope())
             {
                 var mainWindow = scope.ServiceProvider.GetRequiredService<MainWindow>();
                 _ = mainWindow.ShowDialog();
