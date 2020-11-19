@@ -3,7 +3,6 @@ using ArdNet.Server;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using TankSim;
@@ -18,6 +17,7 @@ public class ServerHandler
 
     private readonly MessageHub _msgHub = MessageHub.StartNew();
     private readonly TaskCompletionSource<OperatorCmdFacade> _serverstartupTask = new TaskCompletionSource<OperatorCmdFacade>();
+    private LoggingMessageHubClient _msgHubLogger;
     private IArdNetServer _ardServ;
     private TankSimCommService _commState;
 
@@ -35,6 +35,16 @@ public class ServerHandler
     public async void CreateServer(int playerCount)
     {
         IsServerBeingCreated = true;
+
+        if (GlobalDebugFlag.LogTypes != MessageCategoryTypes.None)
+        {
+            _msgHubLogger = new LoggingMessageHubClient(_msgHub, GlobalDebugFlag.LogTypes);
+            _msgHubLogger.ExceptionPushed += (s, e) => Debug.LogError(e.ToString());
+            _msgHubLogger.MessagePushed += (s, e) => Debug.Log(e.ToString());
+            _msgHubLogger.InformationPushed += (s, e) => Debug.Log(e.ToString());
+            _msgHubLogger.LogPushed += (s, e) => Debug.Log(e.ToString());
+            _msgHubLogger.Start();
+        }
 
         //create ardnet server
         _ardServ = ArdNetFactory.GetArdServer(_msgHub);
@@ -59,6 +69,8 @@ public class ServerHandler
     {
         _commState?.Dispose();
         _ardServ?.Dispose();
+        _msgHubLogger?.Dispose();
+        _msgHub.Dispose();
     }
 
     public int GetCurrentConnectedPlayers() => _commState.PlayerCountCurrent;
