@@ -1,6 +1,8 @@
 ﻿using ArdNet;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TankSim;
 using UnityEngine;
 
@@ -44,7 +46,8 @@ public class Tank : MonoBehaviour
         }
         else
         {
-            Invoke(nameof(SetTankCommands), WaveHandler.RespawnTime);
+            await Task.Delay((int)Math.Ceiling(WaveHandler.RespawnTime));
+            await SetTankCommands();
         }
     }
 
@@ -67,7 +70,7 @@ public class Tank : MonoBehaviour
     }
 
 
-    private async void SetTankCommands()
+    private async Task SetTankCommands()
     {
         print("setting commands");
         await _gameContoller.AddTankFunctions(
