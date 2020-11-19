@@ -1,6 +1,8 @@
 ﻿using ArdNet;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TankSim;
 using UnityEngine;
 
@@ -44,13 +46,8 @@ public class Tank : MonoBehaviour
         }
         else
         {
-            await _gameContoller.AddTankFunctions(
-                TankMovement,
-                _turret.TurretRotation,
-                _gunTarget.PrimaryFire,
-                _gun.SecondaryFire,
-                _gun.LoadGun,
-                _gunTarget.ChangeAmmo);
+            await Task.Delay((int)Math.Ceiling(WaveHandler.RespawnTime));
+            await SetTankCommands();
         }
     }
 
@@ -70,6 +67,19 @@ public class Tank : MonoBehaviour
 
 
         HealthCheck();
+    }
+
+
+    private async Task SetTankCommands()
+    {
+        print("setting commands");
+        await _gameContoller.AddTankFunctions(
+                TankMovement,
+                _turret.TurretRotation,
+                _gunTarget.PrimaryFire,
+                _gun.SecondaryFire,
+                _gun.LoadGun,
+                _gunTarget.ChangeAmmo);
     }
 
 
