@@ -2,6 +2,7 @@
 using ArdNet.Client;
 using ArdNet.Client.DependencyInjection;
 using ArdNet.DependencyInjection;
+using ArdNet.TCP;
 using Microsoft.Extensions.Configuration;
 using System;
 
@@ -23,18 +24,19 @@ namespace Microsoft.Extensions.DependencyInjection
             //Pattern: Builder
             //Pattern: DI
             //Pattern: Strategy
-            _ = services.Configure<ArdNetBasicConfig>(Config.GetSection("ArdNet").GetSection(nameof(ArdNetBasicConfig)));
-            var builder = 
+            _ = services.Configure<ArdNetBasicConfig>(Config.GetSection(nameof(ArdNet)).GetSection(nameof(ArdNetBasicConfig)));
+            var builder =
                 services.AddMessageHubSingleton()
                 .AddIpResolver()
                 .AddArdNet()
                 .AddClientScoped()
                 .AddConfigModifier((x, y) =>
                 {
+                    y.TCP.DataSerializationProvider = new MessagepackSerializationProvider();
                     y.TCP.HeartbeatConfig.ForceStrictHeartbeat = true;
                     y.TCP.HeartbeatConfig.RespondToHeartbeats = true;
                     y.TCP.HeartbeatConfig.HeartbeatToleranceMultiplier = 3;
-                    var pingRate = Config.GetValue<int>("ArdNet:ArdNetBasicConfig:PingRateMillis");
+                    var pingRate = Config.GetValue<int>($"{nameof(ArdNet)}:{nameof(ArdNetBasicConfig)}:PingRateMillis");
                     y.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(pingRate);
                 })
                 .AddTankSimConfig()

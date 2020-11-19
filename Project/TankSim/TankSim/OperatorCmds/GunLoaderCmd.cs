@@ -1,4 +1,5 @@
 ﻿using System;
+using MessagePack;
 using TIPC.Core.Tools;
 
 namespace TankSim.OperatorCmds
@@ -6,6 +7,7 @@ namespace TankSim.OperatorCmds
     /// <summary>
     /// Channel command - fire control operation
     /// </summary>
+    [MessagePackObject]
     public sealed class GunLoaderCmd
     {
         /// <summary>
@@ -21,11 +23,13 @@ namespace TankSim.OperatorCmds
         /// <summary>
         /// Loader type
         /// </summary>
+        [Key(0)]
         public GunLoaderType LoaderType { get; private set; }
 
         /// <summary>
         /// Command creation time
         /// </summary>
+        [Key(1)]
         public DateTime InitTime { get; private set; } = HighResolutionDateTime.UtcNow;
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using MessagePack;
 using TIPC.Core.Tools;
 
 namespace TankSim.OperatorCmds
@@ -6,6 +7,7 @@ namespace TankSim.OperatorCmds
     /// <summary>
     /// Channel command - range finder operation
     /// </summary>
+    [MessagePackObject]
     public sealed class RangeFinderCmd
     {
         /// <summary>
@@ -25,11 +27,13 @@ namespace TankSim.OperatorCmds
         /// <summary>
         /// Range direction
         /// </summary>
+        [Key(0)]
         public RangeDirection Direction { get; private set; }
 
         /// <summary>
         /// Command creation time
         /// </summary>
+        [Key(1)]
         public DateTime InitTime { get; private set; } = HighResolutionDateTime.UtcNow;
 
         /// <summary>

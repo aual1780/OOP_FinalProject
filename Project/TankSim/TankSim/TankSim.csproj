@@ -23,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet" Version="4.5.1" />
+    <PackageReference Include="ArdNet" Version="4.5.2" />
+    <PackageReference Include="ArdNet.TCP.MessagePack" Version="4.5.2" />
     <PackageReference Include="TIPC.Core.Channels" Version="6.2.0" />
   </ItemGroup>
 
