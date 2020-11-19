@@ -13,7 +13,7 @@ public class GunTarget : MonoBehaviour
 
     private MovementDirection _currentDirection;
 
-    private Tank tank;
+    private Tank _tank;
 
 
     private Vector3 _smallCircle = new Vector3(2, 2, 1);
@@ -24,19 +24,17 @@ public class GunTarget : MonoBehaviour
     private bool _isSmallTarget = true;
 
 
-    public DamageCircle damageCirclePrefab;
+    public DamageCircle DamageCirclePrefab;
 
 
     //server thread to game thread
-    private bool _canFire = false;
     private PrimaryWeaponFireState _weaponsState;
-    private bool _canChangeAmmo = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        tank = FindObjectOfType<Tank>();
+        _tank = FindObjectOfType<Tank>();
     }
 
     // Update is called once per frame
@@ -58,19 +56,6 @@ public class GunTarget : MonoBehaviour
                 transform.localPosition = Vector3.up * _minDistance;
             }
         }
-
-
-        if (_canFire)
-        {
-            FireWeapon();
-            _canFire = false;
-        }
-
-        if (_canChangeAmmo)
-        {
-            ChangeSize();
-            _canChangeAmmo = false;
-        }
     }
 
 
@@ -84,7 +69,7 @@ public class GunTarget : MonoBehaviour
     {
         if (_weaponsState == PrimaryWeaponFireState.Misfire)
         {
-            tank.DamageTank(10);
+            _tank.DamageTank(10);
         }
         else if (_weaponsState == PrimaryWeaponFireState.Valid)
         {
@@ -113,18 +98,18 @@ public class GunTarget : MonoBehaviour
     public void PrimaryFire(IConnectedSystemEndpoint c, PrimaryWeaponFireState state)
     {
         _weaponsState = state;
-        _canFire = true;
+        UnityMainThreadDispatcher.Instance().Enqueue(FireWeapon);
     }
 
     public void ChangeAmmo(IConnectedSystemEndpoint c)
     {
-        _canChangeAmmo = true;
+        UnityMainThreadDispatcher.Instance().Enqueue(ChangeSize);
     }
 
 
     private void SpawnDamageCircle()
     {
-        DamageCircle newCircle = Instantiate(damageCirclePrefab, transform.position, Quaternion.identity);
+        DamageCircle newCircle = Instantiate(DamageCirclePrefab, transform.position, Quaternion.identity);
         newCircle.transform.localScale = transform.localScale;
         newCircle.SetDamage(_damage);
     }

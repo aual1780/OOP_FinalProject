@@ -8,19 +8,11 @@ public class Gun : MonoBehaviour
 {
 
 
-    public SecondaryBullet secondaryBulletPrefab;
-
-
-    private bool _canFire = false;
+    public SecondaryBullet SecondaryBulletPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (_canFire)
-        {
-            FireBullet();
-            _canFire = false;
-        }
     }
 
     // Update is called once per frame
@@ -31,17 +23,17 @@ public class Gun : MonoBehaviour
 
     private void FireBullet()
     {
-        SecondaryBullet newBullet = Instantiate(secondaryBulletPrefab, transform.position, Quaternion.identity);
+        SecondaryBullet newBullet = Instantiate(SecondaryBulletPrefab, transform.position, Quaternion.identity);
 
         newBullet.GetComponent<Rigidbody2D>().velocity = transform.up * SecondaryBullet.Speed;
+
     }
 
     
 
     public void SecondaryFire(IConnectedSystemEndpoint c)
     {
-        
-        //_canFire = true;
+        UnityMainThreadDispatcher.Instance().Enqueue(FireBullet);
     }
 
     
