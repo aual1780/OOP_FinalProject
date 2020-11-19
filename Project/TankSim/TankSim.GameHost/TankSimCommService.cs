@@ -122,7 +122,7 @@ namespace TankSim.GameHost
 
             lock (e.SyncRoot)
             {
-                if (state.IsReady)
+                if (state.IsReady && _playerWaiter.CurrentCount != 0)
                 {
                     _playerWaiter.AddCount();
                     lock (_roleLock)

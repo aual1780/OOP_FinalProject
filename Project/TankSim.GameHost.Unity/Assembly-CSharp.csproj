@@ -314,6 +314,9 @@
     <Reference Include="System.ComponentModel.Annotations">
       <HintPath>C:/Users/aalbert/oopProj/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>C:/Users/aalbert/oopProj/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Linq.Expressions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>C:/Users/aalbert/oopProj/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -346,9 +349,6 @@
     </Reference>
     <Reference Include="Utf8Json">
       <HintPath>C:/Users/aalbert/oopProj/Project/TankSim.GameHost.Unity/Assets/ExternalDll/Utf8Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Linq.Expressions">
-      <HintPath>C:/Users/aalbert/oopProj/Project/TankSim.GameHost.Unity/Assets/ExternalDll/System.Linq.Expressions.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
