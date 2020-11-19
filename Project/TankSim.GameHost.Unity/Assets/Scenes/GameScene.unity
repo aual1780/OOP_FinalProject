@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7832824975ad1b49ba749d51af95380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageCirclePrefab: {fileID: 7280641875533529503, guid: a5778f6aa0268b840af435d9e2e9f18e,
+  DamageCirclePrefab: {fileID: 7280641875533529503, guid: a5778f6aa0268b840af435d9e2e9f18e,
     type: 3}
 --- !u!212 &1441345447
 SpriteRenderer:
@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c0eee083127dc4b8de608defc292ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondaryBulletPrefab: {fileID: 956284840571542976, guid: 880b5992df2784145bfad683d30f3bcc,
+  SecondaryBulletPrefab: {fileID: 956284840571542976, guid: 880b5992df2784145bfad683d30f3bcc,
     type: 3}
 --- !u!212 &1902252772
 SpriteRenderer:

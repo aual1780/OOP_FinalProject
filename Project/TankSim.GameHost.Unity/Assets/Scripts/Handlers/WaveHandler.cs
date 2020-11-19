@@ -6,7 +6,7 @@ public class WaveHandler : MonoBehaviour
 {
     public Zombie ZombiePreFab;
     float _timepassed;
-    float _respawnTime = 2;
+    public static float RespawnTime { get; private set; } = 2.0f;
     int _points = 20;
 
     readonly int _zombiecost = 3;
@@ -45,9 +45,9 @@ public class WaveHandler : MonoBehaviour
     void Update()
     {
         _timepassed += Time.deltaTime;
-        if(_timepassed >= _respawnTime)
+        if(_timepassed >= RespawnTime)
         {
-            _timepassed -= _respawnTime;
+            _timepassed -= RespawnTime;
             int temppoints = _points;
             int spend = temppoints;//Random.Range(10, temppoints+1);
             temppoints -= spend;

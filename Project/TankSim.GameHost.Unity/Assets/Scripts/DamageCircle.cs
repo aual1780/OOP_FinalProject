@@ -12,7 +12,7 @@ public class DamageCircle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("DamageEnemies", 1.5f);
+        Invoke(nameof(DamageEnemies), 1.5f);
     }
 
     // Update is called once per frame

@@ -44,13 +44,7 @@ public class Tank : MonoBehaviour
         }
         else
         {
-            await _gameContoller.AddTankFunctions(
-                TankMovement,
-                _turret.TurretRotation,
-                _gunTarget.PrimaryFire,
-                _gun.SecondaryFire,
-                _gun.LoadGun,
-                _gunTarget.ChangeAmmo);
+            Invoke(nameof(SetTankCommands), WaveHandler.RespawnTime);
         }
     }
 
@@ -70,6 +64,19 @@ public class Tank : MonoBehaviour
 
 
         HealthCheck();
+    }
+
+
+    private async void SetTankCommands()
+    {
+        print("setting commands");
+        await _gameContoller.AddTankFunctions(
+                TankMovement,
+                _turret.TurretRotation,
+                _gunTarget.PrimaryFire,
+                _gun.SecondaryFire,
+                _gun.LoadGun,
+                _gunTarget.ChangeAmmo);
     }
 
 
