@@ -438,11 +438,12 @@
             Get current gamepad
             </summary>
         </member>
-        <member name="M:TankSim.GamepadService.#ctor(ArdNet.IArdNetSystem)">
+        <member name="M:TankSim.GamepadService.#ctor(ArdNet.IArdNetSystem,J2i.Net.XInputWrapper.XboxControllerManager)">
             <summary>
             Create instance
             </summary>
             <param name="ArdClient"></param>
+            <param name="XboxManager"></param>
         </member>
         <member name="M:TankSim.GamepadService.TrySetControllerIndex(System.Int32)">
             <summary>
