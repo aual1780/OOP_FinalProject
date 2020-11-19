@@ -42,10 +42,11 @@ namespace TankSim
     public class GamepadService : IGamepadService
     {
         private readonly IArdNetSystem _ardSys;
-        private int _gamepadIndex = -1;
+        private readonly XboxControllerManager _xboxManager;
         private readonly object _controllerLock = new();
-        private XboxController _controller;
         private readonly List<IDisposable> _operatorDelegates = new();
+        private int _gamepadIndex = -1;
+        private XboxController _controller;
         private event EventHandler<XboxControllerStateChangedEventArgs> ControllerStateChanged;
         const int _thumbThreshhold = (int)(XboxController.ThumbStick.MAX_THUMBSTICK_VAL / 2.0);
         const int _triggerThreshhold = (int)(XboxController.Trigger.MAX_TRIGGER_VAL / 2.0);
@@ -69,7 +70,7 @@ namespace TankSim
                     {
                         _controller.StateChanged -= Controller_StateChanged;
                     }
-                    _controller = XboxController.RetrieveController(_gamepadIndex);
+                    _controller = _xboxManager.RetrieveController(_gamepadIndex);
                     _controller.StateChanged += Controller_StateChanged;
                 }
             }
@@ -90,10 +91,12 @@ namespace TankSim
         /// Create instance
         /// </summary>
         /// <param name="ArdClient"></param>
-        public GamepadService(IArdNetSystem ArdClient)
+        /// <param name="XboxManager"></param>
+        public GamepadService(IArdNetSystem ArdClient, XboxControllerManager XboxManager)
         {
-            GamepadIndex = 0;
             _ardSys = ArdClient;
+            _xboxManager = XboxManager;
+            GamepadIndex = 0;
         }
 
         /// <summary>
@@ -104,11 +107,11 @@ namespace TankSim
         /// <returns></returns>
         public bool TrySetControllerIndex(int Idx)
         {
-            if (Idx < XboxController.FIRST_CONTROLLER_INDEX)
+            if (Idx < XboxControllerManager.FIRST_CONTROLLER_INDEX)
             {
                 return false;
             }
-            if (Idx > XboxController.LAST_CONTROLLER_INDEX)
+            if (Idx > XboxControllerManager.LAST_CONTROLLER_INDEX)
             {
                 return false;
             }
@@ -124,7 +127,7 @@ namespace TankSim
         public void SetRoles(OperatorRoles Roles)
         {
             this.Dispose();
-            XboxController.StartPolling();
+            _xboxManager.StartPolling();
             var flags = new HashSet<OperatorRoles>(EnumTools.GetSelectedFlags(Roles));
             if (flags.Contains(OperatorRoles.Driver))
             {
@@ -340,7 +343,7 @@ namespace TankSim
             ControllerStateChanged = null;
             _operatorDelegates.DisposeAll();
             _operatorDelegates.Clear();
-            XboxController.StopPolling();
+            _xboxManager.StopPolling();
             GC.SuppressFinalize(this);
         }
     }

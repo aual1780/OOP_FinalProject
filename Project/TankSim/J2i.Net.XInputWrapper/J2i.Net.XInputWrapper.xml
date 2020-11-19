@@ -103,46 +103,6 @@
             
             </summary>
         </member>
-        <member name="F:J2i.Net.XInputWrapper.XboxController.MAX_CONTROLLER_COUNT">
-            <summary>
-            Max connected controller count
-            </summary>
-        </member>
-        <member name="F:J2i.Net.XInputWrapper.XboxController.FIRST_CONTROLLER_INDEX">
-            <summary>
-            Index of first available controller
-            </summary>
-        </member>
-        <member name="F:J2i.Net.XInputWrapper.XboxController.LAST_CONTROLLER_INDEX">
-            <summary>
-            Index of last possible available controller.
-            Does not mean that there are this many controllers connected
-            </summary>
-        </member>
-        <member name="P:J2i.Net.XInputWrapper.XboxController.UpdateFrequency">
-            <summary>
-            Global controller input polling frequency (hz)
-            </summary>
-        </member>
-        <member name="M:J2i.Net.XInputWrapper.XboxController.RetrieveController(System.Int32)">
-            <summary>
-            Get controller at specified index.
-            Value will always be non-null, but that does not mean that the controller is connected.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:J2i.Net.XInputWrapper.XboxController.StartPolling">
-            <summary>
-            Start controller input polling.
-            This is a noop if the system is already polling
-            </summary>
-        </member>
-        <member name="M:J2i.Net.XInputWrapper.XboxController.StopPolling">
-            <summary>
-            Stop controller input polling
-            </summary>
-        </member>
         <member name="P:J2i.Net.XInputWrapper.XboxController.IsConnected">
             <summary>
             Determine if this controller object has an associated physical controller
@@ -299,6 +259,62 @@
             Return player index
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:J2i.Net.XInputWrapper.XboxControllerManager">
+            <summary>
+            Xbox global manager. Controls hooks and polling.  Simplifies teardown process
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxControllerManager.MAX_CONTROLLER_COUNT">
+            <summary>
+            Max connected controller count
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxControllerManager.FIRST_CONTROLLER_INDEX">
+            <summary>
+            Index of first available controller
+            </summary>
+        </member>
+        <member name="F:J2i.Net.XInputWrapper.XboxControllerManager.LAST_CONTROLLER_INDEX">
+            <summary>
+            Index of last possible available controller.
+            Does not mean that there are this many controllers connected
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxControllerManager.GetInstance">
+            <summary>
+            Get singleton instance of controller manager. The instance must be disposed at app teardown
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:J2i.Net.XInputWrapper.XboxControllerManager.UpdateFrequency">
+            <summary>
+            Global controller input polling frequency (hz)
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxControllerManager.RetrieveController(System.Int32)">
+            <summary>
+            Get controller at specified index.
+            Value will always be non-null, but that does not mean that the controller is connected.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxControllerManager.StartPolling">
+            <summary>
+            Start controller input polling.
+            This is a noop if the system is already polling
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxControllerManager.StopPolling">
+            <summary>
+            Stop controller input polling
+            </summary>
+        </member>
+        <member name="M:J2i.Net.XInputWrapper.XboxControllerManager.Dispose">
+            <summary>
+            Shutdown polling loop and release resources
+            </summary>
         </member>
         <member name="T:J2i.Net.XInputWrapper.XInput">
             <summary>

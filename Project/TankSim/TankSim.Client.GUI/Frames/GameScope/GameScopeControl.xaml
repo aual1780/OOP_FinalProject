@@ -35,7 +35,7 @@
                 IsEnabled="{Binding IsUIEnabled}"
                 HorizontalAlignment="Center" Width="120" FontSize="14pt"
                 KeyDown="txt_GameID_KeyDown"/>
-            <Label Content="{Binding StatusMsg}" />
+            <Label Content="{Binding StatusMsg}" HorizontalAlignment="Center" />
         </StackPanel>
 
         <Grid Grid.Column="2" Grid.Row="2">

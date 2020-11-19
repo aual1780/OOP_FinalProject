@@ -46,7 +46,6 @@ namespace TankSim.Client.GUI
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration config)
         {
-            XboxController.UpdateFrequency = 50;
             //setup keybinding configs
             _ = services
                 .AddKeyBindings(config.GetSection(nameof(KeyBindingConfig)));
@@ -59,7 +58,14 @@ namespace TankSim.Client.GUI
                 .AddScoped<IGamepadService, GamepadService>()
                 .AddScoped<IRoleResolverService, RoleResolverService>()
                 .AddScoped<IOperatorInputProcessorService, OperatorInputProcessorService>()
+                .AddSingleton((sp) =>
+                {
+                    var xm = XboxControllerManager.GetInstance();
+                    xm.UpdateFrequency = 50;
+                    return xm;
+                })
             ;
+
             //setup ArdNet
             _ = services
                 .AddArdNetClient(config)

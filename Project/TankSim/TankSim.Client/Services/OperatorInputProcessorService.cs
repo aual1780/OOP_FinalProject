@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Transactions;
 using TankSim.Client.Extensions;
 using TankSim.Client.OperatorModules;
 using TIPC.Core.Channels;
@@ -47,7 +48,6 @@ namespace TankSim.Client.Services
             _roleService = RoleService;
             _inputModuleFactory = InputModuleFactory;
             RegisterMessageProcessor<OperatorInputMsg>(OperatorInputProcessor);
-
         }
 
         /// <summary>

@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="TIPC.Core.ComponentModel" Version="6.2.0" />
+    <PackageReference Include="TIPC.Core.ComponentModel" Version="6.2.1" />
   </ItemGroup>
 
   <ItemGroup>

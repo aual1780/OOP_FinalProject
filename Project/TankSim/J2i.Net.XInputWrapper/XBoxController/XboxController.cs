@@ -8,122 +8,6 @@ namespace J2i.Net.XInputWrapper
     /// </summary>
     public partial class XboxController
     {
-        #region const
-        /// <summary>
-        /// Max connected controller count
-        /// </summary>
-        public const int MAX_CONTROLLER_COUNT = 8;
-        /// <summary>
-        /// Index of first available controller
-        /// </summary>
-        public const int FIRST_CONTROLLER_INDEX = 0;
-        /// <summary>
-        /// Index of last possible available controller.
-        /// Does not mean that there are this many controllers connected
-        /// </summary>
-        public const int LAST_CONTROLLER_INDEX = MAX_CONTROLLER_COUNT - 1;
-        #endregion const
-
-        #region static
-        static bool _keepRunning;
-        static int _updateFrequency;
-        static int _waitTime;
-        static bool _isRunning;
-        static readonly XboxController[] _controllers;
-        static readonly object _syncLock = new();
-        static Thread _pollingThread;
-
-        /// <summary>
-        /// Global controller input polling frequency (hz)
-        /// </summary>
-        public static int UpdateFrequency
-        {
-            get { return _updateFrequency; }
-            set
-            {
-                _updateFrequency = value;
-                _waitTime = (int)(1000.00 / _updateFrequency);
-            }
-        }
-
-        static XboxController()
-        {
-            _controllers = new XboxController[MAX_CONTROLLER_COUNT];
-            for (int i = FIRST_CONTROLLER_INDEX; i <= LAST_CONTROLLER_INDEX; ++i)
-            {
-                _controllers[i] = new XboxController(i);
-            }
-            UpdateFrequency = 25;
-        }
-
-        /// <summary>
-        /// Get controller at specified index.
-        /// Value will always be non-null, but that does not mean that the controller is connected.
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public static XboxController RetrieveController(int index)
-        {
-            return _controllers[index];
-        }
-
-        /// <summary>
-        /// Start controller input polling.
-        /// This is a noop if the system is already polling
-        /// </summary>
-        public static void StartPolling()
-        {
-            if (!_isRunning)
-            {
-                lock (_syncLock)
-                {
-                    if (!_isRunning)
-                    {
-                        _pollingThread = new Thread(PollerLoop);
-                        _pollingThread.Start();
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Stop controller input polling
-        /// </summary>
-        public static void StopPolling()
-        {
-            lock (_syncLock)
-            {
-                if (_isRunning)
-                    _keepRunning = false;
-            }
-        }
-
-        private static void PollerLoop()
-        {
-            lock (_syncLock)
-            {
-                if (_isRunning == true)
-                    return;
-                _isRunning = true;
-            }
-            _keepRunning = true;
-            while (_keepRunning)
-            {
-                for (int i = FIRST_CONTROLLER_INDEX; i <= LAST_CONTROLLER_INDEX; ++i)
-                {
-                    _controllers[i].UpdateState();
-                }
-                Thread.Sleep(_waitTime);
-            }
-            lock (_syncLock)
-            {
-                _isRunning = false;
-            }
-        }
-        #endregion static
-
-
-
         readonly int _playerIndex;
         bool _stopMotorTimerActive;
         DateTime _stopMotorTime;
@@ -174,7 +58,7 @@ namespace J2i.Net.XInputWrapper
         /// Create new instance
         /// </summary>
         /// <param name="playerIndex"></param>
-        private XboxController(int playerIndex)
+        internal XboxController(int playerIndex)
         {
             _playerIndex = playerIndex;
             DPad = new DPadState(this);

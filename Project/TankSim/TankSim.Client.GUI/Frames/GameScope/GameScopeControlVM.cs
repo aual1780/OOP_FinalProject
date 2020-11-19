@@ -56,21 +56,23 @@ namespace TankSim.Client.GUI.Frames.GameScope
 
         public async Task<IServiceScope> ValidateGameID()
         {
+            IServiceScope scope = null;
             var canConnect = false;
 
-            var scope = _sp.CreateScope();
-            var idService = scope.ServiceProvider.GetRequiredService<GameIdService>();
-            idService.GameID = GameID;
-            var ardClient = scope.ServiceProvider.GetRequiredService<IArdNetClient>();
-
-            using (var tokenSrc = new CancellationTokenSource(ConnectionTimeout))
+            try
             {
+                scope = _sp.CreateScope();
+                var idService = scope.ServiceProvider.GetRequiredService<GameIdService>();
+                idService.GameID = GameID;
+                var ardClient = scope.ServiceProvider.GetRequiredService<IArdNetClient>();
+
                 try
                 {
-                    var endptTask = ardClient.ConnectAsync(tokenSrc.Token);
+                    var endptTask = ardClient.ConnectAsync();
                     var endpt = await endptTask;
-                    if (endpt != null && !tokenSrc.IsCancellationRequested)
+                    if (endpt != null)
                     {
+                        canConnect = true;
                         StatusMsg = "Connected.";
                         return scope;
                     }
@@ -86,16 +88,14 @@ namespace TankSim.Client.GUI.Frames.GameScope
                     StatusMsg = "Cannot connect to the target host.";
                 }
 
-            }
-
-            if (canConnect)
-            {
-                return scope;
-            }
-            else
-            {
-                scope.Dispose();
                 return null;
+            }
+            finally
+            {
+                if (!canConnect)
+                {
+                    scope?.Dispose();
+                }
             }
 
         }

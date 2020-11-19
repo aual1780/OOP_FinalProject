@@ -60,6 +60,8 @@ namespace TankSim.Client.GUI.Frames.GameScope
             {
                 _vm.IsUIEnabled = true;
                 Cursor = Cursors.Arrow;
+                txt_GameID.Text = "";
+                _ = txt_GameID.Focus();
             }
         }
 

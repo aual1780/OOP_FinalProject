@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using TankSim.Client.GUI.Frames.ClientName;
@@ -15,23 +16,29 @@ namespace TankSim.Client.GUI
     {
         readonly IServiceProvider _sp;
         readonly MainWindowVM _vm;
+        Task _vmInitTask;
         IServiceScope _scope;
 
         public MainWindow(IServiceProvider ServiceProvider, MainWindowVM vm)
         {
             _sp = ServiceProvider;
             _vm = vm;
-            this.Closing += MainWindow_Closing;
-            this.Initialized += MainWindow_Initialized;
             this.Loaded += MainWindow_Loaded;
 
             this.DataContext = _vm;
             InitializeComponent();
         }
 
-        private async void MainWindow_Initialized(object sender, EventArgs e)
+        public override void BeginInit()
         {
-            await _vm.InitializeAsync();
+            base.BeginInit();
+            _vmInitTask = _vm.InitializeAsync();
+        }
+
+        public override async void EndInit()
+        {
+            base.EndInit();
+            await _vmInitTask;
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -52,13 +59,11 @@ namespace TankSim.Client.GUI
             _vm.FrameContent = opModuleCtrl;
         }
 
-
-        private async void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            await Task.Run(() =>
-            {
-                _scope?.Dispose();
-            });
+            _scope?.Dispose();
+            base.OnClosing(e);
         }
+
     }
 }

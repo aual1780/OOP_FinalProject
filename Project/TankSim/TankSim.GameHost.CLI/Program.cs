@@ -1,4 +1,5 @@
-﻿using System;
+﻿using J2i.Net.XInputWrapper;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -55,7 +56,9 @@ namespace TankSim.GameHost.CLI
                     //bind controls for all operator roles
                     if (bindLocalController)
                     {
-                        gamepadSvc = new GamepadService(ardServ);
+                        var xm = XboxControllerManager.GetInstance();
+                        xm.UpdateFrequency = 50;
+                        gamepadSvc = new GamepadService(ardServ, xm);
                         _ = gamepadSvc.TrySetControllerIndex(0);
                         gamepadSvc.SetRoles(OperatorRoles.All);
                     }
