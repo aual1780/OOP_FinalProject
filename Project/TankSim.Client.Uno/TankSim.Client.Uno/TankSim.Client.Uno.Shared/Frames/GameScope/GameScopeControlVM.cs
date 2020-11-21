@@ -15,6 +15,8 @@ namespace TankSim.Client.GUI.Frames.GameScope
         private string _errorMsg;
         private bool _isUIEnabled = true;
 
+        public string GameName => TankSim.Constants.GameName;
+
         public string GameID
         {
             get => _gameID;

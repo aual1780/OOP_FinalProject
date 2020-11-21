@@ -37,9 +37,8 @@ namespace TankSim.Client.GUI
             ConfigureServices(serviceCollection, config);
 
             using (var sp = serviceCollection.BuildServiceProvider())
-            using (var scope = sp.CreateScope())
+            using (var mainWindow = sp.GetRequiredService<MainWindow>())
             {
-                var mainWindow = scope.ServiceProvider.GetRequiredService<MainWindow>();
                 _ = mainWindow.ShowDialog();
             }
         }

@@ -11,7 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// 
     /// </summary>
-    public static class GameNetConfigExtensions
+    public static class TankSimConfigExtensions
+
     {
         /// <summary>
         /// Add ArdNet config for tank sim

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using TankSim.Client.Uno;
+using TankSim.Client.Uno.Shared.Extensions;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace TankSim.Client.GUI.Frames.GameScope
 {
@@ -15,27 +17,28 @@ namespace TankSim.Client.GUI.Frames.GameScope
         readonly GameScopeControlVM _vm;
         Window _myWindow;
 
-        public GameScopeControl(GameScopeControlVM vm)
+        public GameScopeControl()
         {
-            _vm = vm;
+            _vm = DiContainer.Instance().GetRequiredService<GameScopeControlVM>();
             this.DataContext = _vm;
-            this.Initialized += GameScopeControl_Initialized;
+            this.Loading += GameScopeControl_Loading;
             this.Loaded += GameScopeControl_Loaded;
-            InitializeComponent();
         }
 
-        private async void GameScopeControl_Initialized(object sender, EventArgs e)
+
+
+        private async void GameScopeControl_Loading(DependencyObject sender, object args)
         {
             await _vm.InitializeAsync();
         }
 
-        private void GameScopeControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void GameScopeControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _myWindow = Window.GetWindow(this);
-            _ = txt_GameID.Focus();
+            _myWindow = Window.Current;
+            _ = txt_GameID.Focus(FocusState.Keyboard);
         }
 
-        private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;
             try
@@ -47,7 +50,7 @@ namespace TankSim.Client.GUI.Frames.GameScope
                     return;
                 }
 
-                _myWindow.Cursor = Cursors.Wait;
+                _myWindow.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 0);
                 var scope = await Task.Run(_vm.ValidateGameID);
                 if (scope != null)
                 {
@@ -62,9 +65,9 @@ namespace TankSim.Client.GUI.Frames.GameScope
             finally
             {
                 _vm.IsUIEnabled = true;
-                _myWindow.Cursor = Cursors.Arrow;
+                _myWindow.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 0);
                 txt_GameID.Text = "";
-                _ = txt_GameID.Focus();
+                _ = txt_GameID.Focus(FocusState.Keyboard);
             }
         }
 
@@ -74,10 +77,10 @@ namespace TankSim.Client.GUI.Frames.GameScope
         }
 
 #pragma warning disable IDE1006 // Naming Styles
-        private void txt_GameID_KeyDown(object sender, KeyEventArgs e)
+        private void txt_GameID_KeyDown(object sender, KeyRoutedEventArgs e)
 #pragma warning restore IDE1006 // Naming Styles
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 e.Handled = true;
                 Button_Click(null, null);

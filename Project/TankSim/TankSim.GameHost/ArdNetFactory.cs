@@ -27,7 +27,7 @@ namespace TankSim.GameHost
             var ipAddr = IPTools.GetLocalIP();
             var config = new ArdNetServerConfig(appID, ipAddr, ServerPort);
 
-            config.TCP.DataSerializationProvider = new MessagepackSerializationProvider();
+            config.TCP.DataSerializationProvider = new MessagePackSerializationProvider();
             config.TCP.HeartbeatConfig.ForceStrictHeartbeat = true;
             config.TCP.HeartbeatConfig.RespondToHeartbeats = true;
             config.TCP.HeartbeatConfig.HeartbeatInterval = TimeSpan.FromMilliseconds(PingRateMills);

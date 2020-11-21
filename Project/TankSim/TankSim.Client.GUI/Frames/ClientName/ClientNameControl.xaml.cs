@@ -12,6 +12,7 @@ namespace TankSim.Client.GUI.Frames.ClientName
     public partial class ClientNameControl : UserControl
     {
         private readonly ClientNameControlVM _vm;
+        Window _myWindow;
 
         public ClientNameControl(ClientNameControlVM vm)
         {
@@ -29,13 +30,14 @@ namespace TankSim.Client.GUI.Frames.ClientName
 
         private void ClientNameControl_Loaded(object sender, RoutedEventArgs e)
         {
+            _myWindow = Window.GetWindow(this);
             _ = txt_Username.Focus();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             _vm.IsUIEnabled = false;
-            Cursor = Cursors.Wait;
+            _myWindow.Cursor = Cursors.Wait;
             try
             {
                 await _vm.SubmitName();
@@ -47,7 +49,7 @@ namespace TankSim.Client.GUI.Frames.ClientName
             finally
             {
                 _vm.IsUIEnabled = false;
-                Cursor = Cursors.Arrow;
+                _myWindow.Cursor = Cursors.Arrow;
             }
         }
 

@@ -53,7 +53,7 @@ namespace TankSim.Client.Uno
 			var window = new Window();
 			window.Activate();
 #else
-            var window = Windows.UI.Xaml.Window.Current;
+            var window = Window.Current;
 #endif
 
             Frame rootFrame = window.Content as Frame;

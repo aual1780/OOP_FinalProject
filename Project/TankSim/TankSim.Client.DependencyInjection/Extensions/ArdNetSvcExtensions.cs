@@ -32,7 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddClientScoped()
                 .AddConfigModifier((x, y) =>
                 {
-                    y.TCP.DataSerializationProvider = new MessagepackSerializationProvider();
+                    y.TCP.DataSerializationProvider = new MessagePackSerializationProvider();
                     y.TCP.HeartbeatConfig.ForceStrictHeartbeat = true;
                     y.TCP.HeartbeatConfig.RespondToHeartbeats = true;
                     y.TCP.HeartbeatConfig.HeartbeatToleranceMultiplier = 3;

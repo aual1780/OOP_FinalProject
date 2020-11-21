@@ -5,9 +5,10 @@
     xmlns:local="using:TankSim.Client.Uno"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<TextBlock Text="Hello, world!" Margin="20" FontSize="30" />
-    </Grid>
+    <controls:DockPanel LastChildFill="True">
+        <ContentControl />
+    </controls:DockPanel>
 </Page>
