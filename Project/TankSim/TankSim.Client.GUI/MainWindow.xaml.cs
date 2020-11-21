@@ -12,7 +12,7 @@ namespace TankSim.Client.GUI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IDisposable
     {
         readonly IServiceProvider _sp;
         readonly MainWindowVM _vm;
@@ -59,10 +59,13 @@ namespace TankSim.Client.GUI
             _vm.FrameContent = opModuleCtrl;
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        /// <summary>
+        /// Dispose internal game scope
+        /// </summary>
+        public void Dispose()
         {
             _scope?.Dispose();
-            base.OnClosing(e);
+            GC.SuppressFinalize(this);
         }
 
     }

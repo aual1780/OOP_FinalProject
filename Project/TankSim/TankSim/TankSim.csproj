@@ -5,8 +5,16 @@
     <LangVersion>latest</LangVersion>
     <Author>aalbert</Author>
     <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>../.packageOutput</PackageOutputPath>
     <PackageProjectUrl>https://github.com/aual1780/OOP_BigProject</PackageProjectUrl>
     <PackageLicenseExpression>GLWTPL</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,9 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet" Version="4.5.3" />
-    <PackageReference Include="ArdNet.TCP.MessagePack" Version="4.5.3" />
-    <PackageReference Include="TIPC.Core.Channels" Version="6.2.1" />
+    <PackageReference Include="ArdNet" Version="4.6.0" />
+    <PackageReference Include="ArdNet.TCP.MessagePack" Version="4.6.0" />
+    <PackageReference Include="TIPC.Core.Channels" Version="6.3.0" />
   </ItemGroup>
 
   <ItemGroup>

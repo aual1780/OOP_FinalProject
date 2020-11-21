@@ -21,10 +21,9 @@ namespace TankSim.Client.CLI
 
             //application scope
             using (var sp = BuildServiceProvider())
-            using (var appScope = sp.CreateScope())
             {
                 //get valid ArdNet game connection
-                var scopeService = appScope.ServiceProvider.GetRequiredService<IGameScopeService>();
+                var scopeService = sp.GetRequiredService<IGameScopeService>();
                 using (var gameScope = await scopeService.GetValidGameScope())
                 {
                     //run main controller code

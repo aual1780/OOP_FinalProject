@@ -57,7 +57,7 @@ namespace TankSim.Client.GUI.Frames.GameScope
         public async Task<IServiceScope> ValidateGameID()
         {
             IServiceScope scope = null;
-            var canConnect = false;
+            var disposeScope = true;
 
             try
             {
@@ -68,17 +68,20 @@ namespace TankSim.Client.GUI.Frames.GameScope
 
                 try
                 {
-                    var endptTask = ardClient.ConnectAsync();
-                    var endpt = await endptTask;
-                    if (endpt != null)
+                    using (var tokenSrc = new CancellationTokenSource(ConnectionTimeout))
                     {
-                        canConnect = true;
-                        StatusMsg = "Connected.";
-                        return scope;
-                    }
-                    else
-                    {
-                        StatusMsg = "Cannot connect to the target host.";
+                        var endptTask = ardClient.ConnectAsync(tokenSrc.Token);
+                        var endpt = await endptTask;
+                        if (endpt != null)
+                        {
+                            disposeScope = false;
+                            StatusMsg = "Connected.";
+                            return scope;
+                        }
+                        else
+                        {
+                            StatusMsg = "Cannot connect to the target host.";
+                        }
                     }
                 }
                 catch (OperationCanceledException)
@@ -92,7 +95,7 @@ namespace TankSim.Client.GUI.Frames.GameScope
             }
             finally
             {
-                if (!canConnect)
+                if (disposeScope)
                 {
                     scope?.Dispose();
                 }

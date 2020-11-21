@@ -32,7 +32,7 @@ namespace TankSim.Client.CLI.Services
                 }
 
 
-
+                var disposeScope = true;
                 var scope = _serviceProvider.CreateScope();
                 var idService = scope.ServiceProvider.GetRequiredService<GameIdService>();
                 idService.GameID = gameID;
@@ -48,6 +48,7 @@ namespace TankSim.Client.CLI.Services
                         if (endpt != null && !tokenSrc.IsCancellationRequested)
                         {
                             Console.WriteLine("Connected.");
+                            disposeScope = false;
                             return scope;
                         }
                         else
@@ -60,6 +61,13 @@ namespace TankSim.Client.CLI.Services
                         //noop
                         //continue search
                         Console.Write("Cannot connect to the target host. ");
+                    }
+                    finally
+                    {
+                        if (disposeScope)
+                        {
+                            scope.Dispose();
+                        }
                     }
 
                 }

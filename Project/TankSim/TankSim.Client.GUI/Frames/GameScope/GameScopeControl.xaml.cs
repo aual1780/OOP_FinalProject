@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -12,6 +13,7 @@ namespace TankSim.Client.GUI.Frames.GameScope
     public partial class GameScopeControl : UserControl
     {
         readonly GameScopeControlVM _vm;
+        Window _myWindow;
 
         public GameScopeControl(GameScopeControlVM vm)
         {
@@ -29,6 +31,7 @@ namespace TankSim.Client.GUI.Frames.GameScope
 
         private void GameScopeControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            _myWindow = Window.GetWindow(this);
             _ = txt_GameID.Focus();
         }
 
@@ -44,7 +47,7 @@ namespace TankSim.Client.GUI.Frames.GameScope
                     return;
                 }
 
-                Cursor = Cursors.Wait;
+                _myWindow.Cursor = Cursors.Wait;
                 var scope = await Task.Run(_vm.ValidateGameID);
                 if (scope != null)
                 {
@@ -59,7 +62,7 @@ namespace TankSim.Client.GUI.Frames.GameScope
             finally
             {
                 _vm.IsUIEnabled = true;
-                Cursor = Cursors.Arrow;
+                _myWindow.Cursor = Cursors.Arrow;
                 txt_GameID.Text = "";
                 _ = txt_GameID.Focus();
             }
