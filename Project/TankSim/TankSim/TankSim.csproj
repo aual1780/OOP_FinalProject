@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet" Version="4.5.3" />
-    <PackageReference Include="ArdNet.TCP.MessagePack" Version="4.5.3" />
-    <PackageReference Include="TIPC.Core.Channels" Version="6.2.1" />
+    <PackageReference Include="ArdNet" Version="4.6.0" />
+    <PackageReference Include="ArdNet.TCP.MessagePack" Version="4.6.0" />
+    <PackageReference Include="TIPC.Core.Channels" Version="6.3.0" />
   </ItemGroup>
 
   <ItemGroup>
