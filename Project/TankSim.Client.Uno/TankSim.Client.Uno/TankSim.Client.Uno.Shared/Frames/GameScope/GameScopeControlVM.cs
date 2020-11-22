@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TankSim.Client.DependencyInjection;
 using TIPC.Core.ComponentModel;
 
-namespace TankSim.Client.GUI.Frames.GameScope
+namespace TankSim.Client.Uno.Frames.GameScope
 {
     public class GameScopeControlVM : ViewModelBase
     {
@@ -14,8 +14,6 @@ namespace TankSim.Client.GUI.Frames.GameScope
         private string _gameID;
         private string _errorMsg;
         private bool _isUIEnabled = true;
-
-        public string GameName => TankSim.Constants.GameName;
 
         public string GameID
         {

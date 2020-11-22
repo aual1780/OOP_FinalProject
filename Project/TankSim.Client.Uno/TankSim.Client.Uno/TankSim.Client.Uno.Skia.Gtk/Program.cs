@@ -1,5 +1,8 @@
 ﻿using GLib;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using TankSim.Client.Uno.Frames.GameScope;
+using TankSim.Client.Uno.Skia.Gtk.Frames.GameScope;
 using Uno.UI.Runtime.Skia;
 
 namespace TankSim.Client.Uno.Skia.Gtk
@@ -13,6 +16,10 @@ namespace TankSim.Client.Uno.Skia.Gtk
                 Console.WriteLine("GLIB UNHANDLED EXCEPTION" + expArgs.ExceptionObject.ToString());
                 expArgs.ExitApplication = true;
             };
+
+            _ = DiContainerBuilder.Instance()
+                .Services
+                .AddTransient<IGameScopeControl, GameScopeControl>();
 
             var host = new GtkHost(() => new App(), args);
 

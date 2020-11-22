@@ -13,6 +13,7 @@ using System.Text;
 using TankSim.Client.GUI.Frames.GameScope;
 using TankSim.Client.OperatorModules;
 using TankSim.Client.Services;
+using TankSim.Client.Uno.Frames.GameScope;
 
 namespace TankSim.Client.Uno
 {
@@ -45,8 +46,6 @@ namespace TankSim.Client.Uno
 
                 //Add main program
                 .AddTransient<MainWindowVM>()
-                .AddTransient<MainWindowVM>()
-                .AddTransient<GameScopeControl>()
                 .AddTransient<GameScopeControlVM>()
                 //.AddTransient<ClientNameControl>()
                 //.AddTransient<ClientNameControlVM>()

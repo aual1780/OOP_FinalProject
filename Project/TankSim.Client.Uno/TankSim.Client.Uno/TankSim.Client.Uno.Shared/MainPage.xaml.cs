@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TankSim.Client.GUI.Frames.GameScope;
+using TankSim.Client.Uno.Frames.GameScope;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -36,7 +37,6 @@ namespace TankSim.Client.Uno
             _vm = DiContainer.Instance().GetRequiredService<MainWindowVM>();
             this.Loading += MainPage_Loading;
             this.Loaded += MainWindow_Loaded;
-
             this.DataContext = _vm;
             InitializeComponent();
         }
@@ -52,7 +52,7 @@ namespace TankSim.Client.Uno
             //TODO
             //get game ID
             //build ardClient
-            var gameScopeCtrl = _sp.GetRequiredService<GameScopeControl>();
+            var gameScopeCtrl = _sp.GetRequiredService<IGameScopeControl>();
             _vm.FrameContent = gameScopeCtrl;
             _scope = await gameScopeCtrl.GetGameScopeAsync();
             ////start loading roles and dynamic UI modules in background

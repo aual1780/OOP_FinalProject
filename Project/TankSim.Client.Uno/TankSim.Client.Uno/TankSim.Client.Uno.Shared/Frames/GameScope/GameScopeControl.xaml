@@ -1,11 +1,10 @@
-﻿<UserControl x:Class="TankSim.Client.GUI.Frames.GameScope.GameScopeControl"
+﻿<UserControl x:Class="TankSim.Client.Uno.Skia.Gtk.Frames.GameScope.GameScopeControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TankSim.Client.GUI.Frames.GameScope"
+             xmlns:local="clr-namespace:TankSim.Client.Uno.Skia.Gtk.Frames.GameScope"
              xmlns:tSim="clr-namespace:TankSim;assembly=TankSim"
-             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -26,17 +25,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <TextBlock 
-                Text="{Binding GameName}"
+            <Label 
+                Content="{Binding Source={x:Static tSim:Constants.GameName}}"
                 Style="{StaticResource lbl_TitleTxt}" />
-            <TextBlock Text="Game ID" HorizontalAlignment="Center" />
+            <Label Content="Game ID" HorizontalAlignment="Center" />
             <TextBox 
                 Name="txt_GameID"
                 Text="{Binding GameID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 IsEnabled="{Binding IsUIEnabled}"
                 HorizontalAlignment="Center" Width="120" FontSize="14pt"
                 KeyDown="txt_GameID_KeyDown"/>
-            <TextBlock Text="{Binding StatusMsg}" HorizontalAlignment="Center" />
+            <Label Content="{Binding StatusMsg}" HorizontalAlignment="Center" />
         </StackPanel>
 
         <Grid Grid.Column="2" Grid.Row="2">
