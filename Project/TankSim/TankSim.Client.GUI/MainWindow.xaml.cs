@@ -46,15 +46,17 @@ namespace TankSim.Client.GUI
             //get game ID
             //build ardClient
             var gameScopeCtrl = _sp.GetRequiredService<GameScopeControl>();
+            var gameScopeVM = _sp.GetRequiredService<GameScopeControlVM>();
             _vm.FrameContent = gameScopeCtrl;
-            _scope = await gameScopeCtrl.GetGameScopeAsync();
+            _scope = await gameScopeVM.IdTaskSource.Task;
             //start loading roles and dynamic UI modules in background
             var opModuleCtrl = _scope.ServiceProvider.GetRequiredService<OperatorModuleControl>();
             opModuleCtrl.BeginVmInit();
             //get username
             var clientNameCtrl = _scope.ServiceProvider.GetRequiredService<ClientNameControl>();
+            var clientNameVM = _scope.ServiceProvider.GetRequiredService<ClientNameControlVM>();
             _vm.FrameContent = clientNameCtrl;
-            await clientNameCtrl.SendClientNameAsync();
+            _ = await clientNameVM.NameTaskSource.Task;
             //load operator module frame
             _vm.FrameContent = opModuleCtrl;
         }

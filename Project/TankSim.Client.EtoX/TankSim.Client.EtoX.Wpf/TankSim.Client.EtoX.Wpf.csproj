@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <LangVersion>preview</LangVersion>
+    <ApplicationIcon>tanks_tankGreen1.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="tanks_tankGreen1.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TankSim.Client.EtoX\TankSim.Client.EtoX.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Eto.Platform.Wpf" Version="2.5.7" />
+  </ItemGroup>
+
+</Project>

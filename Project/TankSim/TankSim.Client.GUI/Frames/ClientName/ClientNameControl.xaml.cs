@@ -53,11 +53,6 @@ namespace TankSim.Client.GUI.Frames.ClientName
             }
         }
 
-        public Task SendClientNameAsync()
-        {
-            return _vm.NameTaskSource.Task;
-        }
-
 #pragma warning disable IDE1006 // Naming Styles
         private void txt_Username_KeyDown(object sender, KeyEventArgs e)
 #pragma warning restore IDE1006 // Naming Styles

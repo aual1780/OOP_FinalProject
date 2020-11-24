@@ -68,11 +68,6 @@ namespace TankSim.Client.GUI.Frames.GameScope
             }
         }
 
-        public Task<IServiceScope> GetGameScopeAsync()
-        {
-            return _vm.IdTaskSource.Task;
-        }
-
 #pragma warning disable IDE1006 // Naming Styles
         private void txt_GameID_KeyDown(object sender, KeyEventArgs e)
 #pragma warning restore IDE1006 // Naming Styles

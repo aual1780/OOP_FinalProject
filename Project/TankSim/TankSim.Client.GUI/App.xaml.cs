@@ -30,7 +30,7 @@ namespace TankSim.Client.GUI
             var configBuilder =
                 new ConfigurationBuilder()
                 .SetBasePath(path)
-                .AddJsonFile("config.json", optional: false, reloadOnChange: true);
+                .AddJsonFile("TankSim.Client.config.json", optional: false, reloadOnChange: true);
             var config = configBuilder.Build();
 
             var serviceCollection = new ServiceCollection();
@@ -72,14 +72,14 @@ namespace TankSim.Client.GUI
                 .AddReleaseCrasher();
             //setup main window
             _ = services
-                .AddTransient<MainWindow>()
-                .AddTransient<MainWindowVM>()
-                .AddTransient<GameScopeControl>()
-                .AddTransient<GameScopeControlVM>()
-                .AddTransient<ClientNameControl>()
-                .AddTransient<ClientNameControlVM>()
-                .AddTransient<OperatorModuleControl>()
-                .AddTransient<OperatorModuleControlVM>()
+                .AddScoped<MainWindow>()
+                .AddScoped<MainWindowVM>()
+                .AddScoped<GameScopeControl>()
+                .AddScoped<GameScopeControlVM>()
+                .AddScoped<ClientNameControl>()
+                .AddScoped<ClientNameControlVM>()
+                .AddScoped<OperatorModuleControl>()
+                .AddScoped<OperatorModuleControlVM>()
             ;
 
         }

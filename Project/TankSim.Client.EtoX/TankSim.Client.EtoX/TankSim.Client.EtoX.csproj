@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <Content Remove="C:\Users\aalbert\.nuget\packages\tanksim.client\1.0.0\contentFiles\any\netstandard2.0\config.json" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <None Remove="TankSim.Client.config.json" />
+    <None Remove="tanks_tankGreen1.ico" />
+    <None Remove="tanks_tankGreen1.png" />
+    <None Remove="Windows_hourglass_cursor.cur" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Content Include="TankSim.Client.config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Windows_hourglass_cursor.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Eto.Forms" Version="2.5.7" />
+    <PackageReference Include="TankSim.Client" Version="1.0.0" />
+    <PackageReference Include="TankSim.Client.DependencyInjection" Version="1.0.0" />
+    <PackageReference Include="TIPC.Core.ComponentModel" Version="6.3.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Frames\Gamescope2\GameScopeCtrl.eto.cs">
+      <DependentUpon>$([System.String]::Copy('%(Filename)').Replace('.eto', ''))%(Extension)</DependentUpon>
+    </Compile>
+    <Compile Update="Frames\GameScope\GameScopeCtrl.eto.cs">
+      <DependentUpon>GameScopeCtrl.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+</Project>

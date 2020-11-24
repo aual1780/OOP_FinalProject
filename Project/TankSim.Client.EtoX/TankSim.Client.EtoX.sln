@@ -1,0 +1,42 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankSim.Client.EtoX", "TankSim.Client.EtoX\TankSim.Client.EtoX.csproj", "{46345EAF-1655-4BF0-A898-7320A82E0FF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankSim.Client.EtoX.Gtk", "TankSim.Client.EtoX.Gtk\TankSim.Client.EtoX.Gtk.csproj", "{A411FA68-96B7-406B-853A-20518E8B9F9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankSim.Client.EtoX.Mac", "TankSim.Client.EtoX.Mac\TankSim.Client.EtoX.Mac.csproj", "{42204E35-A60C-4D2C-AFDE-4F64118A44F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankSim.Client.EtoX.Wpf", "TankSim.Client.EtoX.Wpf\TankSim.Client.EtoX.Wpf.csproj", "{97C341D7-BED7-417D-93FC-E23493B4820E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46345EAF-1655-4BF0-A898-7320A82E0FF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46345EAF-1655-4BF0-A898-7320A82E0FF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46345EAF-1655-4BF0-A898-7320A82E0FF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46345EAF-1655-4BF0-A898-7320A82E0FF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A411FA68-96B7-406B-853A-20518E8B9F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A411FA68-96B7-406B-853A-20518E8B9F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A411FA68-96B7-406B-853A-20518E8B9F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A411FA68-96B7-406B-853A-20518E8B9F9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42204E35-A60C-4D2C-AFDE-4F64118A44F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42204E35-A60C-4D2C-AFDE-4F64118A44F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42204E35-A60C-4D2C-AFDE-4F64118A44F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42204E35-A60C-4D2C-AFDE-4F64118A44F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97C341D7-BED7-417D-93FC-E23493B4820E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97C341D7-BED7-417D-93FC-E23493B4820E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97C341D7-BED7-417D-93FC-E23493B4820E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97C341D7-BED7-417D-93FC-E23493B4820E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47857121-F23B-4FD1-B3FD-23A0B03BB92D}
+	EndGlobalSection
+EndGlobal

@@ -11,6 +11,7 @@
     <IsPackable>false</IsPackable>
     <PackageProjectUrl>https://github.com/aual1780/OOP_BigProject</PackageProjectUrl>
     <PackageLicenseExpression>GLWTPL</PackageLicenseExpression>
+    <ApplicationIcon>tanks_tankGreen1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,6 +32,7 @@
 
   <ItemGroup>
     <None Remove="LocalPublish.bat" />
+    <None Remove="tanks_tankGreen1.ico" />
   </ItemGroup>
 
   <ItemGroup>
