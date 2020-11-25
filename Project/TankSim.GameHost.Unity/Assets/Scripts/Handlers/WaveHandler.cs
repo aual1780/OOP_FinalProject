@@ -72,7 +72,7 @@ public class WaveHandler : MonoBehaviour
                 var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
                 e.PassHandler(_handler);
                 GameObject obj = e.gameObject;
-                obj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0.902f);
+                //obj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0.902f);
                 while (spend > 0)
                 {
                     float prob = Random.Range(0.0f, 1.0f);
@@ -108,7 +108,7 @@ public class WaveHandler : MonoBehaviour
                     e.PassHandler(_handler);
                     spend -= _zombiecost;
                     obj[i] = e.gameObject;
-                    obj[i].GetComponent<SpriteRenderer>().color = new Color(1, 0.6f, 0.6f);
+                    //obj[i].GetComponent<SpriteRenderer>().color = new Color(1, 0.6f, 0.6f);
                 }
                 while (spend >= _lowestdeccost * count)
                 {

@@ -44,7 +44,8 @@ public class Zombie : MonoBehaviour
             //add points, send info to gamecontroller
             _handler.AddPoints(Points);
             var s = Instantiate(SplatterPrefab, transform.position, transform.rotation);
-            s.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+            s.GetComponent<SpriteRenderer>().color = new Color(1,0,0);
+            s.transform.localScale = 2 * transform.localScale;
             Destroy(gameObject);
         }
     }
