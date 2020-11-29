@@ -9,7 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "TankSim.GameHost/1.0.0": {
         "dependencies": {
-          "ArdNet.Server": "4.6.0",
+          "ArdNet.Server": "4.6.2",
           "NETStandard.Library": "2.0.3",
           "TankSim": "1.0.0"
         },
@@ -17,20 +17,20 @@
           "TankSim.GameHost.dll": {}
         }
       },
-      "ArdNet/4.6.0": {
+      "ArdNet/4.6.2": {
         "dependencies": {
-          "ArdNet.Abstractions": "4.6.0",
-          "ArdNet.TCP.JsonUtf8": "4.6.0",
+          "ArdNet.Abstractions": "4.6.2",
+          "ArdNet.TCP.JsonUtf8": "4.6.2",
           "TIPC.Core.Channels": "6.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/ArdNet.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
+            "assemblyVersion": "4.6.2.0",
+            "fileVersion": "4.6.2.0"
           }
         }
       },
-      "ArdNet.Abstractions/4.6.0": {
+      "ArdNet.Abstractions/4.6.2": {
         "dependencies": {
           "Nito.AsyncEx": "5.1.0",
           "System.Collections.Immutable": "5.0.0",
@@ -38,44 +38,44 @@
         },
         "runtime": {
           "lib/netstandard2.0/ArdNet.Abstractions.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
+            "assemblyVersion": "4.6.2.0",
+            "fileVersion": "4.6.2.0"
           }
         }
       },
-      "ArdNet.Server/4.6.0": {
+      "ArdNet.Server/4.6.2": {
         "dependencies": {
-          "ArdNet": "4.6.0",
+          "ArdNet": "4.6.2",
           "TIPC.Core.Channels": "6.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/ArdNet.Server.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
+            "assemblyVersion": "4.6.2.0",
+            "fileVersion": "4.6.2.0"
           }
         }
       },
-      "ArdNet.TCP.JsonUtf8/4.6.0": {
+      "ArdNet.TCP.JsonUtf8/4.6.2": {
         "dependencies": {
-          "ArdNet.Abstractions": "4.6.0",
+          "ArdNet.Abstractions": "4.6.2",
           "Utf8Json": "1.3.7"
         },
         "runtime": {
           "lib/netstandard2.0/ArdNet.TCP.JsonUtf8.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
+            "assemblyVersion": "4.6.2.0",
+            "fileVersion": "4.6.2.0"
           }
         }
       },
-      "ArdNet.TCP.MessagePack/4.6.0": {
+      "ArdNet.TCP.MessagePack/4.6.2": {
         "dependencies": {
-          "ArdNet.Abstractions": "4.6.0",
+          "ArdNet.Abstractions": "4.6.2",
           "MessagePack": "2.2.60"
         },
         "runtime": {
           "lib/netstandard2.0/ArdNet.TCP.MessagePack.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
+            "assemblyVersion": "4.6.2.0",
+            "fileVersion": "4.6.2.0"
           }
         }
       },
@@ -652,8 +652,8 @@
       },
       "TankSim/1.0.0": {
         "dependencies": {
-          "ArdNet": "4.6.0",
-          "ArdNet.TCP.MessagePack": "4.6.0",
+          "ArdNet": "4.6.2",
+          "ArdNet.TCP.MessagePack": "4.6.2",
           "J2i.Net.XInputWrapper": "1.0.0",
           "TIPC.Core.Channels": "6.3.0"
         },
@@ -669,40 +669,40 @@
       "serviceable": false,
       "sha512": ""
     },
-    "ArdNet/4.6.0": {
+    "ArdNet/4.6.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jXdIP9pZ1BkFVOadbG2nK2edk2aPs+pUwcDeQG4D3eCx9cIIU20ty5gymUOIW1TsK+l+Yiac1ER7WkmHRMg9EQ==",
-      "path": "ardnet/4.6.0",
-      "hashPath": "ardnet.4.6.0.nupkg.sha512"
+      "sha512": "sha512-hoijXKuRu+Cl6XsBe0TZjfMd4yX/9FK08GP7CuZ+GQ0Afefs7EEKxVOp0F5//XYs7H/aQZx+X4xzb9eR5fJaSg==",
+      "path": "ardnet/4.6.2",
+      "hashPath": "ardnet.4.6.2.nupkg.sha512"
     },
-    "ArdNet.Abstractions/4.6.0": {
+    "ArdNet.Abstractions/4.6.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-5DSeKJt1uA2CPtW16tDquSmws6kJ2Zd3N09g+0er7UgXpCa8ijEY1807VHxaPv0NOkbvm1jw7m3K5yzX0lpV2Q==",
-      "path": "ardnet.abstractions/4.6.0",
-      "hashPath": "ardnet.abstractions.4.6.0.nupkg.sha512"
+      "sha512": "sha512-sseWdf64xqGOuttyNaDHyu/AOvsYUgwcfoDJ3gitl79mIZ/xBkAdVc8clBZIoGyp9qJgb+Hek44A7ZHFvHIH6A==",
+      "path": "ardnet.abstractions/4.6.2",
+      "hashPath": "ardnet.abstractions.4.6.2.nupkg.sha512"
     },
-    "ArdNet.Server/4.6.0": {
+    "ArdNet.Server/4.6.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XVPX/qq0DBs72citO41euzIYnHLfM4K5rHaOKbIbMHZH8N0+4FBn+Dw9MrZOvxKLq5U7W+zwMPN9QTQ0XIEHrQ==",
-      "path": "ardnet.server/4.6.0",
-      "hashPath": "ardnet.server.4.6.0.nupkg.sha512"
+      "sha512": "sha512-0QHWPmaAnh0OhX9PH3f1AcaF/2P8DdG5L7II98ZJXqgjtAMeP5ChKqCIcha4yxve7C+Xp7mgAK2Zslj+dotY2Q==",
+      "path": "ardnet.server/4.6.2",
+      "hashPath": "ardnet.server.4.6.2.nupkg.sha512"
     },
-    "ArdNet.TCP.JsonUtf8/4.6.0": {
+    "ArdNet.TCP.JsonUtf8/4.6.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ZY6Vb4Kld9gfiem0fjh+h5CA4UTI108+a8NpcVnVmvdno5VZfhCDbzRJhVRM0CHu4uN/4kTlwxFsig2M57sN+Q==",
-      "path": "ardnet.tcp.jsonutf8/4.6.0",
-      "hashPath": "ardnet.tcp.jsonutf8.4.6.0.nupkg.sha512"
+      "sha512": "sha512-nJFOqb6zIp+AEVA1lje0N3iTz/64XNVVmDP3mCcsBMQ8yf/Ag4zitcs1e/cTPIiR2GJPh7DrOe3ke0/0goLnOw==",
+      "path": "ardnet.tcp.jsonutf8/4.6.2",
+      "hashPath": "ardnet.tcp.jsonutf8.4.6.2.nupkg.sha512"
     },
-    "ArdNet.TCP.MessagePack/4.6.0": {
+    "ArdNet.TCP.MessagePack/4.6.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IfkP8DEJaY3z14H1NYatwk8cZ31JKa8/0bSmhz2WdwLs2EAxF8hpPBKR1gp3Qnh/KuL4OTs9sNPa6WNDas0WEg==",
-      "path": "ardnet.tcp.messagepack/4.6.0",
-      "hashPath": "ardnet.tcp.messagepack.4.6.0.nupkg.sha512"
+      "sha512": "sha512-8HdyPWYR1golZb2uKeM6c/KvcQngpFc8cn/XRy059iIvIBGYTGmoII9mhrfsaNy8xnPPP1iNf6Eg4fExwN6deA==",
+      "path": "ardnet.tcp.messagepack/4.6.2",
+      "hashPath": "ardnet.tcp.messagepack.4.6.2.nupkg.sha512"
     },
     "MessagePack/2.2.60": {
       "type": "package",
