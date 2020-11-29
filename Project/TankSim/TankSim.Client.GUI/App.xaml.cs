@@ -30,7 +30,7 @@ namespace TankSim.Client.GUI
             var configBuilder =
                 new ConfigurationBuilder()
                 .SetBasePath(path)
-                .AddJsonFile("config.json", optional: false, reloadOnChange: true);
+                .AddJsonFile("TankSim.Client.config.json", optional: false, reloadOnChange: true);
             var config = configBuilder.Build();
 
             var serviceCollection = new ServiceCollection();

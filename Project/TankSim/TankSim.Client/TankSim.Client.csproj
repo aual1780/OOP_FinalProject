@@ -27,12 +27,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="config.json" />
+    <None Remove="TankSim.Client.config.json" />
     <None Remove="TankSim.Client.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="config.json">
+    <Content Include="TankSim.Client.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
