@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArdNet.Server" Version="4.6.0" />
+    <PackageReference Include="ArdNet.Server" Version="4.6.2" />
   </ItemGroup>
 
   <ItemGroup>
