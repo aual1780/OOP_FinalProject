@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.IO;
-using System.Reflection;
 using System.Windows;
 using TankSim.Client.GUI.Frames.ClientName;
 using TankSim.Client.GUI.Frames.GameScope;
@@ -25,7 +23,7 @@ namespace TankSim.Client.GUI
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
-            var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var path = AppContext.BaseDirectory;
 
             var configBuilder =
                 new ConfigurationBuilder()

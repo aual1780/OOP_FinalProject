@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using TankSim.Client.CLI.Services;
 using TankSim.Client.DependencyInjection;
@@ -49,7 +47,7 @@ namespace TankSim.Client.CLI
 
         private static ServiceProvider BuildServiceProvider()
         {
-            var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var path = AppContext.BaseDirectory;
 
             var configBuilder =
                 new ConfigurationBuilder()
