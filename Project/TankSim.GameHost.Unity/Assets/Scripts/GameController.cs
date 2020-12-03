@@ -18,7 +18,10 @@ public class GameController : MonoBehaviour
     public string GameName { get; private set; }
     public int ExpectedPlayerCount { get; private set; }
 
-    private int _score = -1;
+    public int Score { get; private set; } = -1;
+
+    //needed for highscore system
+    public string[] PlayerNames { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +52,7 @@ public class GameController : MonoBehaviour
     {
         if (_serverHandler.AreAllPlayersReady)
         {
+            PlayerNames = GetPlayerNames();
             SceneManager.LoadScene("GameScene");
         }
     }
@@ -70,7 +74,7 @@ public class GameController : MonoBehaviour
     }
     public void GoToHighScoreScene(int score)
     {
-        _score = score;
+        Score = score;
         SceneManager.LoadScene("HighScoresScene");
     }
 

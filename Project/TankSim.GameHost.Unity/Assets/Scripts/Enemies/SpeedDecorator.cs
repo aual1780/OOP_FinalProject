@@ -8,8 +8,10 @@ public class SpeedDecorator : MonoBehaviour
     void Start()
     {
         Zombie enemy = gameObject.GetComponent<Zombie>();
-        enemy.AddSpeed(0.5F);
-        enemy.AddPoints(50);
+        enemy.AddSpeed(0.2F);
+        enemy.AddPoints(25);
+        float s = 0.005f;
+        enemy.Grow(s);
     }
 
     // Update is called once per frame
