@@ -12,8 +12,6 @@ public class BulletShadow : MonoBehaviour
     private Vector3 _minSize = new Vector3(0.5f, 0.5f);
 
 
-    private bool _scaleToEnd = false;
-
     private float _scaleTime = 0;
     private float _positionTime = 0;
 
