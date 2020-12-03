@@ -74,7 +74,8 @@ public class GunTarget : MonoBehaviour
         {
             if (_weaponsState == PrimaryWeaponFireState.Misfire)
             {
-                _tank.DamageTank(_damage);
+                _tank.DamageTank(3);
+                Instantiate(BulletShadowPrefab.SmallExplosionPrefab, _tank.transform.position, Quaternion.identity);
             }
             else if (_weaponsState == PrimaryWeaponFireState.Valid)
             {
