@@ -27,6 +27,8 @@ public class Tank : MonoBehaviour
 
     private bool _canMove = true;
 
+    public Explosion explosionPrefab;
+
 
     // Start is called before the first frame update
     async void Start()
@@ -101,6 +103,19 @@ public class Tank : MonoBehaviour
     private void Explode()
     {
         //TODO: add explosion
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+        _gun.DisableGun();
+        _gunTarget.DisableGun();
+
+        //disable collider
+        GetComponent<BoxCollider2D>().enabled = false;
+
+        //disable Tank Image and Gun Image
+        foreach (var renderer in GetComponentsInChildren<SpriteRenderer>())
+        {
+            renderer.enabled = false;
+        }
     }
 
     void DebugMode()

@@ -7,6 +7,7 @@ public class LobbyHandler : MonoBehaviour
 {
 
     public Text lobbyCodeText;
+    public Text gameNameText;
     public Button startGameButton;
     public GameObject playersPanel;
     public GameObject playerPanelPrefab;
@@ -46,6 +47,7 @@ public class LobbyHandler : MonoBehaviour
             {
                 lobbyCodeText.text = "Lobby Code: loading...";
             }
+            gameNameText.text = _gameController.GameName;
         }
 
         

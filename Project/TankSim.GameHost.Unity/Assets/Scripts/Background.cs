@@ -26,8 +26,22 @@ public class Background : MonoBehaviour
         //wall
         for (int i = 0; i < _totalWalls; ++i)
         {
-            Vector3 pos = new Vector3(Random.Range(-worldSize.x / 2, worldSize.x / 2), Random.Range(-worldSize.y / 2, worldSize.y / 2), 0);
-            Instantiate(wallPrefab, pos, Quaternion.identity);
+            //Vector3 pos = new Vector3(Random.Range(-worldSize.x / 2, worldSize.x / 2), Random.Range(-worldSize.y / 2, worldSize.y / 2), 0);
+            Instantiate(wallPrefab, RandomWallPosition(worldSize), Quaternion.identity);
+        }
+    }
+
+    private Vector3 RandomWallPosition(Vector2 worldSize)
+    {
+        while (true)
+        {
+            int x = Random.Range(-(int)worldSize.x / 2, (int)worldSize.x / 2);
+            int y = Random.Range(-(int)worldSize.y / 2, (int)worldSize.y / 2);
+            if (x%2 == 0 && y%2 == 0 &&
+                (x < -2 || x > 2) && (y < -2 || y > 2))
+            {
+                return new Vector3(x, y, 0);
+            }
         }
     }
 

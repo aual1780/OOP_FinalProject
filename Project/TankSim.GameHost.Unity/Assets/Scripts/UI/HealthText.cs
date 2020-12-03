@@ -20,8 +20,19 @@ public class HealthText : MonoBehaviour
     {
         if (_tank != null)
         {
-
-            _text.text = _tank.Health + "/" + Tank.MaxHealth;
+            if (_tank.Health < 0)
+            {
+                _text.text = "0/" + Tank.MaxHealth;
+            }
+            else
+            {
+                _text.text = _tank.Health + "/" + Tank.MaxHealth;
+            }
+            
+        }
+        else
+        {
+            _text.text = "0/" + Tank.MaxHealth;
         }
     }
 }
