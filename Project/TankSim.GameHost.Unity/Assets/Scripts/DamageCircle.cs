@@ -9,10 +9,12 @@ public class DamageCircle : MonoBehaviour
 
     private List<Zombie> _zombies = new List<Zombie>();
 
+    public static float DamgeTime { get; private set; } = 1.5f;
+
     // Start is called before the first frame update
     void Start()
     {
-        Invoke(nameof(DamageEnemies), 1.5f);
+        Invoke(nameof(DamageEnemies), DamgeTime);
     }
 
     // Update is called once per frame

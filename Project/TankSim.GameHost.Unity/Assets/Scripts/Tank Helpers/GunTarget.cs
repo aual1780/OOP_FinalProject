@@ -25,6 +25,7 @@ public class GunTarget : MonoBehaviour
 
 
     public DamageCircle DamageCirclePrefab;
+    public BulletShadow BulletShadowPrefab;
 
 
     //server thread to game thread
@@ -112,5 +113,13 @@ public class GunTarget : MonoBehaviour
         DamageCircle newCircle = Instantiate(DamageCirclePrefab, transform.position, Quaternion.identity);
         newCircle.transform.localScale = transform.localScale;
         newCircle.SetDamage(_damage);
+
+        SpawnBulletShadow(_tank.transform.position, transform.position, transform.localScale);
+    }
+
+    private void SpawnBulletShadow(Vector3 start, Vector3 end, Vector3 endScale)
+    {
+        BulletShadow newShadow = Instantiate(BulletShadowPrefab, start, Quaternion.identity);
+        newShadow.SetShadowInfo(start, end, endScale, _isSmallTarget);
     }
 }
