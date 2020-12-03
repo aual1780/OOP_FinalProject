@@ -84,7 +84,7 @@ public class GunTarget : MonoBehaviour
         if (_isSmallTarget)
         {
             transform.localScale = _bigCircle;
-            _damage = 3;
+            _damage = 5;
         }
         else
         {

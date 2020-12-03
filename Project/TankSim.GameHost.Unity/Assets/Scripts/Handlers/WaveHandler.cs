@@ -9,7 +9,7 @@ public class WaveHandler : MonoBehaviour
     private int _points = 20;
     public static float RespawnTime { get; private set; } = 4.0f;
 
-    readonly int _zombiecost = 5;
+    readonly int _zombiecost = 4;
     readonly int _healthcost = 1;
     readonly int _speedcost = 2;
     readonly int _damagecost = 3;
@@ -61,17 +61,14 @@ public class WaveHandler : MonoBehaviour
             {
                 spawnloc = new Vector2(_spawndistance, 0);
                 int rot = Random.Range(0, 360);
-                //print("rot: " + rot);
                 spawnloc = spawnloc.Rotate(rot); // pick a random spot at a spawndistance away from the tank and spawn enemies there
                 spawnloc = spawnloc + new Vector2(_tank.transform.position.x, _tank.transform.position.y);
-                //print("x: " + spawnloc.x);
-                //print("y: " + spawnloc.y);
             } while(spawnloc.x >=25 || spawnloc.x <= -25 || spawnloc.y >= 25 || spawnloc.y <= -25);
 
             int meth = Random.Range(0, 100); //get num 0-99
             if(meth < 20) //make one unit as tough as possible
             {
-                //print("method 1");
+                int speedcount = 0;
                 spend -= _zombiecost; //add enemy selection here later
                 var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
                 e.PassHandler(_handler);
@@ -84,8 +81,9 @@ public class WaveHandler : MonoBehaviour
                         obj.AddComponent<HealthDecorator>();
                         spend -= _healthcost;
                     }
-                    else if (prob <= 0.7f && obj.GetComponent<Zombie>().getSpeed() < 4.8)
+                    else if (prob <= 0.7f && speedcount < 16)
                     {
+                        speedcount++;
                         obj.AddComponent<SpeedDecorator>();
                         spend -= _speedcost;
                     }
@@ -100,10 +98,9 @@ public class WaveHandler : MonoBehaviour
                     }
                 }
             }
-            else if(meth == 80) // small group with decorators
+            else if(meth < 80) // small group with decorators
             {
-                //print("method 2");
-                int count = Random.Range(3, spend / 3 + 1);
+                int count = spend/10;
                 GameObject[] obj = new GameObject[count];
                 for(int i = 0; i < count; ++i)
                 {
@@ -117,6 +114,7 @@ public class WaveHandler : MonoBehaviour
                 }
                 while (spend >= _lowestdeccost * count)
                 {
+                    int speedcount = 0;
                     float prob = Random.Range(0.0f, 1.0f);
                     if (prob <= 0.3f)
                     {
@@ -130,8 +128,9 @@ public class WaveHandler : MonoBehaviour
                         }
                         
                     }
-                    else if (prob <= 0.7f && obj[0].GetComponent<Zombie>().getSpeed() < 4.8)
+                    else if (prob <= 0.7f && speedcount < 16)
                     {
+                        speedcount++;
                         if (spend >= _speedcost * count)
                         {
                             for (int i = 0; i < count; ++i)
@@ -160,7 +159,6 @@ public class WaveHandler : MonoBehaviour
             }
             else // as many as possible, all weak, without decorators
             {
-                //print("method 3");
                 while (spend >= _zombiecost)
                 {
                     float r1 = Random.Range(0, 0.5f);

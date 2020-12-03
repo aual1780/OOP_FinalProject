@@ -5,7 +5,7 @@ using UnityEngine;
 public class SecondaryBullet : MonoBehaviour
 {
 
-    private const int _damage = 1;
+    private const int _damage = 2;
     public static int Speed { get; private set; } = 10;
 
     // Start is called before the first frame update
