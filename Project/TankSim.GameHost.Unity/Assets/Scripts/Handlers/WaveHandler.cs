@@ -6,8 +6,8 @@ public class WaveHandler : MonoBehaviour
 {
     public Zombie ZombiePreFab;
     float _timepassed;
-    public static float RespawnTime { get; private set; } = 2.0f;
-    int _points = 20;
+    private int _points = 20;
+    public static float RespawnTime { get; private set; } = 5.0f;
 
     readonly int _zombiecost = 3;
     readonly int _healthcost = 1;
@@ -47,9 +47,13 @@ public class WaveHandler : MonoBehaviour
         _timepassed += Time.deltaTime;
         if(_timepassed >= RespawnTime)
         {
+            //int score = FindObjectOfType<GameHandler>().Score;
+
             _timepassed -= RespawnTime;
+
+            _points += 1;
             int temppoints = _points;
-            int spend = temppoints;//Random.Range(10, temppoints+1);
+            int spend = temppoints;
             temppoints -= spend;
 
             Vector2 spawnloc;
@@ -64,15 +68,14 @@ public class WaveHandler : MonoBehaviour
                 //print("y: " + spawnloc.y);
             } while(spawnloc.x >=25 || spawnloc.x <= -25 || spawnloc.y >= 25 || spawnloc.y <= -25);
 
-            int meth = Random.Range(1, 4); //get num 1-3
-            if(meth == 1) //make one unit as tough as possible
+            int meth = Random.Range(0, 100); //get num 0-99
+            if(meth < 20) //make one unit as tough as possible
             {
-                print("method 1");
+                //print("method 1");
                 spend -= _zombiecost; //add enemy selection here later
                 var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
                 e.PassHandler(_handler);
                 GameObject obj = e.gameObject;
-                //obj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0.902f);
                 while (spend > 0)
                 {
                     float prob = Random.Range(0.0f, 1.0f);
@@ -97,18 +100,20 @@ public class WaveHandler : MonoBehaviour
                     }
                 }
             }
-            else if(meth == 2) // small group with decorators
+            else if(meth == 80) // small group with decorators
             {
-                print("method 2");
+                //print("method 2");
                 int count = Random.Range(3, spend / 3 + 1);
                 GameObject[] obj = new GameObject[count];
                 for(int i = 0; i < count; ++i)
                 {
-                    var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
+                    float r1 = Random.Range(0,0.5f);
+                    float r2 = Random.Range(0, 0.5f);
+                    Vector2 variation = new Vector2(r1, r2);
+                    var e = Instantiate(ZombiePreFab, spawnloc + variation, Quaternion.identity);
                     e.PassHandler(_handler);
                     spend -= _zombiecost;
                     obj[i] = e.gameObject;
-                    //obj[i].GetComponent<SpriteRenderer>().color = new Color(1, 0.6f, 0.6f);
                 }
                 while (spend >= _lowestdeccost * count)
                 {
@@ -153,15 +158,17 @@ public class WaveHandler : MonoBehaviour
                     }
                 }
             }
-            else if(meth == 3) // as many as possible, all weak, without decorators
+            else // as many as possible, all weak, without decorators
             {
-                print("method 3");
+                //print("method 3");
                 while (spend >= _zombiecost)
                 {
-                    var e = Instantiate(ZombiePreFab, spawnloc, Quaternion.identity);
+                    float r1 = Random.Range(0, 0.5f);
+                    float r2 = Random.Range(0, 0.5f);
+                    Vector2 variation = new Vector2(r1, r2);
+                    var e = Instantiate(ZombiePreFab, spawnloc + variation, Quaternion.identity);
                     e.PassHandler(_handler);
                     spend -= _zombiecost;
-                    //e.GetComponent<SpriteRenderer>().color = new Color(0.6f, 1, 0.6f);
                 }
             }
         }

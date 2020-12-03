@@ -10,8 +10,8 @@ public class DamageDecorator : MonoBehaviour
         Zombie enemy = gameObject.GetComponent<Zombie>();
         enemy.AddDamage(1);
         enemy.AddPoints(50);
-        float s = 0.02f;
-        enemy.transform.localScale += new Vector3(s, s, s);
+        float s = 0.01f;
+        enemy.Grow(s);
     }
 
     // Update is called once per frame

@@ -41,7 +41,7 @@ public class Zombie : MonoBehaviour
         SetVelocity(transform, target, _rb, _speed);
         if (_health <= 0)
         {
-            //add points, send info to gamecontroller
+            //add points, send info to gamehandler
             _handler.AddPoints(Points);
             var s = Instantiate(SplatterPrefab, transform.position, transform.rotation);
             s.GetComponent<SpriteRenderer>().color = new Color(1,0,0);
@@ -109,6 +109,13 @@ public class Zombie : MonoBehaviour
     public void AddDamage(int damage)
     {
         _damage += damage;
+    }
+
+    public void Grow(float s)
+    {
+        if (transform.localScale.x >= 1.3)
+            return;
+        transform.localScale += new Vector3(s, s, s);
     }
 
 
