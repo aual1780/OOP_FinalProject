@@ -30,15 +30,6 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         _serverHandler = new ServerHandler();
 
-
-        foreach(var gc in FindObjectsOfType<GameController>())
-        {
-            if (gc != this)
-            {
-                Destroy(gc.gameObject);
-            }
-        }
-
     }
 
     // Update is called once per frame
@@ -69,6 +60,7 @@ public class GameController : MonoBehaviour
 
     public void GoBackToMainMenu()
     {
+        Destroy(gameObject);
         SceneManager.LoadScene("MainMenuScene");
     }
 
