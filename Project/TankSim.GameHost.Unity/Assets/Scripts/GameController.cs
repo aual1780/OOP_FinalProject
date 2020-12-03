@@ -75,6 +75,7 @@ public class GameController : MonoBehaviour
     public void GoToHighScoreScene(int score)
     {
         Score = score;
+        _serverHandler.CloseServer();
         SceneManager.LoadScene("HighScoresScene");
     }
 

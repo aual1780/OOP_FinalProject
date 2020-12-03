@@ -27,6 +27,8 @@ public class GunTarget : MonoBehaviour
     public DamageCircle DamageCirclePrefab;
     public BulletShadow BulletShadowPrefab;
 
+    private bool _canFire = true;
+
 
     //server thread to game thread
     private PrimaryWeaponFireState _weaponsState;
@@ -68,15 +70,27 @@ public class GunTarget : MonoBehaviour
 
     private void FireWeapon()
     {
-        if (_weaponsState == PrimaryWeaponFireState.Misfire)
+        if (_canFire)
         {
-            _tank.DamageTank(_damage);
+            if (_weaponsState == PrimaryWeaponFireState.Misfire)
+            {
+                _tank.DamageTank(_damage);
+            }
+            else if (_weaponsState == PrimaryWeaponFireState.Valid)
+            {
+                SpawnDamageCircle();
+            }
         }
-        else if (_weaponsState == PrimaryWeaponFireState.Valid)
-        {
-            SpawnDamageCircle();
-        }
-        
+    }
+
+    public void EnableGun()
+    {
+        _canFire = true;
+    }
+
+    public void DisableGun()
+    {
+        _canFire = false;
     }
 
     private void ChangeSize()

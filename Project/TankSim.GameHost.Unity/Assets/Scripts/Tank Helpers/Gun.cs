@@ -10,6 +10,8 @@ public class Gun : MonoBehaviour
 
     public SecondaryBullet SecondaryBulletPrefab;
 
+    private bool _canFire = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +23,24 @@ public class Gun : MonoBehaviour
         
     }
 
+    public void DisableGun()
+    {
+        _canFire = false;
+    }
+
+    public void EnableGun()
+    {
+        _canFire = true;
+    }
+
     private void FireBullet()
     {
-        SecondaryBullet newBullet = Instantiate(SecondaryBulletPrefab, transform.position, Quaternion.identity);
+        if (_canFire)
+        {
+            SecondaryBullet newBullet = Instantiate(SecondaryBulletPrefab, transform.position, Quaternion.identity);
 
-        newBullet.GetComponent<Rigidbody2D>().velocity = transform.up * SecondaryBullet.Speed;
-
+            newBullet.GetComponent<Rigidbody2D>().velocity = transform.up * SecondaryBullet.Speed;
+        }
     }
 
     
