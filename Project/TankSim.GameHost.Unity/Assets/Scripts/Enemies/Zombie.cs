@@ -106,6 +106,11 @@ public class Zombie : MonoBehaviour
         _speed += speed;
     }
 
+    public float getSpeed()
+    {
+        return _speed;
+    }
+
     public void AddDamage(int damage)
     {
         _damage += damage;

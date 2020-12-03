@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class GunTarget : MonoBehaviour
 {
-    private const float _movementSpeed = 20;
+    private const float _movementSpeed = 8;
     private const float _maxDistance = 10;
     private const float _minDistance = 1;
 
@@ -19,7 +19,7 @@ public class GunTarget : MonoBehaviour
     private Vector3 _smallCircle = new Vector3(2, 2, 1);
     private Vector3 _bigCircle = new Vector3(6, 6, 1);
 
-    private int _damage = 10;
+    private int _damage = 50;
 
     private bool _isSmallTarget = true;
 
@@ -70,7 +70,7 @@ public class GunTarget : MonoBehaviour
     {
         if (_weaponsState == PrimaryWeaponFireState.Misfire)
         {
-            _tank.DamageTank(10);
+            _tank.DamageTank(_damage);
         }
         else if (_weaponsState == PrimaryWeaponFireState.Valid)
         {
@@ -89,7 +89,7 @@ public class GunTarget : MonoBehaviour
         else
         {
             transform.localScale = _smallCircle;
-            _damage = 10;
+            _damage = 50;
         }
 
         _isSmallTarget = !_isSmallTarget;
@@ -120,6 +120,6 @@ public class GunTarget : MonoBehaviour
     private void SpawnBulletShadow(Vector3 start, Vector3 end, Vector3 endScale)
     {
         BulletShadow newShadow = Instantiate(BulletShadowPrefab, start, Quaternion.identity);
-        newShadow.SetShadowInfo(start, end, endScale, _isSmallTarget);
+        newShadow.SetShadowInfo(start, end, endScale/2, _isSmallTarget);
     }
 }

@@ -7,9 +7,9 @@ public class WaveHandler : MonoBehaviour
     public Zombie ZombiePreFab;
     float _timepassed;
     private int _points = 20;
-    public static float RespawnTime { get; private set; } = 5.0f;
+    public static float RespawnTime { get; private set; } = 4.0f;
 
-    readonly int _zombiecost = 3;
+    readonly int _zombiecost = 5;
     readonly int _healthcost = 1;
     readonly int _speedcost = 2;
     readonly int _damagecost = 3;
@@ -51,7 +51,7 @@ public class WaveHandler : MonoBehaviour
 
             _timepassed -= RespawnTime;
 
-            _points += 1;
+            _points += 2;
             int temppoints = _points;
             int spend = temppoints;
             temppoints -= spend;
@@ -84,7 +84,7 @@ public class WaveHandler : MonoBehaviour
                         obj.AddComponent<HealthDecorator>();
                         spend -= _healthcost;
                     }
-                    else if (prob <= 0.7f)
+                    else if (prob <= 0.7f && obj.GetComponent<Zombie>().getSpeed() < 4.8)
                     {
                         obj.AddComponent<SpeedDecorator>();
                         spend -= _speedcost;
@@ -130,7 +130,7 @@ public class WaveHandler : MonoBehaviour
                         }
                         
                     }
-                    else if (prob <= 0.7f)
+                    else if (prob <= 0.7f && obj[0].GetComponent<Zombie>().getSpeed() < 4.8)
                     {
                         if (spend >= _speedcost * count)
                         {
