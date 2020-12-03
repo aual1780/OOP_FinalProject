@@ -7,7 +7,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
 
-    private const float _rotationSpeed = 50;
+    private const float _rotationSpeed = 70;
     private GunTarget _gunTarget;
 
     private MovementDirection _currentDirection;

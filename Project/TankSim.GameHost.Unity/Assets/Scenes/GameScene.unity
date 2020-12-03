@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20477b0288f39e04e833ba17e0b30522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZombiePreFab: {fileID: 1525400810577378915, guid: bd98e554b4a7d50489bf42c636b1f830,
+  ZombiePreFab: {fileID: 6566808711041731719, guid: 1d816ba2e5b3b7b47ad3b83f8d3c833e,
     type: 3}
 --- !u!1 &1098084900
 GameObject:
@@ -1342,10 +1342,10 @@ RectTransform:
   m_Father: {fileID: 550603279}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 288.4, y: -190.46}
-  m_SizeDelta: {x: 223.19739, y: 41.84951}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -111.6, y: 20.925}
+  m_SizeDelta: {x: 223.19739, y: 41.849518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1501375140
 MonoBehaviour:
@@ -1469,7 +1469,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 936b7bab1bc77074f8015f8fbf252fa4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1550,7 +1550,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 39829eba82dd75144b432bcf648368d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

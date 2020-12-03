@@ -26,7 +26,7 @@ public class BulletShadow : MonoBehaviour
     void Start()
     {
 
-        transform.localScale = _endSize;
+        transform.localScale = _minSize;
 
         Destroy(gameObject, DamageCircle.DamgeTime);
         Invoke(nameof(ExpandScale), DamageCircle.DamgeTime / 2.0f);
