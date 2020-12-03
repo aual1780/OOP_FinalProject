@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
         //don't destroy this object
         DontDestroyOnLoad(gameObject);
         _serverHandler = new ServerHandler();
+
     }
 
     // Update is called once per frame
@@ -59,13 +60,8 @@ public class GameController : MonoBehaviour
 
     public void GoBackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenuScene");
-
-        //close server because no server should be active in the main menu
-        _serverHandler.CloseServer();
-
-        //destroy this game object because it already exists in the main menu scene
         Destroy(gameObject);
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void GoToHighScoreScene()
@@ -162,5 +158,10 @@ public class GameController : MonoBehaviour
 
 
         return names;
+    }
+
+    private void OnDestroy()
+    {
+        _serverHandler.CloseServer();
     }
 }
