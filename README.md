@@ -1,8 +1,13 @@
 # BattleCOD 3: Eastern Front 2
 
+
 [Final Report](https://github.com/aual1780/OOP_BigProject/blob/master/Documents/OOAD%20Project%206.pdf)
 
-[Demo Video](https://drive.google.com/file/d/1Bch25FVB1-GUa_HctgGQQRsR2z7N34qp/view?usp=sharing)
+[Demo Video](https://drive.google.com/file/d/1tWUO1-6G1WzQOAK0woFV_VDLbZuW1VRk/view?usp=sharing)
+
+[Final Report - old(Austin)](https://github.com/aual1780/OOP_BigProject/blob/master/Documents/OOAD%20Project%206.pdf)
+
+[Demo Video - old(Austin)](https://drive.google.com/file/d/1Bch25FVB1-GUa_HctgGQQRsR2z7N34qp/view?usp=sharing)
 
 ### Quick Start
 
