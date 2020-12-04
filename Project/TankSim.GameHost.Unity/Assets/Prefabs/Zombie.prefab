@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1250037600584529946}
   - component: {fileID: 1250037600584530023}
   - component: {fileID: 1250037600584530020}
+  - component: {fileID: 2619923120389146589}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5ad274a1247423847b473bd9571f56d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -145,3 +146,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!111 &2619923120389146589
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250037600584529944}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 7fa67b4cc6d2d974299c041f583fd9ac, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 7fa67b4cc6d2d974299c041f583fd9ac, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

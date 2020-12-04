@@ -18,7 +18,10 @@ public class GameController : MonoBehaviour
     public string GameName { get; private set; }
     public int ExpectedPlayerCount { get; private set; }
 
-    private int _score = -1;
+    public int Score { get; private set; } = -1;
+
+    //needed for highscore system
+    public string[] PlayerNames { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +29,7 @@ public class GameController : MonoBehaviour
         //don't destroy this object
         DontDestroyOnLoad(gameObject);
         _serverHandler = new ServerHandler();
+
     }
 
     // Update is called once per frame
@@ -49,19 +53,15 @@ public class GameController : MonoBehaviour
     {
         if (_serverHandler.AreAllPlayersReady)
         {
+            PlayerNames = GetPlayerNames();
             SceneManager.LoadScene("GameScene");
         }
     }
 
     public void GoBackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenuScene");
-
-        //close server because no server should be active in the main menu
-        _serverHandler.CloseServer();
-
-        //destroy this game object because it already exists in the main menu scene
         Destroy(gameObject);
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void GoToHighScoreScene()
@@ -70,7 +70,8 @@ public class GameController : MonoBehaviour
     }
     public void GoToHighScoreScene(int score)
     {
-        _score = score;
+        Score = score;
+        _serverHandler.CloseServer();
         SceneManager.LoadScene("HighScoresScene");
     }
 
@@ -157,5 +158,10 @@ public class GameController : MonoBehaviour
 
 
         return names;
+    }
+
+    private void OnDestroy()
+    {
+        _serverHandler.CloseServer();
     }
 }

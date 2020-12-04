@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class GunTarget : MonoBehaviour
 {
-    private const float _movementSpeed = 20;
+    private const float _movementSpeed = 8;
     private const float _maxDistance = 10;
     private const float _minDistance = 1;
 
@@ -19,12 +19,15 @@ public class GunTarget : MonoBehaviour
     private Vector3 _smallCircle = new Vector3(2, 2, 1);
     private Vector3 _bigCircle = new Vector3(6, 6, 1);
 
-    private int _damage = 10;
+    private int _damage = 50;
 
     private bool _isSmallTarget = true;
 
 
     public DamageCircle DamageCirclePrefab;
+    public BulletShadow BulletShadowPrefab;
+
+    private bool _canFire = true;
 
 
     //server thread to game thread
@@ -67,15 +70,28 @@ public class GunTarget : MonoBehaviour
 
     private void FireWeapon()
     {
-        if (_weaponsState == PrimaryWeaponFireState.Misfire)
+        if (_canFire)
         {
-            _tank.DamageTank(10);
+            if (_weaponsState == PrimaryWeaponFireState.Misfire)
+            {
+                _tank.DamageTank(3);
+                Instantiate(BulletShadowPrefab.SmallExplosionPrefab, _tank.transform.position, Quaternion.identity);
+            }
+            else if (_weaponsState == PrimaryWeaponFireState.Valid)
+            {
+                SpawnDamageCircle();
+            }
         }
-        else if (_weaponsState == PrimaryWeaponFireState.Valid)
-        {
-            SpawnDamageCircle();
-        }
-        
+    }
+
+    public void EnableGun()
+    {
+        _canFire = true;
+    }
+
+    public void DisableGun()
+    {
+        _canFire = false;
     }
 
     private void ChangeSize()
@@ -83,12 +99,12 @@ public class GunTarget : MonoBehaviour
         if (_isSmallTarget)
         {
             transform.localScale = _bigCircle;
-            _damage = 3;
+            _damage = 5;
         }
         else
         {
             transform.localScale = _smallCircle;
-            _damage = 10;
+            _damage = 50;
         }
 
         _isSmallTarget = !_isSmallTarget;
@@ -112,5 +128,13 @@ public class GunTarget : MonoBehaviour
         DamageCircle newCircle = Instantiate(DamageCirclePrefab, transform.position, Quaternion.identity);
         newCircle.transform.localScale = transform.localScale;
         newCircle.SetDamage(_damage);
+
+        SpawnBulletShadow(_tank.transform.position, transform.position, transform.localScale);
+    }
+
+    private void SpawnBulletShadow(Vector3 start, Vector3 end, Vector3 endScale)
+    {
+        BulletShadow newShadow = Instantiate(BulletShadowPrefab, start, Quaternion.identity);
+        newShadow.SetShadowInfo(start, end, endScale/2, _isSmallTarget);
     }
 }

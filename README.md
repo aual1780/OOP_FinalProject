@@ -17,7 +17,9 @@ This action-packed shooter is guaranteed to ruin friendships and leave players b
 ### Contributors
 
 Austin Albert
+
 Ian Meadows
+
 Andrew Hack
 
 ### Supported Platforms
