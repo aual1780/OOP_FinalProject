@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using TIPC.Core.Tools.Threading;
 
 namespace J2i.Net.XInputWrapper
 {
@@ -50,12 +51,11 @@ namespace J2i.Net.XInputWrapper
 
 
         int _updateFrequency;
-        bool _keepRunning;
         int _waitTime;
         bool _isRunning;
         readonly XboxController[] _controllers;
         readonly object _syncLock = new();
-        Thread _pollingThread;
+        CancelThread<object> _pollingThread;
 
         /// <summary>
         /// Global controller input polling frequency (hz)
@@ -108,7 +108,8 @@ namespace J2i.Net.XInputWrapper
                 {
                     if (!_isRunning)
                     {
-                        _pollingThread = new Thread(PollerLoop)
+                        _pollingThread?.Dispose();
+                        _pollingThread = new CancelThread<object>(PollerLoop)
                         {
                             IsBackground = true
                         };
@@ -119,27 +120,23 @@ namespace J2i.Net.XInputWrapper
         }
 
         /// <summary>
-        /// Stop controller input polling
+        /// Stop controller input polling and wait for polling thread to terminate
         /// </summary>
         public void StopPolling()
+        {
+            _pollingThread?.Dispose();
+            _pollingThread?.Join();
+        }
+
+        private void PollerLoop(object State, CancellationToken Token)
         {
             lock (_syncLock)
             {
                 if (_isRunning)
-                    _keepRunning = false;
-            }
-        }
-
-        private void PollerLoop()
-        {
-            lock (_syncLock)
-            {
-                if (_isRunning == true)
                     return;
                 _isRunning = true;
             }
-            _keepRunning = true;
-            while (_keepRunning)
+            while (!Token.IsCancellationRequested)
             {
                 for (int i = FIRST_CONTROLLER_INDEX; i <= LAST_CONTROLLER_INDEX; ++i)
                 {
@@ -161,7 +158,7 @@ namespace J2i.Net.XInputWrapper
         public void Dispose()
         {
             StopPolling();
-            _keepRunning = false;
+            _pollingThread?.Dispose();
         }
 
 
