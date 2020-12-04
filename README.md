@@ -1,5 +1,9 @@
 # BattleCOD 3: Eastern Front 2
 
+[Final Report](https://github.com/aual1780/OOP_BigProject/blob/master/Documents/OOAD%20Project%206.pdf)
+
+[Demo Video](https://drive.google.com/file/d/1Bch25FVB1-GUa_HctgGQQRsR2z7N34qp/view?usp=sharing)
+
 ### Quick Start
 
 To play the game, download the latest release version and run. Its that easy.  For best results, run the gamehost on a separate computer from the controllers (and invite friends)
