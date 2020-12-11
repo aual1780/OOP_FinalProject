@@ -308,7 +308,7 @@
         </member>
         <member name="M:J2i.Net.XInputWrapper.XboxControllerManager.StopPolling">
             <summary>
-            Stop controller input polling
+            Stop controller input polling and wait for polling thread to terminate
             </summary>
         </member>
         <member name="M:J2i.Net.XInputWrapper.XboxControllerManager.Dispose">
