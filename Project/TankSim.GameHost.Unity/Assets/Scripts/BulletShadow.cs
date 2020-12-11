@@ -28,15 +28,16 @@ public class BulletShadow : MonoBehaviour
 
         transform.localScale = _minSize;
 
-        Destroy(gameObject, DamageCircle.DamgeTime);
-        Invoke(nameof(ExpandScale), DamageCircle.DamgeTime / 2.0f);
+        Destroy(gameObject, DamageCircle.DamageTime);
+        Invoke(nameof(ExpandScale), DamageCircle.DamageTime / 2.0f);
     }
 
     // Update is called once per frame
+    //TODO: Use fixedUpdate
     void Update()
     {
-        _scaleTime += Time.deltaTime * DamageCircle.DamgeTime;
-        _positionTime += Time.deltaTime / DamageCircle.DamgeTime;
+        _scaleTime += Time.deltaTime * DamageCircle.DamageTime;
+        _positionTime += Time.deltaTime / DamageCircle.DamageTime;
         if (_expandScale)
         {
             transform.localScale = Vector3.Lerp(_endSize, _minSize, _scaleTime);
@@ -69,12 +70,12 @@ public class BulletShadow : MonoBehaviour
     {
         if (_isSmallExplosion)
         {
-            Instantiate(SmallExplosionPrefab, transform.position, Quaternion.identity);
+            _ = Instantiate(SmallExplosionPrefab, transform.position, Quaternion.identity);
         }
         else
         {
-            Instantiate(LargeExplosionPrefab, transform.position, Quaternion.identity);
+            _ = Instantiate(LargeExplosionPrefab, transform.position, Quaternion.identity);
         }
-        
+
     }
 }

@@ -8,7 +8,7 @@ public class Explosion : MonoBehaviour
     void Start()
     {
         ParticleSystem ps = GetComponent<ParticleSystem>();
-        
+
         //destroy explosion object when particle duration is over
         Destroy(gameObject, ps.main.duration);
     }
@@ -16,6 +16,6 @@ public class Explosion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

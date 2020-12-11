@@ -18,7 +18,6 @@ public class HighScoreHandler : MonoBehaviour
     {
         _gameController = FindObjectOfType<GameController>();
         InitVariables();
-
     }
 
 
@@ -53,7 +52,7 @@ public class HighScoreHandler : MonoBehaviour
         else
         {
             string teamName = "";
-            foreach(var name in _gameController.PlayerNames)
+            foreach (var name in _gameController.PlayerNames)
             {
                 teamName += name + ", ";
             }
@@ -70,7 +69,7 @@ public class HighScoreHandler : MonoBehaviour
             _userScoreText.text = score.ToString();
         }
 
-        
+
     }
 
 

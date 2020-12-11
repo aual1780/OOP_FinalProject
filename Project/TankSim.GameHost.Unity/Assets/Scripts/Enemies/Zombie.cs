@@ -27,6 +27,7 @@ public class Zombie : MonoBehaviour
     }
 
     // Update is called once per frame
+    //TODO: fixedupdate
     protected void Update()
     {
         //Health--; //kill switch for testing
@@ -44,7 +45,7 @@ public class Zombie : MonoBehaviour
             //add points, send info to gamehandler
             _handler.AddPoints(Points);
             var s = Instantiate(SplatterPrefab, transform.position, transform.rotation);
-            s.GetComponent<SpriteRenderer>().color = new Color(1,0,0);
+            s.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
             s.transform.localScale = 2 * transform.localScale;
             Destroy(gameObject);
         }
@@ -106,7 +107,7 @@ public class Zombie : MonoBehaviour
         _speed += speed;
     }
 
-    public float getSpeed()
+    public float GetSpeed()
     {
         return _speed;
     }

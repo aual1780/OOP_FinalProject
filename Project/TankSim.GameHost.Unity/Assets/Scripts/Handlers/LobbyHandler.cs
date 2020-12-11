@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class LobbyHandler : MonoBehaviour
 {
-
     public Text lobbyCodeText;
     public Text gameNameText;
     public Button startGameButton;
@@ -50,7 +49,7 @@ public class LobbyHandler : MonoBehaviour
             gameNameText.text = _gameController.GameName;
         }
 
-        
+
     }
 
 

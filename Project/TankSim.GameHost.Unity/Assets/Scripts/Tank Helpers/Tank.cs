@@ -96,14 +96,13 @@ public class Tank : MonoBehaviour
             }
 
             _canMove = false;
-
         }
     }
 
     private void Explode()
     {
         //TODO: add explosion
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        _ = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
         _gun.DisableGun();
         _gunTarget.DisableGun();
@@ -140,7 +139,6 @@ public class Tank : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
         {
             moveDir |= MovementDirection.East;
-
         }
         TankMovement(null, moveDir);
 
@@ -201,9 +199,12 @@ public class Tank : MonoBehaviour
 
     public void TankMovement(IConnectedSystemEndpoint c, MovementDirection moveDir)
     {
+        if (c is null)
+        {
+            throw new System.ArgumentNullException(nameof(c));
+        }
         //print($"dir: {moveDir}");
         _currentMovement = moveDir;
-
     }
 
 

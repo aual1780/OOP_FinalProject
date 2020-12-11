@@ -8,12 +8,11 @@ using Utf8Json;
 
 public class HighScoresPanel : MonoBehaviour
 {
+    private readonly List<Text> _scoreTexts = new List<Text>();
+    private readonly List<Text> _nameTexts = new List<Text>();
+    private readonly List<Image> _panels = new List<Image>();
 
-    private List<Text> _scoreTexts = new List<Text>();
-    private List<Text> _nameTexts = new List<Text>();
-    private List<Image> _panels = new List<Image>();
-
-    private ScoreData[] scores = new ScoreData[10];
+    private readonly ScoreData[] _scores = new ScoreData[10];
 
     private const string _fileName = "Scores.json";
     private string _scoreFilePath;
@@ -21,7 +20,7 @@ public class HighScoresPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _scoreFilePath = Application.dataPath + "/" + _fileName;
+        _scoreFilePath = Path.Combine(Application.dataPath, _fileName);
         InitVariables();
         LoadScoreFile();
     }
@@ -38,7 +37,7 @@ public class HighScoresPanel : MonoBehaviour
             }
             _panels.Add(img);
             Text[] texts = img.GetComponentsInChildren<Text>();
-            foreach(Text text in texts)
+            foreach (Text text in texts)
             {
                 if (text.name == "NameText")
                 {
@@ -51,9 +50,9 @@ public class HighScoresPanel : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < scores.Length; ++i)
+        for (int i = 0; i < _scores.Length; ++i)
         {
-            scores[i] = new ScoreData("Scrub Lord", 0);
+            _scores[i] = new ScoreData("Scrub Lord", 0);
         }
     }
 
@@ -69,15 +68,15 @@ public class HighScoresPanel : MonoBehaviour
         }
 
 
-        for (int i = 0; i < scores.Length; ++i)
+        for (int i = 0; i < _scores.Length; ++i)
         {
             if (data != null && data.ScoreData.Length > i)
             {
-                scores[i] = new ScoreData(data.ScoreData[i]);
+                _scores[i] = new ScoreData(data.ScoreData[i]);
             }
             else
             {
-                scores[i] = new ScoreData("Scrub Lord", 0);
+                _scores[i] = new ScoreData("Scrub Lord", 0);
             }
         }
         LoadUIText(-1);
@@ -85,10 +84,10 @@ public class HighScoresPanel : MonoBehaviour
 
     private void LoadUIText(int userPlacement)
     {
-        for (int i = 0; i < _scoreTexts.Count && i < scores.Length; ++i)
+        for (int i = 0; i < _scoreTexts.Count && i < _scores.Length; ++i)
         {
-            _scoreTexts[i].text = scores[i].Score.ToString();
-            _nameTexts[i].text = scores[i].Name + ":";
+            _scoreTexts[i].text = _scores[i].Score.ToString();
+            _nameTexts[i].text = _scores[i].Name + ":";
             if (userPlacement == i)
             {
                 _panels[i].color = new Color(1, 0.843137f, 0);
@@ -96,12 +95,12 @@ public class HighScoresPanel : MonoBehaviour
         }
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //checks if the score is a new high score
@@ -114,9 +113,9 @@ public class HighScoresPanel : MonoBehaviour
         int index = -1;
 
         ScoreData tmpScore = null;
-        for (int i = 0; i < scores.Length; ++i)
+        for (int i = 0; i < _scores.Length; ++i)
         {
-            if (playerScore.Score > scores[i].Score)
+            if (playerScore.Score > _scores[i].Score)
             {
                 if (i == 0)
                 {
@@ -125,13 +124,13 @@ public class HighScoresPanel : MonoBehaviour
                 if (tmpScore == null)
                 {
                     index = i;
-                    tmpScore = scores[i];
-                    scores[i] = playerScore;
+                    tmpScore = _scores[i];
+                    _scores[i] = playerScore;
                 }
                 else
                 {
-                    ScoreData tmp = scores[i];
-                    scores[i] = tmpScore;
+                    ScoreData tmp = _scores[i];
+                    _scores[i] = tmpScore;
                     tmpScore = tmp;
                 }
             }
@@ -145,7 +144,7 @@ public class HighScoresPanel : MonoBehaviour
     {
         using (FileStream SourceStream = File.Open(_scoreFilePath, FileMode.Open))
         {
-            ScoreDatas data = new ScoreDatas(scores);
+            ScoreDatas data = new ScoreDatas(_scores);
             JsonSerializer.Serialize(SourceStream, data);
         }
     }

@@ -65,7 +65,6 @@ public class GunTarget : MonoBehaviour
     public void ChangeAimDistance(MovementDirection moveDir)
     {
         _currentDirection = moveDir;
-        
     }
 
     private void FireWeapon()
@@ -75,7 +74,7 @@ public class GunTarget : MonoBehaviour
             if (_weaponsState == PrimaryWeaponFireState.Misfire)
             {
                 _tank.DamageTank(3);
-                Instantiate(BulletShadowPrefab.SmallExplosionPrefab, _tank.transform.position, Quaternion.identity);
+                _ = Instantiate(BulletShadowPrefab.SmallExplosionPrefab, _tank.transform.position, Quaternion.identity);
             }
             else if (_weaponsState == PrimaryWeaponFireState.Valid)
             {
@@ -113,12 +112,22 @@ public class GunTarget : MonoBehaviour
 
     public void PrimaryFire(IConnectedSystemEndpoint c, PrimaryWeaponFireState state)
     {
+        if (c is null)
+        {
+            throw new System.ArgumentNullException(nameof(c));
+        }
+
         _weaponsState = state;
         UnityMainThreadDispatcher.Instance().Enqueue(FireWeapon);
     }
 
     public void ChangeAmmo(IConnectedSystemEndpoint c)
     {
+        if (c is null)
+        {
+            throw new System.ArgumentNullException(nameof(c));
+        }
+
         UnityMainThreadDispatcher.Instance().Enqueue(ChangeSize);
     }
 
@@ -135,6 +144,6 @@ public class GunTarget : MonoBehaviour
     private void SpawnBulletShadow(Vector3 start, Vector3 end, Vector3 endScale)
     {
         BulletShadow newShadow = Instantiate(BulletShadowPrefab, start, Quaternion.identity);
-        newShadow.SetShadowInfo(start, end, endScale/2, _isSmallTarget);
+        newShadow.SetShadowInfo(start, end, endScale / 2, _isSmallTarget);
     }
 }

@@ -7,14 +7,14 @@ public class DamageCircle : MonoBehaviour
 
     private int _damage;
 
-    private List<Zombie> _zombies = new List<Zombie>();
+    private readonly List<Zombie> _zombies = new List<Zombie>();
 
-    public static float DamgeTime { get; private set; } = 1.5f;
+    public static float DamageTime { get; private set; } = 1.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        Invoke(nameof(DamageEnemies), DamgeTime);
+        Invoke(nameof(DamageEnemies), DamageTime);
     }
 
     // Update is called once per frame

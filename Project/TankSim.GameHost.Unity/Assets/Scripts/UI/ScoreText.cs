@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ScoreText : MonoBehaviour
 {
-
-
     private GameHandler _gameHandler;
     private Text _text;
 

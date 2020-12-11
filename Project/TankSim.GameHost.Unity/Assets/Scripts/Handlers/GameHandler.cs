@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
-
     private Tank _tank;
     private GameController _gameController;
 
@@ -30,7 +29,7 @@ public class GameHandler : MonoBehaviour
         {
             _hasSpawnedGameOverUI = true;
 
-            Instantiate(gameOverUIPrefab, canvas.transform);
+            _ = Instantiate(gameOverUIPrefab, canvas.transform);
         }
     }
 

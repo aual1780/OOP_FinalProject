@@ -29,7 +29,6 @@ public class GameController : MonoBehaviour
         //don't destroy this object
         DontDestroyOnLoad(gameObject);
         _serverHandler = new ServerHandler();
-
     }
 
     // Update is called once per frame
@@ -122,9 +121,9 @@ public class GameController : MonoBehaviour
 
 
     public async Task AddTankFunctions(TankMovementCmdEventHandler movementFunc, TankMovementCmdEventHandler aimFunc,
-        Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> fireFunc, 
+        Action<IConnectedSystemEndpoint, PrimaryWeaponFireState> fireFunc,
         Action<IConnectedSystemEndpoint> secondaryFireFunc,
-        Action<IConnectedSystemEndpoint> loadFunc, 
+        Action<IConnectedSystemEndpoint> loadFunc,
         Action<IConnectedSystemEndpoint> ammoFunc)
     {
         var t1 = _serverHandler.AddMovementFunction(movementFunc);
@@ -155,7 +154,6 @@ public class GameController : MonoBehaviour
         {
             names[i] = "Player " + (i + 1);
         }
-
 
         return names;
     }

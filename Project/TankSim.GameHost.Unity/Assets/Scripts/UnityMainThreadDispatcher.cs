@@ -46,8 +46,9 @@ public class UnityMainThreadDispatcher : MonoBehaviour
     {
         lock (_executionQueue)
         {
-            _executionQueue.Enqueue(() => {
-                StartCoroutine(action);
+            _executionQueue.Enqueue(() =>
+            {
+                _ = StartCoroutine(action);
             });
         }
     }
@@ -68,18 +69,18 @@ public class UnityMainThreadDispatcher : MonoBehaviour
     /// <returns>A Task that can be awaited until the action completes</returns>
     public Task EnqueueAsync(Action action)
     {
-        var tcs = new TaskCompletionSource<bool>();
+        var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         void WrappedAction()
         {
             try
             {
                 action();
-                tcs.TrySetResult(true);
+                _ = tcs.TrySetResult(true);
             }
             catch (Exception ex)
             {
-                tcs.TrySetException(ex);
+                _ = tcs.TrySetException(ex);
             }
         }
 

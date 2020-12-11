@@ -14,9 +14,8 @@ using UnityEngine;
 
 public class ServerHandler
 {
-
     private readonly MessageHub _msgHub = MessageHub.StartNew();
-    private readonly TaskCompletionSource<OperatorCmdFacade> _serverstartupTask = new TaskCompletionSource<OperatorCmdFacade>();
+    private readonly TaskCompletionSource<OperatorCmdFacade> _serverstartupTask = new TaskCompletionSource<OperatorCmdFacade>(TaskCreationOptions.RunContinuationsAsynchronously);
     private LoggingMessageHubClient _msgHubLogger;
     private IArdNetServer _ardServ;
     private TankSimCommService _commState;
@@ -59,7 +58,7 @@ public class ServerHandler
 
         //release task in new thread to guard against deadlocks
         IsServerRunning = true;
-        await Task.Run(() => _serverstartupTask.SetResult(_commState.CmdFacade));
+        _serverstartupTask.SetResult(_commState.CmdFacade);
 
         await _commState.GetConnectionTask();
         AreAllPlayersReady = true;

@@ -19,6 +19,7 @@ public class Turret : MonoBehaviour
     }
 
     // Update is called once per frame
+    //TODO: fixed update
     void Update()
     {
         if ((_currentDirection & MovementDirection.East) == MovementDirection.East)
@@ -33,9 +34,12 @@ public class Turret : MonoBehaviour
 
     public void TurretRotation(IConnectedSystemEndpoint c, MovementDirection moveDir)
     {
+        if (c is null)
+        {
+            throw new System.ArgumentNullException(nameof(c));
+        }
+
         _currentDirection = moveDir;
         _gunTarget.ChangeAimDistance(moveDir);
-
-        
     }
 }

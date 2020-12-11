@@ -37,7 +37,7 @@ public class Background : MonoBehaviour
         {
             int x = Random.Range(-(int)worldSize.x / 2, (int)worldSize.x / 2);
             int y = Random.Range(-(int)worldSize.y / 2, (int)worldSize.y / 2);
-            if (x%2 == 0 && y%2 == 0 &&
+            if (x % 2 == 0 && y % 2 == 0 &&
                 (x < -2 || x > 2) && (y < -2 || y > 2))
             {
                 return new Vector3(x, y, 0);
@@ -48,6 +48,6 @@ public class Background : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

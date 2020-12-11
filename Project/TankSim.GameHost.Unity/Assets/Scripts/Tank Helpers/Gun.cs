@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-
-
     public SecondaryBullet SecondaryBulletPrefab;
 
     private bool _canFire = true;
@@ -20,7 +18,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void DisableGun()
@@ -43,14 +41,14 @@ public class Gun : MonoBehaviour
         }
     }
 
-    
+
 
     public void SecondaryFire(IConnectedSystemEndpoint c)
     {
         UnityMainThreadDispatcher.Instance().Enqueue(FireBullet);
     }
 
-    
+
 
     public void LoadGun(IConnectedSystemEndpoint c)
     {

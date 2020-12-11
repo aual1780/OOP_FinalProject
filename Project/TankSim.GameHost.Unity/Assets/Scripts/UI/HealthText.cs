@@ -11,28 +11,25 @@ public class HealthText : MonoBehaviour
     void Start()
     {
         _text = GetComponent<Text>();
-
         _tank = FindObjectOfType<Tank>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_tank != null)
+        if (_tank is null)
         {
-            if (_tank.Health < 0)
-            {
-                _text.text = "0/" + Tank.MaxHealth;
-            }
-            else
-            {
-                _text.text = _tank.Health + "/" + Tank.MaxHealth;
-            }
-            
+            _text.text = "0/" + Tank.MaxHealth;
+            return;
+        }
+
+        if (_tank.Health <= 0)
+        {
+            _text.text = "0/" + Tank.MaxHealth;
         }
         else
         {
-            _text.text = "0/" + Tank.MaxHealth;
+            _text.text = _tank.Health + "/" + Tank.MaxHealth;
         }
     }
 }
