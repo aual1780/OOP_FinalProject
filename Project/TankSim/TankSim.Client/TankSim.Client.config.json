@@ -8,6 +8,10 @@
     }
   },
 
+  "App": {
+    "AlwaysOnTop": false
+  },
+
   "KeyBindingConfig": {
     "EnableGlobalHooks": false,
     "Driver": {

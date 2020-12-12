@@ -37,6 +37,11 @@ namespace TankSim.Client.GUI
             using (var sp = serviceCollection.BuildServiceProvider())
             using (var mainWindow = sp.GetRequiredService<MainWindow>())
             {
+                var isTop = config.GetValue<bool>("App:AlwaysOnTop");
+                if (isTop)
+                {
+                    mainWindow.Topmost = isTop;
+                }
                 _ = mainWindow.ShowDialog();
             }
         }
