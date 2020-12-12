@@ -54,8 +54,7 @@ public class Tank : MonoBehaviour
     }
 
     // Update is called once per frame
-    //TODO: should this be on FixedUpdate?
-    void Update()
+    void FixedUpdate()
     {
         _rigidBody.velocity = Vector2.zero;
         if (GlobalDebugFlag.IsDebug)
@@ -66,7 +65,6 @@ public class Tank : MonoBehaviour
         {
             Movement();
         }
-
 
         HealthCheck();
     }

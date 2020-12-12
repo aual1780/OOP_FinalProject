@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class BulletShadow : MonoBehaviour
@@ -33,7 +34,6 @@ public class BulletShadow : MonoBehaviour
     }
 
     // Update is called once per frame
-    //TODO: Use fixedUpdate
     void Update()
     {
         _scaleTime += Time.deltaTime * DamageCircle.DamageTime;

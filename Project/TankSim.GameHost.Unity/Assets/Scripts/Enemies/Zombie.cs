@@ -15,7 +15,7 @@ public class Zombie : MonoBehaviour
     private Rigidbody2D _rb;
     private Tank _tank;
     private float _lastcheck = 0;
-    private float _hitcooldown = 1;
+    private readonly float _hitcooldown = 1;
 
     private GameHandler _handler;
 
@@ -27,8 +27,7 @@ public class Zombie : MonoBehaviour
     }
 
     // Update is called once per frame
-    //TODO: fixedupdate
-    protected void Update()
+    protected void FixedUpdate()
     {
         //Health--; //kill switch for testing
         if (_tank == null)

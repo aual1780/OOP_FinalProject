@@ -19,7 +19,6 @@ public class Turret : MonoBehaviour
     }
 
     // Update is called once per frame
-    //TODO: fixed update
     void Update()
     {
         if ((_currentDirection & MovementDirection.East) == MovementDirection.East)

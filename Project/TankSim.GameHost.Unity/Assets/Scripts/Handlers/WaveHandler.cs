@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class WaveHandler : MonoBehaviour
@@ -51,11 +52,7 @@ public class WaveHandler : MonoBehaviour
 
             _timepassed -= RespawnTime;
 
-            _points += 2;
-            //todo: what is this?
-            int temppoints = _points;
-            int spend = temppoints;
-            temppoints -= spend;
+            int spend = Interlocked.Add(ref _points, 2);
 
             Vector2 spawnloc;
             do
@@ -113,9 +110,9 @@ public class WaveHandler : MonoBehaviour
                     spend -= _zombiecost;
                     obj[i] = e.gameObject;
                 }
+                int speedcount = 0;
                 while (spend >= _lowestdeccost * count)
                 {
-                    int speedcount = 0;
                     float prob = Random.Range(0.0f, 1.0f);
                     if (prob <= 0.3f)
                     {
@@ -131,7 +128,6 @@ public class WaveHandler : MonoBehaviour
                     }
                     else if (prob <= 0.7f && speedcount < 16)
                     {
-                        //TODO: what is this?
                         speedcount++;
                         if (spend >= _speedcost * count)
                         {

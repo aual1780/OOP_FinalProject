@@ -12,11 +12,11 @@ public class SplatterScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    //TODO: fixedupdate
     void Update()
     {
         _timepassed += Time.deltaTime;
-        GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1 - _timepassed / _killtime);
+        float alpha = 1.00f - (_timepassed / _killtime);
+        GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, alpha);
         if (_timepassed >= _killtime)
             Destroy(gameObject);
     }
